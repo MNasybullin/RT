@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 16:31:01 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 16:36:06 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 18:52:29 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ t_color	lighting(t_material *m, t_world w, t_comps c)
 	if (m->pattern == 1)
 	{
 		m->color = (*m->pattern_at)(m->p, *w.obj_ar[c.obj].transform, c.over_point);
-		//m->color = (*m->pattern_at)(m->p, w.obj_ar[c.obj].obj, c.over_point);
 	}
 	effective_color = hadamard_prod(m->color, w.light[w.light_count].intensity);
 	light_v = normalize(sub(w.light[w.light_count].pos, c.over_point));

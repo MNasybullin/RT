@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 16:56:27 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 18:57:45 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,6 @@ typedef struct		s_sp
 {
 	t_vec			c;
 	double			r;
-	//t_color			color;
-	//int				obj;
 	t_matrix		transform;
 	t_material		m;
 }					t_sp;

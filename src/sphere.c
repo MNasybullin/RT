@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:54:30 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 16:37:53 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 17:55:28 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ t_sp	set_sphere()
 
 	s.c = set_v_p(0, 0, 0, 1);
 	s.r = 1;
-	//s.color = color;
-	//s.obj = obj;
 	s.transform = identity_matrix();
 	s.m = default_material();
 	return (s);

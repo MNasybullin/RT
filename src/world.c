@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:09:18 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 16:36:34 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 18:51:35 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,11 +306,8 @@ t_color	shade_hit(t_world w, t_comps c, int remaining, t_material *m)
 		surface = add_col(surface, lighting(m, w, c));
 		w.light_count--;
 	}
-	//c.shadow = is_shadow(w, c.over_point);
-	//surface = lighting(s->m, w, c);
 	reflected = reflected_color(w, c, remaining);
 	refracted = refracted_color(w, c, remaining);
-
 	if (m->reflective > 0 && m->transparency > 0)
 	{
 		reflectance = schlick(c);

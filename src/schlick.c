@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   schlick.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdiego <sdiego@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 23:32:25 by sdiego            #+#    #+#             */
-/*   Updated: 2020/08/27 06:00:36 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 18:59:09 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,10 @@ double	schlick(t_comps c)
 	double	r0;
 
 	cos = dot(c.eyev, c.normalv);
-	//printf("n1 schlick = %f\n", c.n1);
-	//printf("n2 schlick = %f\n", c.n2);
 	if (c.n1 > c.n2)
 	{
 		n = c.n1 / c.n2;
 		sin2_t = (n * n) * (1.0 - (cos * cos));
-		//printf("sin2_t = %f\n", sin2_t);
 		if (sin2_t > 1.0)
 		{
 			return (1.0);
@@ -37,5 +34,4 @@ double	schlick(t_comps c)
 	}
 	r0 = ((c.n1 - c.n2) / (c.n1 + c.n2)) * ((c.n1 - c.n2) / (c.n1 + c.n2));
 	return (r0 + (1.0 - r0) * pow((1.0 - cos), 5));
-	//return (0.0);
 }
