@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:09:18 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/01 07:16:17 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 14:57:05 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	default_world(t_world *w)
 {
 	w->ar_count = 0;
-	w->light = point_light(color(1,1,1), set_v_p(-10,10,-10,1));
+	w->light_obj = 1;
+	w->light[0] = point_light(color(1,1,1), set_v_p(-10,10,-10,1));
 	w->s[0] = set_sphere(0);
 	w->s[0].m.color = color(0.8, 1.0, 0.6);
 	w->s[0].m.diffuse = 0.7;
@@ -310,8 +311,15 @@ t_color	color_at(t_world *w, t_ray r, int remaining)
 		i = intersection(x.t[hit_obj].t, x.t[hit_obj].obj);
 		xs = intersections(x, xs);
 		comps = prepare_computations(i, r, w, xs);
+		/*w->light_count = w->light_obj - 1;
+		while (w->light_count >= 0)
+		{
+			col = (*w->obj_ar[comps.obj].loc_shade)(*w, comps, remaining);
+			w->light_count--;
+		}*/
+		w->light_count = w->light_obj - 1;
 		col = (*w->obj_ar[comps.obj].loc_shade)(*w, comps, remaining);
-		//col = shade_hit(w, comps);
+
 	}
 	else
 	{

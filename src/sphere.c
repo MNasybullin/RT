@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdiego <sdiego@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:54:30 by sdiego            #+#    #+#             */
-/*   Updated: 2020/08/27 06:00:44 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 14:56:35 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,15 @@ t_color	shade_hit_sp(t_world w, t_comps c, int remaining)
 	double	reflectance;
 
 	s = (t_sp*)w.obj_ar[c.obj].obj;
-	c.shadow = is_shadow(w, c.over_point);
-	surface = lighting(s->m, w, c);
+	surface = color(0,0,0);
+	while (w.light_count >= 0)
+	{
+		c.shadow = is_shadow(w, c.over_point);
+		surface = add_col(surface, lighting(s->m, w, c));
+		w.light_count--;
+	}
+	//c.shadow = is_shadow(w, c.over_point);
+	//surface = lighting(s->m, w, c);
 	reflected = reflected_color(w, c, remaining);
 	refracted = refracted_color(w, c, remaining);
 

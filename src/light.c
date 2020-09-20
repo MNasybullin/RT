@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 16:31:01 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/01 07:17:08 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 14:52:10 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	is_shadow(t_world w, t_vec	p)
 	t_x_t	x;
 	int		hit_obj;
 
-	v = sub(w.light.pos, p);
+	v = sub(w.light[w.light_count].pos, p);
 	distance = magnitude(v);
 	direction = normalize(v);
 	r = set_ray(p, direction);
@@ -128,8 +128,8 @@ t_color	lighting(t_material m, t_world w, t_comps c)
 	{
 		m.color = (*m.pattern_at)(m.p, w.obj_ar[c.obj].obj, c.over_point);
 	}
-	effective_color = hadamard_prod(m.color, w.light.intensity);
-	light_v = normalize(sub(w.light.pos, c.over_point));
+	effective_color = hadamard_prod(m.color, w.light[w.light_count].intensity);
+	light_v = normalize(sub(w.light[w.light_count].pos, c.over_point));
 	ambient = mult_col(effective_color, m.ambient);
 	light_dot_normal = dot(light_v, c.normalv);
 	if (c.shadow == 0)
@@ -150,7 +150,7 @@ t_color	lighting(t_material m, t_world w, t_comps c)
 			else
 			{
 				factor = powf(reflect_dot_eye, m.shininess);
-				specular = mult_col(mult_col(w.light.intensity, m.specular), factor);
+				specular = mult_col(mult_col(w.light[w.light_count].intensity, m.specular), factor);
 			}
 		}
 		return (add_col(add_col(ambient, diffuse), specular));

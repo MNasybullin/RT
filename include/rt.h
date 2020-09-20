@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/01 08:49:03 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 14:49:55 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,7 @@ struct				s_shape
 
 struct				s_world
 {
-	t_light			light;
+	t_light			light[5];
 	t_sp			s[10];
 	t_plane			pl[10];
 	t_cube			cub[20];
@@ -241,6 +241,8 @@ struct				s_world
 	t_cone			cone[10];
 	t_trian			trian[10];
 	t_shape			obj_ar[30];
+	int				light_count; // multi light
+	int				light_obj; // multi light
 	int				trian_obj;
 	int				s_obj;
 	int				cone_obj;

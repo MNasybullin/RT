@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/01 08:17:11 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 15:04:22 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -914,7 +914,9 @@ int i = 0;
 	w.s[6].m.refractive_index = 1.5;
 
 	//light
-	w.light = point_light(color(1, 1, 1), set_v_p(-4.9, 4.9, -1, 1));
+	w.light_obj = 2;
+	w.light[0] = point_light(color(1, 1, 1), set_v_p(-4.9, 4.9, -1, 1));
+	w.light[1] = point_light(color(1, 1, 1), set_v_p(4.9, 4.9, -1, 1));
 
 	w.s_obj = 7;
 	w.pl_obj = 6;
