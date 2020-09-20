@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 14:11:03 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 15:23:58 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 16:38:07 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,76 +144,4 @@ int		normal_at_cube(void *v_s, t_vec world_point, t_vec *n)
 	}
 	printf("error normal_at_cube\n");
 	return(0);
-}
-
-t_color	stripe_at_cube(t_pattern p, void *obj, t_vec wolrd_point)
-{
-	t_vec	obj_point;
-	t_vec	pattern_point;
-	t_cube	*s;
-
-	s = (t_cube*)obj;
-	if (matrix_inverse_test(s->transform) == 1)
-		obj_point = matrix_mult_v_p(matrix_inverse(s->transform), wolrd_point);
-	else
-		printf("matrix s stripe_at_cube error\n");
-	if (matrix_inverse_test(p.transform) == 1)
-		pattern_point = matrix_mult_v_p(matrix_inverse(p.transform), obj_point);
-	else
-		printf("matrix p stripe_at_cube error\n");
-	return(stripe_at(p, pattern_point));
-}
-
-t_color	gradient_at_cube(t_pattern p, void *obj, t_vec wolrd_point)
-{
-	t_vec	obj_point;
-	t_vec	pattern_point;
-	t_cube	*s;
-
-	s = (t_cube*)obj;
-	if (matrix_inverse_test(s->transform) == 1)
-		obj_point = matrix_mult_v_p(matrix_inverse(s->transform), wolrd_point);
-	else
-		printf("matrix s stripe_at_cube error\n");
-	if (matrix_inverse_test(p.transform) == 1)
-		pattern_point = matrix_mult_v_p(matrix_inverse(p.transform), obj_point);
-	else
-		printf("matrix p stripe_at_cube error\n");
-	return(gradient_at(p, pattern_point));
-}
-
-t_color	ring_at_cube(t_pattern p, void *obj, t_vec wolrd_point)
-{
-	t_vec	obj_point;
-	t_vec	pattern_point;
-	t_cube	*s;
-
-	s = (t_cube*)obj;
-	if (matrix_inverse_test(s->transform) == 1)
-		obj_point = matrix_mult_v_p(matrix_inverse(s->transform), wolrd_point);
-	else
-		printf("matrix s stripe_at_cube error\n");
-	if (matrix_inverse_test(p.transform) == 1)
-		pattern_point = matrix_mult_v_p(matrix_inverse(p.transform), obj_point);
-	else
-		printf("matrix p stripe_at_cube error\n");
-	return(ring_at(p, pattern_point));
-}
-
-t_color	checker_at_cube(t_pattern p, void *obj, t_vec wolrd_point)
-{
-	t_vec	obj_point;
-	t_vec	pattern_point;
-	t_cube	*s;
-
-	s = (t_cube*)obj;
-	if (matrix_inverse_test(s->transform) == 1)
-		obj_point = matrix_mult_v_p(matrix_inverse(s->transform), wolrd_point);
-	else
-		printf("matrix s stripe_at_cube error\n");
-	if (matrix_inverse_test(p.transform) == 1)
-		pattern_point = matrix_mult_v_p(matrix_inverse(p.transform), obj_point);
-	else
-		printf("matrix p stripe_at_cube error\n");
-	return(checker_at(p, pattern_point));
 }

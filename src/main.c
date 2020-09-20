@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 15:29:24 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 16:56:41 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,145 +150,6 @@ int		main(int argc, char **argv)
 		quit(&sdl);
 
 	sdl.run = 0;
-/*
-//WORLD
-	//floor
-	w.s[0] = set_sphere(0);
-	w.s[0].transform = scaling(10,0.01,10);
-	w.s[0].m.color = color(1, 0.9, 0.9);
-	w.s[0].m.specular = 0;
-	//left_wall
-	w.s[1] = set_sphere(1);
-	w.s[1].transform = matrix_mult(translation(0,0,5), rotation_y(-M_PI / 4));
-	w.s[1].transform = matrix_mult(w.s[1].transform, rotation_x(M_PI / 2));
-	w.s[1].transform = matrix_mult(w.s[1].transform, scaling(10, 0.01, 10));
-	w.s[1].m.color = color(1, 0.9, 0.9);
-	w.s[1].m.specular = 0;
-	//right_wall
-	w.s[2] = set_sphere(2);
-	w.s[2].transform = matrix_mult(translation(0,0,5), rotation_y(M_PI / 4));
-	w.s[2].transform = matrix_mult(w.s[2].transform, rotation_x(M_PI / 2));
-	w.s[2].transform = matrix_mult(w.s[2].transform, scaling(10, 0.01, 10));
-	w.s[2].m.color = color(1, 0.9, 0.9);
-	w.s[2].m.specular = 0;*/
-
-	//floor
-/*	w.pl[0] = set_plane(0);
-	w.pl[0].m.color = color(1, 0, 0);
-	w.pl[0].m.specular = 0;
-	w.pl[0].m.reflective = 0.2;
-	//checker_pattern_pl(color(1,1,1), color(0,0,0), &w.pl[0]);
-	//w.pl[0].m.p.transform = set_transform(w.pl[0].m.p.transform, translation(0, 0, 0));
-	//stripe_pattern_pl(color(1,1,1), color(0,0,0), &w.pl[0]);
-	//gradient_pattern_pl(color(1,1,1), color(0,0,0), &w.pl[0]);
-	//ring_pattern_pl(color(1,1,1), color(0,0,0), &w.pl[0]);
-	//w.pl[0].m.p.transform = set_transform(w.pl[0].m.p.transform, scaling(0.2, 0.2, 0.2));
-	//w.pl[0].m.p.transform = set_transform(w.pl[0].m.p.transform, rotation_y(M_PI / 2));
-
-	//задняя стена
-	/*w.pl[1] = set_plane(1);
-	w.pl[1].transform = matrix_mult(w.pl[1].transform, translation(0, 0, 4));
-	w.pl[1].transform = matrix_mult(w.pl[1].transform, rotation_x(M_PI / 2));
-	w.pl[1].m.color = color(1, 0.5, 0.5);
-	w.pl[1].m.specular = 0;
-	//stripe_pattern_pl(color(1,1,1), color(1,0.5,0.5), &w.pl[1]);
-	//w.pl[1].m.p.transform = set_transform(w.pl[1].m.p.transform, scaling(0.2, 0.2, 0.2));
-	//w.pl[1].m.p.transform = set_transform(w.pl[1].m.p.transform, rotation_y(M_PI / 2));
-	//checker_pattern_pl(color(1,1,1), color(1,0.5,0.5), &w.pl[1]);
-	//потолок
-	w.pl[2] = set_plane(2);
-	//w.pl[2].transform = matrix_mult(w.pl[2].transform, rotation_x(M_PI / 2));
-	w.pl[2].transform = matrix_mult(w.pl[2].transform, translation(0, 3, 0));
-	w.pl[2].m.color = color(0.9, 0.5, 0.9);
-	//w.pl[2].m.reflective = 0.1;
-	//checker_pattern_pl(color(1,1,1), color(0,0,0), &w.pl[2]);
-	//ring_pattern_pl(color(1,1,1), color(1,0,0), &w.pl[2]);
-	w.pl[2].m.specular = 0;*/
-/*	//middle
-	w.s[0] = set_sphere(3);
-	w.s[0].transform = translation(-0.5, 1, 0.5);
-	w.s[0].m.color = color(0.1, 1, 0.5);
-	w.s[0].m.specular = 0.3;
-	w.s[0].m.diffuse = 0.7;
-	w.s[0].m.reflective = 0.7;
-	//gradient_pattern_sp(color(1,1,1), color(0.1,1,0.5), &w.s[0]);
-	//w.s[0].m.p.transform = set_transform(w.s[0].m.p.transform, translation(-0.5,0,0));
-	//w.s[0].m.p.transform = set_transform(w.s[0].m.p.transform, scaling(2, 1, 1));
-
-	//w.s[0].m.p.transform = set_transform(w.s[0].m.p.transform, translation(-0.5,0,0));
-	//w.s[0].m.pattern = 1;
-	//w.s[0].m.p = stripe_pattern(color(1,1,1), color(0,0,0));
-	//right
-	w.s[1] = set_sphere(4);
-	w.s[1].transform = matrix_mult(translation(1.5, 0.5, -0.5), scaling(0.5, 0.5, 0.5));
-	w.s[1].m.color = color(0.5, 1, 0.1);
-	w.s[1].m.specular = 0.3;
-	w.s[1].m.diffuse = 0.1;
-	w.s[1].m.transparency = 0.9;
-	w.s[1].m.refractive_index = 1.5;
-	//checker_pattern_sp(color(1,1,1), color(0.5,1,0.1), &w.s[1]);
-	//left
-	w.s[2] = set_sphere(5);
-	w.s[2].transform = matrix_mult(translation(-1.5, 0.33, -0.75), scaling(0.33, 0.33, 0.33));
-	w.s[2].m.color = color(1, 0.8, 0.1);
-	//w.s[2].m.specular = 0.3;
-	w.s[2].m.specular = 1;
-	w.s[2].m.shininess = 300;
-	w.s[2].m.diffuse = 0.7;
-//	ring_pattern_sp(color(1,1,1), color(0,0,0), &w.s[2]);
-//	w.s[2].m.p.transform = set_transform(w.s[2].m.p.transform, scaling(0.2, 1, 0.2));
-*/
-/*	w.cyl[0] = set_cylinder();
-	w.cyl[0].closed = 1;
-	w.cyl[0].max = 1;
-	w.cyl[0].min = 0;
-	w.cyl[0].m.color = color (1, 1 ,1);
-	w.cyl[0].transform = matrix_mult(w.cyl[0].transform, translation(-2, 1, 0));
-	//w.cyl[0].transform = matrix_mult(w.cyl[0].transform, rotation_y (3.14 / 4));
-	//w.cyl[0].transform = matrix_mult(w.cyl[0].transform, rotation_x (-3.14 / 4));
-
-
-	w.cyl[1] = set_cylinder();
-	w.cyl[1].m.color = color (0.5, 0.5, 1);
-	w.cyl[1].transform = matrix_mult(w.cyl[1].transform, translation(1.5, 0, 0));
-	//light
-	w.light = point_light(color(1, 1, 1), set_v_p(-10, 2, -10, 1));
-	w.s_obj = 0;
-	w.pl_obj = 1;
-	w.cyl_obj = 2;
-	w.max_obj = 6;
-	w.ar_count = 0;
-	int i = 0;
-	while (i < w.pl_obj)
-	{
-		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &shade_hit_pl, &w, &w.pl[i].m);
-		i++;
-	}
-	i = 0;
-	while (i < w.s_obj)
-	{
-		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &shade_hit_sp, &w, &w.s[i].m);
-		i++;
-	}
-	i = 0;
-	while (i < w.cyl_obj)
-	{
-		push_obj((void*)(&w.cyl[i]), &normal_at_cyl, &intersect_cyl, &shade_hit_cyl, &w, &w.cyl[i].m);
-		i++;
-	}
-//WORLD
-
-	//camera
-	t_camera c = camera(WIN_W, WIN_H, M_PI / 3);
-	c.transform = view_transform(set_v_p(0, 1.5, -5, 1), set_v_p(0, 1, 0, 1), set_v_p(0, 1, 0, 0));
-
-	render(&sdl, c, w);
-
-*/
-
-
-
-
 
 /*
 w.cub[0] = set_cube();
@@ -480,7 +341,8 @@ if (normal_at_cube((void*)&w.cub[0], p, &n) == 1)
 
 
 
-/*	t_vec p;
+/*
+	t_vec p;
 	p = set_v_p(1,0,1,1);
 	t_matrix a = rotation_x(M_PI/2);
 	t_matrix b = scaling(5,5,5);
@@ -772,6 +634,9 @@ int i = 0;
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 */
 
+
+
+
 //CH 11//
 //
 	//floor
@@ -779,7 +644,7 @@ int i = 0;
 	w.pl[0].m.specular = 0;
 	w.pl[0].m.reflective = 0.4;
 	w.pl[0].transform = matrix_mult(w.pl[0].transform, rotation_y(0.31415));
-	checker_pattern_pl(color(0.35, 0.35, 0.35), color(0.65,0.65,0.65), &w.pl[0]);
+	checker_pattern_shape(color(0.35, 0.35, 0.35), color(0.65,0.65,0.65), &w.pl[0].m);
 
 	//ceiling
 	w.pl[1] = set_plane();
@@ -794,7 +659,7 @@ int i = 0;
 	w.pl[2].transform = matrix_mult(w.pl[2].transform, rotation_z(1.5708));
 	w.pl[2].transform = matrix_mult(w.pl[2].transform, rotation_y(1.5708));
 	//material def
-	stripe_pattern_pl(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[2]);
+	stripe_pattern_shape(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[2].m);
 	w.pl[2].m.p.transform = matrix_mult(w.pl[2].m.p.transform, scaling(0.25, 0.25, 0.25));
 	w.pl[2].m.p.transform = matrix_mult(w.pl[2].m.p.transform, rotation_y(1.5708));
 	w.pl[2].m.ambient = 0;
@@ -808,7 +673,7 @@ int i = 0;
 	w.pl[3].transform = matrix_mult(w.pl[3].transform, rotation_z(1.5708));
 	w.pl[3].transform = matrix_mult(w.pl[3].transform, rotation_y(1.5708));
 	//material def
-	stripe_pattern_pl(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[3]);
+	stripe_pattern_shape(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[3].m);
 	w.pl[3].m.p.transform = matrix_mult(w.pl[3].m.p.transform, scaling(0.25, 0.25, 0.25));
 	w.pl[3].m.p.transform = matrix_mult(w.pl[3].m.p.transform, rotation_y(1.5708));
 	w.pl[3].m.ambient = 0;
@@ -821,7 +686,7 @@ int i = 0;
 	w.pl[4].transform = matrix_mult(w.pl[4].transform, translation(0, 0, 5));
 	w.pl[4].transform = matrix_mult(w.pl[4].transform, rotation_x(1.5708));
 	//material def
-	stripe_pattern_pl(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[4]);
+	stripe_pattern_shape(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[4].m);
 	w.pl[4].m.p.transform = matrix_mult(w.pl[4].m.p.transform, scaling(0.25, 0.25, 0.25));
 	w.pl[4].m.p.transform = matrix_mult(w.pl[4].m.p.transform, rotation_y(1.5708));
 	w.pl[4].m.ambient = 0;
@@ -834,7 +699,7 @@ int i = 0;
 	w.pl[5].transform = matrix_mult(w.pl[5].transform, translation(0, 0, -5));
 	w.pl[5].transform = matrix_mult(w.pl[5].transform, rotation_x(1.5708));
 	//material def
-	stripe_pattern_pl(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[5]);
+	stripe_pattern_shape(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[5].m);
 	w.pl[5].m.p.transform = matrix_mult(w.pl[5].m.p.transform, scaling(0.25, 0.25, 0.25));
 	w.pl[5].m.p.transform = matrix_mult(w.pl[5].m.p.transform, rotation_y(1.5708));
 	w.pl[5].m.ambient = 0;
@@ -925,13 +790,13 @@ int i = 0;
 	int i = 0;
 	while (i < w.pl_obj)
 	{
-		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &w, &w.pl[i].m);
+		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &w, &w.pl[i].m, &w.pl[i].transform);
 		i++;
 	}
 	i = 0;
 	while (i < w.s_obj)
 	{
-		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &w, &w.s[i].m);
+		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &w, &w.s[i].m, &w.s[i].transform);
 		i++;
 	}
 

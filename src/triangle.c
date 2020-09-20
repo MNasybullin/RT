@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/02 16:01:23 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 15:24:23 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 16:38:38 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,76 +88,4 @@ t_x_t	intersect_trian(void *v_s, t_ray r, t_x_t x, int obj_n)
 	}
 	printf("matrix_inverse_test error in intersect_trian\n");
 	return(x);
-}
-
-t_color	stripe_at_trian(t_pattern p, void *obj, t_vec wolrd_point)
-{
-	t_vec	obj_point;
-	t_vec	pattern_point;
-	t_trian	*s;
-
-	s = (t_trian*)obj;
-	if (matrix_inverse_test(s->transform) == 1)
-		obj_point = matrix_mult_v_p(matrix_inverse(s->transform), wolrd_point);
-	else
-		printf("matrix s stripe_at_trian error\n");
-	if (matrix_inverse_test(p.transform) == 1)
-		pattern_point = matrix_mult_v_p(matrix_inverse(p.transform), obj_point);
-	else
-		printf("matrix p stripe_at_trian error\n");
-	return(stripe_at(p, pattern_point));
-}
-
-t_color	gradient_at_trian(t_pattern p, void *obj, t_vec wolrd_point)
-{
-	t_vec	obj_point;
-	t_vec	pattern_point;
-	t_trian	*s;
-
-	s = (t_trian*)obj;
-	if (matrix_inverse_test(s->transform) == 1)
-		obj_point = matrix_mult_v_p(matrix_inverse(s->transform), wolrd_point);
-	else
-		printf("matrix s stripe_at_trian error\n");
-	if (matrix_inverse_test(p.transform) == 1)
-		pattern_point = matrix_mult_v_p(matrix_inverse(p.transform), obj_point);
-	else
-		printf("matrix p stripe_at_trian error\n");
-	return(gradient_at(p, pattern_point));
-}
-
-t_color	ring_at_trian(t_pattern p, void *obj, t_vec wolrd_point)
-{
-	t_vec	obj_point;
-	t_vec	pattern_point;
-	t_trian	*s;
-
-	s = (t_trian*)obj;
-	if (matrix_inverse_test(s->transform) == 1)
-		obj_point = matrix_mult_v_p(matrix_inverse(s->transform), wolrd_point);
-	else
-		printf("matrix s stripe_at_trian error\n");
-	if (matrix_inverse_test(p.transform) == 1)
-		pattern_point = matrix_mult_v_p(matrix_inverse(p.transform), obj_point);
-	else
-		printf("matrix p stripe_at_trian error\n");
-	return(ring_at(p, pattern_point));
-}
-
-t_color	checker_at_trian(t_pattern p, void *obj, t_vec wolrd_point)
-{
-	t_vec	obj_point;
-	t_vec	pattern_point;
-	t_trian	*s;
-
-	s = (t_trian*)obj;
-	if (matrix_inverse_test(s->transform) == 1)
-		obj_point = matrix_mult_v_p(matrix_inverse(s->transform), wolrd_point);
-	else
-		printf("matrix s stripe_at_trian error\n");
-	if (matrix_inverse_test(p.transform) == 1)
-		pattern_point = matrix_mult_v_p(matrix_inverse(p.transform), obj_point);
-	else
-		printf("matrix p stripe_at_trian error\n");
-	return(checker_at(p, pattern_point));
 }

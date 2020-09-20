@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:09:18 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 15:22:05 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 16:36:34 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	default_world(t_world *w)
 	int i = 0;
 	while (i < w->max_obj)
 	{
-		push_obj((void*)(&w->s[i]), &normal_at_sp, &intersect_sp, w, &w->s[i].m);
+		push_obj((void*)(&w->s[i]), &normal_at_sp, &intersect_sp, w, &w->s[i].m, &w->s[i].transform);
 		i++;
 	}
 
