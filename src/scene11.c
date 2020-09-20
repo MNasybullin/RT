@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene11.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdiego <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/27 19:29:04 by sdiego            #+#    #+#             */
-/*   Updated: 2020/03/27 19:29:04 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 15:30:41 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,8 @@
 	w.s[6].m.refractive_index = 1.5;
 
 	//light
-	w.light = point_light(color(1, 1, 1), set_v_p(-4.9, 4.9, -1, 1));
+	w.light_obj = 1;
+	w.light[0] = point_light(color(1, 1, 1), set_v_p(-4.9, 4.9, -1, 1));
 
 	w.s_obj = 7;
 	w.pl_obj = 6;
@@ -161,13 +162,13 @@
 	int i = 0;
 	while (i < w.pl_obj)
 	{
-		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &shade_hit_pl, &w, &w.pl[i].m);
+		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &w, &w.pl[i].m);
 		i++;
 	}
 	i = 0;
 	while (i < w.s_obj)
 	{
-		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &shade_hit_sp, &w, &w.s[i].m);
+		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &w, &w.s[i].m);
 		i++;
 	}
 
@@ -354,14 +355,15 @@ w.cub[17].m.shininess = 300;
 w.cub[17].m.reflective = 1;
 
 //light
-w.light = point_light(color(1, 1, 0.9), set_v_p(0, 6.9, -5, 1));
+w.light_obj = 1;
+w.light[0] = point_light(color(1, 1, 0.9), set_v_p(0, 6.9, -5, 1));
 w.cub_obj = 18;
 w.max_obj = 18;
 w.ar_count = 0;
 int i = 0;
 while (i < w.max_obj)
 {
-	push_obj((void*)(&w.cub[i]), &normal_at_cube, &intersect_cube, &shade_hit_cube, &w, &w.cub[i].m);
+	push_obj((void*)(&w.cub[i]), &normal_at_cube, &intersect_cube, &w, &w.cub[i].m);
 	i++;
 }
 

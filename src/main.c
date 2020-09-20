@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 15:04:22 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 15:29:24 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -914,7 +914,7 @@ int i = 0;
 	w.s[6].m.refractive_index = 1.5;
 
 	//light
-	w.light_obj = 2;
+	w.light_obj = 1;
 	w.light[0] = point_light(color(1, 1, 1), set_v_p(-4.9, 4.9, -1, 1));
 	w.light[1] = point_light(color(1, 1, 1), set_v_p(4.9, 4.9, -1, 1));
 
@@ -925,13 +925,13 @@ int i = 0;
 	int i = 0;
 	while (i < w.pl_obj)
 	{
-		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &shade_hit_pl, &w, &w.pl[i].m);
+		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &w, &w.pl[i].m);
 		i++;
 	}
 	i = 0;
 	while (i < w.s_obj)
 	{
-		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &shade_hit_sp, &w, &w.s[i].m);
+		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &w, &w.s[i].m);
 		i++;
 	}
 

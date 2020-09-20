@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 16:31:01 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 14:52:10 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 15:19:09 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	is_shadow(t_world w, t_vec	p)
 	}
 }
 
-t_color	lighting(t_material m, t_world w, t_comps c)
+t_color	lighting(t_material *m, t_world w, t_comps c)
 {
 	t_color	effective_color;
 	t_vec	light_v;
@@ -124,13 +124,13 @@ t_color	lighting(t_material m, t_world w, t_comps c)
 	double	reflect_dot_eye;
 	double	factor;
 
-	if (m.pattern == 1)
+	if (m->pattern == 1)
 	{
-		m.color = (*m.pattern_at)(m.p, w.obj_ar[c.obj].obj, c.over_point);
+		m->color = (*m->pattern_at)(m->p, w.obj_ar[c.obj].obj, c.over_point);
 	}
-	effective_color = hadamard_prod(m.color, w.light[w.light_count].intensity);
+	effective_color = hadamard_prod(m->color, w.light[w.light_count].intensity);
 	light_v = normalize(sub(w.light[w.light_count].pos, c.over_point));
-	ambient = mult_col(effective_color, m.ambient);
+	ambient = mult_col(effective_color, m->ambient);
 	light_dot_normal = dot(light_v, c.normalv);
 	if (c.shadow == 0)
 	{
@@ -141,7 +141,7 @@ t_color	lighting(t_material m, t_world w, t_comps c)
 		}
 		else
 		{
-			diffuse = mult_col(mult_col(effective_color, m.diffuse), light_dot_normal);
+			diffuse = mult_col(mult_col(effective_color, m->diffuse), light_dot_normal);
 
 			reflect_v = reflect(neg(light_v), c.normalv);
 			reflect_dot_eye = dot(reflect_v, c.eyev);
@@ -149,8 +149,8 @@ t_color	lighting(t_material m, t_world w, t_comps c)
 				specular = color(0,0,0);
 			else
 			{
-				factor = powf(reflect_dot_eye, m.shininess);
-				specular = mult_col(mult_col(w.light[w.light_count].intensity, m.specular), factor);
+				factor = powf(reflect_dot_eye, m->shininess);
+				specular = mult_col(mult_col(w.light[w.light_count].intensity, m->specular), factor);
 			}
 		}
 		return (add_col(add_col(ambient, diffuse), specular));

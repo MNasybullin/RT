@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:09:18 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 14:57:05 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 15:22:05 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	default_world(t_world *w)
 	int i = 0;
 	while (i < w->max_obj)
 	{
-		push_obj((void*)(&w->s[i]), &normal_at_sp, &intersect_sp, &shade_hit_sp, w, &w->s[i].m);
+		push_obj((void*)(&w->s[i]), &normal_at_sp, &intersect_sp, w, &w->s[i].m);
 		i++;
 	}
 
@@ -292,6 +292,36 @@ t_xs	intersections(t_x_t x, t_xs xs) // для прозрачный обьект
 	return (xs);
 }
 
+t_color	shade_hit(t_world w, t_comps c, int remaining, t_material *m)
+{
+	t_color surface;
+	t_color	reflected;
+	t_color refracted;
+	double	reflectance;
+
+	surface = color(0,0,0);
+	while (w.light_count >= 0)
+	{
+		c.shadow = is_shadow(w, c.over_point);
+		surface = add_col(surface, lighting(m, w, c));
+		w.light_count--;
+	}
+	//c.shadow = is_shadow(w, c.over_point);
+	//surface = lighting(s->m, w, c);
+	reflected = reflected_color(w, c, remaining);
+	refracted = refracted_color(w, c, remaining);
+
+	if (m->reflective > 0 && m->transparency > 0)
+	{
+		reflectance = schlick(c);
+		return (add_col(surface, add_col(mult_col(reflected, reflectance), mult_col(refracted, (1.0 - reflectance)))));
+	}
+	else
+	{
+		return (add_col(refracted, add_col(surface, reflected)));
+	}
+}
+
 t_color	color_at(t_world *w, t_ray r, int remaining)
 {
 	t_x_t	x;
@@ -311,15 +341,8 @@ t_color	color_at(t_world *w, t_ray r, int remaining)
 		i = intersection(x.t[hit_obj].t, x.t[hit_obj].obj);
 		xs = intersections(x, xs);
 		comps = prepare_computations(i, r, w, xs);
-		/*w->light_count = w->light_obj - 1;
-		while (w->light_count >= 0)
-		{
-			col = (*w->obj_ar[comps.obj].loc_shade)(*w, comps, remaining);
-			w->light_count--;
-		}*/
 		w->light_count = w->light_obj - 1;
-		col = (*w->obj_ar[comps.obj].loc_shade)(*w, comps, remaining);
-
+		col = shade_hit(*w, comps, remaining, w->obj_ar[comps.obj].m);
 	}
 	else
 	{

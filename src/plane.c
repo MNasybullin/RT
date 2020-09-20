@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 15:54:55 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 14:55:01 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 15:24:31 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,38 +73,6 @@ t_x_t	intersect_pl(void *v_s, t_ray r, t_x_t x, int obj_n)
 	printf("matrix_inverse_test error in intersect_pl\n");
 	//x.max_obj = x.max_obj + 1;
 	return(x);
-}
-
-t_color	shade_hit_pl(t_world w, t_comps c, int remaining)
-{
-	t_color surface;
-	t_color	reflected;
-	t_color	refracted;
-	t_plane	*s;
-	double	reflectance;
-
-	s = (t_plane*)w.obj_ar[c.obj].obj;
-	surface = color(0,0,0);
-	while (w.light_count >= 0)
-	{
-		c.shadow = is_shadow(w, c.over_point);
-		surface = add_col(surface, lighting(s->m, w, c));
-		w.light_count--;
-	}
-//	c.shadow = is_shadow(w, c.over_point);
-//	surface = lighting(s->m, w, c);
-	reflected = reflected_color(w, c, remaining);
-	refracted = refracted_color(w, c, remaining);
-
-	if (s->m.reflective > 0 && s->m.transparency > 0)
-	{
-		reflectance = schlick(c);
-		return (add_col(surface, add_col(mult_col(reflected, reflectance), mult_col(refracted, (1.0 - reflectance)))));
-	}
-	else
-	{
-		return (add_col(refracted, add_col(surface, reflected)));
-	}
 }
 
 t_color	stripe_at_pl(t_pattern p, void *obj, t_vec wolrd_point)

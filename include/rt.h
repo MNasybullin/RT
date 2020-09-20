@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 14:49:55 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 15:20:07 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,6 @@ struct				s_shape
 	void			*obj;
 	int				(*loc_norm)(void *obj, t_vec world_point, t_vec *n);
 	t_x_t			(*loc_intersect)(void *obj, t_ray r, t_x_t x, int obj_n);
-	t_color			(*loc_shade)(t_world w, t_comps c, int remaining);
 	t_material		*m;
 };
 
@@ -322,7 +321,7 @@ int					normal_at_sp(void *v_s, t_vec world_point, t_vec *n);
 t_vec				reflect(t_vec in, t_vec normal);
 t_light				point_light(t_color color, t_vec pos);
 t_material			default_material(void);
-t_color				lighting(t_material m, t_world w, t_comps c);
+t_color				lighting(t_material *m, t_world w, t_comps c);
 int					col_to_int(t_color c);
 int					c(double r, double g, double b);
 
@@ -336,7 +335,7 @@ t_comps	prepare_computations(t_i i, t_ray r, t_world *w, t_xs xs);
 
 
 //shade
-t_color				shade_hit_sp(t_world w, t_comps c, int remaining);
+//t_color				shade_hit_sp(t_world w, t_comps c, int remaining);
 t_color				color_at(t_world *w, t_ray r, int remaining);
 int					hit(t_x_t x);
 
@@ -354,13 +353,13 @@ int					is_shadow(t_world w, t_vec	p);
 //shape
 t_vec				sp_normal_at(t_shape s, t_vec local_point);
 void				push_obj(void *obj, int (*loc_norm)(void *, t_vec, t_vec*),
-t_x_t (*loc_intersect)(void *, t_ray, t_x_t, int), t_color (*loc_shade)(t_world, t_comps, int), t_world *w, t_material *m);
+t_x_t (*loc_intersect)(void *, t_ray, t_x_t, int), t_world *w, t_material *m);
 
 //plane
 int					normal_at_pl(void *v_s, t_vec world_point, t_vec *n);
 t_plane				set_plane();
 t_x_t				intersect_pl(void *v_s, t_ray r, t_x_t x, int obj_n);
-t_color				shade_hit_pl(t_world w, t_comps c, int remaining);
+//t_color				shade_hit_pl(t_world w, t_comps c, int remaining);
 
 //patterns
 void   stripe_pattern_pl(t_color a, t_color b, t_plane *pl);
@@ -403,7 +402,7 @@ double	min(double x, double y, double z);
 double	max(double x, double y, double z);
 t_t_minmax	check_axis(double origin, double direction, t_t_minmax t);
 int		normal_at_cube(void *v_s, t_vec world_point, t_vec *n);
-t_color	shade_hit_cube(t_world w, t_comps c, int remaining);
+//t_color	shade_hit_cube(t_world w, t_comps c, int remaining);
 t_color	stripe_at_cube(t_pattern p, void *obj, t_vec wolrd_point);
 t_color	gradient_at_cube(t_pattern p, void *obj, t_vec wolrd_point);
 t_color	ring_at_cube(t_pattern p, void *obj, t_vec wolrd_point);
@@ -426,7 +425,7 @@ t_color	checker_at_cyl(t_pattern p, void *obj, t_vec wolrd_point);
 t_color	ring_at_cyl(t_pattern p, void *obj, t_vec wolrd_point);
 t_color	gradient_at_cyl(t_pattern p, void *obj, t_vec wolrd_point);
 t_color	stripe_at_cyl(t_pattern p, void *obj, t_vec wolrd_point);
-t_color	shade_hit_cyl(t_world w, t_comps c, int remaining);
+//t_color	shade_hit_cyl(t_world w, t_comps c, int remaining);
 
 //cone
 t_cone	set_cone();
@@ -434,7 +433,7 @@ t_x_t	intersect_cone(void *v_s, t_ray r, t_x_t x, int obj_n);
 t_x_t	intersect_caps_cone(t_cone *cone, t_ray r, t_x_t x, int obj_n);
 int	check_cap_cone(t_ray r, double t, double y);
 int		normal_at_cone(void *v_s, t_vec world_point, t_vec *n);
-t_color	shade_hit_cone(t_world w, t_comps c, int remaining);
+//t_color	shade_hit_cone(t_world w, t_comps c, int remaining);
 t_color	stripe_at_cone(t_pattern p, void *obj, t_vec wolrd_point);
 t_color	gradient_at_cone(t_pattern p, void *obj, t_vec wolrd_point);
 t_color	ring_at_cone(t_pattern p, void *obj, t_vec wolrd_point);
@@ -448,7 +447,7 @@ void   checker_pattern_cone(t_color a, t_color b, t_cone *cone);
 t_trian	set_trian(t_vec p1, t_vec p2, t_vec p3);
 int		normal_at_trian(void *v_s, t_vec world_point, t_vec *n);
 t_x_t	intersect_trian(void *v_s, t_ray r, t_x_t x, int obj_n);
-t_color	shade_hit_trian(t_world w, t_comps c, int remaining);
+//t_color	shade_hit_trian(t_world w, t_comps c, int remaining);
 t_color	stripe_at_trian(t_pattern p, void *obj, t_vec wolrd_point);
 t_color	gradient_at_trian(t_pattern p, void *obj, t_vec wolrd_point);
 t_color	ring_at_trian(t_pattern p, void *obj, t_vec wolrd_point);

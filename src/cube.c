@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 14:11:03 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 14:54:39 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 15:23:58 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,38 +144,6 @@ int		normal_at_cube(void *v_s, t_vec world_point, t_vec *n)
 	}
 	printf("error normal_at_cube\n");
 	return(0);
-}
-
-t_color	shade_hit_cube(t_world w, t_comps c, int remaining)
-{
-	t_color surface;
-	t_color	reflected;
-	t_color refracted;
-	t_cube	*s;
-	double	reflectance;
-
-	s = (t_cube*)w.obj_ar[c.obj].obj;
-	surface = color(0,0,0);
-	while (w.light_count >= 0)
-	{
-		c.shadow = is_shadow(w, c.over_point);
-		surface = add_col(surface, lighting(s->m, w, c));
-		w.light_count--;
-	}
-//	c.shadow = is_shadow(w, c.over_point);
-//	surface = lighting(s->m, w, c);
-	reflected = reflected_color(w, c, remaining);
-	refracted = refracted_color(w, c, remaining);
-
-	if (s->m.reflective > 0 && s->m.transparency > 0)
-	{
-		reflectance = schlick(c);
-		return (add_col(surface, add_col(mult_col(reflected, reflectance), mult_col(refracted, (1.0 - reflectance)))));
-	}
-	else
-	{
-		return (add_col(refracted, add_col(surface, reflected)));
-	}
 }
 
 t_color	stripe_at_cube(t_pattern p, void *obj, t_vec wolrd_point)
