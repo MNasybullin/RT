@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/27 19:29:04 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 15:30:41 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/21 14:50:22 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 	w.pl[0].m.specular = 0;
 	w.pl[0].m.reflective = 0.4;
 	w.pl[0].transform = matrix_mult(w.pl[0].transform, rotation_y(0.31415));
-	checker_pattern_pl(color(0.35, 0.35, 0.35), color(0.65,0.65,0.65), &w.pl[0]);
+	checker_pattern_shape(color(0.35, 0.35, 0.35), color(0.65,0.65,0.65), &w.pl[0].m);
 
 	//ceiling
 	w.pl[1] = set_plane();
@@ -32,7 +32,7 @@
 	w.pl[2].transform = matrix_mult(w.pl[2].transform, rotation_z(1.5708));
 	w.pl[2].transform = matrix_mult(w.pl[2].transform, rotation_y(1.5708));
 	//material def
-	stripe_pattern_pl(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[2]);
+	stripe_pattern_shape(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[2].m);
 	w.pl[2].m.p.transform = matrix_mult(w.pl[2].m.p.transform, scaling(0.25, 0.25, 0.25));
 	w.pl[2].m.p.transform = matrix_mult(w.pl[2].m.p.transform, rotation_y(1.5708));
 	w.pl[2].m.ambient = 0;
@@ -46,7 +46,7 @@
 	w.pl[3].transform = matrix_mult(w.pl[3].transform, rotation_z(1.5708));
 	w.pl[3].transform = matrix_mult(w.pl[3].transform, rotation_y(1.5708));
 	//material def
-	stripe_pattern_pl(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[3]);
+	stripe_pattern_shape(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[3].m);
 	w.pl[3].m.p.transform = matrix_mult(w.pl[3].m.p.transform, scaling(0.25, 0.25, 0.25));
 	w.pl[3].m.p.transform = matrix_mult(w.pl[3].m.p.transform, rotation_y(1.5708));
 	w.pl[3].m.ambient = 0;
@@ -59,7 +59,7 @@
 	w.pl[4].transform = matrix_mult(w.pl[4].transform, translation(0, 0, 5));
 	w.pl[4].transform = matrix_mult(w.pl[4].transform, rotation_x(1.5708));
 	//material def
-	stripe_pattern_pl(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[4]);
+	stripe_pattern_shape(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[4].m);
 	w.pl[4].m.p.transform = matrix_mult(w.pl[4].m.p.transform, scaling(0.25, 0.25, 0.25));
 	w.pl[4].m.p.transform = matrix_mult(w.pl[4].m.p.transform, rotation_y(1.5708));
 	w.pl[4].m.ambient = 0;
@@ -72,7 +72,7 @@
 	w.pl[5].transform = matrix_mult(w.pl[5].transform, translation(0, 0, -5));
 	w.pl[5].transform = matrix_mult(w.pl[5].transform, rotation_x(1.5708));
 	//material def
-	stripe_pattern_pl(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[5]);
+	stripe_pattern_shape(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[5].m);
 	w.pl[5].m.p.transform = matrix_mult(w.pl[5].m.p.transform, scaling(0.25, 0.25, 0.25));
 	w.pl[5].m.p.transform = matrix_mult(w.pl[5].m.p.transform, rotation_y(1.5708));
 	w.pl[5].m.ambient = 0;
@@ -122,6 +122,8 @@
 	w.s[4].m.color = (color(1, 0.3, 0.2));
 	w.s[4].m.specular = 0.4;
 	w.s[4].m.shininess = 5;
+	//checker_pattern_shape(color(0.35, 0.35, 0.35), color(0.65,0.65,0.65), &w.s[4].m);
+	//w.s[4].m.p.transform = matrix_mult(w.s[4].m.p.transform, scaling(0.25, 0.25, 0.25));
 
 	//blue glass
 	w.s[5] = set_sphere();
@@ -154,6 +156,7 @@
 	//light
 	w.light_obj = 1;
 	w.light[0] = point_light(color(1, 1, 1), set_v_p(-4.9, 4.9, -1, 1));
+	w.light[1] = point_light(color(1, 1, 1), set_v_p(4.9, 4.9, -1, 1));
 
 	w.s_obj = 7;
 	w.pl_obj = 6;
@@ -162,13 +165,13 @@
 	int i = 0;
 	while (i < w.pl_obj)
 	{
-		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &w, &w.pl[i].m);
+		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &w, &w.pl[i].m, &w.pl[i].transform);
 		i++;
 	}
 	i = 0;
 	while (i < w.s_obj)
 	{
-		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &w, &w.s[i].m);
+		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &w, &w.s[i].m, &w.s[i].transform);
 		i++;
 	}
 

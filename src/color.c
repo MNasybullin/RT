@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 15:32:12 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 19:13:04 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/21 19:55:35 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ t_color	mult_col(t_color a, double b)
 	a.r = a.r * b;
 	a.g = a.g * b;
 	a.b = a.b * b;
+	return (a);
+}
+
+t_color	divide_col(t_color a, int b)
+{
+	a.r = a.r / b;
+	a.g = a.g / b;
+	a.b = a.b / b;
 	return (a);
 }
 

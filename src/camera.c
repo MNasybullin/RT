@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 18:08:48 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 18:55:19 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/21 13:55:45 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void    draw(t_treads *treads)
     int     y;
     t_ray   r;
     t_color col;
-    int remaining = 5;
+    int remaining = 5; // повторений рекурсии в отражении
 
     y = treads->start;
     while (y < treads->finish)
@@ -107,7 +107,6 @@ void    draw(t_treads *treads)
 
 void    render(t_sdl *sdl, t_camera camera, t_world world)
 {
-    int remaining = 5; // повторений рекурсии в отражении
     pthread_t	threads[THREADS];
 	t_treads    htreads[THREADS];
 	int i = 0;

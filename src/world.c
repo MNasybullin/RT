@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:09:18 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 18:51:35 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/21 17:47:27 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,6 +292,7 @@ t_xs	intersections(t_x_t x, t_xs xs) // для прозрачный обьект
 	return (xs);
 }
 
+
 t_color	shade_hit(t_world w, t_comps c, int remaining, t_material *m)
 {
 	t_color surface;
@@ -302,7 +303,7 @@ t_color	shade_hit(t_world w, t_comps c, int remaining, t_material *m)
 	surface = color(0,0,0);
 	while (w.light_count >= 0)
 	{
-		c.shadow = is_shadow(w, c.over_point);
+		c.shadow = intensity_at(w, c.over_point);
 		surface = add_col(surface, lighting(m, w, c));
 		w.light_count--;
 	}

@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 16:56:41 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/21 20:52:49 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -635,7 +635,7 @@ int i = 0;
 */
 
 
-
+/*
 
 //CH 11//
 //
@@ -749,6 +749,8 @@ int i = 0;
 	w.s[4].m.color = (color(1, 0.3, 0.2));
 	w.s[4].m.specular = 0.4;
 	w.s[4].m.shininess = 5;
+	//checker_pattern_shape(color(0.35, 0.35, 0.35), color(0.65,0.65,0.65), &w.s[4].m);
+	//w.s[4].m.p.transform = matrix_mult(w.s[4].m.p.transform, scaling(0.25, 0.25, 0.25));
 
 	//blue glass
 	w.s[5] = set_sphere();
@@ -803,11 +805,217 @@ int i = 0;
 	t_camera c = camera(WIN_W, WIN_H, 1.152);
 	c.transform = view_transform(set_v_p(-2.6, 1.5, -3.9, 1), set_v_p(-0.6, 1, -0.8, 1), set_v_p(0, 1, 0, 0));
 
+*/
+
+/*
+	default_world(&w);
+	//w.light[0] = point_light(color(1,1,1), set_v_p(-10,-10,-10,1));
+	//t_vec light_position = set_v_p(-10, -10, -10, 1);
+	w.ar_count = 1;
+	w.s[0].m.ambient = 0.1;
+	w.s[0].m.diffuse = 0.9;
+	w.s[0].m.specular = 0;
+	w.s[0].m.color = color(1, 1, 1);
+	w.s[0].m.pattern = 0;
+
+	t_vec point = set_v_p(0, 0, -1, 1);
+	t_vec eyev = set_v_p(0, 0, -1, 0);
+	t_vec normalv = set_v_p(0, 0, -1, 0);
+	w.light_count = 0;
+	w.light[0] = point_light(color(1, 1, 1), set_v_p(0, 0, -10, 1));
+	t_comps c;
+	c.eyev = eyev;
+	c.normalv = normalv;
+	c.point = point;
+	c.shadow = 1.0;
+	c.obj = 0;
+	c.over_point = add(c.point, mult(c.normalv, EPSILON));
+	t_color result = lighting(&w.s[0].m, w, c);
+	printf("r %f , g %f, b %f\n", result.r ,result.g, result.b);
+*/
+
+/*
+	default_world(&w);
+
+	w.light_count = 0;
+	t_vec corner = set_v_p(0, 0, 0, 1);
+	t_vec v1 = set_v_p(2, 0, 0, 0);
+	t_vec v2 = set_v_p(0, 0, 1, 0);
+	w.light[0] = area_light(corner, v1, 4 ,v2 ,2, color(1, 1, 1));
+	w.light[0].jetter[0] = 0.3;
+	w.light[0].jetter[1] = 0.7;
 
 
+	t_vec pt = point_on_light(&w.light[0], 0, 0);
+	printf("%f\n %f\n\n", pt.c[0], pt.c[2]);
+
+	pt = point_on_light(&w.light[0], 1, 0);
+	printf("%f\n %f\n\n", pt.c[0], pt.c[2]);
+
+	pt = point_on_light(&w.light[0], 0, 1);
+	printf("%f\n %f\n\n", pt.c[0], pt.c[2]);
+
+	pt = point_on_light(&w.light[0], 2, 0);
+	printf("%f\n %f\n\n", pt.c[0], pt.c[2]);
+
+	pt = point_on_light(&w.light[0], 3, 1);
+	printf("%f\n %f\n\n", pt.c[0], pt.c[2]);
 
 
+	exit(0);
 
+	default_world(&w);
+
+	w.light_count = 0;
+	t_vec corner = set_v_p(-0.5, -0.5, -5, 1);
+	t_vec v1 = set_v_p(1, 0, 0, 0);
+	t_vec v2 = set_v_p(0, 1, 0, 0);
+	w.light[0] = area_light(corner, v1, 2 ,v2 ,2, color(1, 1, 1));
+	w.light[0].jetter[0] = 0.7;
+	w.light[0].jetter[1] = 0.3;
+	w.light[0].jetter[2] = 0.9;
+	w.light[0].jetter[3] = 0.1;
+	w.light[0].jetter[4] = 0.5;
+
+	t_vec pt = set_v_p(0,0,2,1);
+	double intensity = intensity_at(w, pt);
+	printf("%f\n", intensity);
+
+	pt = set_v_p(1,-1,2,1);
+	intensity = intensity_at(w, pt);
+	printf("%f\n", intensity);
+
+	pt = set_v_p(1.5,0,2,1);
+	intensity = intensity_at(w, pt);
+	printf("%f\n", intensity);
+
+	pt = set_v_p(1.25,1.25,3,1);
+	intensity = intensity_at(w, pt);
+	printf("%f\n", intensity);
+
+	pt = set_v_p(0,0,-2,1);
+	intensity = intensity_at(w, pt);
+	printf("%f\n", intensity);
+
+	exit(0);
+*/
+/*
+	default_world(&w);
+	w.ar_count = 1;
+	w.light_count = 0;
+	t_vec corner = set_v_p(-0.5, -0.5, -5, 1);
+	t_vec v1 = set_v_p(1, 0, 0, 0);
+	t_vec v2 = set_v_p(0, 1, 0, 0);
+	w.light[0] = area_light(corner, v1, 2 ,v2 ,2, color(1, 1, 1));
+	w.s[0].m.ambient = 0.1;
+	w.s[0].m.diffuse = 0.9;
+	w.s[0].m.specular = 0;
+	w.s[0].m.color = color(1,1,1);
+
+	t_vec eye = set_v_p(0, 0, -5, 1);
+	t_vec pt = set_v_p(0, 0, -1, 1);
+	t_vec eyev = normalize(sub(eye, pt));
+	t_vec normalv = set_v_p(pt.c[0], pt.c[1], pt.c[2], 0);
+
+	t_comps c;
+	c.eyev = eyev;
+	c.normalv = normalv;
+	c.point = pt;
+	c.shadow = 1.0;
+	c.obj = 0;
+	c.over_point = add(c.point, mult(c.normalv, EPSILON));
+
+	t_color result = lighting(&w.s[0].m, w, c);
+	printf("r %f , g %f, b %f\n", result.r ,result.g, result.b);
+
+	exit(0);
+*/
+
+	//CH 11//
+//
+	//floor
+	w.pl[0] = set_plane();
+	w.pl[0].m.color = color(1, 1, 1);
+	w.pl[0].m.specular = 0;
+	w.pl[0].m.diffuse = 0.67;
+	w.pl[0].m.ambient = 0.025;
+
+	//background ball
+	w.s[0] = set_sphere();
+	w.s[0].transform = matrix_mult(w.s[0].transform, translation(0.5, 0.5, 0));
+	w.s[0].transform = matrix_mult(w.s[0].transform, scaling(0.5, 0.5, 0.5));
+	w.s[0].m.color = (color(1, 0, 0));
+	w.s[0].m.ambient = 0.1;
+	w.s[0].m.specular = 0;
+	w.s[0].m.diffuse = 0.6;
+	w.s[0].m.reflective = 0.3;
+
+
+	//background ball
+	w.s[1] = set_sphere();
+	w.s[1].transform = matrix_mult(w.s[1].transform, translation(-0.25, 0.33, 0));
+	w.s[1].transform = matrix_mult(w.s[1].transform, scaling(0.33,0.33,0.33));
+	w.s[1].m.color = (color(0.5, 0.5, 1));
+	w.s[1].m.ambient = 0.1;
+	w.s[1].m.specular = 0;
+	w.s[1].m.diffuse = 0.6;
+	w.s[1].m.reflective = 0.3;
+
+	w.cub[0] = set_cube();
+	w.cub[0].transform = matrix_mult(w.cub[0].transform, translation(0, 3, 4));
+	w.cub[0].transform = matrix_mult(w.cub[0].transform, scaling(1, 1, 0.01));
+	w.cub[0].m.color = color(1.5, 1.5, 1.5);
+	w.cub[0].m.specular = 0;
+	w.cub[0].m.diffuse = 0;
+	w.cub[0].m.ambient = 1;
+	w.cub[0].m.shadow = 0;
+
+
+	//light
+	w.light_obj = 1;
+	t_vec corner = set_v_p(-1, 2, 4, 1);
+	t_vec v1 = set_v_p(2, 0, 0, 0);
+	t_vec v2 = set_v_p(0, 2, 0, 0);
+	w.light[0] = area_light(corner, v1, 10, v2, 10, color(1.5, 1.5, 1.5));
+	w.light[0].jetter[0] = 0.7;
+	w.light[0].jetter[1] = 0.3;
+	w.light[0].jetter[2] = 0.9;
+	w.light[0].jetter[3] = 0.1;
+	w.light[0].jetter[4] = 0.5;
+
+	w.light[0].jetter[5] = 0.8;
+	w.light[0].jetter[6] = 0.2;
+	w.light[0].jetter[7] = 0.6;
+	w.light[0].jetter[8] = 0.0;
+	w.light[0].jetter[9] = 0.4;
+
+	w.s_obj = 2;
+	w.pl_obj = 1;
+	w.cub_obj = 1;
+	w.max_obj = 4;
+	w.ar_count = 0;
+	int i = 0;
+	while (i < w.pl_obj)
+	{
+		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &w, &w.pl[i].m, &w.pl[i].transform);
+		i++;
+	}
+	i = 0;
+	while (i < w.s_obj)
+	{
+		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &w, &w.s[i].m, &w.s[i].transform);
+		i++;
+	}
+
+	i = 0;
+	while (i < w.cub_obj)
+	{
+		push_obj((void*)(&w.cub[i]), &normal_at_cube, &intersect_cube, &w, &w.cub[i].m, &w.cub[i].transform);
+		i++;
+	}
+
+	t_camera c = camera(WIN_W, WIN_H, 0.7854);
+	c.transform = view_transform(set_v_p(-3, 1, 2.5, 1), set_v_p(0, 0.5, 0, 1), set_v_p(0, 1, 0, 0));
 
 
 

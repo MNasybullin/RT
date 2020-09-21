@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 18:57:45 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/21 20:51:43 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ typedef struct		s_comps
 	t_vec			normalv;
 	t_vec			reflectv;
 	int				inside;
-	int				shadow;
+	double			shadow;
 	t_vec			over_point;
 	t_vec			under_point;
 	double			n1;
@@ -209,6 +209,15 @@ typedef struct		s_light
 {
 	t_color			intensity;
 	t_vec			pos;
+	t_vec			corner;
+	t_vec			uvec;
+	int				usteps;
+	t_vec			vvec;
+	int				vsteps;
+	int				samples;
+
+	double			jetter[10];
+	int				jetter_count;
 }					t_light;
 
 typedef struct		s_ray
@@ -276,6 +285,7 @@ t_color				color(double r, double g, double b);
 t_color				add_col(t_color a1, t_color a2);
 t_color				sub_col(t_color a1, t_color a2);
 t_color				mult_col(t_color a, double b);
+t_color				divide_col(t_color a, int b); //
 t_color				hadamard_prod(t_color a1, t_color a2);
 int					identic_m_4(t_matrix a, t_matrix b);
 t_matrix			matrix_mult(t_matrix a, t_matrix b);
@@ -347,7 +357,7 @@ t_ray				ray_for_pixel(t_camera *camera, int px, int py);
 void				render(t_sdl *sdl, t_camera camera, t_world world);
 
 //shadow
-int					is_shadow(t_world w, t_vec	p);
+int					is_shadow(t_world w, t_vec light_pos, t_vec	p);
 //shape
 t_vec				sp_normal_at(t_shape s, t_vec local_point);
 void				push_obj(void *obj, int (*loc_norm)(void *, t_vec, t_vec*),
@@ -407,5 +417,12 @@ int		normal_at_cone(void *v_s, t_vec world_point, t_vec *n);
 t_trian	set_trian(t_vec p1, t_vec p2, t_vec p3);
 int		normal_at_trian(void *v_s, t_vec world_point, t_vec *n);
 t_x_t	intersect_trian(void *v_s, t_ray r, t_x_t x, int obj_n);
+
+
+
+double	intensity_at(t_world w, t_vec p);
+t_light area_light(t_vec corner, t_vec full_uvec, int usteps, t_vec full_vvec, int vsteps, t_color color);
+t_vec	point_on_light(t_light *l, int u, int v);
+
 
 #endif
