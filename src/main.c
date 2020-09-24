@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/21 20:52:49 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/24 16:40:02 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -973,25 +973,16 @@ int i = 0;
 
 	//light
 	w.light_obj = 1;
-	t_vec corner = set_v_p(-1, 2, 4, 1);
+/*	t_vec corner = set_v_p(-1, 2, 4, 1);
 	t_vec v1 = set_v_p(2, 0, 0, 0);
 	t_vec v2 = set_v_p(0, 2, 0, 0);
-	w.light[0] = area_light(corner, v1, 10, v2, 10, color(1.5, 1.5, 1.5));
-	w.light[0].jetter[0] = 0.7;
-	w.light[0].jetter[1] = 0.3;
-	w.light[0].jetter[2] = 0.9;
-	w.light[0].jetter[3] = 0.1;
-	w.light[0].jetter[4] = 0.5;
-
-	w.light[0].jetter[5] = 0.8;
-	w.light[0].jetter[6] = 0.2;
-	w.light[0].jetter[7] = 0.6;
-	w.light[0].jetter[8] = 0.0;
-	w.light[0].jetter[9] = 0.4;
+	w.light[0] = area_light(corner, v1, 10, v2, 10, color(1, 1, 1));
+*/
+	w.light[0] = point_light(color(1, 1, 1), set_v_p(-1, 2, 4, 1));
 
 	w.s_obj = 2;
 	w.pl_obj = 1;
-	w.cub_obj = 1;
+	//w.cub_obj = 1;
 	w.max_obj = 4;
 	w.ar_count = 0;
 	int i = 0;

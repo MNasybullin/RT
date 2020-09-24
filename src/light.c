@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 16:31:01 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/21 20:37:39 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/24 16:33:02 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,24 @@ t_light area_light(t_vec corner, t_vec full_uvec, int usteps, t_vec full_vvec, i
 	l.vvec = divi(full_vvec, vsteps);
 	l.vsteps = vsteps;
 	l.samples = usteps * vsteps;
-	l.pos = add(divi(full_uvec, 2), divi(full_vvec, 2));
-	l.pos.c[3] = 1;
+	//l.pos = add(divi(full_uvec, 2), divi(full_vvec, 2));
+	//l.pos.c[3] = 1;
 	return (l);
 }
 
 t_light	point_light(t_color color, t_vec pos)
 {
 	t_light l;
+	t_vec full_uvec = set_v_p(1, 0, 0, 0);
+	t_vec full_vvec = set_v_p(0, 1, 0, 0);
 
 	l.intensity = color;
-	l.pos = pos;
+	l.usteps = 1;
+	l.vsteps = 1;
+	l.uvec = divi(full_uvec, 1);
+	l.vvec = divi(full_vvec, 1);
+	l.samples = 1;
+	l.corner = pos;
 	return (l);
 }
 
