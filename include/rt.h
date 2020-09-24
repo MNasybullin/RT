@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/24 17:34:25 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/24 20:59:54 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,27 @@ typedef struct		s_color
 
 }					t_color;
 
-typedef struct		s_pattern
+typedef struct s_pattern	t_pattern;
+typedef struct s_texturemap	t_texturemap;
+
+struct		s_pattern
 {
+	int	width;
+	int height;
+	double	u;
+	double	v;
 	t_color			a;
 	t_color			b;
 	t_matrix		transform;
-}					t_pattern;
+};
+
+//
+struct		s_texturemap
+{
+	t_pattern		uv_pattern;
+	t_vec			(*uv_map)(t_vec p);
+};
+//
 
 typedef struct		s_material
 {
@@ -67,6 +82,8 @@ typedef struct		s_material
 	double			refractive_index;
 	int				shadow;
 	t_color			(*pattern_at)(t_pattern p, t_matrix transform, t_vec pos);
+	t_color			(*new_pattern_at)(t_texturemap pattern, t_vec point);
+	t_texturemap	texturemap;
 	t_pattern		p;
 
 }					t_material;
@@ -419,10 +436,19 @@ int		normal_at_trian(void *v_s, t_vec world_point, t_vec *n);
 t_x_t	intersect_trian(void *v_s, t_ray r, t_x_t x, int obj_n);
 
 
-
+// soft shadow
 double	intensity_at(t_world w, t_vec p);
 t_light area_light(t_vec corner, t_vec full_uvec, int usteps, t_vec full_vvec, int vsteps, t_color color);
 t_vec	point_on_light(t_light *l, int u, int v);
+
+
+// texture mapping
+t_pattern uv_checkers(int width, int height, t_color a, t_color b);
+t_color uv_patter_at(t_pattern checkers, double u, double v);
+t_vec   spherical_map(t_vec p);
+t_texturemap texture_map(t_pattern checkers, t_vec (*spherical_map)(t_vec));
+t_color pattern_at(t_texturemap pattern, t_vec point);
+
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/24 17:05:15 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/24 21:15:05 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -539,54 +539,30 @@ int i = 0;
 
 	//CH 11//
 //
-	//floor
-	w.pl[0] = set_plane();
-	w.pl[0].m.color = color(1, 1, 1);
-	w.pl[0].m.specular = 0;
-	w.pl[0].m.diffuse = 0.67;
-	w.pl[0].m.ambient = 0.025;
+
 
 	//background ball
 	w.s[0] = set_sphere();
-	w.s[0].transform = matrix_mult(w.s[0].transform, translation(0.5, 0.5, 0));
-	w.s[0].transform = matrix_mult(w.s[0].transform, scaling(0.5, 0.5, 0.5));
-	w.s[0].m.color = (color(1, 0, 0));
+	w.s[0].m.pattern = 1;
+	w.s[0].m.p = uv_checkers(20, 10, color(0, 0.5, 0), color(1, 1, 1));
+	w.s[0].m.new_pattern_at = &pattern_at;
+	w.s[0].m.texturemap = texture_map(w.s[0].m.p, &spherical_map);
 	w.s[0].m.ambient = 0.1;
-	w.s[0].m.specular = 0;
+	w.s[0].m.specular = 0.4;
 	w.s[0].m.diffuse = 0.6;
-	w.s[0].m.reflective = 0.3;
-
-
-	//background ball
-	w.s[1] = set_sphere();
-	w.s[1].transform = matrix_mult(w.s[1].transform, translation(-0.25, 0.33, 0));
-	w.s[1].transform = matrix_mult(w.s[1].transform, scaling(0.33,0.33,0.33));
-	w.s[1].m.color = (color(0.5, 0.5, 1));
-	w.s[1].m.ambient = 0.1;
-	w.s[1].m.specular = 0;
-	w.s[1].m.diffuse = 0.6;
-	w.s[1].m.reflective = 0.3;
-
-	w.cub[0] = set_cube();
-	w.cub[0].transform = matrix_mult(w.cub[0].transform, translation(0, 3, 4));
-	w.cub[0].transform = matrix_mult(w.cub[0].transform, scaling(1, 1, 0.01));
-	w.cub[0].m.color = color(1.5, 1.5, 1.5);
-	w.cub[0].m.specular = 0;
-	w.cub[0].m.diffuse = 0;
-	w.cub[0].m.ambient = 1;
-	w.cub[0].m.shadow = 0;
+	w.s[0].m.shininess = 10;
 
 
 	//light
 	w.light_obj = 1;
-	t_vec corner = set_v_p(-1, 2, 4, 1);
-	t_vec v1 = set_v_p(2, 0, 0, 0);
-	t_vec v2 = set_v_p(0, 2, 0, 0);
-	w.light[0] = area_light(corner, v1, 10, v2, 10, color(1, 1, 1));
+	t_vec corner = set_v_p(-10, 10, -10, 1);
+	t_vec v1 = set_v_p(1, 0, 0, 0);
+	t_vec v2 = set_v_p(0, 1, 0, 0);
+	w.light[0] = point_light(color(1, 1, 1), corner);
 
-	w.s_obj = 2;
-	w.pl_obj = 1;
-	w.cub_obj = 1;
+	w.s_obj = 1;
+	//w.pl_obj = 1;
+	//w.cub_obj = 1;
 	w.max_obj = 4;
 	w.ar_count = 0;
 	int i = 0;
@@ -609,9 +585,104 @@ int i = 0;
 		i++;
 	}
 
-	t_camera c = camera(WIN_W, WIN_H, 0.7854);
-	c.transform = view_transform(set_v_p(-3, 1, 2.5, 1), set_v_p(0, 0.5, 0, 1), set_v_p(0, 1, 0, 0));
+	t_camera c = camera(WIN_W, WIN_H, 0.5);
+	c.transform = view_transform(set_v_p(0, 0, -5, 1), set_v_p(0, 0, 0, 1), set_v_p(0, 1, 0, 0));
 
+
+/*
+** TEXTURE mapping
+*/
+
+/*
+	t_pattern checkers = uv_checkers(2, 2, color(0, 0, 0), color(1, 1, 1));
+	t_color color = uv_patter_at(checkers, 0.0, 0.0);
+	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
+
+	color = uv_patter_at(checkers, 0.5, 0.0);
+	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
+
+	color = uv_patter_at(checkers, 0.0, 0.5);
+	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
+
+	color = uv_patter_at(checkers, 0.5, 0.5);
+	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
+
+	color = uv_patter_at(checkers, 1.0, 1.0);
+	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
+*/
+
+/*
+	t_vec p = set_v_p(1, 0, 0, 1);
+	t_vec uv = spherical_map(p);
+	printf("u = %f\nv = %f\n\n", uv.c[0], uv.c[1]);
+
+	p = set_v_p(0, 0, 1, 1);
+	uv = spherical_map(p);
+	printf("u = %f\nv = %f\n\n", uv.c[0], uv.c[1]);
+
+	p = set_v_p(-1, 0, 0, 1);
+	uv = spherical_map(p);
+	printf("u = %f\nv = %f\n\n", uv.c[0], uv.c[1]);
+
+
+	p = set_v_p(0, 1, 0, 1);
+	uv = spherical_map(p);
+	printf("u = %f\nv = %f\n\n", uv.c[0], uv.c[1]);
+
+	p = set_v_p(0, -1, 0, 1);
+	uv = spherical_map(p);
+	printf("u = %f\nv = %f\n\n", uv.c[0], uv.c[1]);
+
+	p = set_v_p(sqrt(2)/2, sqrt(2)/2, 0, 1);
+	uv = spherical_map(p);
+	printf("u = %f\nv = %f\n\n", uv.c[0], uv.c[1]);
+*/
+/*
+	t_pattern checkers = uv_checkers(16, 8, color(0, 0, 0), color(1, 1, 1));
+	t_texturemap pattern = texture_map(checkers, &spherical_map);
+	t_vec point = set_v_p(0.4315, 0.4670, 0.7719, 1);
+	t_color color = pattern_at(pattern, point);
+	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
+
+	point = set_v_p(-0.9654, 0.2552, -0.0534, 1);
+	color = pattern_at(pattern, point);
+	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
+
+	point = set_v_p(0.1039, 0.7090, 0.6975, 1);
+	color = pattern_at(pattern, point);
+	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
+
+	point = set_v_p(-0.4986, -0.7856, -0.3663, 1);
+	color = pattern_at(pattern, point);
+	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
+
+	point = set_v_p(-0.0317, -0.9395, 0.3411, 1);
+	color = pattern_at(pattern, point);
+	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
+
+	point = set_v_p(0.4809, -0.7721, 0.4154, 1);
+	color = pattern_at(pattern, point);
+	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
+
+	point = set_v_p(0.0285, -0.9612, -0.2745, 1);
+	color = pattern_at(pattern, point);
+	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
+
+	point = set_v_p(-0.5734, -0.2162, -0.7903, 1);
+	color = pattern_at(pattern, point);
+	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
+
+	point = set_v_p(0.7688, -0.1470, 0.6223, 1);
+	color = pattern_at(pattern, point);
+	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
+
+	point = set_v_p(-0.7652, 0.2175, 0.6060, 1);
+	color = pattern_at(pattern, point);
+	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
+
+
+	exit(0);
+*/
 
 
 

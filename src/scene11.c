@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/27 19:29:04 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/24 17:02:55 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/24 21:22:43 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -463,3 +463,44 @@ render(&sdl, c, w);
 
 	t_camera c = camera(WIN_W, WIN_H, 0.7854);
 	c.transform = view_transform(set_v_p(-3, 1, 2.5, 1), set_v_p(0, 0.5, 0, 1), set_v_p(0, 1, 0, 0));
+
+
+
+
+
+
+
+
+
+// Texture mapping
+// sphere checkers pattern
+	w.s[0] = set_sphere();
+	w.s[0].m.pattern = 1;
+	w.s[0].m.p = uv_checkers(20, 10, color(0, 0.5, 0), color(1, 1, 1));
+	w.s[0].m.new_pattern_at = &pattern_at;
+	w.s[0].m.texturemap = texture_map(w.s[0].m.p, &spherical_map);
+	w.s[0].m.ambient = 0.1;
+	w.s[0].m.specular = 0.4;
+	w.s[0].m.diffuse = 0.6;
+	w.s[0].m.shininess = 10;
+
+	//light
+	w.light_obj = 1;
+	t_vec corner = set_v_p(-10, 10, -10, 1);
+	t_vec v1 = set_v_p(1, 0, 0, 0);
+	t_vec v2 = set_v_p(0, 1, 0, 0);
+	w.light[0] = point_light(color(1, 1, 1), corner);
+
+	w.s_obj = 1;
+	w.max_obj = 4;
+	w.ar_count = 0;
+
+	int i = 0;
+	while (i < w.s_obj)
+	{
+		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &w, &w.s[i].m, &w.s[i].transform);
+		i++;
+	}
+
+	t_camera c = camera(WIN_W, WIN_H, 0.5);
+	c.transform = view_transform(set_v_p(0, 0, -5, 1), set_v_p(0, 0, 0, 1), set_v_p(0, 1, 0, 0));

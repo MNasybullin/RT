@@ -6,11 +6,107 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 14:28:16 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 16:57:38 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/24 20:30:40 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/rt.h"
+
+t_pattern uv_checkers(int width, int height, t_color a, t_color b)
+{
+    t_pattern p;
+
+    p.a = a;
+    p.b = b;
+    p.height = height;
+    p.width = width;
+    return (p);
+}
+
+t_color uv_patter_at(t_pattern checkers, double u, double v)
+{
+    double u2;
+    double v2;
+
+    u2 = floor(u * checkers.width);
+    v2 = floor(v * checkers.height);
+    if (fmod((u2 + v2), 2) == 0)
+        return(checkers.a);
+    else
+        return(checkers.b);
+}
+
+
+t_vec   spherical_map(t_vec p)
+{
+    /*
+    ** # compute the azimuthal angle
+    ** # -π < theta <= π
+    ** # angle increases clockwise as viewed from above,
+    ** # which is opposite of what we want, but we'll fix it later.
+    */
+   double theta = atan2(p.c[0], p.c[2]);
+
+   /*
+   ** # vec is the vector pointing from the sphere's origin (the world origin)
+   ** # to the point, which will also happen to be exactly equal to the sphere's
+   ** # radius.
+   */
+    t_vec vec = set_v_p(p.c[0], p.c[1], p.c[2], 0);
+    double radius = magnitude(vec);
+
+    /*
+    # compute the polar angle
+    # 0 <= phi <= π
+    */
+    double phi = acos(p.c[1] / radius);
+
+    /*
+    ** # -0.5 < raw_u <= 0.5
+    */
+    double raw_u = theta / (2 * M_PI);
+
+    /*
+    **  # 0 <= u < 1
+        # here's also where we fix the direction of u. Subtract it from 1,
+        # so that it increases counterclockwise as viewed from above.
+    */
+    double u = 1 - (raw_u + 0.5);
+
+    /*
+    # we want v to be 0 at the south pole of the sphere,
+     # and 1 at the north pole, so we have to "flip it over"
+    # by subtracting it from 1.
+    */
+    double v = 1 - phi / M_PI;
+
+    t_vec uv = set_v_p(u, v, 0, 0);
+    return (uv);
+}
+
+t_texturemap texture_map(t_pattern checkers, t_vec (*spherical_map)(t_vec))
+{
+    t_texturemap pattern;
+    pattern.uv_map = spherical_map;
+    pattern.uv_pattern = checkers;
+    return (pattern);
+}
+
+/*
+** texture_map можно совместить с pattern at и избавиться от стуркуты texturemap !!!!!!!!!
+*/
+t_color pattern_at(t_texturemap pattern, t_vec point)
+{
+    t_vec uv;
+    t_color color;
+
+    uv = (*pattern.uv_map)(point);
+    color = uv_patter_at(pattern.uv_pattern, uv.c[0], uv.c[1]);
+    return (color);
+}
+
+
+
 
 t_color	stripe_pattern(t_pattern p, t_matrix transform, t_vec wolrd_point)
 {
@@ -103,7 +199,7 @@ void   ring_pattern_shape(t_color a, t_color b, t_material *m)
    m->pattern_at = &ring_pattern;
 }
 
-void   checker_pattern_shape(t_color a, t_color b, t_material *m)
+void    checker_pattern_shape(t_color a, t_color b, t_material *m)
 {
    m->p.a = a;
    m->p.b = b;
