@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/21 20:51:43 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/24 17:34:25 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,7 @@ typedef struct		s_t_minmax
 typedef struct		s_light
 {
 	t_color			intensity;
-	t_vec			pos;
+//	t_vec			pos;
 	t_vec			corner;
 	t_vec			uvec;
 	int				usteps;
