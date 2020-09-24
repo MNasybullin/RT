@@ -6,18 +6,67 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 16:31:01 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/01 07:17:08 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/24 16:33:02 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/rt.h"
 
+double	next(t_light *l)
+{
+	double jetter;
+
+	if (l->jetter_count > 9)
+		l->jetter_count = 0;
+	jetter = l->jetter[l->jetter_count];
+	l->jetter_count++;
+	return (jetter);
+}
+
+t_vec	point_on_light(t_light *l, int u, int v)
+{
+/*
+	double a = u + next(l);
+	double b = v + next(l);
+*/
+	double a = u + 0.5;
+	double b = v + 0.5;
+
+	t_vec umult = mult(l->uvec, a);
+	t_vec vmult = mult(l->vvec, b);
+	t_vec uv = add(umult, vmult);
+	return (add(l->corner, uv));
+}
+
+t_light area_light(t_vec corner, t_vec full_uvec, int usteps, t_vec full_vvec, int vsteps, t_color color)
+{
+	t_light	l;
+
+	l.intensity = color;
+	l.corner = corner;
+	l.uvec = divi(full_uvec, usteps);
+	l.usteps = usteps;
+	l.vvec = divi(full_vvec, vsteps);
+	l.vsteps = vsteps;
+	l.samples = usteps * vsteps;
+	//l.pos = add(divi(full_uvec, 2), divi(full_vvec, 2));
+	//l.pos.c[3] = 1;
+	return (l);
+}
+
 t_light	point_light(t_color color, t_vec pos)
 {
 	t_light l;
+	t_vec full_uvec = set_v_p(1, 0, 0, 0);
+	t_vec full_vvec = set_v_p(0, 1, 0, 0);
 
 	l.intensity = color;
-	l.pos = pos;
+	l.usteps = 1;
+	l.vsteps = 1;
+	l.uvec = divi(full_uvec, 1);
+	l.vvec = divi(full_vvec, 1);
+	l.samples = 1;
+	l.corner = pos;
 	return (l);
 }
 
@@ -85,7 +134,39 @@ t_material	default_material(void)
 		return(ambient);
 }*/
 
-int	is_shadow(t_world w, t_vec	p)
+double	intensity_at(t_world w, t_vec p)
+{
+	double	total = 0.0;
+	int	usteps = w.light[w.light_count].usteps;
+	int	vsteps = w.light[w.light_count].vsteps;
+	int u = 0;
+	int v = 0;
+	while (v < vsteps)
+	{
+		u = 0;
+		while (u < usteps)
+		{
+			t_vec light_position = point_on_light(&w.light[w.light_count], u, v);
+			if (is_shadow(w, light_position ,p) == 0)
+				total = total + 1.0;
+			u++;
+		}
+		v++;
+	}
+	return (total / w.light[w.light_count].samples);
+}
+
+/*
+double	intensity_at(t_world w, t_vec p)
+{
+	int		shadow;
+
+	shadow = is_shadow(w, w.light[w.light_count].pos, p);
+	return (shadow == 1 ? 0.0 : 1.0);
+}
+*/
+
+int	is_shadow(t_world w, t_vec light_pos, t_vec p)
 {
 	t_vec	v;
 	t_vec	direction;
@@ -94,7 +175,7 @@ int	is_shadow(t_world w, t_vec	p)
 	t_x_t	x;
 	int		hit_obj;
 
-	v = sub(w.light.pos, p);
+	v = sub(light_pos, p);
 	distance = magnitude(v);
 	direction = normalize(v);
 	r = set_ray(p, direction);
@@ -112,7 +193,7 @@ int	is_shadow(t_world w, t_vec	p)
 	}
 }
 
-t_color	lighting(t_material m, t_world w, t_comps c)
+t_color	lighting(t_material *m, t_world w, t_comps c)
 {
 	t_color	effective_color;
 	t_vec	light_v;
@@ -124,16 +205,58 @@ t_color	lighting(t_material m, t_world w, t_comps c)
 	double	reflect_dot_eye;
 	double	factor;
 
-	if (m.pattern == 1)
+	if (m->pattern == 1)
 	{
-		m.color = (*m.pattern_at)(m.p, w.obj_ar[c.obj].obj, c.over_point);
+		m->color = (*m->pattern_at)(m->p, *w.obj_ar[c.obj].transform, c.over_point);
 	}
-	effective_color = hadamard_prod(m.color, w.light.intensity);
-	light_v = normalize(sub(w.light.pos, c.over_point));
-	ambient = mult_col(effective_color, m.ambient);
-	light_dot_normal = dot(light_v, c.normalv);
-	if (c.shadow == 0)
+	effective_color = hadamard_prod(m->color, w.light[w.light_count].intensity);
+	ambient = mult_col(effective_color, m->ambient);
+	//light_v = normalize(sub(w.light[w.light_count].pos, c.over_point));
+	//light_dot_normal = dot(light_v, c.normalv);
+	if (c.shadow > 0.0) //
 	{
+		t_color sum = color(0,0,0);
+		int	usteps = w.light[w.light_count].usteps;
+		int	vsteps = w.light[w.light_count].vsteps;
+		int u = 0;
+		int v = 0;
+		while (v < vsteps)
+		{
+			u = 0;
+			while (u < usteps)
+			{
+				t_vec light_position = point_on_light(&w.light[w.light_count], u, v);
+
+				light_v = normalize(sub(light_position, c.over_point));
+				light_dot_normal = dot(light_v, c.normalv);
+				if (light_dot_normal < 0)
+				{
+					diffuse = color(0,0,0);
+					specular = color(0,0,0);
+				}
+				else
+				{
+					diffuse = mult_col(mult_col(mult_col(effective_color, m->diffuse), light_dot_normal), c.shadow);
+
+					reflect_v = reflect(neg(light_v), c.normalv);
+					reflect_dot_eye = dot(reflect_v, c.eyev);
+					if (reflect_dot_eye <= 0)
+						specular = color(0,0,0);
+					else
+					{
+						factor = powf(reflect_dot_eye, m->shininess);
+						specular = mult_col(mult_col(mult_col(w.light[w.light_count].intensity, m->specular), factor), c.shadow);
+					}
+				}
+				sum = add_col(add_col(sum, diffuse), specular);
+				u++;
+			}
+			v++;
+		}
+		return (add_col(mult_col(divide_col(sum, w.light[w.light_count].samples),c.shadow), ambient));
+		/*
+		light_v = normalize(sub(w.light[w.light_count].pos, c.over_point));
+		light_dot_normal = dot(light_v, c.normalv);
 		if (light_dot_normal < 0)
 		{
 			diffuse = color(0,0,0);
@@ -141,7 +264,7 @@ t_color	lighting(t_material m, t_world w, t_comps c)
 		}
 		else
 		{
-			diffuse = mult_col(mult_col(effective_color, m.diffuse), light_dot_normal);
+			diffuse = mult_col(mult_col(mult_col(effective_color, m->diffuse), light_dot_normal), c.shadow);
 
 			reflect_v = reflect(neg(light_v), c.normalv);
 			reflect_dot_eye = dot(reflect_v, c.eyev);
@@ -149,11 +272,12 @@ t_color	lighting(t_material m, t_world w, t_comps c)
 				specular = color(0,0,0);
 			else
 			{
-				factor = powf(reflect_dot_eye, m.shininess);
-				specular = mult_col(mult_col(w.light.intensity, m.specular), factor);
+				factor = powf(reflect_dot_eye, m->shininess);
+				specular = mult_col(mult_col(mult_col(w.light[w.light_count].intensity, m->specular), factor), c.shadow);
 			}
 		}
 		return (add_col(add_col(ambient, diffuse), specular));
+		*/
 	}
 	else
 		return(ambient);

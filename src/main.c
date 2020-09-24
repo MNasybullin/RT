@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/01 08:17:11 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/24 17:05:15 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,538 +150,6 @@ int		main(int argc, char **argv)
 		quit(&sdl);
 
 	sdl.run = 0;
-/*
-//WORLD
-	//floor
-	w.s[0] = set_sphere(0);
-	w.s[0].transform = scaling(10,0.01,10);
-	w.s[0].m.color = color(1, 0.9, 0.9);
-	w.s[0].m.specular = 0;
-	//left_wall
-	w.s[1] = set_sphere(1);
-	w.s[1].transform = matrix_mult(translation(0,0,5), rotation_y(-M_PI / 4));
-	w.s[1].transform = matrix_mult(w.s[1].transform, rotation_x(M_PI / 2));
-	w.s[1].transform = matrix_mult(w.s[1].transform, scaling(10, 0.01, 10));
-	w.s[1].m.color = color(1, 0.9, 0.9);
-	w.s[1].m.specular = 0;
-	//right_wall
-	w.s[2] = set_sphere(2);
-	w.s[2].transform = matrix_mult(translation(0,0,5), rotation_y(M_PI / 4));
-	w.s[2].transform = matrix_mult(w.s[2].transform, rotation_x(M_PI / 2));
-	w.s[2].transform = matrix_mult(w.s[2].transform, scaling(10, 0.01, 10));
-	w.s[2].m.color = color(1, 0.9, 0.9);
-	w.s[2].m.specular = 0;*/
-
-	//floor
-/*	w.pl[0] = set_plane(0);
-	w.pl[0].m.color = color(1, 0, 0);
-	w.pl[0].m.specular = 0;
-	w.pl[0].m.reflective = 0.2;
-	//checker_pattern_pl(color(1,1,1), color(0,0,0), &w.pl[0]);
-	//w.pl[0].m.p.transform = set_transform(w.pl[0].m.p.transform, translation(0, 0, 0));
-	//stripe_pattern_pl(color(1,1,1), color(0,0,0), &w.pl[0]);
-	//gradient_pattern_pl(color(1,1,1), color(0,0,0), &w.pl[0]);
-	//ring_pattern_pl(color(1,1,1), color(0,0,0), &w.pl[0]);
-	//w.pl[0].m.p.transform = set_transform(w.pl[0].m.p.transform, scaling(0.2, 0.2, 0.2));
-	//w.pl[0].m.p.transform = set_transform(w.pl[0].m.p.transform, rotation_y(M_PI / 2));
-
-	//задняя стена
-	/*w.pl[1] = set_plane(1);
-	w.pl[1].transform = matrix_mult(w.pl[1].transform, translation(0, 0, 4));
-	w.pl[1].transform = matrix_mult(w.pl[1].transform, rotation_x(M_PI / 2));
-	w.pl[1].m.color = color(1, 0.5, 0.5);
-	w.pl[1].m.specular = 0;
-	//stripe_pattern_pl(color(1,1,1), color(1,0.5,0.5), &w.pl[1]);
-	//w.pl[1].m.p.transform = set_transform(w.pl[1].m.p.transform, scaling(0.2, 0.2, 0.2));
-	//w.pl[1].m.p.transform = set_transform(w.pl[1].m.p.transform, rotation_y(M_PI / 2));
-	//checker_pattern_pl(color(1,1,1), color(1,0.5,0.5), &w.pl[1]);
-	//потолок
-	w.pl[2] = set_plane(2);
-	//w.pl[2].transform = matrix_mult(w.pl[2].transform, rotation_x(M_PI / 2));
-	w.pl[2].transform = matrix_mult(w.pl[2].transform, translation(0, 3, 0));
-	w.pl[2].m.color = color(0.9, 0.5, 0.9);
-	//w.pl[2].m.reflective = 0.1;
-	//checker_pattern_pl(color(1,1,1), color(0,0,0), &w.pl[2]);
-	//ring_pattern_pl(color(1,1,1), color(1,0,0), &w.pl[2]);
-	w.pl[2].m.specular = 0;*/
-/*	//middle
-	w.s[0] = set_sphere(3);
-	w.s[0].transform = translation(-0.5, 1, 0.5);
-	w.s[0].m.color = color(0.1, 1, 0.5);
-	w.s[0].m.specular = 0.3;
-	w.s[0].m.diffuse = 0.7;
-	w.s[0].m.reflective = 0.7;
-	//gradient_pattern_sp(color(1,1,1), color(0.1,1,0.5), &w.s[0]);
-	//w.s[0].m.p.transform = set_transform(w.s[0].m.p.transform, translation(-0.5,0,0));
-	//w.s[0].m.p.transform = set_transform(w.s[0].m.p.transform, scaling(2, 1, 1));
-
-	//w.s[0].m.p.transform = set_transform(w.s[0].m.p.transform, translation(-0.5,0,0));
-	//w.s[0].m.pattern = 1;
-	//w.s[0].m.p = stripe_pattern(color(1,1,1), color(0,0,0));
-	//right
-	w.s[1] = set_sphere(4);
-	w.s[1].transform = matrix_mult(translation(1.5, 0.5, -0.5), scaling(0.5, 0.5, 0.5));
-	w.s[1].m.color = color(0.5, 1, 0.1);
-	w.s[1].m.specular = 0.3;
-	w.s[1].m.diffuse = 0.1;
-	w.s[1].m.transparency = 0.9;
-	w.s[1].m.refractive_index = 1.5;
-	//checker_pattern_sp(color(1,1,1), color(0.5,1,0.1), &w.s[1]);
-	//left
-	w.s[2] = set_sphere(5);
-	w.s[2].transform = matrix_mult(translation(-1.5, 0.33, -0.75), scaling(0.33, 0.33, 0.33));
-	w.s[2].m.color = color(1, 0.8, 0.1);
-	//w.s[2].m.specular = 0.3;
-	w.s[2].m.specular = 1;
-	w.s[2].m.shininess = 300;
-	w.s[2].m.diffuse = 0.7;
-//	ring_pattern_sp(color(1,1,1), color(0,0,0), &w.s[2]);
-//	w.s[2].m.p.transform = set_transform(w.s[2].m.p.transform, scaling(0.2, 1, 0.2));
-*/
-/*	w.cyl[0] = set_cylinder();
-	w.cyl[0].closed = 1;
-	w.cyl[0].max = 1;
-	w.cyl[0].min = 0;
-	w.cyl[0].m.color = color (1, 1 ,1);
-	w.cyl[0].transform = matrix_mult(w.cyl[0].transform, translation(-2, 1, 0));
-	//w.cyl[0].transform = matrix_mult(w.cyl[0].transform, rotation_y (3.14 / 4));
-	//w.cyl[0].transform = matrix_mult(w.cyl[0].transform, rotation_x (-3.14 / 4));
-
-
-	w.cyl[1] = set_cylinder();
-	w.cyl[1].m.color = color (0.5, 0.5, 1);
-	w.cyl[1].transform = matrix_mult(w.cyl[1].transform, translation(1.5, 0, 0));
-	//light
-	w.light = point_light(color(1, 1, 1), set_v_p(-10, 2, -10, 1));
-	w.s_obj = 0;
-	w.pl_obj = 1;
-	w.cyl_obj = 2;
-	w.max_obj = 6;
-	w.ar_count = 0;
-	int i = 0;
-	while (i < w.pl_obj)
-	{
-		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &shade_hit_pl, &w, &w.pl[i].m);
-		i++;
-	}
-	i = 0;
-	while (i < w.s_obj)
-	{
-		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &shade_hit_sp, &w, &w.s[i].m);
-		i++;
-	}
-	i = 0;
-	while (i < w.cyl_obj)
-	{
-		push_obj((void*)(&w.cyl[i]), &normal_at_cyl, &intersect_cyl, &shade_hit_cyl, &w, &w.cyl[i].m);
-		i++;
-	}
-//WORLD
-
-	//camera
-	t_camera c = camera(WIN_W, WIN_H, M_PI / 3);
-	c.transform = view_transform(set_v_p(0, 1.5, -5, 1), set_v_p(0, 1, 0, 1), set_v_p(0, 1, 0, 0));
-
-	render(&sdl, c, w);
-
-*/
-
-
-
-
-
-/*
-w.cub[0] = set_cube();
-t_vec p;
-p = set_v_p(1, 0.5, -0.8, 1);
-
-t_vec n;
-
-if (normal_at_cube((void*)&w.cub[0], p, &n) == 1)
-{
-	printf("# 1\n");
-	printf("0 = %f\n", n.c[0]);
-	printf("1 = %f\n", n.c[1]);
-	printf("2 = %f\n\n", n.c[2]);
-}
-
-p = set_v_p(-1, -0.2, 0.9, 1);
-if (normal_at_cube((void*)&w.cub[0], p, &n) == 1)
-{
-	printf("# 2\n");
-	printf("0 = %f\n", n.c[0]);
-	printf("1 = %f\n", n.c[1]);
-	printf("2 = %f\n\n", n.c[2]);
-}
-
-p = set_v_p(-0.4, 1, -0.1, 1);
-if (normal_at_cube((void*)&w.cub[0], p, &n) == 1)
-{
-	printf("# 3\n");
-	printf("0 = %f\n", n.c[0]);
-	printf("1 = %f\n", n.c[1]);
-	printf("2 = %f\n\n", n.c[2]);
-}
-
-p = set_v_p(0.3, -1, -0.7, 1);
-if (normal_at_cube((void*)&w.cub[0], p, &n) == 1)
-{
-	printf("# 4\n");
-	printf("0 = %f\n", n.c[0]);
-	printf("1 = %f\n", n.c[1]);
-	printf("2 = %f\n\n", n.c[2]);
-}
-
-p = set_v_p(-0.6, 0.3, 1, 1);
-if (normal_at_cube((void*)&w.cub[0], p, &n) == 1)
-{
-	printf("# 5\n");
-	printf("0 = %f\n", n.c[0]);
-	printf("1 = %f\n", n.c[1]);
-	printf("2 = %f\n\n", n.c[2]);
-}
-
-p = set_v_p(0.4, 0.4, -1, 1);
-if (normal_at_cube((void*)&w.cub[0], p, &n) == 1)
-{
-	printf("# 6\n");
-	printf("0 = %f\n", n.c[0]);
-	printf("1 = %f\n", n.c[1]);
-	printf("2 = %f\n\n", n.c[2]);
-}
-
-p = set_v_p(1, 1, 1, 1);
-if (normal_at_cube((void*)&w.cub[0], p, &n) == 1)
-{
-	printf("# 7\n");
-	printf("0 = %f\n", n.c[0]);
-	printf("1 = %f\n", n.c[1]);
-	printf("2 = %f\n\n", n.c[2]);
-}
-
-p = set_v_p(-1, -1, -1, 1);
-if (normal_at_cube((void*)&w.cub[0], p, &n) == 1)
-{
-	printf("# 8\n");
-	printf("0 = %f\n", n.c[0]);
-	printf("1 = %f\n", n.c[1]);
-	printf("2 = %f\n\n", n.c[2]);
-}
-*/
-
-/*
-	w.cub[0] = set_cube();
-	t_ray r = set_ray(set_v_p(-2, 0, 0, 1), set_v_p(0.2673, 0.5345, 0.8018, 0));
-	t_x_t xs;
-	xs.max_obj = 0;
-	xs = intersect_cube((void*)&w.cub[0], r, xs, 0);
-	printf("#1 +x\n");
-	printf("xs max obj %i\n\n", xs.max_obj);
-
-	r = set_ray(set_v_p(0, -2, 0, 1), set_v_p(0.8018, 0.2673, 0.5345, 0));
-	xs.max_obj = 0;
-	xs = intersect_cube((void*)&w.cub[0], r, xs, 0);
-	printf("#2 -x\n");
-	printf("xs max obj %i\n\n", xs.max_obj);
-
-	r = set_ray(set_v_p(0, 0, -2, 1), set_v_p(0.5345, 0.8018, 0.2673, 0));
-	xs.max_obj = 0;
-	xs = intersect_cube((void*)&w.cub[0], r, xs, 0);
-	printf("#3 +y\n");
-	printf("xs max obj %i\n\n", xs.max_obj);
-
-	r = set_ray(set_v_p(2, 0, 2, 1), set_v_p(0, 0, -1, 0));
-	xs.max_obj = 0;
-	xs = intersect_cube((void*)&w.cub[0], r, xs, 0);
-	printf("#4 -y\n");
-	printf("xs max obj %i\n\n", xs.max_obj);
-
-	r = set_ray(set_v_p(0, 2, 2, 1), set_v_p(0, -1, 0, 0));
-	xs.max_obj = 0;
-	xs = intersect_cube((void*)&w.cub[0], r, xs, 0);
-	printf("#5 +z\n");
-	printf("xs max obj %i\n\n", xs.max_obj);
-
-	r = set_ray(set_v_p(2, 2, 0, 1), set_v_p(-1, 0, 0, 0));
-	xs.max_obj = 0;
-	xs = intersect_cube((void*)&w.cub[0], r, xs, 0);
-	printf("#6 -z\n");
-	printf("xs max obj %i\n\n", xs.max_obj);
-*/
-
-
-/*
-	w.cub[0] = set_cube();
-	t_ray r = set_ray(set_v_p(5, 0.5, 0, 1), set_v_p(-1, 0, 0, 0));
-	t_x_t xs;
-	xs.max_obj = 0;
-	xs = intersect_cube((void*)&w.cub[0], r, xs, 0);
-	printf("#1 +x\n");
-	printf("0 = count = %i\n", xs.t[0].count);
-	printf("0 = t = %f\n", xs.t[0].t);
-	printf("1 = count = %i\n", xs.t[1].count);
-	printf("1 = t = %f\n\n", xs.t[1].t);
-
-	r = set_ray(set_v_p(-5, 0.5, 0, 1), set_v_p(1, 0, 0, 0));
-	xs.max_obj = 0;
-	xs = intersect_cube((void*)&w.cub[0], r, xs, 0);
-	printf("#2 -x\n");
-	printf("0 = count = %i\n", xs.t[0].count);
-	printf("0 = t = %f\n", xs.t[0].t);
-	printf("1 = count = %i\n", xs.t[1].count);
-	printf("1 = t = %f\n\n", xs.t[1].t);
-
-	r = set_ray(set_v_p(0.5, 5, 0, 1), set_v_p(0, -1, 0, 0));
-	xs.max_obj = 0;
-	xs = intersect_cube((void*)&w.cub[0], r, xs, 0);
-	printf("#3 +y\n");
-	printf("0 = count = %i\n", xs.t[0].count);
-	printf("0 = t = %f\n", xs.t[0].t);
-	printf("1 = count = %i\n", xs.t[1].count);
-	printf("1 = t = %f\n\n", xs.t[1].t);
-
-	r = set_ray(set_v_p(0.5, -5, 0, 1), set_v_p(0, 1, 0, 0));
-	xs.max_obj = 0;
-	xs = intersect_cube((void*)&w.cub[0], r, xs, 0);
-	printf("#4 -y\n");
-	printf("0 = count = %i\n", xs.t[0].count);
-	printf("0 = t = %f\n", xs.t[0].t);
-	printf("1 = count = %i\n", xs.t[1].count);
-	printf("1 = t = %f\n\n", xs.t[1].t);
-
-	r = set_ray(set_v_p(0.5, 0, 5, 1), set_v_p(0, 0, -1, 0));
-	xs.max_obj = 0;
-	xs = intersect_cube((void*)&w.cub[0], r, xs, 0);
-	printf("#5 +z\n");
-	printf("0 = count = %i\n", xs.t[0].count);
-	printf("0 = t = %f\n", xs.t[0].t);
-	printf("1 = count = %i\n", xs.t[1].count);
-	printf("1 = t = %f\n\n", xs.t[1].t);
-
-	r = set_ray(set_v_p(0.5, 0, -5, 1), set_v_p(0, 0, 1, 0));
-	xs.max_obj = 0;
-	xs = intersect_cube((void*)&w.cub[0], r, xs, 0);
-	printf("#6 -z\n");
-	printf("0 = count = %i\n", xs.t[0].count);
-	printf("0 = t = %f\n", xs.t[0].t);
-	printf("1 = count = %i\n", xs.t[1].count);
-	printf("1 = t = %f\n\n", xs.t[1].t);
-
-	r = set_ray(set_v_p(0, 0.5, 0, 1), set_v_p(0, 0, 1, 0));
-	xs.max_obj = 0;
-	xs = intersect_cube((void*)&w.cub[0], r, xs, 0);
-	printf("#7 inside\n");
-	printf("0 = count = %i\n", xs.t[0].count);
-	printf("0 = t = %f\n", xs.t[0].t);
-	printf("1 = count = %i\n", xs.t[1].count);
-	printf("1 = t = %f\n\n", xs.t[1].t);
-
-
-
-
-
-/*	t_vec p;
-	p = set_v_p(1,0,1,1);
-	t_matrix a = rotation_x(M_PI/2);
-	t_matrix b = scaling(5,5,5);
-	t_matrix d = translation(10,5,7);
-	t_vec p2;
-	t_vec p3;
-	t_vec p4;
-
-	p2 = matrix_mult_v_p(a, p);
-	p3 = matrix_mult_v_p(b, p2);
-	p4 = matrix_mult_v_p(d, p3);
-
-	printf("1 = %f\n", p4.c[0]);
-	printf("2 = %f\n", p4.c[1]);
-	printf("3 = %f\n", p4.c[2]);*/
-
-
-
-/*
-w.cyl[0] = set_cylinder();
-w.cyl[0].min = 1;
-w.cyl[0].max = 2;
-w.cyl[0].closed = 1;
-t_vec p;
-t_vec n;
-t_vec d;
-t_x_t xs;
-t_ray r;
-
-p = set_v_p(0, 3, 0, 1);
-d = normalize(set_v_p(0, -1, 0, 0));
-r = set_ray(p, d);
-xs.max_obj = 0;
-xs = intersect_cyl((void*)&w.cyl[0], r, xs, 0);
-printf(" # 1\n");
-printf("count %i\n", xs.max_obj);
-
-p = set_v_p(0, 3, -2, 1);
-d = normalize(set_v_p(0, -1, 2, 0));
-r = set_ray(p, d);
-xs.max_obj = 0;
-xs = intersect_cyl((void*)&w.cyl[0], r, xs, 0);
-printf(" # 2\n");
-printf("count %i\n", xs.max_obj);
-
-p = set_v_p(0, 4, -2, 1);
-d = normalize(set_v_p(0, -1, 1, 0));
-r = set_ray(p, d);
-xs.max_obj = 0;
-xs = intersect_cyl((void*)&w.cyl[0], r, xs, 0);
-printf(" # 3\n");
-printf("count %i\n", xs.max_obj);
-
-p = set_v_p(0, 0, -2, 1);
-d = normalize(set_v_p(0, 1, 2, 0));
-r = set_ray(p, d);
-xs.max_obj = 0;
-xs = intersect_cyl((void*)&w.cyl[0], r, xs, 0);
-printf(" # 4\n");
-printf("count %i\n", xs.max_obj);
-
-p = set_v_p(0, -1, -2, 1);
-d = normalize(set_v_p(0, 1, 1, 0));
-r = set_ray(p, d);
-xs.max_obj = 0;
-xs = intersect_cyl((void*)&w.cyl[0], r, xs, 0);
-printf(" # 5\n");
-printf("count %i\n", xs.max_obj);
-*/
-/*
-w.cyl[0] = set_cylinder();
-w.cyl[0].min = 1;
-w.cyl[0].max = 2;
-w.cyl[0].closed = 1;
-t_vec p;
-t_vec n;
-t_vec d;
-t_x_t xs;
-t_ray r;
-
-p = set_v_p(0, 1, 0, 1);
-if (normal_at_cyl((void*)&w.cyl[0], p, &n) == 1)
-printf("#1\n");
-printf("0 = %f\n", n.c[0]);
-printf("1 = %f\n", n.c[1]);
-printf("2 = %f\n", n.c[2]);
-
-p = set_v_p(0.5, 1, 0, 1);
-if (normal_at_cyl((void*)&w.cyl[0], p, &n) == 1)
-printf("#2\n");
-printf("0 = %f\n", n.c[0]);
-printf("1 = %f\n", n.c[1]);
-printf("2 = %f\n", n.c[2]);
-
-p = set_v_p(0, 1, 0.5, 1);
-if (normal_at_cyl((void*)&w.cyl[0], p, &n) == 1)
-printf("#3\n");
-printf("0 = %f\n", n.c[0]);
-printf("1 = %f\n", n.c[1]);
-printf("2 = %f\n", n.c[2]);
-
-p = set_v_p(0, 2, 0, 1);
-if (normal_at_cyl((void*)&w.cyl[0], p, &n) == 1)
-printf("#4\n");
-printf("0 = %f\n", n.c[0]);
-printf("1 = %f\n", n.c[1]);
-printf("2 = %f\n", n.c[2]);
-
-p = set_v_p(0.5, 2, 0, 1);
-if (normal_at_cyl((void*)&w.cyl[0], p, &n) == 1)
-printf("#5\n");
-printf("0 = %f\n", n.c[0]);
-printf("1 = %f\n", n.c[1]);
-printf("2 = %f\n", n.c[2]);
-
-p = set_v_p(0, 2, 0.5, 1);
-if (normal_at_cyl((void*)&w.cyl[0], p, &n) == 1)
-printf("#6\n");
-printf("0 = %f\n", n.c[0]);
-printf("1 = %f\n", n.c[1]);
-printf("2 = %f\n", n.c[2]);
-*/
-
-
-/*
-w.cone[0] = set_cone();
-t_vec d;
-t_ray r;
-t_x_t xs;
-t_vec o;
-d = normalize(set_v_p(0, 0, 1, 0));
-o = set_v_p(0, 0, -5, 1);
-r = set_ray(o, d);
-xs = intersect_cone((void*)&w.cone[0], r, xs, 0);
-printf("#1\n");
-printf("count %i\n", xs.max_obj);
-printf("0 %f\n", xs.t[0].t);
-printf("1 = %f\n\n", xs.t[1].t);
-
-xs.max_obj = 0;
-d = normalize(set_v_p(1, 1, 1, 0));
-o = set_v_p(0, 0, -5, 1);
-r = set_ray(o, d);
-xs = intersect_cone((void*)&w.cone[0], r, xs, 0);
-printf("#2\n");
-printf("count %i\n", xs.max_obj);
-printf("0 %f\n", xs.t[0].t);
-printf("1 = %f\n\n", xs.t[1].t);
-
-xs.max_obj = 0;
-d = normalize(set_v_p(-0.5, -1, 1, 0));
-o = set_v_p(1, 1, -5, 1);
-r = set_ray(o, d);
-xs = intersect_cone((void*)&w.cone[0], r, xs, 0);
-printf("#3\n");
-printf("count %i\n", xs.max_obj);
-printf("0 %f\n", xs.t[0].t);
-printf("1 = %f\n", xs.t[1].t);
-
-xs.max_obj = 0;
-d = normalize(set_v_p(0, 1, 1, 0));
-o = set_v_p(0, 0, -1, 1);
-r = set_ray(o, d);
-xs = intersect_cone((void*)&w.cone[0], r, xs, 0);
-printf("#4\n");
-printf("count %i\n", xs.max_obj);
-printf("0 %f\n", xs.t[0].t);
-*/
-/*
-w.cone[0] = set_cone();
-t_vec n;
-t_vec p;
-p = set_v_p(0,0,0,1);
-if (normal_at_cone((void*)&w.cone[0], p, &n) == 1)
-{
-	printf("#1\n");
-	printf("0 = %f\n", n.c[0]);
-	printf("1 = %f\n", n.c[1]);
-	printf("2 = %f\n\n", n.c[2]);
-}
-
-p = set_v_p(1,1,1,1);
-if (normal_at_cone((void*)&w.cone[0], p, &n) == 1)
-{
-	printf("#2\n");
-	printf("0 = %f\n", n.c[0]);
-	printf("1 = %f\n", n.c[1]);
-	printf("2 = %f\n\n", n.c[2]);
-}
-
-p = set_v_p(-1,-1,0,1);
-if (normal_at_cone((void*)&w.cone[0], p, &n) == 1)
-{
-	printf("#3\n");
-	printf("0 = %f\n", n.c[0]);
-	printf("1 = %f\n", n.c[1]);
-	printf("2 = %f\n\n", n.c[2]);
-}
-*/
-
-
 
 /*
 
@@ -772,6 +240,9 @@ int i = 0;
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 */
 
+
+/*
+
 //CH 11//
 //
 	//floor
@@ -779,7 +250,7 @@ int i = 0;
 	w.pl[0].m.specular = 0;
 	w.pl[0].m.reflective = 0.4;
 	w.pl[0].transform = matrix_mult(w.pl[0].transform, rotation_y(0.31415));
-	checker_pattern_pl(color(0.35, 0.35, 0.35), color(0.65,0.65,0.65), &w.pl[0]);
+	checker_pattern_shape(color(0.35, 0.35, 0.35), color(0.65,0.65,0.65), &w.pl[0].m);
 
 	//ceiling
 	w.pl[1] = set_plane();
@@ -794,7 +265,7 @@ int i = 0;
 	w.pl[2].transform = matrix_mult(w.pl[2].transform, rotation_z(1.5708));
 	w.pl[2].transform = matrix_mult(w.pl[2].transform, rotation_y(1.5708));
 	//material def
-	stripe_pattern_pl(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[2]);
+	stripe_pattern_shape(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[2].m);
 	w.pl[2].m.p.transform = matrix_mult(w.pl[2].m.p.transform, scaling(0.25, 0.25, 0.25));
 	w.pl[2].m.p.transform = matrix_mult(w.pl[2].m.p.transform, rotation_y(1.5708));
 	w.pl[2].m.ambient = 0;
@@ -808,7 +279,7 @@ int i = 0;
 	w.pl[3].transform = matrix_mult(w.pl[3].transform, rotation_z(1.5708));
 	w.pl[3].transform = matrix_mult(w.pl[3].transform, rotation_y(1.5708));
 	//material def
-	stripe_pattern_pl(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[3]);
+	stripe_pattern_shape(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[3].m);
 	w.pl[3].m.p.transform = matrix_mult(w.pl[3].m.p.transform, scaling(0.25, 0.25, 0.25));
 	w.pl[3].m.p.transform = matrix_mult(w.pl[3].m.p.transform, rotation_y(1.5708));
 	w.pl[3].m.ambient = 0;
@@ -821,7 +292,7 @@ int i = 0;
 	w.pl[4].transform = matrix_mult(w.pl[4].transform, translation(0, 0, 5));
 	w.pl[4].transform = matrix_mult(w.pl[4].transform, rotation_x(1.5708));
 	//material def
-	stripe_pattern_pl(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[4]);
+	stripe_pattern_shape(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[4].m);
 	w.pl[4].m.p.transform = matrix_mult(w.pl[4].m.p.transform, scaling(0.25, 0.25, 0.25));
 	w.pl[4].m.p.transform = matrix_mult(w.pl[4].m.p.transform, rotation_y(1.5708));
 	w.pl[4].m.ambient = 0;
@@ -834,7 +305,7 @@ int i = 0;
 	w.pl[5].transform = matrix_mult(w.pl[5].transform, translation(0, 0, -5));
 	w.pl[5].transform = matrix_mult(w.pl[5].transform, rotation_x(1.5708));
 	//material def
-	stripe_pattern_pl(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[5]);
+	stripe_pattern_shape(color(0.45,0.45,0.45), color(0.55,0.55,0.55), &w.pl[5].m);
 	w.pl[5].m.p.transform = matrix_mult(w.pl[5].m.p.transform, scaling(0.25, 0.25, 0.25));
 	w.pl[5].m.p.transform = matrix_mult(w.pl[5].m.p.transform, rotation_y(1.5708));
 	w.pl[5].m.ambient = 0;
@@ -884,6 +355,8 @@ int i = 0;
 	w.s[4].m.color = (color(1, 0.3, 0.2));
 	w.s[4].m.specular = 0.4;
 	w.s[4].m.shininess = 5;
+	//checker_pattern_shape(color(0.35, 0.35, 0.35), color(0.65,0.65,0.65), &w.s[4].m);
+	//w.s[4].m.p.transform = matrix_mult(w.s[4].m.p.transform, scaling(0.25, 0.25, 0.25));
 
 	//blue glass
 	w.s[5] = set_sphere();
@@ -914,7 +387,9 @@ int i = 0;
 	w.s[6].m.refractive_index = 1.5;
 
 	//light
-	w.light = point_light(color(1, 1, 1), set_v_p(-4.9, 4.9, -1, 1));
+	w.light_obj = 1;
+	w.light[0] = point_light(color(1, 1, 1), set_v_p(-4.9, 4.9, -1, 1));
+	w.light[1] = point_light(color(1, 1, 1), set_v_p(4.9, 4.9, -1, 1));
 
 	w.s_obj = 7;
 	w.pl_obj = 6;
@@ -923,24 +398,219 @@ int i = 0;
 	int i = 0;
 	while (i < w.pl_obj)
 	{
-		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &shade_hit_pl, &w, &w.pl[i].m);
+		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &w, &w.pl[i].m, &w.pl[i].transform);
 		i++;
 	}
 	i = 0;
 	while (i < w.s_obj)
 	{
-		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &shade_hit_sp, &w, &w.s[i].m);
+		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &w, &w.s[i].m, &w.s[i].transform);
 		i++;
 	}
 
 	t_camera c = camera(WIN_W, WIN_H, 1.152);
 	c.transform = view_transform(set_v_p(-2.6, 1.5, -3.9, 1), set_v_p(-0.6, 1, -0.8, 1), set_v_p(0, 1, 0, 0));
 
+*/
+
+/*
+	default_world(&w);
+	//w.light[0] = point_light(color(1,1,1), set_v_p(-10,-10,-10,1));
+	//t_vec light_position = set_v_p(-10, -10, -10, 1);
+	w.ar_count = 1;
+	w.s[0].m.ambient = 0.1;
+	w.s[0].m.diffuse = 0.9;
+	w.s[0].m.specular = 0;
+	w.s[0].m.color = color(1, 1, 1);
+	w.s[0].m.pattern = 0;
+
+	t_vec point = set_v_p(0, 0, -1, 1);
+	t_vec eyev = set_v_p(0, 0, -1, 0);
+	t_vec normalv = set_v_p(0, 0, -1, 0);
+	w.light_count = 0;
+	w.light[0] = point_light(color(1, 1, 1), set_v_p(0, 0, -10, 1));
+	t_comps c;
+	c.eyev = eyev;
+	c.normalv = normalv;
+	c.point = point;
+	c.shadow = 1.0;
+	c.obj = 0;
+	c.over_point = add(c.point, mult(c.normalv, EPSILON));
+	t_color result = lighting(&w.s[0].m, w, c);
+	printf("r %f , g %f, b %f\n", result.r ,result.g, result.b);
+*/
+
+/*
+	default_world(&w);
+
+	w.light_count = 0;
+	t_vec corner = set_v_p(0, 0, 0, 1);
+	t_vec v1 = set_v_p(2, 0, 0, 0);
+	t_vec v2 = set_v_p(0, 0, 1, 0);
+	w.light[0] = area_light(corner, v1, 4 ,v2 ,2, color(1, 1, 1));
+	w.light[0].jetter[0] = 0.3;
+	w.light[0].jetter[1] = 0.7;
 
 
+	t_vec pt = point_on_light(&w.light[0], 0, 0);
+	printf("%f\n %f\n\n", pt.c[0], pt.c[2]);
+
+	pt = point_on_light(&w.light[0], 1, 0);
+	printf("%f\n %f\n\n", pt.c[0], pt.c[2]);
+
+	pt = point_on_light(&w.light[0], 0, 1);
+	printf("%f\n %f\n\n", pt.c[0], pt.c[2]);
+
+	pt = point_on_light(&w.light[0], 2, 0);
+	printf("%f\n %f\n\n", pt.c[0], pt.c[2]);
+
+	pt = point_on_light(&w.light[0], 3, 1);
+	printf("%f\n %f\n\n", pt.c[0], pt.c[2]);
 
 
+	exit(0);
 
+	default_world(&w);
+
+	w.light_count = 0;
+	t_vec corner = set_v_p(-0.5, -0.5, -5, 1);
+	t_vec v1 = set_v_p(1, 0, 0, 0);
+	t_vec v2 = set_v_p(0, 1, 0, 0);
+	w.light[0] = area_light(corner, v1, 2 ,v2 ,2, color(1, 1, 1));
+	w.light[0].jetter[0] = 0.7;
+	w.light[0].jetter[1] = 0.3;
+	w.light[0].jetter[2] = 0.9;
+	w.light[0].jetter[3] = 0.1;
+	w.light[0].jetter[4] = 0.5;
+
+	t_vec pt = set_v_p(0,0,2,1);
+	double intensity = intensity_at(w, pt);
+	printf("%f\n", intensity);
+
+	pt = set_v_p(1,-1,2,1);
+	intensity = intensity_at(w, pt);
+	printf("%f\n", intensity);
+
+	pt = set_v_p(1.5,0,2,1);
+	intensity = intensity_at(w, pt);
+	printf("%f\n", intensity);
+
+	pt = set_v_p(1.25,1.25,3,1);
+	intensity = intensity_at(w, pt);
+	printf("%f\n", intensity);
+
+	pt = set_v_p(0,0,-2,1);
+	intensity = intensity_at(w, pt);
+	printf("%f\n", intensity);
+
+	exit(0);
+*/
+/*
+	default_world(&w);
+	w.ar_count = 1;
+	w.light_count = 0;
+	t_vec corner = set_v_p(-0.5, -0.5, -5, 1);
+	t_vec v1 = set_v_p(1, 0, 0, 0);
+	t_vec v2 = set_v_p(0, 1, 0, 0);
+	w.light[0] = area_light(corner, v1, 2 ,v2 ,2, color(1, 1, 1));
+	w.s[0].m.ambient = 0.1;
+	w.s[0].m.diffuse = 0.9;
+	w.s[0].m.specular = 0;
+	w.s[0].m.color = color(1,1,1);
+
+	t_vec eye = set_v_p(0, 0, -5, 1);
+	t_vec pt = set_v_p(0, 0, -1, 1);
+	t_vec eyev = normalize(sub(eye, pt));
+	t_vec normalv = set_v_p(pt.c[0], pt.c[1], pt.c[2], 0);
+
+	t_comps c;
+	c.eyev = eyev;
+	c.normalv = normalv;
+	c.point = pt;
+	c.shadow = 1.0;
+	c.obj = 0;
+	c.over_point = add(c.point, mult(c.normalv, EPSILON));
+
+	t_color result = lighting(&w.s[0].m, w, c);
+	printf("r %f , g %f, b %f\n", result.r ,result.g, result.b);
+
+	exit(0);
+*/
+
+	//CH 11//
+//
+	//floor
+	w.pl[0] = set_plane();
+	w.pl[0].m.color = color(1, 1, 1);
+	w.pl[0].m.specular = 0;
+	w.pl[0].m.diffuse = 0.67;
+	w.pl[0].m.ambient = 0.025;
+
+	//background ball
+	w.s[0] = set_sphere();
+	w.s[0].transform = matrix_mult(w.s[0].transform, translation(0.5, 0.5, 0));
+	w.s[0].transform = matrix_mult(w.s[0].transform, scaling(0.5, 0.5, 0.5));
+	w.s[0].m.color = (color(1, 0, 0));
+	w.s[0].m.ambient = 0.1;
+	w.s[0].m.specular = 0;
+	w.s[0].m.diffuse = 0.6;
+	w.s[0].m.reflective = 0.3;
+
+
+	//background ball
+	w.s[1] = set_sphere();
+	w.s[1].transform = matrix_mult(w.s[1].transform, translation(-0.25, 0.33, 0));
+	w.s[1].transform = matrix_mult(w.s[1].transform, scaling(0.33,0.33,0.33));
+	w.s[1].m.color = (color(0.5, 0.5, 1));
+	w.s[1].m.ambient = 0.1;
+	w.s[1].m.specular = 0;
+	w.s[1].m.diffuse = 0.6;
+	w.s[1].m.reflective = 0.3;
+
+	w.cub[0] = set_cube();
+	w.cub[0].transform = matrix_mult(w.cub[0].transform, translation(0, 3, 4));
+	w.cub[0].transform = matrix_mult(w.cub[0].transform, scaling(1, 1, 0.01));
+	w.cub[0].m.color = color(1.5, 1.5, 1.5);
+	w.cub[0].m.specular = 0;
+	w.cub[0].m.diffuse = 0;
+	w.cub[0].m.ambient = 1;
+	w.cub[0].m.shadow = 0;
+
+
+	//light
+	w.light_obj = 1;
+	t_vec corner = set_v_p(-1, 2, 4, 1);
+	t_vec v1 = set_v_p(2, 0, 0, 0);
+	t_vec v2 = set_v_p(0, 2, 0, 0);
+	w.light[0] = area_light(corner, v1, 10, v2, 10, color(1, 1, 1));
+
+	w.s_obj = 2;
+	w.pl_obj = 1;
+	w.cub_obj = 1;
+	w.max_obj = 4;
+	w.ar_count = 0;
+	int i = 0;
+	while (i < w.pl_obj)
+	{
+		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &w, &w.pl[i].m, &w.pl[i].transform);
+		i++;
+	}
+	i = 0;
+	while (i < w.s_obj)
+	{
+		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &w, &w.s[i].m, &w.s[i].transform);
+		i++;
+	}
+
+	i = 0;
+	while (i < w.cub_obj)
+	{
+		push_obj((void*)(&w.cub[i]), &normal_at_cube, &intersect_cube, &w, &w.cub[i].m, &w.cub[i].transform);
+		i++;
+	}
+
+	t_camera c = camera(WIN_W, WIN_H, 0.7854);
+	c.transform = view_transform(set_v_p(-3, 1, 2.5, 1), set_v_p(0, 0.5, 0, 1), set_v_p(0, 1, 0, 0));
 
 
 

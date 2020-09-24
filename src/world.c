@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:09:18 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/01 07:16:17 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/24 16:28:48 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	default_world(t_world *w)
 {
 	w->ar_count = 0;
-	w->light = point_light(color(1,1,1), set_v_p(-10,10,-10,1));
+	w->light_obj = 1;
+	w->light[0] = point_light(color(1,1,1), set_v_p(-10,10,-10,1));
 	w->s[0] = set_sphere(0);
 	w->s[0].m.color = color(0.8, 1.0, 0.6);
 	w->s[0].m.diffuse = 0.7;
@@ -30,7 +31,7 @@ void	default_world(t_world *w)
 	int i = 0;
 	while (i < w->max_obj)
 	{
-		push_obj((void*)(&w->s[i]), &normal_at_sp, &intersect_sp, &shade_hit_sp, w, &w->s[i].m);
+		push_obj((void*)(&w->s[i]), &normal_at_sp, &intersect_sp, w, &w->s[i].m, &w->s[i].transform);
 		i++;
 	}
 
@@ -291,6 +292,34 @@ t_xs	intersections(t_x_t x, t_xs xs) // для прозрачный обьект
 	return (xs);
 }
 
+
+t_color	shade_hit(t_world w, t_comps c, int remaining, t_material *m)
+{
+	t_color surface;
+	t_color	reflected;
+	t_color refracted;
+	double	reflectance;
+
+	surface = color(0,0,0);
+	while (w.light_count >= 0)
+	{
+		c.shadow = intensity_at(w, c.over_point);
+		surface = add_col(surface, lighting(m, w, c));
+		w.light_count--;
+	}
+	reflected = reflected_color(w, c, remaining);
+	refracted = refracted_color(w, c, remaining);
+	if (m->reflective > 0 && m->transparency > 0)
+	{
+		reflectance = schlick(c);
+		return (add_col(surface, add_col(mult_col(reflected, reflectance), mult_col(refracted, (1.0 - reflectance)))));
+	}
+	else
+	{
+		return (add_col(refracted, add_col(surface, reflected)));
+	}
+}
+
 t_color	color_at(t_world *w, t_ray r, int remaining)
 {
 	t_x_t	x;
@@ -310,8 +339,8 @@ t_color	color_at(t_world *w, t_ray r, int remaining)
 		i = intersection(x.t[hit_obj].t, x.t[hit_obj].obj);
 		xs = intersections(x, xs);
 		comps = prepare_computations(i, r, w, xs);
-		col = (*w->obj_ar[comps.obj].loc_shade)(*w, comps, remaining);
-		//col = shade_hit(w, comps);
+		w->light_count = w->light_obj - 1;
+		col = shade_hit(*w, comps, remaining, w->obj_ar[comps.obj].m);
 	}
 	else
 	{

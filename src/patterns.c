@@ -3,229 +3,113 @@
 /*                                                        :::      ::::::::   */
 /*   patterns.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdiego <sdiego@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 14:28:16 by sdiego            #+#    #+#             */
-/*   Updated: 2020/08/27 06:00:15 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 16:57:38 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/rt.h"
 
-void   stripe_pattern_pl(t_color a, t_color b, t_plane *pl)
+t_color	stripe_pattern(t_pattern p, t_matrix transform, t_vec wolrd_point)
 {
-    pl->m.p.a = a;
-    pl->m.p.b = b;
-    pl->m.p.transform = identity_matrix();
-    pl->m.pattern = 1;
-    pl->m.pattern_at = &stripe_at_pl;
+	t_vec	obj_point;
+	t_vec	pattern_point;
+
+	if (matrix_inverse_test(transform) == 1)
+		obj_point = matrix_mult_v_p(matrix_inverse(transform), wolrd_point);
+	else
+		printf("matrix s stripe error\n");
+	if (matrix_inverse_test(p.transform) == 1)
+		pattern_point = matrix_mult_v_p(matrix_inverse(p.transform), obj_point);
+	else
+		printf("matrix p stripe error\n");
+	return(stripe_at(p, pattern_point));
 }
 
-void   stripe_pattern_cyl(t_color a, t_color b, t_cyl *cyl)
+t_color	gradient_pattern(t_pattern p, t_matrix transform, t_vec wolrd_point)
 {
-    cyl->m.p.a = a;
-    cyl->m.p.b = b;
-    cyl->m.p.transform = identity_matrix();
-    cyl->m.pattern = 1;
-    cyl->m.pattern_at = &stripe_at_cyl;
+	t_vec	obj_point;
+	t_vec	pattern_point;
+
+	if (matrix_inverse_test(transform) == 1)
+		obj_point = matrix_mult_v_p(matrix_inverse(transform), wolrd_point);
+	else
+		printf("matrix s stripe error\n");
+	if (matrix_inverse_test(p.transform) == 1)
+		pattern_point = matrix_mult_v_p(matrix_inverse(p.transform), obj_point);
+	else
+		printf("matrix p stripe error\n");
+	return(gradient_at(p, pattern_point));
 }
 
-void   stripe_pattern_trian(t_color a, t_color b, t_trian *trian)
+t_color	ring_pattern(t_pattern p, t_matrix transform, t_vec wolrd_point)
 {
-    trian->m.p.a = a;
-    trian->m.p.b = b;
-    trian->m.p.transform = identity_matrix();
-    trian->m.pattern = 1;
-    trian->m.pattern_at = &stripe_at_trian;
+	t_vec	obj_point;
+	t_vec	pattern_point;
+
+	if (matrix_inverse_test(transform) == 1)
+		obj_point = matrix_mult_v_p(matrix_inverse(transform), wolrd_point);
+	else
+		printf("matrix s stripe error\n");
+	if (matrix_inverse_test(p.transform) == 1)
+		pattern_point = matrix_mult_v_p(matrix_inverse(p.transform), obj_point);
+	else
+		printf("matrix p stripe error\n");
+	return(ring_at(p, pattern_point));
 }
 
-void   stripe_pattern_cone(t_color a, t_color b, t_cone *cone)
+t_color	checker_pattern(t_pattern p, t_matrix transform, t_vec wolrd_point)
 {
-    cone->m.p.a = a;
-    cone->m.p.b = b;
-    cone->m.p.transform = identity_matrix();
-    cone->m.pattern = 1;
-    cone->m.pattern_at = &stripe_at_cone;
+	t_vec	obj_point;
+	t_vec	pattern_point;
+
+	if (matrix_inverse_test(transform) == 1)
+		obj_point = matrix_mult_v_p(matrix_inverse(transform), wolrd_point);
+	else
+		printf("matrix s stripe error\n");
+	if (matrix_inverse_test(p.transform) == 1)
+		pattern_point = matrix_mult_v_p(matrix_inverse(p.transform), obj_point);
+	else
+		printf("matrix p stripe error\n");
+	return(checker_at(p, pattern_point));
 }
 
-void   stripe_pattern_cube(t_color a, t_color b, t_cube *cb)
+void   stripe_pattern_shape(t_color a, t_color b, t_material *m)
 {
-    cb->m.p.a = a;
-    cb->m.p.b = b;
-    cb->m.p.transform = identity_matrix();
-    cb->m.pattern = 1;
-    cb->m.pattern_at = &stripe_at_cube;
+    m->p.a = a;
+    m->p.b = b;
+    m->p.transform = identity_matrix();
+    m->pattern = 1;
+    m->pattern_at = &stripe_pattern;
 }
 
-void   stripe_pattern_sp(t_color a, t_color b, t_sp *s)
+void   gradient_pattern_shape(t_color a, t_color b, t_material *m)
 {
-    s->m.p.a = a;
-    s->m.p.b = b;
-    s->m.p.transform = identity_matrix();
-    s->m.pattern = 1;
-    s->m.pattern_at = &stripe_at_sp;
+    m->p.a = a;
+    m->p.b = b;
+    m->p.transform = identity_matrix();
+    m->pattern = 1;
+    m->pattern_at = &gradient_pattern;
 }
 
-void   gradient_pattern_pl(t_color a, t_color b, t_plane *pl)
+void   ring_pattern_shape(t_color a, t_color b, t_material *m)
 {
-    pl->m.p.a = a;
-    pl->m.p.b = b;
-    pl->m.p.transform = identity_matrix();
-    pl->m.pattern = 1;
-    pl->m.pattern_at = &gradient_at_pl;
+   m->p.a = a;
+   m->p.b = b;
+   m->p.transform = identity_matrix();
+   m->pattern = 1;
+   m->pattern_at = &ring_pattern;
 }
 
-void   gradient_pattern_cyl(t_color a, t_color b, t_cyl *cyl)
+void   checker_pattern_shape(t_color a, t_color b, t_material *m)
 {
-    cyl->m.p.a = a;
-    cyl->m.p.b = b;
-    cyl->m.p.transform = identity_matrix();
-    cyl->m.pattern = 1;
-    cyl->m.pattern_at = &gradient_at_cyl;
-}
-
-void   gradient_pattern_trian(t_color a, t_color b, t_trian *trian)
-{
-    trian->m.p.a = a;
-    trian->m.p.b = b;
-    trian->m.p.transform = identity_matrix();
-    trian->m.pattern = 1;
-    trian->m.pattern_at = &gradient_at_trian;
-}
-
-void   gradient_pattern_cone(t_color a, t_color b, t_cone *cone)
-{
-    cone->m.p.a = a;
-    cone->m.p.b = b;
-    cone->m.p.transform = identity_matrix();
-    cone->m.pattern = 1;
-    cone->m.pattern_at = &gradient_at_cone;
-}
-
-void   gradient_pattern_cube(t_color a, t_color b, t_cube *cb)
-{
-    cb->m.p.a = a;
-    cb->m.p.b = b;
-    cb->m.p.transform = identity_matrix();
-    cb->m.pattern = 1;
-    cb->m.pattern_at = &gradient_at_cube;
-}
-
-void   gradient_pattern_sp(t_color a, t_color b, t_sp *s)
-{
-    s->m.p.a = a;
-    s->m.p.b = b;
-    s->m.p.transform = identity_matrix();
-    s->m.pattern = 1;
-    s->m.pattern_at = &gradient_at_sp;
-}
-
-void   ring_pattern_pl(t_color a, t_color b, t_plane *pl)
-{
-    pl->m.p.a = a;
-    pl->m.p.b = b;
-    pl->m.p.transform = identity_matrix();
-    pl->m.pattern = 1;
-    pl->m.pattern_at = &ring_at_pl;
-}
-
-void   ring_pattern_cyl(t_color a, t_color b, t_cyl *cyl)
-{
-    cyl->m.p.a = a;
-    cyl->m.p.b = b;
-    cyl->m.p.transform = identity_matrix();
-    cyl->m.pattern = 1;
-    cyl->m.pattern_at = &ring_at_cyl;
-}
-
-void   ring_pattern_trian(t_color a, t_color b, t_trian *trian)
-{
-    trian->m.p.a = a;
-    trian->m.p.b = b;
-    trian->m.p.transform = identity_matrix();
-    trian->m.pattern = 1;
-    trian->m.pattern_at = &ring_at_trian;
-}
-
-void   ring_pattern_cone(t_color a, t_color b, t_cone *cone)
-{
-    cone->m.p.a = a;
-    cone->m.p.b = b;
-    cone->m.p.transform = identity_matrix();
-    cone->m.pattern = 1;
-    cone->m.pattern_at = &ring_at_cone;
-}
-
-void   ring_pattern_cube(t_color a, t_color b, t_cube *cb)
-{
-    cb->m.p.a = a;
-    cb->m.p.b = b;
-    cb->m.p.transform = identity_matrix();
-    cb->m.pattern = 1;
-    cb->m.pattern_at = &ring_at_cube;
-}
-
-void   ring_pattern_sp(t_color a, t_color b, t_sp *s)
-{
-    s->m.p.a = a;
-    s->m.p.b = b;
-    s->m.p.transform = identity_matrix();
-    s->m.pattern = 1;
-    s->m.pattern_at = &ring_at_sp;
-}
-
-void   checker_pattern_pl(t_color a, t_color b, t_plane *pl)
-{
-    pl->m.p.a = a;
-    pl->m.p.b = b;
-    pl->m.p.transform = identity_matrix();
-    pl->m.pattern = 1;
-    pl->m.pattern_at = &checker_at_pl;
-}
-
-void   checker_pattern_cyl(t_color a, t_color b, t_cyl *cyl)
-{
-    cyl->m.p.a = a;
-    cyl->m.p.b = b;
-    cyl->m.p.transform = identity_matrix();
-    cyl->m.pattern = 1;
-    cyl->m.pattern_at = &checker_at_cyl;
-}
-
-void   checker_pattern_trian(t_color a, t_color b, t_trian *trian)
-{
-    trian->m.p.a = a;
-    trian->m.p.b = b;
-    trian->m.p.transform = identity_matrix();
-    trian->m.pattern = 1;
-    trian->m.pattern_at = &checker_at_trian;
-}
-
-void   checker_pattern_cone(t_color a, t_color b, t_cone *cone)
-{
-    cone->m.p.a = a;
-    cone->m.p.b = b;
-    cone->m.p.transform = identity_matrix();
-    cone->m.pattern = 1;
-    cone->m.pattern_at = &checker_at_cone;
-}
-
-void   checker_pattern_cube(t_color a, t_color b, t_cube *cb)
-{
-    cb->m.p.a = a;
-    cb->m.p.b = b;
-    cb->m.p.transform = identity_matrix();
-    cb->m.pattern = 1;
-    cb->m.pattern_at = &checker_at_cube;
-}
-
-void   checker_pattern_sp(t_color a, t_color b, t_sp *s)
-{
-    s->m.p.a = a;
-    s->m.p.b = b;
-    s->m.p.transform = identity_matrix();
-    s->m.pattern = 1;
-    s->m.pattern_at = &checker_at_sp;
+   m->p.a = a;
+   m->p.b = b;
+   m->p.transform = identity_matrix();
+   m->pattern = 1;
+   m->pattern_at = &checker_pattern;
 }
 
 double  realmod(double x, double p)

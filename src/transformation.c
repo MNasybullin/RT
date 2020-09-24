@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transformation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdiego <sdiego@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 17:49:00 by sdiego            #+#    #+#             */
-/*   Updated: 2020/08/27 06:00:51 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 16:59:39 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,24 +144,6 @@ t_matrix	rotation_z(double r)
 t_matrix	shearing(double x_y, double x_z, double y_x, double y_z, double z_x, double z_y)
 {
 	t_matrix	m;
-	/*int			i;
-	int			j;
-
-	i = 0;
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			m.m[i][j] = 0;
-			j++;
-		}
-		i++;
-	}
-	m.m[0][0] = 1;
-	m.m[1][1] = 1;
-	m.m[2][2] = 1;
-	m.m[3][3] = 1;*/
 	m = identity_matrix();
 	m.m[0][1] = x_y;
 	m.m[0][2] = x_z;

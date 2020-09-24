@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/16 16:24:47 by sdiego            #+#    #+#             */
-/*   Updated: 2020/08/27 10:23:34 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 14:45:22 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_color reflected_color(t_world w, t_comps c, int remaining)
 {
     t_ray reflect_ray;
     t_color col;
-    if (remaining <= 0)
+    if (remaining < 1)
     {
         return (color(0,0,0));
     }

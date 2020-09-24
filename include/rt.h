@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/01 08:49:03 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/24 17:34:25 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct		s_material
 	double			transparency;
 	double			refractive_index;
 	int				shadow;
-	t_color			(*pattern_at)(t_pattern p, void *obj, t_vec pos);
+	t_color			(*pattern_at)(t_pattern p, t_matrix transform, t_vec pos);
 	t_pattern		p;
 
 }					t_material;
@@ -116,8 +116,6 @@ typedef struct		s_sp
 {
 	t_vec			c;
 	double			r;
-	//t_color			color;
-	//int				obj;
 	t_matrix		transform;
 	t_material		m;
 }					t_sp;
@@ -194,7 +192,7 @@ typedef struct		s_comps
 	t_vec			normalv;
 	t_vec			reflectv;
 	int				inside;
-	int				shadow;
+	double			shadow;
 	t_vec			over_point;
 	t_vec			under_point;
 	double			n1;
@@ -210,7 +208,16 @@ typedef struct		s_t_minmax
 typedef struct		s_light
 {
 	t_color			intensity;
-	t_vec			pos;
+//	t_vec			pos;
+	t_vec			corner;
+	t_vec			uvec;
+	int				usteps;
+	t_vec			vvec;
+	int				vsteps;
+	int				samples;
+
+	double			jetter[10];
+	int				jetter_count;
 }					t_light;
 
 typedef struct		s_ray
@@ -227,13 +234,13 @@ struct				s_shape
 	void			*obj;
 	int				(*loc_norm)(void *obj, t_vec world_point, t_vec *n);
 	t_x_t			(*loc_intersect)(void *obj, t_ray r, t_x_t x, int obj_n);
-	t_color			(*loc_shade)(t_world w, t_comps c, int remaining);
 	t_material		*m;
+	t_matrix		*transform;
 };
 
 struct				s_world
 {
-	t_light			light;
+	t_light			light[5];
 	t_sp			s[10];
 	t_plane			pl[10];
 	t_cube			cub[20];
@@ -241,6 +248,8 @@ struct				s_world
 	t_cone			cone[10];
 	t_trian			trian[10];
 	t_shape			obj_ar[30];
+	int				light_count; // multi light
+	int				light_obj; // multi light
 	int				trian_obj;
 	int				s_obj;
 	int				cone_obj;
@@ -276,6 +285,7 @@ t_color				color(double r, double g, double b);
 t_color				add_col(t_color a1, t_color a2);
 t_color				sub_col(t_color a1, t_color a2);
 t_color				mult_col(t_color a, double b);
+t_color				divide_col(t_color a, int b); //
 t_color				hadamard_prod(t_color a1, t_color a2);
 int					identic_m_4(t_matrix a, t_matrix b);
 t_matrix			matrix_mult(t_matrix a, t_matrix b);
@@ -320,7 +330,7 @@ int					normal_at_sp(void *v_s, t_vec world_point, t_vec *n);
 t_vec				reflect(t_vec in, t_vec normal);
 t_light				point_light(t_color color, t_vec pos);
 t_material			default_material(void);
-t_color				lighting(t_material m, t_world w, t_comps c);
+t_color				lighting(t_material *m, t_world w, t_comps c);
 int					col_to_int(t_color c);
 int					c(double r, double g, double b);
 
@@ -334,7 +344,6 @@ t_comps	prepare_computations(t_i i, t_ray r, t_world *w, t_xs xs);
 
 
 //shade
-t_color				shade_hit_sp(t_world w, t_comps c, int remaining);
 t_color				color_at(t_world *w, t_ray r, int remaining);
 int					hit(t_x_t x);
 
@@ -348,41 +357,30 @@ t_ray				ray_for_pixel(t_camera *camera, int px, int py);
 void				render(t_sdl *sdl, t_camera camera, t_world world);
 
 //shadow
-int					is_shadow(t_world w, t_vec	p);
+int					is_shadow(t_world w, t_vec light_pos, t_vec	p);
 //shape
 t_vec				sp_normal_at(t_shape s, t_vec local_point);
 void				push_obj(void *obj, int (*loc_norm)(void *, t_vec, t_vec*),
-t_x_t (*loc_intersect)(void *, t_ray, t_x_t, int), t_color (*loc_shade)(t_world, t_comps, int), t_world *w, t_material *m);
+t_x_t (*loc_intersect)(void *, t_ray, t_x_t, int), t_world *w, t_material *m, t_matrix *transform);
 
 //plane
 int					normal_at_pl(void *v_s, t_vec world_point, t_vec *n);
 t_plane				set_plane();
 t_x_t				intersect_pl(void *v_s, t_ray r, t_x_t x, int obj_n);
-t_color				shade_hit_pl(t_world w, t_comps c, int remaining);
 
 //patterns
-void   stripe_pattern_pl(t_color a, t_color b, t_plane *pl);
-void   stripe_pattern_sp(t_color a, t_color b, t_sp *s);
+void   stripe_pattern_shape(t_color a, t_color b, t_material *m);
+void   gradient_pattern_shape(t_color a, t_color b, t_material *m);
+void   ring_pattern_shape(t_color a, t_color b, t_material *m);
+void   checker_pattern_shape(t_color a, t_color b, t_material *m);
+
+
 t_color stripe_at(t_pattern p, t_vec point);
 double  realmod(double x, double p);
-t_color	stripe_at_sp(t_pattern p, void *obj, t_vec wolrd_point);
-t_color	stripe_at_pl(t_pattern p, void *obj, t_vec wolrd_point);
 //void    push_pat(t_color (*pattern_at)(t_pattern , void *, t_vec), t_world *w);
 t_color gradient_at(t_pattern p, t_vec point);
-t_color	gradient_at_pl(t_pattern p, void *obj, t_vec wolrd_point);
-t_color	gradient_at_sp(t_pattern p, void *obj, t_vec wolrd_point);
-void   gradient_pattern_sp(t_color a, t_color b, t_sp *s);
-void   gradient_pattern_pl(t_color a, t_color b, t_plane *pl);
-t_color	ring_at_sp(t_pattern p, void *obj, t_vec wolrd_point);
 t_color ring_at(t_pattern p, t_vec point);
-t_color	ring_at_pl(t_pattern p, void *obj, t_vec wolrd_point);
-void   ring_pattern_sp(t_color a, t_color b, t_sp *s);
-void   ring_pattern_pl(t_color a, t_color b, t_plane *pl);
 t_color checker_at(t_pattern p, t_vec point);
-t_color	checker_at_sp(t_pattern p, void *obj, t_vec wolrd_point);
-t_color	checker_at_pl(t_pattern p, void *obj, t_vec wolrd_point);
-void   checker_pattern_pl(t_color a, t_color b, t_plane *pl);
-void   checker_pattern_sp(t_color a, t_color b, t_sp *s);
 
 //reflect
 t_color reflected_color(t_world w, t_comps c, int remaining);
@@ -401,30 +399,12 @@ double	min(double x, double y, double z);
 double	max(double x, double y, double z);
 t_t_minmax	check_axis(double origin, double direction, t_t_minmax t);
 int		normal_at_cube(void *v_s, t_vec world_point, t_vec *n);
-t_color	shade_hit_cube(t_world w, t_comps c, int remaining);
-t_color	stripe_at_cube(t_pattern p, void *obj, t_vec wolrd_point);
-t_color	gradient_at_cube(t_pattern p, void *obj, t_vec wolrd_point);
-t_color	ring_at_cube(t_pattern p, void *obj, t_vec wolrd_point);
-t_color	checker_at_cube(t_pattern p, void *obj, t_vec wolrd_point);
-void   stripe_pattern_cube(t_color a, t_color b, t_cube *cb);
-void   gradient_pattern_cube(t_color a, t_color b, t_cube *cb);
-void   ring_pattern_cube(t_color a, t_color b, t_cube *cb);
-void   checker_pattern_cube(t_color a, t_color b, t_cube *cb);
 
 //cylinder
 t_cyl	set_cylinder();
 t_x_t	intersect_cyl(void *v_s, t_ray r, t_x_t x, int obj_n);
 int		normal_at_cyl(void *v_s, t_vec world_point, t_vec *n);
 t_x_t	intersect_caps(t_cyl *cyl, t_ray r, t_x_t x, int obj_n);
-void   stripe_pattern_cyl(t_color a, t_color b, t_cyl *cyl);
-void   gradient_pattern_cyl(t_color a, t_color b, t_cyl *cyl);
-void   ring_pattern_cyl(t_color a, t_color b, t_cyl *cyl);
-void   checker_pattern_cyl(t_color a, t_color b, t_cyl *cyl);
-t_color	checker_at_cyl(t_pattern p, void *obj, t_vec wolrd_point);
-t_color	ring_at_cyl(t_pattern p, void *obj, t_vec wolrd_point);
-t_color	gradient_at_cyl(t_pattern p, void *obj, t_vec wolrd_point);
-t_color	stripe_at_cyl(t_pattern p, void *obj, t_vec wolrd_point);
-t_color	shade_hit_cyl(t_world w, t_comps c, int remaining);
 
 //cone
 t_cone	set_cone();
@@ -432,30 +412,17 @@ t_x_t	intersect_cone(void *v_s, t_ray r, t_x_t x, int obj_n);
 t_x_t	intersect_caps_cone(t_cone *cone, t_ray r, t_x_t x, int obj_n);
 int	check_cap_cone(t_ray r, double t, double y);
 int		normal_at_cone(void *v_s, t_vec world_point, t_vec *n);
-t_color	shade_hit_cone(t_world w, t_comps c, int remaining);
-t_color	stripe_at_cone(t_pattern p, void *obj, t_vec wolrd_point);
-t_color	gradient_at_cone(t_pattern p, void *obj, t_vec wolrd_point);
-t_color	ring_at_cone(t_pattern p, void *obj, t_vec wolrd_point);
-t_color	checker_at_cone(t_pattern p, void *obj, t_vec wolrd_point);
-void   stripe_pattern_cone(t_color a, t_color b, t_cone *cone);
-void   gradient_pattern_cone(t_color a, t_color b, t_cone *cone);
-void   ring_pattern_cone(t_color a, t_color b, t_cone *cone);
-void   checker_pattern_cone(t_color a, t_color b, t_cone *cone);
 
 //triangle
 t_trian	set_trian(t_vec p1, t_vec p2, t_vec p3);
 int		normal_at_trian(void *v_s, t_vec world_point, t_vec *n);
 t_x_t	intersect_trian(void *v_s, t_ray r, t_x_t x, int obj_n);
-t_color	shade_hit_trian(t_world w, t_comps c, int remaining);
-t_color	stripe_at_trian(t_pattern p, void *obj, t_vec wolrd_point);
-t_color	gradient_at_trian(t_pattern p, void *obj, t_vec wolrd_point);
-t_color	ring_at_trian(t_pattern p, void *obj, t_vec wolrd_point);
-t_color	checker_at_trian(t_pattern p, void *obj, t_vec wolrd_point);
-void   stripe_pattern_trian(t_color a, t_color b, t_trian *trian);
-void   gradient_pattern_trian(t_color a, t_color b, t_trian *trian);
-void   ring_pattern_trian(t_color a, t_color b, t_trian *trian);
-void   checker_pattern_trian(t_color a, t_color b, t_trian *trian);
 
+
+
+double	intensity_at(t_world w, t_vec p);
+t_light area_light(t_vec corner, t_vec full_uvec, int usteps, t_vec full_vvec, int vsteps, t_color color);
+t_vec	point_on_light(t_light *l, int u, int v);
 
 
 #endif

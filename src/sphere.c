@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdiego <sdiego@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:54:30 by sdiego            #+#    #+#             */
-/*   Updated: 2020/08/27 06:00:44 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/20 17:55:28 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ t_sp	set_sphere()
 
 	s.c = set_v_p(0, 0, 0, 1);
 	s.r = 1;
-	//s.color = color;
-	//s.obj = obj;
 	s.transform = identity_matrix();
 	s.m = default_material();
 	return (s);
@@ -105,101 +103,4 @@ int		normal_at_sp(void *v_s, t_vec world_point, t_vec *n)
 	}
 	printf("error normal_at_sp\n");
 	return(0);
-}
-
-t_color	shade_hit_sp(t_world w, t_comps c, int remaining)
-{
-	t_color surface;
-	t_color	reflected;
-	t_color refracted;
-	t_sp	*s;
-	double	reflectance;
-
-	s = (t_sp*)w.obj_ar[c.obj].obj;
-	c.shadow = is_shadow(w, c.over_point);
-	surface = lighting(s->m, w, c);
-	reflected = reflected_color(w, c, remaining);
-	refracted = refracted_color(w, c, remaining);
-
-	if (s->m.reflective > 0 && s->m.transparency > 0)
-	{
-		reflectance = schlick(c);
-		return (add_col(surface, add_col(mult_col(reflected, reflectance), mult_col(refracted, (1.0 - reflectance)))));
-	}
-	else
-	{
-		return (add_col(refracted, add_col(surface, reflected)));
-	}
-}
-
-t_color	stripe_at_sp(t_pattern p, void *obj, t_vec wolrd_point)
-{
-	t_vec	obj_point;
-	t_vec	pattern_point;
-	t_sp	*s;
-
-	s = (t_sp*)obj;
-	if (matrix_inverse_test(s->transform) == 1)
-		obj_point = matrix_mult_v_p(matrix_inverse(s->transform), wolrd_point);
-	else
-		printf("matrix s stripe_at_sp error\n");
-	if (matrix_inverse_test(p.transform) == 1)
-		pattern_point = matrix_mult_v_p(matrix_inverse(p.transform), obj_point);
-	else
-		printf("matrix p stripe_at_sp error\n");
-	return(stripe_at(p, pattern_point));
-}
-
-t_color	gradient_at_sp(t_pattern p, void *obj, t_vec wolrd_point)
-{
-	t_vec	obj_point;
-	t_vec	pattern_point;
-	t_sp	*s;
-
-	s = (t_sp*)obj;
-	if (matrix_inverse_test(s->transform) == 1)
-		obj_point = matrix_mult_v_p(matrix_inverse(s->transform), wolrd_point);
-	else
-		printf("matrix s stripe_at_sp error\n");
-	if (matrix_inverse_test(p.transform) == 1)
-		pattern_point = matrix_mult_v_p(matrix_inverse(p.transform), obj_point);
-	else
-		printf("matrix p stripe_at_sp error\n");
-	return(gradient_at(p, pattern_point));
-}
-
-t_color	ring_at_sp(t_pattern p, void *obj, t_vec wolrd_point)
-{
-	t_vec	obj_point;
-	t_vec	pattern_point;
-	t_sp	*s;
-
-	s = (t_sp*)obj;
-	if (matrix_inverse_test(s->transform) == 1)
-		obj_point = matrix_mult_v_p(matrix_inverse(s->transform), wolrd_point);
-	else
-		printf("matrix s stripe_at_sp error\n");
-	if (matrix_inverse_test(p.transform) == 1)
-		pattern_point = matrix_mult_v_p(matrix_inverse(p.transform), obj_point);
-	else
-		printf("matrix p stripe_at_sp error\n");
-	return(ring_at(p, pattern_point));
-}
-
-t_color	checker_at_sp(t_pattern p, void *obj, t_vec wolrd_point)
-{
-	t_vec	obj_point;
-	t_vec	pattern_point;
-	t_sp	*s;
-
-	s = (t_sp*)obj;
-	if (matrix_inverse_test(s->transform) == 1)
-		obj_point = matrix_mult_v_p(matrix_inverse(s->transform), wolrd_point);
-	else
-		printf("matrix s stripe_at_sp error\n");
-	if (matrix_inverse_test(p.transform) == 1)
-		pattern_point = matrix_mult_v_p(matrix_inverse(p.transform), obj_point);
-	else
-		printf("matrix p stripe_at_sp error\n");
-	return(checker_at(p, pattern_point));
 }
