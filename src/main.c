@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/24 21:15:05 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/25 19:58:38 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -537,21 +537,16 @@ int i = 0;
 	exit(0);
 */
 
-	//CH 11//
-//
-
-
-	//background ball
-	w.s[0] = set_sphere();
-	w.s[0].m.pattern = 1;
-	w.s[0].m.p = uv_checkers(20, 10, color(0, 0.5, 0), color(1, 1, 1));
-	w.s[0].m.new_pattern_at = &pattern_at;
-	w.s[0].m.texturemap = texture_map(w.s[0].m.p, &spherical_map);
-	w.s[0].m.ambient = 0.1;
-	w.s[0].m.specular = 0.4;
-	w.s[0].m.diffuse = 0.6;
-	w.s[0].m.shininess = 10;
-
+	// Texture mapping
+// planar checkers pattern
+	w.pl[0] = set_plane();
+	w.pl[0].m.pattern = 1;
+	w.pl[0].m.p = uv_checkers(2, 2, color(0, 0.5, 0), color(1, 1, 1));
+	w.pl[0].m.new_pattern_at = &pattern_at;
+	w.pl[0].m.texturemap = texture_map(w.pl[0].m.p, &planar_map);
+	w.pl[0].m.ambient = 0.1;
+	w.pl[0].m.specular = 0;
+	w.pl[0].m.diffuse = 0.9;
 
 	//light
 	w.light_obj = 1;
@@ -560,33 +555,19 @@ int i = 0;
 	t_vec v2 = set_v_p(0, 1, 0, 0);
 	w.light[0] = point_light(color(1, 1, 1), corner);
 
-	w.s_obj = 1;
-	//w.pl_obj = 1;
-	//w.cub_obj = 1;
+	w.pl_obj = 1;
 	w.max_obj = 4;
 	w.ar_count = 0;
+
 	int i = 0;
 	while (i < w.pl_obj)
 	{
 		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &w, &w.pl[i].m, &w.pl[i].transform);
 		i++;
 	}
-	i = 0;
-	while (i < w.s_obj)
-	{
-		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &w, &w.s[i].m, &w.s[i].transform);
-		i++;
-	}
-
-	i = 0;
-	while (i < w.cub_obj)
-	{
-		push_obj((void*)(&w.cub[i]), &normal_at_cube, &intersect_cube, &w, &w.cub[i].m, &w.cub[i].transform);
-		i++;
-	}
 
 	t_camera c = camera(WIN_W, WIN_H, 0.5);
-	c.transform = view_transform(set_v_p(0, 0, -5, 1), set_v_p(0, 0, 0, 1), set_v_p(0, 1, 0, 0));
+	c.transform = view_transform(set_v_p(1, 2, -5, 1), set_v_p(0, 0, 0, 1), set_v_p(0, 1, 0, 0));
 
 
 /*
@@ -684,6 +665,38 @@ int i = 0;
 	exit(0);
 */
 
+/*
+	t_vec p = set_v_p(0.25, 0, 0.5, 1);
+	t_vec uv = planar_map(p);
+	printf("u = %f\nv = %f\n\n", uv.c[0], uv.c[1]);
+
+	p = set_v_p(0.25, 0, -0.25, 1);
+	uv = planar_map(p);
+	printf("u = %f\nv = %f\n\n", uv.c[0], uv.c[1]);
+
+	p = set_v_p(0.25, 0.5, -0.25, 1);
+	uv = planar_map(p);
+	printf("u = %f\nv = %f\n\n", uv.c[0], uv.c[1]);
+
+
+	p = set_v_p(1.25, 0, 0.5, 1);
+	uv = planar_map(p);
+	printf("u = %f\nv = %f\n\n", uv.c[0], uv.c[1]);
+
+	p = set_v_p(0.25, 0, -1.75, 1);
+	uv = planar_map(p);
+	printf("u = %f\nv = %f\n\n", uv.c[0], uv.c[1]);
+
+	p = set_v_p(1, 0, -1, 1);
+	uv = planar_map(p);
+	printf("u = %f\nv = %f\n\n", uv.c[0], uv.c[1]);
+
+	p = set_v_p(0, 0, 0, 1);
+	uv = planar_map(p);
+	printf("u = %f\nv = %f\n\n", uv.c[0], uv.c[1]);
+
+	exit(0);
+*/
 
 
 	/*

@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 14:28:16 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/24 20:30:40 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/25 19:55:47 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,23 @@ t_color uv_patter_at(t_pattern checkers, double u, double v)
 
     u2 = floor(u * checkers.width);
     v2 = floor(v * checkers.height);
-    if (fmod((u2 + v2), 2) == 0)
+    if (realmod((u2 + v2), 2) == 0)
         return(checkers.a);
     else
         return(checkers.b);
 }
 
+t_vec   planar_map(t_vec p)
+{
+    double u;
+    double v;
+    t_vec uv;
+
+    u = realmod(p.c[0], 1);
+    v = realmod(p.c[2], 1);
+    uv = set_v_p(u, v, 0, 0);
+    return (uv);
+}
 
 t_vec   spherical_map(t_vec p)
 {

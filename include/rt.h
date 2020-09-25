@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/24 20:59:54 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/25 19:43:07 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -448,6 +448,7 @@ t_color uv_patter_at(t_pattern checkers, double u, double v);
 t_vec   spherical_map(t_vec p);
 t_texturemap texture_map(t_pattern checkers, t_vec (*spherical_map)(t_vec));
 t_color pattern_at(t_texturemap pattern, t_vec point);
+t_vec   planar_map(t_vec p);
 
 
 

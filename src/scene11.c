@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/27 19:29:04 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/24 21:22:43 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/25 19:43:36 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -504,3 +504,6 @@ render(&sdl, c, w);
 
 	t_camera c = camera(WIN_W, WIN_H, 0.5);
 	c.transform = view_transform(set_v_p(0, 0, -5, 1), set_v_p(0, 0, 0, 1), set_v_p(0, 1, 0, 0));
+
+
+
