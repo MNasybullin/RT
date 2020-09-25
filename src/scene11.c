@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/27 19:29:04 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/25 19:43:36 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/25 20:42:46 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -507,3 +507,74 @@ render(&sdl, c, w);
 
 
 
+
+// Texture mapping
+// planar checkers pattern
+	w.pl[0] = set_plane();
+	w.pl[0].m.pattern = 1;
+	w.pl[0].m.p = uv_checkers(2, 2, color(0, 0.5, 0), color(1, 1, 1));
+	w.pl[0].m.new_pattern_at = &pattern_at;
+	w.pl[0].m.texturemap = texture_map(w.pl[0].m.p, &planar_map);
+	w.pl[0].m.ambient = 0.1;
+	w.pl[0].m.specular = 0;
+	w.pl[0].m.diffuse = 0.9;
+
+	//light
+	w.light_obj = 1;
+	t_vec corner = set_v_p(-10, 10, -10, 1);
+	t_vec v1 = set_v_p(1, 0, 0, 0);
+	t_vec v2 = set_v_p(0, 1, 0, 0);
+	w.light[0] = point_light(color(1, 1, 1), corner);
+
+	w.pl_obj = 1;
+	w.max_obj = 4;
+	w.ar_count = 0;
+
+	int i = 0;
+	while (i < w.pl_obj)
+	{
+		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &w, &w.pl[i].m, &w.pl[i].transform);
+		i++;
+	}
+
+	t_camera c = camera(WIN_W, WIN_H, 0.5);
+	c.transform = view_transform(set_v_p(1, 2, -5, 1), set_v_p(0, 0, 0, 1), set_v_p(0, 1, 0, 0));
+
+
+
+
+// Texture mapping
+// cylindrical checkers pattern
+	w.cyl[0] = set_cylinder();
+	w.cyl[0].min = -1.5;
+	w.cyl[0].max = 1.5;
+	w.cyl[0].closed = 1;
+	w.cyl[0].m.pattern = 1;
+	w.cyl[0].m.p = uv_checkers(16, 4, color(0, 0.5, 0), color(1, 1, 1));
+	w.cyl[0].m.new_pattern_at = &pattern_at;
+	w.cyl[0].m.texturemap = texture_map(w.cyl[0].m.p, &cylindrical_map);
+	w.cyl[0].m.ambient = 0.1;
+	w.cyl[0].m.specular = 0.6;
+	w.cyl[0].m.diffuse = 0.8;
+	w.cyl[0].m.shininess = 15;
+
+	//light
+	w.light_obj = 1;
+	t_vec corner = set_v_p(-10, 10, -10, 1);
+	t_vec v1 = set_v_p(1, 0, 0, 0);
+	t_vec v2 = set_v_p(0, 1, 0, 0);
+	w.light[0] = point_light(color(1, 1, 1), corner);
+
+	w.cyl_obj = 1;
+	w.max_obj = 4;
+	w.ar_count = 0;
+
+	int i = 0;
+	while (i < w.cyl_obj)
+	{
+		push_obj((void*)(&w.cyl[i]), &normal_at_cyl, &intersect_cyl, &w, &w.cyl[i].m, &w.cyl[i].transform);
+		i++;
+	}
+
+	t_camera c = camera(WIN_W, WIN_H, 0.5);
+	c.transform = view_transform(set_v_p(0, 0, -10, 1), set_v_p(0, 0, 0, 1), set_v_p(0, 1, 0, 0));

@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 14:28:16 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/25 19:55:47 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/25 20:28:16 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,28 @@ t_color uv_patter_at(t_pattern checkers, double u, double v)
     double u2;
     double v2;
 
-    u2 = floor(u * checkers.width);
-    v2 = floor(v * checkers.height);
+    u2 = floor(u * (double)checkers.width);
+    v2 = floor(v * (double)checkers.height);
     if (realmod((u2 + v2), 2) == 0)
         return(checkers.a);
     else
         return(checkers.b);
+}
+
+t_vec   cylindrical_map(t_vec p)
+{
+    double theta;
+    double raw_u;
+    double u;
+    double v;
+    t_vec uv;
+
+    theta = atan2(p.c[0], p.c[2]);
+    raw_u = theta / (2 * M_PI);
+    u = 1 - (raw_u + 0.5);
+    v = realmod(p.c[1], 1);
+    uv = set_v_p(u, v, 0, 0);
+    return (uv);
 }
 
 t_vec   planar_map(t_vec p)
