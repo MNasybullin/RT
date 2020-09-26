@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 14:28:16 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/25 20:28:16 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/26 19:36:04 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,154 @@ t_pattern uv_checkers(int width, int height, t_color a, t_color b)
     p.width = width;
     return (p);
 }
+
+t_vec cube_uv_front(t_vec point)
+{
+    t_vec uv;
+    double u;
+    double v;
+
+    u = realmod(point.c[0] + 1, 2) / 2;
+    v = realmod(point.c[1] + 1, 2) / 2;
+    uv = set_v_p(u, v, 0, 0);
+    return (uv);
+}
+
+t_vec cube_uv_back(t_vec point)
+{
+    t_vec uv;
+    double u;
+    double v;
+
+    u = realmod(1 - point.c[0], 2) / 2;
+    v = realmod(point.c[1] + 1, 2) / 2;
+    uv = set_v_p(u, v, 0, 0);
+    return (uv);
+}
+
+t_vec cube_uv_left(t_vec point)
+{
+    t_vec uv;
+    double u;
+    double v;
+
+    u = realmod(point.c[2] + 1, 2) / 2;
+    v = realmod(point.c[1] + 1, 2) / 2;
+    uv = set_v_p(u, v, 0, 0);
+    return (uv);
+}
+
+t_vec cube_uv_right(t_vec point)
+{
+    t_vec uv;
+    double u;
+    double v;
+
+    u = realmod(1 - point.c[2], 2) / 2;
+    v = realmod(point.c[1] + 1, 2) / 2;
+    uv = set_v_p(u, v, 0, 0);
+    return (uv);
+}
+
+t_vec cube_uv_up(t_vec point)
+{
+    t_vec uv;
+    double u;
+    double v;
+
+    u = realmod(point.c[0] + 1, 2) / 2;
+    v = realmod(1 - point.c[2], 2) / 2;
+    uv = set_v_p(u, v, 0, 0);
+    return (uv);
+}
+
+t_vec cube_uv_down(t_vec point)
+{
+    t_vec uv;
+    double u;
+    double v;
+
+    u = realmod(point.c[0] + 1, 2) / 2;
+    v = realmod(point.c[2] + 1, 2) / 2;
+    uv = set_v_p(u, v, 0, 0);
+    return (uv);
+}
+
+/*
+** Identifying the face of a cube from a point
+*/
+
+int face_from_point(t_vec point)
+{
+    double abs_x = fabs(point.c[0]);
+    double abs_y = fabs(point.c[1]);
+    double abs_z = fabs(point.c[2]);
+    double coord = max(abs_x, abs_y, abs_z);
+
+    if (coord == point.c[0])
+        return (0); // right
+    if (coord == -point.c[0])
+        return (1); // left
+    if (coord == point.c[1])
+        return (2); // up
+    if (coord == -point.c[1])
+        return (3); // down
+    if (coord == point.c[2])
+        return (4); // front
+    return (5); //back
+}
+
+t_pattern uv_align_check(t_pattern p, t_color main, t_color ul, t_color ur, t_color bl, t_color br)
+{
+    p.main = main;
+    p.ul = ul;
+    p.ur = ur;
+    p.bl = bl;
+    p.br = br;
+    return (p);
+}
+
+t_color uv_pattern_at_cube(t_pattern pattern, double u, double v, int face)
+{
+    if (v > 0.8)
+    {
+        if (u < 0.2)
+            return (pattern.ul[face]);
+        if (u > 0.8)
+            return (pattern.ur[face]);
+    }
+    else if (v < 0.2)
+    {
+        if (u < 0.2)
+            return (pattern.bl[face]);
+        if (u > 0.8)
+            return (pattern.br[face]);
+    }
+    return (pattern.main[face]);
+}
+
+t_color pattern_at_cube(t_pattern pattern, t_vec point)
+{
+    int face = face_from_point(point);
+    t_vec uv;
+
+    if (face == 0)
+        uv = cube_uv_right(point);
+    else if (face == 1)
+        uv = cube_uv_left(point);
+    else if (face == 2)
+        uv = cube_uv_up(point);
+    else if (face == 3)
+        uv = cube_uv_down(point);
+    else if (face == 4)
+        uv = cube_uv_front(point);
+    else
+        uv = cube_uv_back(point);
+    return (uv_pattern_at_cube(pattern, uv.c[0], uv.c[1], face));
+}
+
+
+
 
 t_color uv_patter_at(t_pattern checkers, double u, double v)
 {

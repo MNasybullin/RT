@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/25 20:43:11 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/26 19:38:27 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -712,7 +712,35 @@ int i = 0;
 
 	exit(0);
 */
+/*
+	t_color main = color(1, 1, 1);
+	t_color ul = color(1, 0, 0);
+	t_color ur = color(1, 1, 0);
+	t_color bl = color(0, 1, 0);
+	t_color br = color(0, 1, 1);
+	t_pattern p;
+	p = uv_align_check(p, main, ul, ur, bl ,br);
+	t_color color = uv_pattern_at_cube(p, 0.5, 0.5);
+	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
 
+	color = uv_pattern_at_cube(p, 0.1, 0.9);
+	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
+
+	color = uv_pattern_at_cube(p, 0.9, 0.9);
+	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
+
+	color = uv_pattern_at_cube(p, 0.1, 0.1);
+	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
+
+	color = uv_pattern_at_cube(p, 0.9, 0.1);
+	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
+	exit(0);
+*/
+	t_color red = color(1, 0, 0);
+	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
+
+
+	exit(0);
 
 	/*
 	SDL_UpdateTexture(sdl.text, NULL, sdl.img, WIN_W * (sizeof(int)));

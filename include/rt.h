@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/25 20:07:59 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/26 19:35:53 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ struct		s_pattern
 	t_color			a;
 	t_color			b;
 	t_matrix		transform;
+	// for texture cube;
+	t_color			main[6];
+	t_color			ul[6];
+	t_color			ur[6];
+	t_color			bl[6];
+	t_color			br[6];
 };
 
 //
@@ -451,6 +457,17 @@ t_color pattern_at(t_texturemap pattern, t_vec point);
 t_vec   planar_map(t_vec p);
 t_vec   cylindrical_map(t_vec p);
 
+
+// cube
+t_color uv_pattern_at_cube(t_pattern pattern, double u, double v, int face);
+t_pattern uv_align_check(t_pattern p, t_color main, t_color ul, t_color ur, t_color bl, t_color br);
+int face_from_point(t_vec point);
+t_vec cube_uv_front(t_vec point);
+t_vec cube_uv_back(t_vec point);
+t_vec cube_uv_left(t_vec point);
+t_vec cube_uv_right(t_vec point);
+t_vec cube_uv_up(t_vec point);
+t_vec cube_uv_down(t_vec point);
 
 
 #endif
