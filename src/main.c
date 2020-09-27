@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/27 17:04:27 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/27 17:20:05 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -671,6 +671,8 @@ int i = 0;
 
 	t_camera c = camera(WIN_W, WIN_H, 0.8); // 800 x 400
 	c.transform = view_transform(set_v_p(0, 0, -20, 1), set_v_p(0, 0, 0, 1), set_v_p(0, 1, 0, 0));
+
+
 /*
 ** TEXTURE mapping
 */
