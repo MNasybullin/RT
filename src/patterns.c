@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 14:28:16 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/26 19:36:04 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/27 16:51:55 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,13 +119,13 @@ int face_from_point(t_vec point)
     return (5); //back
 }
 
-t_pattern uv_align_check(t_pattern p, t_color main, t_color ul, t_color ur, t_color bl, t_color br)
+t_pattern uv_align_check(t_pattern p, t_color main, t_color ul, t_color ur, t_color bl, t_color br, int face)
 {
-    p.main = main;
-    p.ul = ul;
-    p.ur = ur;
-    p.bl = bl;
-    p.br = br;
+    p.main[face] = main;
+    p.ul[face] = ul;
+    p.ur[face] = ur;
+    p.bl[face] = bl;
+    p.br[face] = br;
     return (p);
 }
 
@@ -148,7 +148,7 @@ t_color uv_pattern_at_cube(t_pattern pattern, double u, double v, int face)
     return (pattern.main[face]);
 }
 
-t_color pattern_at_cube(t_pattern pattern, t_vec point)
+t_color pattern_at_cube(t_material m, t_vec point)
 {
     int face = face_from_point(point);
     t_vec uv;
@@ -165,7 +165,7 @@ t_color pattern_at_cube(t_pattern pattern, t_vec point)
         uv = cube_uv_front(point);
     else
         uv = cube_uv_back(point);
-    return (uv_pattern_at_cube(pattern, uv.c[0], uv.c[1], face));
+    return (uv_pattern_at_cube(m.p, uv.c[0], uv.c[1], face));
 }
 
 
@@ -270,19 +270,33 @@ t_texturemap texture_map(t_pattern checkers, t_vec (*spherical_map)(t_vec))
 /*
 ** texture_map можно совместить с pattern at и избавиться от стуркуты texturemap !!!!!!!!!
 */
-t_color pattern_at(t_texturemap pattern, t_vec point)
+t_color pattern_at(t_material m, t_vec point)
 {
     t_vec uv;
     t_color color;
 
-    uv = (*pattern.uv_map)(point);
-    color = uv_patter_at(pattern.uv_pattern, uv.c[0], uv.c[1]);
+    uv = (m.texturemap.uv_map)(point);
+    color = uv_patter_at(m.texturemap.uv_pattern, uv.c[0], uv.c[1]);
     return (color);
 }
 
+t_vec world_point_to_pattern_point(t_pattern p, t_matrix transform, t_vec world_point)
+{
+    t_vec	obj_point;
+	t_vec	pattern_point;
 
+	if (matrix_inverse_test(transform) == 1)
+		obj_point = matrix_mult_v_p(matrix_inverse(transform), world_point);
+	else
+		printf("matrix s stripe error\n");
+	if (matrix_inverse_test(p.transform) == 1)
+		pattern_point = matrix_mult_v_p(matrix_inverse(p.transform), obj_point);
+	else
+		printf("matrix p stripe error\n");
+	return (pattern_point);
+}
 
-
+/*
 t_color	stripe_pattern(t_pattern p, t_matrix transform, t_vec wolrd_point)
 {
 	t_vec	obj_point;
@@ -346,14 +360,14 @@ t_color	checker_pattern(t_pattern p, t_matrix transform, t_vec wolrd_point)
 		printf("matrix p stripe error\n");
 	return(checker_at(p, pattern_point));
 }
-
+*/
 void   stripe_pattern_shape(t_color a, t_color b, t_material *m)
 {
     m->p.a = a;
     m->p.b = b;
     m->p.transform = identity_matrix();
     m->pattern = 1;
-    m->pattern_at = &stripe_pattern;
+    m->pattern_at = &stripe_at;
 }
 
 void   gradient_pattern_shape(t_color a, t_color b, t_material *m)
@@ -362,7 +376,7 @@ void   gradient_pattern_shape(t_color a, t_color b, t_material *m)
     m->p.b = b;
     m->p.transform = identity_matrix();
     m->pattern = 1;
-    m->pattern_at = &gradient_pattern;
+    m->pattern_at = &gradient_at;
 }
 
 void   ring_pattern_shape(t_color a, t_color b, t_material *m)
@@ -371,7 +385,7 @@ void   ring_pattern_shape(t_color a, t_color b, t_material *m)
    m->p.b = b;
    m->p.transform = identity_matrix();
    m->pattern = 1;
-   m->pattern_at = &ring_pattern;
+   m->pattern_at = &ring_at;
 }
 
 void    checker_pattern_shape(t_color a, t_color b, t_material *m)
@@ -380,7 +394,7 @@ void    checker_pattern_shape(t_color a, t_color b, t_material *m)
    m->p.b = b;
    m->p.transform = identity_matrix();
    m->pattern = 1;
-   m->pattern_at = &checker_pattern;
+   m->pattern_at = &checker_at;
 }
 
 double  realmod(double x, double p)
@@ -391,12 +405,12 @@ double  realmod(double x, double p)
         return (fmod(x, p));
 }
 
-t_color stripe_at(t_pattern p, t_vec point)
+t_color stripe_at(t_material m, t_vec point)
 {
     if (realmod(floor(point.c[0]), 2) == 0)
-        return (p.a);
+        return (m.p.a);
     else
-        return (p.b);
+        return (m.p.b);
 }
 /* //testpattern
 t_color stripe_at(t_pattern p, t_vec point)
@@ -407,28 +421,28 @@ t_color stripe_at(t_pattern p, t_vec point)
         return (color(point.c[0], point.c[1], point.c[2]));
 }*/
 
-t_color gradient_at(t_pattern p, t_vec point)
+t_color gradient_at(t_material m, t_vec point)
 {
     t_color distance;
     double  fraction;
 
-    distance = sub_col(p.b, p.a);
+    distance = sub_col(m.p.b, m.p.a);
     fraction = point.c[0] - floor(point.c[0]);
-    return (add_col(p.a, mult_col(distance, fraction)));
+    return (add_col(m.p.a, mult_col(distance, fraction)));
 }
 
-t_color ring_at(t_pattern p, t_vec point)
+t_color ring_at(t_material m, t_vec point)
 {
     if (realmod(floor(sqrt((point.c[0] * point.c[0]) + (point.c[2] * point.c[2]))), 2) == 0)
-        return (p.a);
+        return (m.p.a);
     else
-        return (p.b);
+        return (m.p.b);
 }
 
-t_color checker_at(t_pattern p, t_vec point)
+t_color checker_at(t_material m, t_vec point)
 {
     if ((realmod(floor(point.c[0]) + floor(point.c[1]) + floor(point.c[2]), 2)) == 0)
-        return (p.a);
+        return (m.p.a);
     else
-        return (p.b);
+        return (m.p.b);
 }

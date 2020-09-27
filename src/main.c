@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/26 19:38:27 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/27 17:04:27 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -538,42 +538,139 @@ int i = 0;
 */
 
 	// Texture mapping
-// cylindrical checkers pattern
-	w.cyl[0] = set_cylinder();
-	w.cyl[0].min = -1.5;
-	w.cyl[0].max = 1.5;
-	w.cyl[0].closed = 1;
-	w.cyl[0].m.pattern = 1;
-	w.cyl[0].m.p = uv_checkers(16, 4, color(0, 0.5, 0), color(1, 1, 1));
-	w.cyl[0].m.new_pattern_at = &pattern_at;
-	w.cyl[0].m.texturemap = texture_map(w.cyl[0].m.p, &cylindrical_map);
-	w.cyl[0].m.ambient = 0.1;
-	w.cyl[0].m.specular = 0.6;
-	w.cyl[0].m.diffuse = 0.8;
-	w.cyl[0].m.shininess = 15;
+// cube
+	t_color red = color(1, 0, 0);
+	t_color yellow = color(1, 1, 0);
+	t_color brown = color(1, 0.5, 0);
+	t_color green = color(0, 1, 0);
+	t_color cyan = color(0, 1, 1);
+	t_color blue = color(0, 0, 1);
+	t_color purple = color(1, 0, 1);
+	t_color white = color(1, 1, 1);
+	t_pattern pattern;
+	pattern = uv_align_check(pattern, yellow, cyan, red, blue, brown, 1);
+	pattern = uv_align_check(pattern, cyan, red, yellow, brown, green, 4);
+    pattern = uv_align_check(pattern, red, yellow, purple, green, white, 0);
+    pattern = uv_align_check(pattern, green, purple, cyan, white, blue, 5);
+    pattern = uv_align_check(pattern, brown, cyan, purple, red, yellow, 2);
+    pattern = uv_align_check(pattern, purple, brown, green, blue, white, 3);
+
+	w.cub[0] = set_cube();
+	w.cub[0].transform = matrix_mult(w.cub[0].transform, translation(-6, 2, 0));
+	w.cub[0].transform = matrix_mult(w.cub[0].transform, rotation_x(0.7854));
+	w.cub[0].transform = matrix_mult(w.cub[0].transform, rotation_y(0.7854));
+	w.cub[0].m.pattern = 1;
+	w.cub[0].m.p = pattern;
+	w.cub[0].m.p.transform = identity_matrix();
+	w.cub[0].m.pattern_at = &pattern_at_cube;
+	w.cub[0].m.ambient = 0.2;
+	w.cub[0].m.specular = 0;
+	w.cub[0].m.diffuse = 0.8;
+
+	w.cub[1] = set_cube();
+	w.cub[1].transform = matrix_mult(w.cub[1].transform, translation(-2, 2, 0));
+	w.cub[1].transform = matrix_mult(w.cub[1].transform, rotation_x(0.7854));
+	w.cub[1].transform = matrix_mult(w.cub[1].transform, rotation_y(2.3562));
+	w.cub[1].m.pattern = 1;
+	w.cub[1].m.p = pattern;
+	w.cub[1].m.p.transform = identity_matrix();
+	w.cub[1].m.pattern_at = &pattern_at_cube;
+	w.cub[1].m.ambient = 0.2;
+	w.cub[1].m.specular = 0;
+	w.cub[1].m.diffuse = 0.8;
+
+	w.cub[2] = set_cube();
+	w.cub[2].transform = matrix_mult(w.cub[2].transform, translation(2, 2, 0));
+	w.cub[2].transform = matrix_mult(w.cub[2].transform, rotation_x(0.7854));
+	w.cub[2].transform = matrix_mult(w.cub[2].transform, rotation_y(3.927));
+	w.cub[2].m.pattern = 1;
+	w.cub[2].m.p = pattern;
+	w.cub[2].m.p.transform = identity_matrix();
+	w.cub[2].m.pattern_at = &pattern_at_cube;
+	w.cub[2].m.ambient = 0.2;
+	w.cub[2].m.specular = 0;
+	w.cub[2].m.diffuse = 0.8;
+
+	w.cub[3] = set_cube();
+	w.cub[3].transform = matrix_mult(w.cub[3].transform, translation(6, 2, 0));
+	w.cub[3].transform = matrix_mult(w.cub[3].transform, rotation_x(0.7854));
+	w.cub[3].transform = matrix_mult(w.cub[3].transform, rotation_y(5.4978));
+	w.cub[3].m.pattern = 1;
+	w.cub[3].m.p = pattern;
+	w.cub[3].m.p.transform = identity_matrix();
+	w.cub[3].m.pattern_at = &pattern_at_cube;
+	w.cub[3].m.ambient = 0.2;
+	w.cub[3].m.specular = 0;
+	w.cub[3].m.diffuse = 0.8;
+
+	w.cub[4] = set_cube();
+	w.cub[4].transform = matrix_mult(w.cub[4].transform, translation(-6, -2, 0));
+	w.cub[4].transform = matrix_mult(w.cub[4].transform, rotation_x(-0.7854));
+	w.cub[4].transform = matrix_mult(w.cub[4].transform, rotation_y(0.7854));
+	w.cub[4].m.pattern = 1;
+	w.cub[4].m.p = pattern;
+	w.cub[4].m.p.transform = identity_matrix();
+	w.cub[4].m.pattern_at = &pattern_at_cube;
+	w.cub[4].m.ambient = 0.2;
+	w.cub[4].m.specular = 0;
+	w.cub[4].m.diffuse = 0.8;
+
+	w.cub[5] = set_cube();
+	w.cub[5].transform = matrix_mult(w.cub[5].transform, translation(-2, -2, 0));
+	w.cub[5].transform = matrix_mult(w.cub[5].transform, rotation_x(-0.7854));
+	w.cub[5].transform = matrix_mult(w.cub[5].transform, rotation_y(2.3562));
+	w.cub[5].m.pattern = 1;
+	w.cub[5].m.p = pattern;
+	w.cub[5].m.p.transform = identity_matrix();
+	w.cub[5].m.pattern_at = &pattern_at_cube;
+	w.cub[5].m.ambient = 0.2;
+	w.cub[5].m.specular = 0;
+	w.cub[5].m.diffuse = 0.8;
+
+	w.cub[6] = set_cube();
+	w.cub[6].transform = matrix_mult(w.cub[6].transform, translation(2, -2, 0));
+	w.cub[6].transform = matrix_mult(w.cub[6].transform, rotation_x(-0.7854));
+	w.cub[6].transform = matrix_mult(w.cub[6].transform, rotation_y(3.927));
+	w.cub[6].m.pattern = 1;
+	w.cub[6].m.p = pattern;
+	w.cub[6].m.p.transform = identity_matrix();
+	w.cub[6].m.pattern_at = &pattern_at_cube;
+	w.cub[6].m.ambient = 0.2;
+	w.cub[6].m.specular = 0;
+	w.cub[6].m.diffuse = 0.8;
+
+	w.cub[7] = set_cube();
+	w.cub[7].transform = matrix_mult(w.cub[7].transform, translation(6, -2, 0));
+	w.cub[7].transform = matrix_mult(w.cub[7].transform, rotation_x(-0.7854));
+	w.cub[7].transform = matrix_mult(w.cub[7].transform, rotation_y(5.4978));
+	w.cub[7].m.pattern = 1;
+	w.cub[7].m.p = pattern;
+	w.cub[7].m.p.transform = identity_matrix();
+	w.cub[7].m.pattern_at = &pattern_at_cube;
+	w.cub[7].m.ambient = 0.2;
+	w.cub[7].m.specular = 0;
+	w.cub[7].m.diffuse = 0.8;
 
 	//light
 	w.light_obj = 1;
-	t_vec corner = set_v_p(-10, 10, -10, 1);
+	t_vec corner = set_v_p(0, 0, -20, 1);
 	t_vec v1 = set_v_p(1, 0, 0, 0);
 	t_vec v2 = set_v_p(0, 1, 0, 0);
 	w.light[0] = point_light(color(1, 1, 1), corner);
 
-	w.cyl_obj = 1;
+	w.cub_obj = 8;
 	w.max_obj = 4;
 	w.ar_count = 0;
 
 	int i = 0;
-	while (i < w.cyl_obj)
+	while (i < w.cub_obj)
 	{
-		push_obj((void*)(&w.cyl[i]), &normal_at_cyl, &intersect_cyl, &w, &w.cyl[i].m, &w.cyl[i].transform);
+		push_obj((void*)(&w.cub[i]), &normal_at_cube, &intersect_cube, &w, &w.cub[i].m, &w.cub[i].transform);
 		i++;
 	}
 
-	t_camera c = camera(WIN_W, WIN_H, 0.5);
-	c.transform = view_transform(set_v_p(0, 0, -10, 1), set_v_p(0, 0, 0, 1), set_v_p(0, 1, 0, 0));
-
-
+	t_camera c = camera(WIN_W, WIN_H, 0.8); // 800 x 400
+	c.transform = view_transform(set_v_p(0, 0, -20, 1), set_v_p(0, 0, 0, 1), set_v_p(0, 1, 0, 0));
 /*
 ** TEXTURE mapping
 */
@@ -736,11 +833,6 @@ int i = 0;
 	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
 	exit(0);
 */
-	t_color red = color(1, 0, 0);
-	printf("r = %f\ng = %f\nb = %f\n\n", color.r, color.g, color.b);
-
-
-	exit(0);
 
 	/*
 	SDL_UpdateTexture(sdl.text, NULL, sdl.img, WIN_W * (sizeof(int)));

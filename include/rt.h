@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/26 19:35:53 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/27 16:57:27 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,9 @@ struct		s_texturemap
 };
 //
 
-typedef struct		s_material
+typedef struct s_material	t_material;
+
+struct		s_material
 {
 	t_color			color;
 	double			ambient;
@@ -87,12 +89,11 @@ typedef struct		s_material
 	double			transparency;
 	double			refractive_index;
 	int				shadow;
-	t_color			(*pattern_at)(t_pattern p, t_matrix transform, t_vec pos);
-	t_color			(*new_pattern_at)(t_texturemap pattern, t_vec point);
+	t_color			(*pattern_at)(t_material m, t_vec pos);
 	t_texturemap	texturemap;
 	t_pattern		p;
 
-}					t_material;
+};
 
 typedef struct		s_t_h
 {
@@ -396,14 +397,15 @@ void   stripe_pattern_shape(t_color a, t_color b, t_material *m);
 void   gradient_pattern_shape(t_color a, t_color b, t_material *m);
 void   ring_pattern_shape(t_color a, t_color b, t_material *m);
 void   checker_pattern_shape(t_color a, t_color b, t_material *m);
+t_vec world_point_to_pattern_point(t_pattern p, t_matrix transform, t_vec world_point);
 
 
-t_color stripe_at(t_pattern p, t_vec point);
+t_color stripe_at(t_material m, t_vec point);
 double  realmod(double x, double p);
 //void    push_pat(t_color (*pattern_at)(t_pattern , void *, t_vec), t_world *w);
-t_color gradient_at(t_pattern p, t_vec point);
-t_color ring_at(t_pattern p, t_vec point);
-t_color checker_at(t_pattern p, t_vec point);
+t_color gradient_at(t_material m, t_vec point);
+t_color ring_at(t_material m, t_vec point);
+t_color checker_at(t_material m, t_vec point);
 
 //reflect
 t_color reflected_color(t_world w, t_comps c, int remaining);
@@ -453,14 +455,14 @@ t_pattern uv_checkers(int width, int height, t_color a, t_color b);
 t_color uv_patter_at(t_pattern checkers, double u, double v);
 t_vec   spherical_map(t_vec p);
 t_texturemap texture_map(t_pattern checkers, t_vec (*spherical_map)(t_vec));
-t_color pattern_at(t_texturemap pattern, t_vec point);
+t_color pattern_at(t_material m, t_vec point);
 t_vec   planar_map(t_vec p);
 t_vec   cylindrical_map(t_vec p);
 
 
 // cube
 t_color uv_pattern_at_cube(t_pattern pattern, double u, double v, int face);
-t_pattern uv_align_check(t_pattern p, t_color main, t_color ul, t_color ur, t_color bl, t_color br);
+t_pattern uv_align_check(t_pattern p, t_color main, t_color ul, t_color ur, t_color bl, t_color br, int face);
 int face_from_point(t_vec point);
 t_vec cube_uv_front(t_vec point);
 t_vec cube_uv_back(t_vec point);
@@ -468,6 +470,7 @@ t_vec cube_uv_left(t_vec point);
 t_vec cube_uv_right(t_vec point);
 t_vec cube_uv_up(t_vec point);
 t_vec cube_uv_down(t_vec point);
+t_color pattern_at_cube(t_material m, t_vec point);
 
 
 #endif
