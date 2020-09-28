@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/27 17:40:24 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/28 18:57:51 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ struct		s_pattern
 	t_color			a;
 	t_color			b;
 	t_matrix		transform;
-	// for texture cube;
+
+	SDL_Surface		*cube_texture[6];
+
+	// for texture cube; test
 	t_color			main[6];
 	t_color			ul[6];
 	t_color			ur[6];
@@ -92,7 +95,8 @@ struct		s_material
 	t_color			(*pattern_at)(t_material m, t_vec pos);
 	t_texturemap	texturemap;
 	t_pattern		p;
-
+	int				tex; //1 - yes; 0- no
+	SDL_Surface		*texture;
 };
 
 typedef struct		s_t_h
@@ -472,5 +476,9 @@ t_vec cube_uv_up(t_vec point);
 t_vec cube_uv_down(t_vec point);
 t_color pattern_at_cube(t_material m, t_vec point);
 
+
+//texture
+t_color	get_color_tex(SDL_Surface *texture, int x, int y);
+t_color pattern_at_cube_texture(t_material m, t_vec point);
 
 #endif

@@ -6,11 +6,23 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 14:28:16 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/27 16:51:55 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/28 18:56:24 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/rt.h"
+
+t_color uv_patter_at_texture(SDL_Surface *texture, double u, double v)
+{
+    v = 1 - v;
+    double x;
+    double y;
+
+    x = u * (texture->w - 1);
+    y = v * (texture->h - 1);
+
+    return (get_color_tex(texture, round(x), round(y)));    // (int) вместо round()
+}
 
 t_pattern uv_checkers(int width, int height, t_color a, t_color b)
 {
@@ -148,6 +160,26 @@ t_color uv_pattern_at_cube(t_pattern pattern, double u, double v, int face)
     return (pattern.main[face]);
 }
 
+t_color pattern_at_cube_texture(t_material m, t_vec point)
+{
+    int face = face_from_point(point);
+    t_vec uv;
+
+    if (face == 0)
+        uv = cube_uv_right(point);
+    else if (face == 1)
+        uv = cube_uv_left(point);
+    else if (face == 2)
+        uv = cube_uv_up(point);
+    else if (face == 3)
+        uv = cube_uv_down(point);
+    else if (face == 4)
+        uv = cube_uv_front(point);
+    else
+        uv = cube_uv_back(point);
+    return (uv_patter_at_texture(m.p.cube_texture[face], uv.c[0], uv.c[1]));
+}
+
 t_color pattern_at_cube(t_material m, t_vec point)
 {
     int face = face_from_point(point);
@@ -276,7 +308,10 @@ t_color pattern_at(t_material m, t_vec point)
     t_color color;
 
     uv = (m.texturemap.uv_map)(point);
-    color = uv_patter_at(m.texturemap.uv_pattern, uv.c[0], uv.c[1]);
+    if (m.tex == 1)
+        color = uv_patter_at_texture(m.texture, uv.c[0], uv.c[1]);
+    else
+        color = uv_patter_at(m.texturemap.uv_pattern, uv.c[0], uv.c[1]);
     return (color);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:09:18 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/24 16:28:48 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/28 18:31:43 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,9 +263,6 @@ t_comps	prepare_computations(t_i i, t_ray r, t_world *w, t_xs xs)
 	c.under_point = sub(c.point, mult(c.normalv, EPSILON));
 
 	c = comps_n_calculate(w, i, xs, c);
-
-	//printf("n1 comps = %f\n", c.n1);
-	//printf("n2 comps = %f\n\n", c.n2);
 	return(c);
 }
 
@@ -332,8 +329,6 @@ t_color	color_at(t_world *w, t_ray r, int remaining)
 	hit_obj = 0;
 	x = intersect_world(w, r);
 	hit_obj = hit(x);
-	//printf("hit = %i\n", hit_obj);
-	//printf("count = %i\n", x.t[hit_obj].count);
 	if (hit_obj != -1)
 	{
 		i = intersection(x.t[hit_obj].t, x.t[hit_obj].obj);
