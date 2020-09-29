@@ -6,7 +6,7 @@
 #    By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/06 10:40:08 by aannara           #+#    #+#              #
-#    Updated: 2020/09/28 18:01:03 by sdiego           ###   ########.fr        #
+#    Updated: 2020/09/29 19:47:55 by sdiego           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ SRC = ./src/main.c \
 
 OBJ = $(SRC:.c=.o)
 
-FLAGS = -O2
+FLAGS = -pthread -O2 -Wall -Wextra -Werror
+
 
 SDL_FLAGS = -Iinclude -I SDL_lib/SDL2.framework/Headers
 

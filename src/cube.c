@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 14:11:03 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 16:38:07 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/29 19:42:01 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ t_x_t	intersect_cube(void *v_s, t_ray r, t_x_t x, int obj_n)
 	{
 		r2 = transform(r, matrix_inverse(s->transform));
 
-		xt = check_axis(r2.o.c[0], r2.d.c[0], xt);
-		yt = check_axis(r2.o.c[1], r2.d.c[1], yt);
-		zt = check_axis(r2.o.c[2], r2.d.c[2], zt);
+		xt = check_axis(r2.o.c[0], r2.d.c[0]);
+		yt = check_axis(r2.o.c[1], r2.d.c[1]);
+		zt = check_axis(r2.o.c[2], r2.d.c[2]);
 
 		t.min = max(xt.min, yt.min, zt.min);
 		t.max = min(xt.max, yt.max, zt.max);
@@ -85,11 +85,12 @@ double	max(double x, double y, double z)
 	return (max);
 }
 
-t_t_minmax	check_axis(double origin, double direction, t_t_minmax t)
+t_t_minmax	check_axis(double origin, double direction)
 {
 	double	tmin_numerator;
 	double	tmax_numerator;
 	double	temp;
+	t_t_minmax t;
 
 	tmin_numerator = (-1 - origin);
 	tmax_numerator = (1 - origin);

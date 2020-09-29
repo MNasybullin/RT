@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 17:49:00 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 16:59:39 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/29 19:38:07 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ t_matrix	view_transform(t_vec from, t_vec to, t_vec up)
 	upn = normalize(up);
 	left = cross(forward, upn);
 	true_up = cross(left, forward);
-	orientation = matrix_nul(orientation);
+	orientation = matrix_nul();
 	orientation.m[0][0] = left.c[0];
 	orientation.m[0][1] = left.c[1];
 	orientation.m[0][2] = left.c[2];

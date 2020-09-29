@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/28 19:02:35 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/29 19:37:46 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int		hit(t_x_t x)
 		return (-1); // значит нет пересечений
 }
 
+/*
 void	alg(t_sdl *sdl, t_world w)
 {
 	int	x;
@@ -140,8 +141,9 @@ void	alg(t_sdl *sdl, t_world w)
 		y++;
 	}
 }
+*/
 
-int		main(int argc, char **argv)
+int		main(void)
 {
 	t_sdl		sdl;
 	t_world		w;
@@ -537,183 +539,60 @@ int i = 0;
 	exit(0);
 */
 
-	//CH 12//
-//
+// cub text
+	w.s[0] = set_sphere();
+	w.s[0].transform = matrix_mult(w.s[0].transform, translation(0, 0, 5));
+	w.s[0].transform = matrix_mult(w.s[0].transform, scaling(0.75, 0.75, 0.75));
+	w.s[0].m.ambient = 0;
+	w.s[0].m.specular = 0.6;
+	w.s[0].m.diffuse = 0.4;
+	w.s[0].m.shininess = 20;
+	w.s[0].m.reflective = 0.6;
 
-//floor / ceiling
-w.cub[0] = set_cube();
-w.cub[0].transform = matrix_mult(w.cub[0].transform, scaling(20, 7, 20));
-w.cub[0].transform = matrix_mult(w.cub[0].transform, translation(0, 1, 0));
-checker_pattern_shape(color(0, 0, 0), color(0.25, 0.25, 0.25), &w.cub[0].m);
-w.cub[0].m.p.transform = matrix_mult(w.cub[0].m.p.transform, scaling(0.07, 0.07, 0.07));
-w.cub[0].m.ambient = 0.25;
-w.cub[0].m.diffuse = 0.7;
-w.cub[0].m.specular = 0.9;
-w.cub[0].m.shininess = 300;
-w.cub[0].m.reflective = 0.1;
+	w.cub[0] = set_cube();
+	w.cub[0].transform = matrix_mult(w.cub[0].transform, scaling(1000, 1000, 1000));
+	w.cub[0].m.ambient = 1;
+	w.cub[0].m.specular = 0;
+	w.cub[0].m.diffuse = 0;
+	w.cub[0].m.tex = 1;
+	w.cub[0].m.pattern = 1;
+	w.cub[0].m.pattern_at = &pattern_at_cube_texture;
+	w.cub[0].m.p.transform = identity_matrix();
+	w.cub[0].m.p.cube_texture[0] = SDL_LoadBMP("textures/posx.bmp"); //right | posx
+	w.cub[0].m.p.cube_texture[1] = SDL_LoadBMP("textures/negx.bmp"); //left | negx
+	w.cub[0].m.p.cube_texture[2] = SDL_LoadBMP("textures/posy.bmp"); //up | posy
+	w.cub[0].m.p.cube_texture[3] = SDL_LoadBMP("textures/negy.bmp"); //down | negy
+	w.cub[0].m.p.cube_texture[4] = SDL_LoadBMP("textures/posz.bmp"); //front | posz
+	w.cub[0].m.p.cube_texture[5] = SDL_LoadBMP("textures/negz.bmp"); //back | negz
 
-//walls
-w.cub[1] = set_cube();
-w.cub[1].transform = matrix_mult(w.cub[1].transform, scaling(10, 10, 10));
-checker_pattern_shape(color(0.4863, 0.3765, 0.2941), color(0.3725, 0.2902, 0.2275), &w.cub[1].m);
-w.cub[1].m.p.transform = matrix_mult(w.cub[1].m.p.transform, scaling(0.05, 20, 0.05));
-w.cub[1].m.ambient = 0.1;
-w.cub[1].m.diffuse = 0.7;
-w.cub[1].m.specular = 0.9;
-w.cub[1].m.shininess = 300;
-w.cub[1].m.reflective = 0.1;
 
-//table top
-w.cub[2] = set_cube();
-w.cub[2].transform = matrix_mult(w.cub[2].transform, translation(0, 3.1, 0));
-w.cub[2].transform = matrix_mult(w.cub[2].transform, scaling(3, 0.1, 2));
-stripe_pattern_shape(color(0.5529, 0.4235, 0.3255), color(0.6588, 0.5098, 0.4000), &w.cub[2].m);
-w.cub[2].m.p.transform = matrix_mult(w.cub[2].m.p.transform, scaling(0.05, 0.05, 0.05));
-w.cub[2].m.p.transform = matrix_mult(w.cub[2].m.p.transform, rotation_y(0.1));
-w.cub[2].m.ambient = 0.1;
-w.cub[2].m.diffuse = 0.7;
-w.cub[2].m.specular = 0.9;
-w.cub[2].m.shininess = 300;
-w.cub[2].m.reflective = 0.2;
+	//light
+	w.light_obj = 1;
+	t_vec corner = set_v_p(0, 100, 0, 1);
+	w.light[0] = point_light(color(1, 1, 1), corner);
 
-//leg #1
-w.cub[3] = set_cube();
-w.cub[3].transform = matrix_mult(w.cub[3].transform, translation(2.7, 1.5, -1.7));
-w.cub[3].transform = matrix_mult(w.cub[3].transform, scaling(0.1, 1.5, 0.1));
-w.cub[3].m.color = color(0.5529, 0.4235, 0.3255);
-w.cub[3].m.ambient = 0.2;
-w.cub[3].m.diffuse = 0.7;
+	w.s_obj = 1;
+	w.cub_obj = 1;
+	w.max_obj = 2;
+	w.ar_count = 0;
 
-//leg #2
-w.cub[4] = set_cube();
-w.cub[4].transform = matrix_mult(w.cub[4].transform, translation(2.7, 1.5, 1.7));
-w.cub[4].transform = matrix_mult(w.cub[4].transform, scaling(0.1, 1.5, 0.1));
-w.cub[4].m.color = color(0.5529, 0.4235, 0.3255);
-w.cub[4].m.ambient = 0.2;
-w.cub[4].m.diffuse = 0.7;
+	int i = 0;
+	while (i < w.s_obj)
+	{
+		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &w, &w.s[i].m, &w.s[i].transform);
+		i++;
+	}
 
-//leg #3
-w.cub[5] = set_cube();
-w.cub[5].transform = matrix_mult(w.cub[5].transform, translation(-2.7, 1.5, -1.7));
-w.cub[5].transform = matrix_mult(w.cub[5].transform, scaling(0.1, 1.5, 0.1));
-w.cub[5].m.color = color(0.5529, 0.4235, 0.3255);
-w.cub[5].m.ambient = 0.2;
-w.cub[5].m.diffuse = 0.7;
+	i = 0;
+	while (i < w.cub_obj)
+	{
+		push_obj((void*)(&w.cub[i]), &normal_at_cube, &intersect_cube, &w, &w.cub[i].m, &w.cub[i].transform);
+		i++;
+	}
 
-//leg #4
-w.cub[6] = set_cube();
-w.cub[6].transform = matrix_mult(w.cub[6].transform, translation(-2.7, 1.5, 1.7));
-w.cub[6].transform = matrix_mult(w.cub[6].transform, scaling(0.1, 1.5, 0.1));
-w.cub[6].m.color = color(0.5529, 0.4235, 0.3255);
-w.cub[6].m.ambient = 0.2;
-w.cub[6].m.diffuse = 0.7;
+	t_camera c = camera(WIN_W, WIN_H, 1.2); // 800x800
+	c.transform = view_transform(set_v_p(0, 0, 0, 1), set_v_p(0, 0, 5, 1), set_v_p(0, 1, 0, 0));
 
-//glass cube
-w.cub[7] = set_cube();
-w.cub[7].transform = matrix_mult(w.cub[7].transform, translation(0, 3.45001, 0));
-w.cub[7].transform = matrix_mult(w.cub[7].transform, rotation_y(0.2));
-w.cub[7].transform = matrix_mult(w.cub[7].transform, scaling(0.25, 0.25, 0.25));
-w.cub[7].m.color = color(1, 1, 0.8);
-w.cub[7].m.ambient = 0;
-w.cub[7].m.diffuse = 0.3;
-w.cub[7].m.specular = 0.9;
-w.cub[7].m.shininess = 300;
-w.cub[7].m.reflective = 0.7;
-w.cub[7].m.transparency = 0.7;
-w.cub[7].m.refractive_index = 1.5;
-w.cub[7].m.shadow = 0;
-
-//little cube #1
-w.cub[8] = set_cube();
-w.cub[8].transform = matrix_mult(w.cub[8].transform, translation(1, 3.35, -0.9));
-w.cub[8].transform = matrix_mult(w.cub[8].transform, scaling(0.15, 0.15, 0.15));
-w.cub[8].transform = matrix_mult(w.cub[8].transform, rotation_y(-0.4));
-w.cub[8].m.color = color(1, 0.5, 0.5);
-w.cub[8].m.reflective = 0.6;
-w.cub[8].m.diffuse = 0.4;
-
-//little cube #2
-w.cub[9] = set_cube();
-w.cub[9].transform = matrix_mult(w.cub[9].transform, translation(-1.5, 3.27, 0.3));
-w.cub[9].transform = matrix_mult(w.cub[9].transform, rotation_y(0.4));
-w.cub[9].transform = matrix_mult(w.cub[9].transform, scaling(0.15, 0.07, 0.15));
-w.cub[9].m.color = color(1, 1, 0.5);
-
-//little cube #3
-w.cub[10] = set_cube();
-w.cub[10].transform = matrix_mult(w.cub[10].transform, translation(0, 3.25, 1));
-w.cub[10].transform = matrix_mult(w.cub[10].transform, rotation_y(0.4));
-w.cub[10].transform = matrix_mult(w.cub[10].transform, scaling(0.2, 0.05, 0.05));
-w.cub[10].m.color = color(0.5, 1, 0.5);
-
-//little cube #4
-w.cub[11] = set_cube();
-w.cub[11].transform = matrix_mult(w.cub[11].transform, translation(-0.6, 3.4, -1));
-w.cub[11].transform = matrix_mult(w.cub[11].transform, rotation_y(0.8));
-w.cub[11].transform = matrix_mult(w.cub[11].transform, scaling(0.05, 0.2, 0.05));
-w.cub[11].m.color = color(0.5, 0.5, 1);
-
-//little cube #5
-w.cub[12] = set_cube();
-w.cub[12].transform = matrix_mult(w.cub[12].transform, translation(2, 3.4, 1));
-w.cub[12].transform = matrix_mult(w.cub[12].transform, rotation_y(0.8));
-w.cub[12].transform = matrix_mult(w.cub[12].transform, scaling(0.05, 0.2, 0.05));
-w.cub[12].m.color = color(0.5, 1, 1);
-
-//frame #1
-w.cub[13] = set_cube();
-w.cub[13].transform = matrix_mult(w.cub[13].transform, translation(-10, 4, 1));
-w.cub[13].transform = matrix_mult(w.cub[13].transform, scaling(0.05, 1, 1));
-w.cub[13].m.color = color(0.7098, 0.2471, 0.2196);
-w.cub[13].m.diffuse = 0.6;
-
-//frame #2
-w.cub[14] = set_cube();
-w.cub[14].transform = matrix_mult(w.cub[14].transform, translation(-10, 3.4, 2.7));
-w.cub[14].transform = matrix_mult(w.cub[14].transform, scaling(0.05, 0.4, 0.4));
-w.cub[14].m.color = color(0.2667, 0.2706, 0.6902);
-w.cub[14].m.diffuse = 0.6;
-
-//frame #3
-w.cub[15] = set_cube();
-w.cub[15].transform = matrix_mult(w.cub[15].transform, translation(-10, 4.6, 2.7));
-w.cub[15].transform = matrix_mult(w.cub[15].transform, scaling(0.05, 0.4, 0.4));
-w.cub[15].m.color = color(0.3098, 0.5961, 0.3098);
-w.cub[15].m.diffuse = 0.6;
-
-//mirror frame
-w.cub[16] = set_cube();
-w.cub[16].transform = matrix_mult(w.cub[16].transform, translation(-2, 3.5, 9.95));
-w.cub[16].transform = matrix_mult(w.cub[16].transform, scaling(5, 1.5, 0.05));
-w.cub[16].m.color = color(0.3882, 0.2627, 0.1882);
-w.cub[16].m.diffuse = 0.7;
-
-//mirror
-w.cub[17] = set_cube();
-w.cub[17].transform = matrix_mult(w.cub[17].transform, translation(-2, 3.5, 9.95));
-w.cub[17].transform = matrix_mult(w.cub[17].transform, scaling(4.8, 1.4, 0.06));
-w.cub[17].m.color = color(0, 0, 0);
-w.cub[17].m.diffuse = 0;
-w.cub[17].m.ambient = 0;
-w.cub[17].m.specular = 1;
-w.cub[17].m.shininess = 300;
-w.cub[17].m.reflective = 1;
-
-//light
-w.light_obj = 1;
-w.light[0] = point_light(color(1, 1, 0.9), set_v_p(0, 6.9, -5, 1));
-w.cub_obj = 18;
-w.max_obj = 18;
-w.ar_count = 0;
-int i = 0;
-while (i < w.max_obj)
-{
-	push_obj((void*)(&w.cub[i]), &normal_at_cube, &intersect_cube, &w, &w.cub[i].m, &w.cub[i].transform);
-	i++;
-}
-
-t_camera c = camera(WIN_W, WIN_H, 0.785);
-c.transform = view_transform(set_v_p(8, 6, -8, 1), set_v_p(0, 3, 0, 1), set_v_p(0, 1, 0, 0));
 
 /*
 ** TEXTURE mapping

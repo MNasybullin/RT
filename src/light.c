@@ -6,31 +6,16 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 16:31:01 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/28 18:56:38 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/29 19:43:37 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/rt.h"
 
-double	next(t_light *l)
-{
-	double jetter;
-
-	if (l->jetter_count > 9)
-		l->jetter_count = 0;
-	jetter = l->jetter[l->jetter_count];
-	l->jetter_count++;
-	return (jetter);
-}
-
 t_vec	point_on_light(t_light *l, int u, int v)
 {
-/*
-	double a = u + next(l);
-	double b = v + next(l);
-*/
-	double a = u + 0.5;
-	double b = v + 0.5;
+	double a = u + drand48();
+	double b = v + drand48();
 
 	t_vec umult = mult(l->uvec, a);
 	t_vec vmult = mult(l->vvec, b);

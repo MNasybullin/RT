@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:09:18 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/28 18:31:43 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/29 19:39:14 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_x_t	intersect_world(t_world *w, t_ray r)
 {
 	t_x_t	x;
 	int		i;
-	int		hit_obj;
+	//int		hit_obj;
 
 	i = 0;
 	x.max_obj = 0;
@@ -274,8 +274,9 @@ t_comps	prepare_computations(t_i i, t_ray r, t_world *w, t_xs xs)
 	return (lighting(s->m, w.light, c.point, c.eyev, c.normalv, c.shadow));
 }*/
 
-t_xs	intersections(t_x_t x, t_xs xs) // для прозрачный обьектов список  всех пересечений
+t_xs	intersections(t_x_t x) // для прозрачный обьектов список  всех пересечений
 {
+	t_xs xs;
 	int i;
 
 	i = 0;
@@ -332,7 +333,7 @@ t_color	color_at(t_world *w, t_ray r, int remaining)
 	if (hit_obj != -1)
 	{
 		i = intersection(x.t[hit_obj].t, x.t[hit_obj].obj);
-		xs = intersections(x, xs);
+		xs = intersections(x);
 		comps = prepare_computations(i, r, w, xs);
 		w->light_count = w->light_obj - 1;
 		col = shade_hit(*w, comps, remaining, w->obj_ar[comps.obj].m);

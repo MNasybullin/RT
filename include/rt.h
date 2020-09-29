@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/28 18:57:51 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/29 19:43:03 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <math.h>
 # include <stdio.h>
 
-# define WIN_W 400
-# define WIN_H 400
+# define WIN_W 800
+# define WIN_H 800
 # define EPSILON 0.00001
 
 typedef struct		s_arr
@@ -243,9 +243,6 @@ typedef struct		s_light
 	t_vec			vvec;
 	int				vsteps;
 	int				samples;
-
-	double			jetter[10];
-	int				jetter_count;
 }					t_light;
 
 typedef struct		s_ray
@@ -329,7 +326,7 @@ double				matrix_determinant_3(t_matrix m);
 double				matrix_determinant_4(t_matrix m);
 int					matrix_inverse_test(t_matrix m);
 t_matrix			matrix_inverse(t_matrix m);
-t_matrix			matrix_nul(t_matrix m);
+t_matrix			matrix_nul();
 t_matrix			translation(double x, double y, double z);
 t_matrix			scaling(double x, double y, double z);
 t_matrix			rotation_x(double r);
@@ -426,7 +423,7 @@ t_cube	set_cube();
 t_x_t	intersect_cube(void *v_s, t_ray r, t_x_t x, int obj_n);
 double	min(double x, double y, double z);
 double	max(double x, double y, double z);
-t_t_minmax	check_axis(double origin, double direction, t_t_minmax t);
+t_t_minmax	check_axis(double origin, double direction);
 int		normal_at_cube(void *v_s, t_vec world_point, t_vec *n);
 
 //cylinder

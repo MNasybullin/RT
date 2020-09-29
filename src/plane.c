@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 15:54:55 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 16:39:27 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/29 19:41:05 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ int		normal_at_pl(void *v_s, t_vec world_point, t_vec *n)
 
 t_x_t	intersect_pl(void *v_s, t_ray r, t_x_t x, int obj_n)
 {
-	double	a;
-	double	b;
-	double	c;
-	t_vec	sp_to_ray;
-	double	disc;
+	//double	a;
+	//double	b;
+	//double	c;
+	//t_vec	sp_to_ray;
+	//double	disc;
 	t_ray	ray2;
 	t_plane *s;
 

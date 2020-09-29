@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:54:30 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 17:55:28 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/29 19:38:39 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_x_t	intersect_sp(void *v_s, t_ray r, t_x_t x, int obj_n)
 	double	disc;
 	t_ray	ray2;
 	t_sp	*s;
-	t_t_o	temp;
+	//t_t_o	temp;
 
 	s = (t_sp*)v_s;
 

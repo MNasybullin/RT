@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 18:08:48 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/28 18:05:29 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/29 19:40:43 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,15 @@ t_ray   ray_for_pixel(t_camera *camera, int px, int py)
         direction = normalize(sub(pixel, origin));
     }
     else
+    {
         printf("error ray_for_pixel\n");
+        exit(EXIT_FAILURE);
+    }
     return (set_ray(origin, direction));
 }
 
 #include <pthread.h>
-#define THREADS 200
+#define THREADS 400
 
 typedef struct		s_treads
 {
@@ -124,6 +127,28 @@ void    render(t_sdl *sdl, t_camera camera, t_world world)
 	t_treads    htreads[THREADS];
 	int i = 0;
 
+    pthread_attr_t thread_attr;
+    int err;
+    size_t size;
+
+    err = pthread_attr_init(&thread_attr);
+     if(err != 0)
+     {
+            printf("Cannot create thread attribute: %i\n", err);
+            exit(-1);
+    }
+    err = pthread_attr_getstacksize(&thread_attr, &size);
+    printf("Past stack size: %zu\n", size);
+    // Устанавливаем минимальный размер стека для потока (в байтах)
+    err = pthread_attr_setstacksize(&thread_attr, 5*1024*1024);
+    if(err != 0)
+    {
+        printf("Cannot create thread attribute: %i\n", err);
+        exit(-1);
+    }
+    err = pthread_attr_getstacksize(&thread_attr, &size);
+    printf("Current stack size: %zu\n", size);
+
     while (i < THREADS)
 	{
 		htreads[i].camera = &camera;
@@ -131,16 +156,20 @@ void    render(t_sdl *sdl, t_camera camera, t_world world)
         htreads[i].world = &world;
 		htreads[i].start = i * (camera.hsize / THREADS);
 		htreads[i].finish = (i + 1) * (camera.hsize / THREADS);
-		if (pthread_create(&threads[i], NULL, (void *)draw, (void *)&htreads[i]))
+		err = pthread_create(&threads[i], &thread_attr, (void *)draw, (void *)&htreads[i]);
+        if (err != 0)
         {
             printf("error threads\n");
             exit(1);
         }
 		i++;
 	}
-	while (i > 0)
+    //pthread_attr_destroy(&thread_attr);
+    //pthread_exit(NULL);
+    i = 0;
+	while (i < THREADS)
     {
-		if (pthread_join(threads[--i], NULL))
+		if (pthread_join(threads[i], NULL))
 		{
             printf("error threads\n");
             exit(1);
@@ -149,6 +178,7 @@ void    render(t_sdl *sdl, t_camera camera, t_world world)
 	    SDL_RenderClear(sdl->ren);
 	    SDL_RenderCopy(sdl->ren, sdl->text, NULL, NULL);
 	    SDL_RenderPresent(sdl->ren);
+        i++;
     }
     //save_texture("img.png", sdl->ren, sdl->text);
 }

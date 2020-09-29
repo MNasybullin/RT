@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/27 19:29:04 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/28 18:58:29 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/29 19:37:56 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@
 w.cub[0] = set_cube();
 w.cub[0].transform = matrix_mult(w.cub[0].transform, scaling(20, 7, 20));
 w.cub[0].transform = matrix_mult(w.cub[0].transform, translation(0, 1, 0));
-checker_pattern_cube(color(0, 0, 0), color(0.25, 0.25, 0.25), &w.cub[0]);
+checker_pattern_shape(color(0, 0, 0), color(0.25, 0.25, 0.25), &w.cub[0].m);
 w.cub[0].m.p.transform = matrix_mult(w.cub[0].m.p.transform, scaling(0.07, 0.07, 0.07));
 w.cub[0].m.ambient = 0.25;
 w.cub[0].m.diffuse = 0.7;
@@ -213,7 +213,7 @@ w.cub[0].m.reflective = 0.1;
 //walls
 w.cub[1] = set_cube();
 w.cub[1].transform = matrix_mult(w.cub[1].transform, scaling(10, 10, 10));
-checker_pattern_cube(color(0.4863, 0.3765, 0.2941), color(0.3725, 0.2902, 0.2275), &w.cub[1]);
+checker_pattern_shape(color(0.4863, 0.3765, 0.2941), color(0.3725, 0.2902, 0.2275), &w.cub[1].m);
 w.cub[1].m.p.transform = matrix_mult(w.cub[1].m.p.transform, scaling(0.05, 20, 0.05));
 w.cub[1].m.ambient = 0.1;
 w.cub[1].m.diffuse = 0.7;
@@ -225,7 +225,7 @@ w.cub[1].m.reflective = 0.1;
 w.cub[2] = set_cube();
 w.cub[2].transform = matrix_mult(w.cub[2].transform, translation(0, 3.1, 0));
 w.cub[2].transform = matrix_mult(w.cub[2].transform, scaling(3, 0.1, 2));
-stripe_pattern_cube(color(0.5529, 0.4235, 0.3255), color(0.6588, 0.5098, 0.4000), &w.cub[2]);
+stripe_pattern_shape(color(0.5529, 0.4235, 0.3255), color(0.6588, 0.5098, 0.4000), &w.cub[2].m);
 w.cub[2].m.p.transform = matrix_mult(w.cub[2].m.p.transform, scaling(0.05, 0.05, 0.05));
 w.cub[2].m.p.transform = matrix_mult(w.cub[2].m.p.transform, rotation_y(0.1));
 w.cub[2].m.ambient = 0.1;
@@ -366,7 +366,7 @@ w.ar_count = 0;
 int i = 0;
 while (i < w.max_obj)
 {
-	push_obj((void*)(&w.cub[i]), &normal_at_cube, &intersect_cube, &w, &w.cub[i].m);
+	push_obj((void*)(&w.cub[i]), &normal_at_cube, &intersect_cube, &w, &w.cub[i].m, &w.cub[i].transform);
 	i++;
 }
 
@@ -814,19 +814,17 @@ render(&sdl, c, w);
 	w.cub[0].m.pattern = 1;
 	w.cub[0].m.pattern_at = &pattern_at_cube_texture;
 	w.cub[0].m.p.transform = identity_matrix();
-	w.cub[0].m.p.cube_texture[0] = SDL_LoadBMP("textures/earthmap1k.bmp"); //right
-	w.cub[0].m.p.cube_texture[1] = SDL_LoadBMP("textures/earthmap1k.bmp"); //left
-	w.cub[0].m.p.cube_texture[2] = SDL_LoadBMP("textures/earthmap1k.bmp"); //up
-	w.cub[0].m.p.cube_texture[3] = SDL_LoadBMP("textures/earthmap1k.bmp"); //down
-	w.cub[0].m.p.cube_texture[4] = SDL_LoadBMP("textures/earthmap1k.bmp"); //front
-	w.cub[0].m.p.cube_texture[5] = SDL_LoadBMP("textures/earthmap1k.bmp"); //back
+	w.cub[0].m.p.cube_texture[0] = SDL_LoadBMP("textures/posx.bmp"); //right | posx
+	w.cub[0].m.p.cube_texture[1] = SDL_LoadBMP("textures/negx.bmp"); //left | negx
+	w.cub[0].m.p.cube_texture[2] = SDL_LoadBMP("textures/posy.bmp"); //up | posy
+	w.cub[0].m.p.cube_texture[3] = SDL_LoadBMP("textures/negy.bmp"); //down | negy
+	w.cub[0].m.p.cube_texture[4] = SDL_LoadBMP("textures/posz.bmp"); //front | posz
+	w.cub[0].m.p.cube_texture[5] = SDL_LoadBMP("textures/negz.bmp"); //back | negz
 
 
 	//light
 	w.light_obj = 1;
 	t_vec corner = set_v_p(0, 100, 0, 1);
-	t_vec v1 = set_v_p(1, 0, 0, 0);
-	t_vec v2 = set_v_p(0, 1, 0, 0);
 	w.light[0] = point_light(color(1, 1, 1), corner);
 
 	w.s_obj = 1;
@@ -848,7 +846,7 @@ render(&sdl, c, w);
 		i++;
 	}
 
-	t_camera c = camera(WIN_W, WIN_H, 1.2); // 800x400
+	t_camera c = camera(WIN_W, WIN_H, 1.2); // 800x800
 	c.transform = view_transform(set_v_p(0, 0, 0, 1), set_v_p(0, 0, 5, 1), set_v_p(0, 1, 0, 0));
 
 
@@ -886,7 +884,7 @@ render(&sdl, c, w);
 	w.pl[0].m.ambient = 0;
 	w.pl[0].m.specular = 0;
 	w.pl[0].m.diffuse = 0.1;
-	//w.pl[0].m.reflective = 0.4;
+	w.pl[0].m.reflective = 0.4;
 
 	w.cyl[0] = set_cylinder();
 	w.cyl[0].min = 0;
@@ -896,24 +894,23 @@ render(&sdl, c, w);
 	w.cyl[0].m.ambient = 0;
 	w.cyl[0].m.specular = 0;
 	w.cyl[0].m.diffuse = 0.2;
-	//w.cyl[0].m.reflective = 0.1;
+	w.cyl[0].m.reflective = 0.1;
 
 	w.s[0] = set_sphere();
-	w.s[0].transform = matrix_mult(w.s[0].transform, rotation_y(1.9));
 	w.s[0].transform = matrix_mult(w.s[0].transform, translation(0, 1.1, 0));
+	w.s[0].transform = matrix_mult(w.s[0].transform, rotation_y(1.9));
 
 	w.s[0].m.pattern = 1;
 	w.s[0].m.p = uv_checkers(20, 10, color(0, 0.5, 0), color(1, 1, 1));
 	w.s[0].m.pattern_at = &pattern_at;
 	w.s[0].m.p.transform = identity_matrix();
-	//w.s[0].m.texture = SDL_LoadBMP("textures/earthmap1k.bmp");
-	w.s[0].m.tex = 0;
+	w.s[0].m.texture = SDL_LoadBMP("textures/earthmap1k.bmp");
+	w.s[0].m.tex = 1;
 	w.s[0].m.texturemap = texture_map(w.s[0].m.p, &spherical_map);
 	w.s[0].m.ambient = 0.1;
 	w.s[0].m.specular = 0.1;
 	w.s[0].m.diffuse = 0.9;
 	w.s[0].m.shininess = 10;
-	//w.s[0].m.reflective = 0.1;
 
 	//light
 	w.light_obj = 1;
@@ -948,5 +945,5 @@ render(&sdl, c, w);
 		i++;
 	}
 
-	t_camera c = camera(WIN_W, WIN_H, 0.5);
+	t_camera c = camera(WIN_W, WIN_H, 0.8);
 	c.transform = view_transform(set_v_p(1, 2, -10, 1), set_v_p(0, 1.1, 0, 1), set_v_p(0, 1, 0, 0));

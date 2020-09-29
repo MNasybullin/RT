@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 16:50:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/27 17:10:42 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/09/29 19:38:18 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,8 +330,9 @@ t_matrix	identity_matrix(void)
 	return (b);
 }
 
-t_matrix	matrix_nul(t_matrix m)
+t_matrix	matrix_nul()
 {
+	t_matrix m;
 	int r;
 	int c;
 
