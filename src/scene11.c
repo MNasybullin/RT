@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/27 19:29:04 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/29 19:37:56 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/06 21:36:19 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -424,17 +424,6 @@ render(&sdl, c, w);
 	t_vec v1 = set_v_p(2, 0, 0, 0);
 	t_vec v2 = set_v_p(0, 2, 0, 0);
 	w.light[0] = area_light(corner, v1, 10, v2, 10, color(1.5, 1.5, 1.5));
-	w.light[0].jetter[0] = 0.7;
-	w.light[0].jetter[1] = 0.3;
-	w.light[0].jetter[2] = 0.9;
-	w.light[0].jetter[3] = 0.1;
-	w.light[0].jetter[4] = 0.5;
-
-	w.light[0].jetter[5] = 0.8;
-	w.light[0].jetter[6] = 0.2;
-	w.light[0].jetter[7] = 0.6;
-	w.light[0].jetter[8] = 0.0;
-	w.light[0].jetter[9] = 0.4;
 
 	w.s_obj = 2;
 	w.pl_obj = 1;
@@ -524,8 +513,6 @@ render(&sdl, c, w);
 	//light
 	w.light_obj = 1;
 	t_vec corner = set_v_p(-10, 10, -10, 1);
-	t_vec v1 = set_v_p(1, 0, 0, 0);
-	t_vec v2 = set_v_p(0, 1, 0, 0);
 	w.light[0] = point_light(color(1, 1, 1), corner);
 
 	w.pl_obj = 1;
@@ -915,8 +902,6 @@ render(&sdl, c, w);
 	//light
 	w.light_obj = 1;
 	t_vec corner = set_v_p(-100, 100, -100, 1);
-	t_vec v1 = set_v_p(1, 0, 0, 0);
-	t_vec v2 = set_v_p(0, 1, 0, 0);
 	w.light[0] = point_light(color(1, 1, 1), corner);
 
 	w.s_obj = 1;

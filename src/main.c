@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/29 19:37:46 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/06 21:42:59 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@ int		quit(t_sdl *sdl)
 	SDL_Quit();
 
 	return(0);
+}
+
+int		key_press(t_sdl *sdl)
+{
+	if (sdl->e.key.keysym.sym == SDLK_ESCAPE)
+		sdl->run = 1;
+	else if (sdl->e.key.keysym.sym == SDLK_F12)
+		save_texture("img.bmp", sdl->ren, sdl->text);
+	return (0);
 }
 
 int	clear_img(t_sdl *sdl)
@@ -594,6 +603,7 @@ int i = 0;
 	c.transform = view_transform(set_v_p(0, 0, 0, 1), set_v_p(0, 0, 5, 1), set_v_p(0, 1, 0, 0));
 
 
+
 /*
 ** TEXTURE mapping
 */
@@ -770,11 +780,11 @@ int i = 0;
 		{
 			if (sdl.e.type == SDL_QUIT)
 				sdl.run = 1;
-			/*if (sdl.e.type == SDL_KEYDOWN)
-				key_press(&m);
-			if (sdl.e.type == SDL_MOUSEMOTION)
-				mouse_move(&m);*/
-			/*if (clear_img(&sdl) != 0)
+			if (sdl.e.type == SDL_KEYDOWN)
+				key_press(&sdl);
+			/*if (sdl.e.type == SDL_MOUSEMOTION)
+				mouse_move(&m);
+			if (clear_img(&sdl) != 0)
 				sdl.run = 1;
 			if (raycast(&sdl) != 0)
 				sdl.run = 1;

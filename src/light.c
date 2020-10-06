@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 16:31:01 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/29 19:43:37 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/06 20:24:51 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,19 @@
 
 t_vec	point_on_light(t_light *l, int u, int v)
 {
-	double a = u + drand48();
-	double b = v + drand48();
+	double a;
+	double b;
+
+	if (l->samples == 1)
+	{
+		a = u;
+		b = v;
+	}
+	else
+	{
+		a = u + drand48();
+		b = v + drand48();
+	}
 
 	t_vec umult = mult(l->uvec, a);
 	t_vec vmult = mult(l->vvec, b);

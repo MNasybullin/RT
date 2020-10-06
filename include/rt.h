@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/29 19:43:03 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/06 21:37:38 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ typedef struct		s_camera
 	double			half_width;
 	double			half_height;
 	double			pixel_size;
+
+	int				aliasing;
 }					t_camera;
 /*
 typedef struct		s_x
@@ -477,5 +479,7 @@ t_color pattern_at_cube(t_material m, t_vec point);
 //texture
 t_color	get_color_tex(SDL_Surface *texture, int x, int y);
 t_color pattern_at_cube_texture(t_material m, t_vec point);
+
+void save_texture(const char* file_name, SDL_Renderer* renderer, SDL_Texture* texture);
 
 #endif
