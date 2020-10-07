@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/06 21:37:38 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/07 18:56:22 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ typedef struct		s_camera
 	double			half_width;
 	double			half_height;
 	double			pixel_size;
-
 	int				aliasing;
 }					t_camera;
 /*
@@ -293,8 +292,10 @@ typedef struct		s_sdl
 	SDL_Event		e;
 	SDL_Renderer	*ren;
 	SDL_Texture		*text;
+	SDL_Surface		*icon;
 	int				*img;
 	int				run;
+	int				progress;
 }					t_sdl;
 
 int					check_eps(double a, double b);
@@ -359,7 +360,7 @@ t_light				point_light(t_color color, t_vec pos);
 t_material			default_material(void);
 t_color				lighting(t_material *m, t_world w, t_comps c);
 int					col_to_int(t_color c);
-int					c(double r, double g, double b);
+//int					c(double r, double g, double b);
 
 //world
 void				default_world(t_world *w);
@@ -380,7 +381,7 @@ t_matrix			default_view_transf(void);
 
 //camera
 t_camera			camera(double hsize, double vsize, double fov);
-t_ray				ray_for_pixel(t_camera *camera, int px, int py);
+t_ray				ray_for_pixel(t_camera *camera, double px, double py);
 void				render(t_sdl *sdl, t_camera camera, t_world world);
 
 //shadow
@@ -465,7 +466,7 @@ t_vec   cylindrical_map(t_vec p);
 
 // cube
 t_color uv_pattern_at_cube(t_pattern pattern, double u, double v, int face);
-t_pattern uv_align_check(t_pattern p, t_color main, t_color ul, t_color ur, t_color bl, t_color br, int face);
+t_pattern uv_align_check(t_color main, t_color ul, t_color ur, t_color bl, t_color br, int face);
 int face_from_point(t_vec point);
 t_vec cube_uv_front(t_vec point);
 t_vec cube_uv_back(t_vec point);
@@ -481,5 +482,7 @@ t_color	get_color_tex(SDL_Surface *texture, int x, int y);
 t_color pattern_at_cube_texture(t_material m, t_vec point);
 
 void save_texture(const char* file_name, SDL_Renderer* renderer, SDL_Texture* texture);
+
+
 
 #endif

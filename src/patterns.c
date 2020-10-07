@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 14:28:16 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/29 19:41:32 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/07 18:44:04 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_color uv_patter_at_texture(SDL_Surface *texture, double u, double v)
 
     x = u * (texture->w - 1);
     y = v * (texture->h - 1);
-
     return (get_color_tex(texture, round(x), round(y)));    // (int) вместо round()
 }
 
@@ -131,8 +130,10 @@ int face_from_point(t_vec point)
     return (5); //back
 }
 
-t_pattern uv_align_check(t_pattern p, t_color main, t_color ul, t_color ur, t_color bl, t_color br, int face)
+t_pattern uv_align_check(t_color main, t_color ul, t_color ur, t_color bl, t_color br, int face)
 {
+    t_pattern p;
+
     p.main[face] = main;
     p.ul[face] = ul;
     p.ur[face] = ur;

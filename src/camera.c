@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 18:08:48 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/06 21:28:21 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/07 18:41:12 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_camera    camera(double  hsize, double vsize, double fov)
 
     c.hsize = hsize;
     c.vsize = vsize;
+    c.aliasing = 0;
     c.fov = fov;
     c.transform = identity_matrix();
     half_view = tanf(c.fov / 2);
@@ -38,7 +39,7 @@ t_camera    camera(double  hsize, double vsize, double fov)
     return (c);
 }
 
-t_ray   ray_for_pixel(t_camera *camera, int px, int py)
+t_ray   ray_for_pixel(t_camera *camera, double px, double py)
 {
     double   xoffset;
     double   yoffset;
@@ -79,6 +80,28 @@ typedef struct		s_treads
 	int				finish;
 }					t_treads;
 
+void    aliasing(t_treads *treads, int x, int y, int remaining)
+{
+    t_ray   r;
+    t_color col;
+    int i;
+    double u;
+    double v;
+
+    i = 0;
+    col = color(0, 0, 0);
+    while (i < 10)
+    {
+        u = (x + drand48());
+        v = (y + drand48());
+        r = ray_for_pixel(treads->camera, u, v);
+        col = add_col(col, color_at(treads->world, r, remaining));
+        i++;
+    }
+    col = divide_col(col, 10);
+    treads->sdl->img[y * treads->camera->hsize + x] = col_to_int(col);
+}
+
 void    draw(t_treads *treads)
 {
     int     x;
@@ -93,17 +116,16 @@ void    draw(t_treads *treads)
         x = 0;
         while (x < treads->camera->hsize)
         {
-            r = ray_for_pixel(treads->camera, x, y);
-            col = color_at(treads->world, r, remaining);
-            treads->sdl->img[y * treads->camera->hsize + x] = col_to_int(col);
+            if (treads->camera->aliasing == 0)
+            {
+                r = ray_for_pixel(treads->camera, x, y);
+                col = color_at(treads->world, r, remaining);
+                treads->sdl->img[y * treads->camera->hsize + x] = col_to_int(col);
+            }
+            else
+                aliasing(treads, x, y, remaining);
             x++;
         }
-/*
-        SDL_UpdateTexture(treads->sdl->text, NULL, treads->sdl->img, WIN_W * (sizeof(int)));
-	    SDL_RenderClear(treads->sdl->ren);
-	    SDL_RenderCopy(treads->sdl->ren, treads->sdl->text, NULL, NULL);
-	    SDL_RenderPresent(treads->sdl->ren);
-*/
         y++;
     }
 }

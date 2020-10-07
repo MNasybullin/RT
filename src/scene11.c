@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/27 19:29:04 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/06 21:36:19 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/07 18:54:10 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -599,12 +599,12 @@ render(&sdl, c, w);
 	t_color purple = color(1, 0, 1);
 	t_color white = color(1, 1, 1);
 	t_pattern pattern;
-	pattern = uv_align_check(pattern, yellow, cyan, red, blue, brown, 1);
-	pattern = uv_align_check(pattern, cyan, red, yellow, brown, green, 4);
-    pattern = uv_align_check(pattern, red, yellow, purple, green, white, 0);
-    pattern = uv_align_check(pattern, green, purple, cyan, white, blue, 5);
-    pattern = uv_align_check(pattern, brown, cyan, purple, red, yellow, 2);
-    pattern = uv_align_check(pattern, purple, brown, green, blue, white, 3);
+	pattern = uv_align_check(yellow, cyan, red, blue, brown, 1);
+	pattern = uv_align_check(cyan, red, yellow, brown, green, 4);
+    pattern = uv_align_check(red, yellow, purple, green, white, 0);
+    pattern = uv_align_check(green, purple, cyan, white, blue, 5);
+    pattern = uv_align_check(brown, cyan, purple, red, yellow, 2);
+    pattern = uv_align_check(purple, brown, green, blue, white, 3);
 
 	w.cub[0] = set_cube();
 	w.cub[0].transform = matrix_mult(w.cub[0].transform, translation(-6, 2, 0));
@@ -705,8 +705,6 @@ render(&sdl, c, w);
 	//light
 	w.light_obj = 1;
 	t_vec corner = set_v_p(0, 0, -20, 1);
-	t_vec v1 = set_v_p(1, 0, 0, 0);
-	t_vec v2 = set_v_p(0, 1, 0, 0);
 	w.light[0] = point_light(color(1, 1, 1), corner);
 
 	w.cub_obj = 8;

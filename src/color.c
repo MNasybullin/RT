@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 15:32:12 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/28 18:49:04 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/07 18:54:56 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	col_to_int(t_color c)
 	return (((int)r << 16) + ((int)g << 8) + (int)b);
 }
 
+/*
 int	c(double r, double g, double b)
 {
 
@@ -103,6 +104,7 @@ int	c(double r, double g, double b)
 		b = 0;
 	return (((int)r << 16) + ((int)g << 8) + (int)b);
 }
+*/
 
 t_color	get_color_tex(SDL_Surface *texture, int x, int y)
 {
@@ -112,12 +114,13 @@ t_color	get_color_tex(SDL_Surface *texture, int x, int y)
     Uint8 g;
     Uint8 b;
     //Uint8 a;
-	//SDL_GetRGBA(pixel, texture->format, &r, &g, &b, &a);
-	SDL_GetRGB(pixel, texture->format, &r, &g, &b);
+	//SDL_GetRGBA(pixel, &format, &r, &g, &b, &a);
+	SDL_GetRGB(pixel, texture->format, &r, &g, &b); // из за тредов иногда проскакивают другие пиксели
     t_color c;
 	double dr = r;
 	double dg = g;
 	double db = b;
     c = color(dr/255.0, dg/255.0, db/255.0);
+	//printf("r = %i, g = %i, b = %i, x = %i, y = %i\n", r, g, b, x, y);
     return (c);
 }
