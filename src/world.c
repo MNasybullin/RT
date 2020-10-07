@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:09:18 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/29 19:39:14 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/07 19:32:04 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ t_x_t	intersect_world(t_world *w, t_ray r)
 	while (i < w->ar_count)
 	{
 		x = (*w->obj_ar[i].loc_intersect)(w->obj_ar[i].obj, r, x, i);
-		//x = intersect_sp(w.s[i], r, x);
 		i++;
 	}
 	bubblesort(x.t, x.max_obj);
@@ -152,6 +151,7 @@ void	bubblesort(t_t_o *num, int size)
 	}
 }
 
+/*
 t_i	intersection(double t, int obj)
 {
 	t_i	i;
@@ -160,6 +160,7 @@ t_i	intersection(double t, int obj)
 	i.obj = obj;
 	return(i);
 }
+*/
 
 t_arr	removenull(t_arr arr)
 {
@@ -180,7 +181,7 @@ t_arr	removenull(t_arr arr)
 	return (res);
 }
 
-t_comps comps_n_calculate(t_world *w, t_i i, t_xs xs, t_comps c)
+t_comps comps_n_calculate(t_world *w, int hit_obj, t_xs xs, t_comps c)
 {
 	t_arr containers;
 	containers.size = 0;
@@ -188,25 +189,19 @@ t_comps comps_n_calculate(t_world *w, t_i i, t_xs xs, t_comps c)
 	while (aa < xs.max_obj)
 	{
 		t_i curr_i = xs.i[aa];
-		if (curr_i.t == i.t && curr_i.obj == i.obj)
+		if (curr_i.t == xs.i[hit_obj].t && curr_i.obj == xs.i[hit_obj].obj)
 		{
 			if (containers.size == 0)
-			{
 				c.n1 = 1.0;
-			}
 			else
-			{
 				c.n1 = w->obj_ar[containers.arr[containers.size - 1]].m->refractive_index;
-			}
 		}
 		int	flag = -1;
 		int bb = 0;
 		while (bb < containers.size)
 		{
 			if (containers.arr[bb] == curr_i.obj)
-			{
 				flag = bb;
-			}
 			bb++;
 		}
 		if (flag > -1)
@@ -219,16 +214,12 @@ t_comps comps_n_calculate(t_world *w, t_i i, t_xs xs, t_comps c)
 			containers.arr[containers.size] = curr_i.obj;
 			containers.size = containers.size + 1;
 		}
-		if (curr_i.t == i.t && curr_i.obj == i.obj)
+		if (curr_i.t == xs.i[hit_obj].t && curr_i.obj == xs.i[hit_obj].obj)
 		{
 			if (containers.size == 0)
-			{
 				c.n2 = 1.0;
-			}
 			else
-			{
 				c.n2 = w->obj_ar[containers.arr[containers.size - 1]].m->refractive_index;
-			}
 			aa = xs.max_obj;
 		}
 		aa++;
@@ -236,13 +227,13 @@ t_comps comps_n_calculate(t_world *w, t_i i, t_xs xs, t_comps c)
 	return (c);
 }
 
-t_comps	prepare_computations(t_i i, t_ray r, t_world *w, t_xs xs)
+t_comps	prepare_computations(int hit_obj, t_ray r, t_world *w, t_xs xs)
 {
 	t_comps	c;
 	t_vec	normal;
 
-	c.t = i.t;
-	c.obj = i.obj;
+	c.t = xs.i[hit_obj].t;
+	c.obj = xs.i[hit_obj].obj;
 	c.point = position(r, c.t);
 	c.eyev = neg(r.d);
 	if ((*w->obj_ar[c.obj].loc_norm)(w->obj_ar[c.obj].obj, c.point, &normal) == 0)
@@ -262,17 +253,9 @@ t_comps	prepare_computations(t_i i, t_ray r, t_world *w, t_xs xs)
 	c.reflectv = reflect(r.d, c.normalv);
 	c.under_point = sub(c.point, mult(c.normalv, EPSILON));
 
-	c = comps_n_calculate(w, i, xs, c);
+	c = comps_n_calculate(w, hit_obj, xs, c);
 	return(c);
 }
-
-/*t_color	shade_hit(t_world w, t_comps c)
-{
-	c.shadow = is_shadow(w, c.over_point);
-	t_sp *s;
-	s = (t_sp*)w.obj_ar[c.obj].obj;
-	return (lighting(s->m, w.light, c.point, c.eyev, c.normalv, c.shadow));
-}*/
 
 t_xs	intersections(t_x_t x) // для прозрачный обьектов список  всех пересечений
 {
@@ -324,7 +307,7 @@ t_color	color_at(t_world *w, t_ray r, int remaining)
 	int hit_obj;
 	t_color col;
 	t_comps comps;
-	t_i i;
+	//t_i i;
 	t_xs xs;
 
 	hit_obj = 0;
@@ -332,9 +315,9 @@ t_color	color_at(t_world *w, t_ray r, int remaining)
 	hit_obj = hit(x);
 	if (hit_obj != -1)
 	{
-		i = intersection(x.t[hit_obj].t, x.t[hit_obj].obj);
+		//i = intersection(x.t[hit_obj].t, x.t[hit_obj].obj);
 		xs = intersections(x);
-		comps = prepare_computations(i, r, w, xs);
+		comps = prepare_computations(hit_obj, r, w, xs);
 		w->light_count = w->light_obj - 1;
 		col = shade_hit(*w, comps, remaining, w->obj_ar[comps.obj].m);
 	}

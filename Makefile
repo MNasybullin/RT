@@ -6,7 +6,7 @@
 #    By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/06 10:40:08 by aannara           #+#    #+#              #
-#    Updated: 2020/09/29 19:47:55 by sdiego           ###   ########.fr        #
+#    Updated: 2020/10/07 19:35:37 by sdiego           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,5 +59,6 @@ clean:
 
 fclean: clean
 	rm -fr $(NAME)
+	rm -fr ./img.bmp
 
 re: fclean all
