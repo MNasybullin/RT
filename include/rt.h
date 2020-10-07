@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/07 19:20:33 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/07 19:50:13 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ typedef struct		s_camera
 	double			half_height;
 	double			pixel_size;
 	int				aliasing;
+	int				sepia;
 }					t_camera;
 /*
 typedef struct		s_x

@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/07 19:18:40 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/07 19:50:36 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ int		key_press(t_sdl *sdl, t_camera *camera)
 	else if (sdl->e.key.keysym.sym == SDLK_1)
 	{
 		camera->aliasing = camera->aliasing == 0 ? 1 : 0;
+		sdl->progress = 0;
+	}
+	else if (sdl->e.key.keysym.sym == SDLK_2)
+	{
+		camera->sepia = camera->sepia == 0 ? 1 : 0;
 		sdl->progress = 0;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 18:08:48 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/07 18:41:12 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/07 19:51:11 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_camera    camera(double  hsize, double vsize, double fov)
     c.hsize = hsize;
     c.vsize = vsize;
     c.aliasing = 0;
+    c.sepia = 0;
     c.fov = fov;
     c.transform = identity_matrix();
     half_view = tanf(c.fov / 2);
@@ -80,6 +81,16 @@ typedef struct		s_treads
 	int				finish;
 }					t_treads;
 
+t_color sepia(t_color color)
+{
+    t_color sepia;
+
+    sepia.r = (0.396 * color.r) + (0.769 * color.g) + (0.189 * color.b);
+    sepia.g = (0.349 * color.r) + (0.686 * color.g) + (0.168 * color.b);
+    sepia.b = (0.272 * color.r) + (0.534 * color.g) + (0.131 * color.b);
+    return (sepia);
+}
+
 void    aliasing(t_treads *treads, int x, int y, int remaining)
 {
     t_ray   r;
@@ -99,6 +110,8 @@ void    aliasing(t_treads *treads, int x, int y, int remaining)
         i++;
     }
     col = divide_col(col, 10);
+    if (treads->camera->sepia == 1)
+        col = sepia(col);
     treads->sdl->img[y * treads->camera->hsize + x] = col_to_int(col);
 }
 
@@ -120,6 +133,8 @@ void    draw(t_treads *treads)
             {
                 r = ray_for_pixel(treads->camera, x, y);
                 col = color_at(treads->world, r, remaining);
+                if (treads->camera->sepia == 1)
+                    col = sepia(col);
                 treads->sdl->img[y * treads->camera->hsize + x] = col_to_int(col);
             }
             else
