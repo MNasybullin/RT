@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 18:08:48 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 18:15:38 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/10 19:58:22 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void    aliasing(t_treads *treads, int x, int y, int remaining)
 
     i = 0;
     col = color(0, 0, 0);
-    while (i < 10)
+    while (i < 6)
     {
         u = (x + drand48());
         v = (y + drand48());
@@ -109,7 +109,7 @@ void    aliasing(t_treads *treads, int x, int y, int remaining)
         col = add_col(col, color_at(treads->world, r, remaining));
         i++;
     }
-    col = divide_col(col, 10);
+    col = divide_col(col, 6);
     if (treads->camera->sepia == 1)
         col = sepia(col);
     treads->sdl->img[y * treads->camera->hsize + x] = col_to_int(col);
@@ -169,10 +169,10 @@ void    render(t_sdl *sdl, t_camera camera, t_world world)
     size_t size;
 
     err = pthread_attr_init(&thread_attr);
-     if(err != 0)
-     {
-            printf("Cannot create thread attribute: %i\n", err);
-            exit(-1);
+    if(err != 0)
+    {
+        printf("Cannot create thread attribute: %i\n", err);
+        exit(-1);
     }
     err = pthread_attr_getstacksize(&thread_attr, &size);
     printf("Past stack size: %zu\n", size);
@@ -201,8 +201,6 @@ void    render(t_sdl *sdl, t_camera camera, t_world world)
         }
 		i++;
 	}
-    //pthread_attr_destroy(&thread_attr);
-    //pthread_exit(NULL);
     i = 0;
 	while (i < THREADS)
     {
@@ -217,7 +215,6 @@ void    render(t_sdl *sdl, t_camera camera, t_world world)
 	    SDL_RenderPresent(sdl->ren);
         i++;
     }
-    //save_texture("img.png", sdl->ren, sdl->text);
 }
 
 /*

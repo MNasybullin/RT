@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 17:58:58 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/10 19:53:55 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,7 @@ typedef struct		s_trian
 	t_matrix		transform;
 }					t_trian;
 
+/*
 typedef struct		s_i
 {
 	double			t;
@@ -212,6 +213,7 @@ typedef struct		s_xs
 	int				max_obj;
 }					t_xs;
 //
+*/
 
 typedef struct		s_comps
 {
@@ -367,8 +369,8 @@ int					col_to_int(t_color c);
 void				default_world(t_world *w);
 t_x_t				intersect_world(t_world *w, t_ray r);
 void				bubblesort(t_t_o *num, int size);
-t_i					intersection(double t, int obj);
-t_comps	prepare_computations(int hit_obj, t_ray r, t_world *w, t_xs xs);
+//t_i					intersection(double t, int obj);
+t_comps	prepare_computations(int hit_obj, t_ray r, t_world *w, t_x_t xs);
 
 
 

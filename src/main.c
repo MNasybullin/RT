@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 18:35:26 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/10 19:59:08 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ int		main(void)
 	w.cyl[0].m.reflective = 0.1;
 
 	w.s[0] = set_sphere();
-	w.s[0].transform = matrix_mult(w.s[0].transform, translation(0, 1.15, 0));
+	w.s[0].transform = matrix_mult(w.s[0].transform, translation(0, 1.1, 0));
 	w.s[0].transform = matrix_mult(w.s[0].transform, rotation_y(1.9));
 
 	w.s[0].m.pattern = 1;
@@ -178,15 +178,14 @@ int		main(void)
 	w.s[0].m.tex = 1;
 	w.s[0].m.texturemap = texture_map(w.s[0].m.p, &spherical_map);
 	w.s[0].m.ambient = 0.1;
-	w.s[0].m.specular = 0;
+	w.s[0].m.specular = 0.1;
 	w.s[0].m.diffuse = 0.9;
 	w.s[0].m.shininess = 10;
-	w.s[0].m.transparency = 0.9;
 
 	//light
 	w.light_obj = 1;
 	t_vec corner = set_v_p(-100, 100, -100, 1);
-	w.light[0] = point_light(color(2, 2, 2), corner);
+	w.light[0] = point_light(color(1, 1, 1), corner);
 
 	w.s_obj = 1;
 	w.pl_obj = 1;

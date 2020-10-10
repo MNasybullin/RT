@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 16:31:01 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 18:38:08 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/10 19:12:21 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ double	intensity_at(t_world w, t_vec p)
 		{
 			t_vec light_position = point_on_light(&w.light[w.light_count], u, v);
 			if (is_shadow(w, light_position ,p) == 0)
-				total = total + 1.0;
+				total += 1.0;
 			u++;
 		}
 		v++;
