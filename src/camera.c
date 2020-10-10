@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 18:08:48 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 19:58:22 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/10 21:25:52 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,10 @@ t_ray   ray_for_pixel(t_camera *camera, double px, double py)
     world_x = camera->half_width - xoffset;
     wolrd_y = camera->half_height - yoffset;
 
-    if (matrix_inverse_test(camera->transform) == 1)  // доделать как и с фигурами check transform matrix
-    {
-        pixel = matrix_mult_v_p(matrix_inverse(camera->transform), set_v_p(world_x, wolrd_y, -1 , 1));
-        origin = matrix_mult_v_p(matrix_inverse(camera->transform), set_v_p(0, 0, 0, 1));
-        direction = normalize(sub(pixel, origin));
-    }
-    else
-    {
-        printf("error ray_for_pixel\n");
-        exit(EXIT_FAILURE);
-    }
+    pixel = matrix_mult_v_p(matrix_inverse(camera->transform), set_v_p(world_x, wolrd_y, -1 , 1));
+    origin = matrix_mult_v_p(matrix_inverse(camera->transform), set_v_p(0, 0, 0, 1));
+    direction = normalize(sub(pixel, origin));
+
     return (set_ray(origin, direction));
 }
 
@@ -158,12 +151,8 @@ void save_texture(const char* file_name, SDL_Renderer* renderer, SDL_Texture* te
     SDL_SetRenderTarget(renderer, target);
 }
 
-void    render(t_sdl *sdl, t_camera camera, t_world world)
+pthread_attr_t stack_size(void)
 {
-    pthread_t	threads[THREADS];
-	t_treads    htreads[THREADS];
-	int i = 0;
-
     pthread_attr_t thread_attr;
     int err;
     size_t size;
@@ -186,6 +175,20 @@ void    render(t_sdl *sdl, t_camera camera, t_world world)
     err = pthread_attr_getstacksize(&thread_attr, &size);
     printf("Current stack size: %zu\n", size);
 
+    return (thread_attr);
+}
+
+void    render(t_sdl *sdl, t_camera camera, t_world world)
+{
+    pthread_t	threads[THREADS];
+	t_treads    htreads[THREADS];
+	int i = 0;
+
+    pthread_attr_t thread_attr;
+
+    thread_attr = stack_size();
+    if (check_transform_matrix(camera.transform, camera.transform, 0) == EXIT_FAILURE)
+        exit(-1);
     while (i < THREADS)
 	{
 		htreads[i].camera = &camera;
@@ -193,11 +196,10 @@ void    render(t_sdl *sdl, t_camera camera, t_world world)
         htreads[i].world = &world;
 		htreads[i].start = i * (camera.hsize / THREADS);
 		htreads[i].finish = (i + 1) * (camera.hsize / THREADS);
-		err = pthread_create(&threads[i], &thread_attr, (void *)draw, (void *)&htreads[i]);
-        if (err != 0)
+		if (pthread_create(&threads[i], &thread_attr, (void *)draw, (void *)&htreads[i]) != 0)
         {
             printf("error threads\n");
-            exit(1);
+            exit(-1);
         }
 		i++;
 	}
@@ -207,7 +209,7 @@ void    render(t_sdl *sdl, t_camera camera, t_world world)
 		if (pthread_join(threads[i], NULL))
 		{
             printf("error threads\n");
-            exit(1);
+            exit(-1);
         }
         SDL_UpdateTexture(sdl->text, NULL, sdl->img, WIN_W * (sizeof(int)));
 	    SDL_RenderClear(sdl->ren);
