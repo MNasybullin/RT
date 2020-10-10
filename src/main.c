@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 19:59:08 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/10 21:16:05 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ int		main(void)
 	w.pl[0].m.reflective = 0.4;
 
 	w.cyl[0] = set_cylinder();
+	w.cyl[0].transform = matrix_mult(w.cyl[0].transform, translation(1.5, 0, 0));
 	w.cyl[0].min = 0;
 	w.cyl[0].max = 0.1;
 	w.cyl[0].closed = 1;
@@ -167,7 +168,7 @@ int		main(void)
 	w.cyl[0].m.reflective = 0.1;
 
 	w.s[0] = set_sphere();
-	w.s[0].transform = matrix_mult(w.s[0].transform, translation(0, 1.1, 0));
+	w.s[0].transform = matrix_mult(w.s[0].transform, translation(1.5, 1.1, 0));
 	w.s[0].transform = matrix_mult(w.s[0].transform, rotation_y(1.9));
 
 	w.s[0].m.pattern = 1;
@@ -182,14 +183,44 @@ int		main(void)
 	w.s[0].m.diffuse = 0.9;
 	w.s[0].m.shininess = 10;
 
+
+	w.cyl[1] = set_cylinder();
+	w.cyl[1].transform = matrix_mult(w.cyl[1].transform, translation(-2, 0, 0));
+	w.cyl[1].transform = matrix_mult(w.cyl[1].transform, scaling(2, 2, 2));
+	w.cyl[1].min = 0;
+	w.cyl[1].max = 0.1;
+	w.cyl[1].closed = 1;
+	w.cyl[1].m.color = color(1, 1, 1);
+	w.cyl[1].m.ambient = 0;
+	w.cyl[1].m.specular = 0;
+	w.cyl[1].m.diffuse = 0.2;
+	w.cyl[1].m.reflective = 0.1;
+
+	w.s[1] = set_sphere();
+	w.s[1].transform = matrix_mult(w.s[1].transform, translation(-2, 2.1, 0));
+	w.s[1].transform = matrix_mult(w.s[1].transform, scaling(2, 2, 2));
+	w.s[1].transform = matrix_mult(w.s[1].transform, rotation_y(1.9));
+
+	w.s[1].m.pattern = 1;
+	w.s[1].m.p = uv_checkers(20, 10, color(0, 0.5, 0), color(1, 1, 1));
+	w.s[1].m.pattern_at = &pattern_at;
+	w.s[1].m.p.transform = identity_matrix();
+	w.s[1].m.texture = SDL_LoadBMP("textures/marsmap1k.bmp");
+	w.s[1].m.tex = 1;
+	w.s[1].m.texturemap = texture_map(w.s[1].m.p, &spherical_map);
+	w.s[1].m.ambient = 0.1;
+	w.s[1].m.specular = 0.1;
+	w.s[1].m.diffuse = 0.9;
+	w.s[1].m.shininess = 10;
+
 	//light
 	w.light_obj = 1;
 	t_vec corner = set_v_p(-100, 100, -100, 1);
 	w.light[0] = point_light(color(1, 1, 1), corner);
 
-	w.s_obj = 1;
+	w.s_obj = 2;
 	w.pl_obj = 1;
-	w.cyl_obj = 1;
+	w.cyl_obj = 2;
 	w.ar_count = 0;
 
 	int i = 0;
@@ -220,7 +251,7 @@ int		main(void)
 	}
 
 	t_camera c = camera(WIN_W, WIN_H, 0.8);
-	c.transform = view_transform(set_v_p(1, 2, -10, 1), set_v_p(0, 1.1, 0, 1), set_v_p(0, 1, 0, 0));
+	c.transform = view_transform(set_v_p(1, 2, -12, 1), set_v_p(0, 0.9, 0, 1), set_v_p(0, 1, 0, 0));
 
 
 
