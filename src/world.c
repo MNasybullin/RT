@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:09:18 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 19:20:10 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/10 22:43:29 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_x_t	set_nul(t_x_t x, int size)
 	return (x);
 }
 
+/*
 t_x_t	sortminus(t_x_t x)
 {
 	int i;
@@ -79,6 +80,7 @@ t_x_t	sortminus(t_x_t x)
 	newx.max_obj = j;
 	return (newx);
 }
+*/
 
 t_x_t	intersect_world(t_world *w, t_ray r)
 {
@@ -88,13 +90,13 @@ t_x_t	intersect_world(t_world *w, t_ray r)
 
 	i = 0;
 	x.max_obj = 0;
-	x = set_nul(x, w->ar_count);
+	//x = set_nul(x, w->ar_count);   //  ????????????
 	while (i < w->ar_count)
 	{
 		x = (*w->obj_ar[i].loc_intersect)(w->obj_ar[i].obj, r, x, i);
 		i++;
 	}
-	bubblesort(x.t, x.max_obj);
+	//bubblesort(x.t, x.max_obj);     // ???????????
 	//под вопросом
 	//x = sortminus(x);
 	//
@@ -302,6 +304,22 @@ t_color	shade_hit(t_world w, t_comps c, int remaining, t_material *m)
 	}
 }
 
+t_color effective_shade_hit(t_world w, t_material *m)
+{
+	t_color surface;
+	//t_color	effective_color;
+	//t_color ambient;
+
+	surface = color(0,0,0);
+	if (w.light_count >= 0)
+	{
+		//effective_color = hadamard_prod(m->color, w.light[0].intensity);
+		//ambient = mult_col(effective_color, 1);
+		surface = add_col(surface, m->color);
+	}
+	return (surface);
+}
+
 t_color	color_at(t_world *w, t_ray r, int remaining)
 {
 	t_x_t	x;
@@ -321,10 +339,9 @@ t_color	color_at(t_world *w, t_ray r, int remaining)
 		comps = prepare_computations(hit_obj, r, w, x);
 		w->light_count = w->light_obj - 1;
 		col = shade_hit(*w, comps, remaining, w->obj_ar[comps.obj].m);
+		//col = effective_shade_hit(*w, w->obj_ar[x.t[hit_obj].obj].m);
 	}
 	else
-	{
 		col = color(0,0,0);
-	}
 	return(col);
 }

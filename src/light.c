@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 16:31:01 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 19:12:21 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/10 21:43:24 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_light	point_light(t_color color, t_vec pos)
 t_material	default_material(void)
 {
 	t_material	m;
-	t_color		c = {1,1,1};
+	t_color		c = {0.5,0.5,0.5};
 
 	m.color = c;
 	m.ambient = 0.1;

@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/01 14:05:29 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 18:04:26 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/10 22:20:37 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_x_t	intersect_cone(void *v_s, t_ray r, t_x_t x, int obj_n)
 		x.t[x.max_obj].t = -c / (2 * b);
 		x.t[x.max_obj].obj = obj_n;
 		x.t[x.max_obj].count = 2;
-		x.max_obj = x.max_obj + 1;
+		x.max_obj += 1;
 		x = intersect_caps_cone(s, ray2, x, obj_n);
 		return (x);
 	}
@@ -79,7 +79,7 @@ t_x_t	intersect_cone(void *v_s, t_ray r, t_x_t x, int obj_n)
 			x.t[x.max_obj].t = t0;
 			x.t[x.max_obj].obj = obj_n;
 			x.t[x.max_obj].count = 2;
-			x.max_obj = x.max_obj + 1;
+			x.max_obj += 1;
 		}
 		y1 = ray2.o.c[1] + t1 * ray2.d.c[1];
 		if (s->min < y1 && y1 < s->max)
@@ -87,7 +87,7 @@ t_x_t	intersect_cone(void *v_s, t_ray r, t_x_t x, int obj_n)
 			x.t[x.max_obj].t = t1;
 			x.t[x.max_obj].obj = obj_n;
 			x.t[x.max_obj].count = 2;
-			x.max_obj = x.max_obj + 1;
+			x.max_obj += 1;
 		}
 	}
 	x = intersect_caps_cone(s, ray2, x, obj_n);
@@ -118,7 +118,7 @@ t_x_t	intersect_caps_cone(t_cone *cone, t_ray r, t_x_t x, int obj_n)
 		x.t[x.max_obj].t = t;
 		x.t[x.max_obj].obj = obj_n;
 		x.t[x.max_obj].count = 2;
-		x.max_obj = x.max_obj + 1;
+		x.max_obj += 1;
 	}
 	t = (cone->max - r.o.c[1]) / r.d.c[1];
 	if (check_cap_cone(r, t, cone->max) == 1) // проверка верхней крышки
@@ -126,7 +126,7 @@ t_x_t	intersect_caps_cone(t_cone *cone, t_ray r, t_x_t x, int obj_n)
 		x.t[x.max_obj].t = t;
 		x.t[x.max_obj].obj = obj_n;
 		x.t[x.max_obj].count = 2;
-		x.max_obj = x.max_obj + 1;
+		x.max_obj += 1;
 	}
 	return (x);
 }

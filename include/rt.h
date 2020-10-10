@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 19:53:55 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/10 22:33:40 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <math.h>
 # include <stdio.h>
 
-# define WIN_W 800
-# define WIN_H 800
+# define WIN_W 400
+# define WIN_H 400
 # define EPSILON 0.00001
 
 typedef struct		s_arr

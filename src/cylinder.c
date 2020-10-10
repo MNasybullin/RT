@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/30 15:08:03 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 18:07:53 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/10 22:21:00 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_x_t	intersect_cyl(void *v_s, t_ray r, t_x_t x, int obj_n)
 			x.t[x.max_obj].t = t0;
 			x.t[x.max_obj].obj = obj_n;
 			x.t[x.max_obj].count = 2;
-			x.max_obj = x.max_obj + 1;
+			x.max_obj += 1;
 		}
 		y1 = ray2.o.c[1] + t1 * ray2.d.c[1];
 		if (s->min < y1 && y1 < s->max)
@@ -78,7 +78,7 @@ t_x_t	intersect_cyl(void *v_s, t_ray r, t_x_t x, int obj_n)
 			x.t[x.max_obj].t = t1;
 			x.t[x.max_obj].obj = obj_n;
 			x.t[x.max_obj].count = 2;
-			x.max_obj = x.max_obj + 1;
+			x.max_obj += 1;
 		}
 	}
 	x = intersect_caps(s, ray2, x, obj_n);
@@ -109,7 +109,7 @@ t_x_t	intersect_caps(t_cyl *cyl, t_ray r, t_x_t x, int obj_n)
 		x.t[x.max_obj].t = t;
 		x.t[x.max_obj].obj = obj_n;
 		x.t[x.max_obj].count = 2;
-		x.max_obj = x.max_obj + 1;
+		x.max_obj += 1;
 	}
 	t = (cyl->max - r.o.c[1]) / r.d.c[1];
 	if (check_cap(r, t) == 1) // проверка верхней крышки
@@ -117,7 +117,7 @@ t_x_t	intersect_caps(t_cyl *cyl, t_ray r, t_x_t x, int obj_n)
 		x.t[x.max_obj].t = t;
 		x.t[x.max_obj].obj = obj_n;
 		x.t[x.max_obj].count = 2;
-		x.max_obj = x.max_obj + 1;
+		x.max_obj += 1;
 	}
 	return (x);
 }

@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:54:30 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 18:12:12 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/10 22:21:15 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ t_x_t	intersect_sp(void *v_s, t_ray r, t_x_t x, int obj_n)
 		x.t[x.max_obj].t = ((-b - sqrt(disc)) / (2 * a));
 		x.t[x.max_obj].obj = obj_n;
 		x.t[x.max_obj].count = 2;
-		x.max_obj = x.max_obj + 1;
+		x.max_obj += 1;
 		x.t[x.max_obj].t = ((-b + sqrt(disc)) / (2 * a));
 		x.t[x.max_obj].obj = obj_n;
 		x.t[x.max_obj].count = 2;
-		x.max_obj = x.max_obj + 1;
+		x.max_obj += 1;
 		/*if (x.t[x.max_obj - 1].t > x.t[x.max_obj].t)
 		{
 			temp = x.t[x.max_obj - 1];
