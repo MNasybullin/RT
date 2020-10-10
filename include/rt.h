@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/07 19:50:13 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/10 17:58:58 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -484,6 +484,7 @@ t_color pattern_at_cube_texture(t_material m, t_vec point);
 
 void save_texture(const char* file_name, SDL_Renderer* renderer, SDL_Texture* texture);
 
+int	check_transform_matrix(t_matrix transform, t_matrix pattern_transform, int pattern);
 
 
 #endif

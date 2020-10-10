@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:54:30 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/29 19:38:39 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/10 18:12:12 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,47 +42,40 @@ t_x_t	intersect_sp(void *v_s, t_ray r, t_x_t x, int obj_n)
 	//t_t_o	temp;
 
 	s = (t_sp*)v_s;
+	ray2 = transform(r, matrix_inverse(s->transform));
 
-	if (matrix_inverse_test(s->transform) == 1)
+	sp_to_ray = sub(ray2.o, s->c);
+
+	a = dot(ray2.d, ray2.d);
+	b = 2 * dot(ray2.d, sp_to_ray);
+	c = dot(sp_to_ray, sp_to_ray) - 1;
+
+	disc = (b * b) - 4 * a * c;
+
+	if (disc < 0)
 	{
-		ray2 = transform(r, matrix_inverse(s->transform));
-
-		sp_to_ray = sub(ray2.o, s->c);
-
-		a = dot(ray2.d, ray2.d);
-		b = 2 * dot(ray2.d, sp_to_ray);
-		c = dot(sp_to_ray, sp_to_ray) - 1;
-
-		disc = (b * b) - 4 * a * c;
-
-		if (disc < 0)
-		{
-			//x.max_obj = x.max_obj + 2;
-			return (x);
-		}
-		else
-		{
-			x.t[x.max_obj].t = ((-b - sqrt(disc)) / (2 * a));
-			x.t[x.max_obj].obj = obj_n;
-			x.t[x.max_obj].count = 2;
-			x.max_obj = x.max_obj + 1;
-			x.t[x.max_obj].t = ((-b + sqrt(disc)) / (2 * a));
-			x.t[x.max_obj].obj = obj_n;
-			x.t[x.max_obj].count = 2;
-			x.max_obj = x.max_obj + 1;
-			/*if (x.t[x.max_obj - 1].t > x.t[x.max_obj].t)
-			{
-				temp = x.t[x.max_obj - 1];
-				x.t[x.max_obj - 1] = x.t[x.max_obj];
-				x.t[x.max_obj] = temp;
-			}*/
-			//x.max_obj = x.max_obj + 1;
-			return (x);
-		}
+		//x.max_obj = x.max_obj + 2;
+		return (x);
 	}
-	printf("matrix_inverse_test error in intersect_sp\n");
-	//x.max_obj = x.max_obj + 2;
-	return(x);
+	else
+	{
+		x.t[x.max_obj].t = ((-b - sqrt(disc)) / (2 * a));
+		x.t[x.max_obj].obj = obj_n;
+		x.t[x.max_obj].count = 2;
+		x.max_obj = x.max_obj + 1;
+		x.t[x.max_obj].t = ((-b + sqrt(disc)) / (2 * a));
+		x.t[x.max_obj].obj = obj_n;
+		x.t[x.max_obj].count = 2;
+		x.max_obj = x.max_obj + 1;
+		/*if (x.t[x.max_obj - 1].t > x.t[x.max_obj].t)
+		{
+			temp = x.t[x.max_obj - 1];
+			x.t[x.max_obj - 1] = x.t[x.max_obj];
+			x.t[x.max_obj] = temp;
+		}*/
+		//x.max_obj = x.max_obj + 1;
+		return (x);
+	}
 }
 
 int		normal_at_sp(void *v_s, t_vec world_point, t_vec *n)
@@ -91,16 +84,12 @@ int		normal_at_sp(void *v_s, t_vec world_point, t_vec *n)
 	t_vec object_point;
 	t_vec object_normal;
 	t_vec	world_normal;
+
 	s = (t_sp*)v_s;
-	if (matrix_inverse_test(s->transform) == 1)
-	{
-		object_point = matrix_mult_v_p(matrix_inverse(s->transform), world_point);
-		object_normal = sub(object_point, set_v_p(0, 0, 0, 1));
-		world_normal = matrix_mult_v_p(matrix_transposing(matrix_inverse(s->transform)), object_normal);
-		world_normal.c[3] = 0;
-		*n = normalize(world_normal);
-		return (1);
-	}
-	printf("error normal_at_sp\n");
-	return(0);
+	object_point = matrix_mult_v_p(matrix_inverse(s->transform), world_point);
+	object_normal = sub(object_point, set_v_p(0, 0, 0, 1));
+	world_normal = matrix_mult_v_p(matrix_transposing(matrix_inverse(s->transform)), object_normal);
+	world_normal.c[3] = 0;
+	*n = normalize(world_normal);
+	return (1);
 }

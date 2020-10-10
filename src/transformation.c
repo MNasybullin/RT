@@ -6,11 +6,29 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 17:49:00 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/29 19:38:07 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/10 17:58:38 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/rt.h"
+
+int	check_transform_matrix(t_matrix transform, t_matrix pattern_transform, int pattern)
+{
+	if (matrix_inverse_test(transform) != 1)
+	{
+		write(1, "matrix_inverse_test error int shape transform\n", 46);
+		return (EXIT_FAILURE);
+	}
+	if (pattern == 1)
+	{
+		if (matrix_inverse_test(pattern_transform) != 1)
+		{
+			write(1, "matrix_inverse_test error int shape pattern transform\n", 54);
+			return (EXIT_FAILURE);
+		}
+	}
+	return (EXIT_SUCCESS);
+}
 
 t_matrix	translation(double x, double y, double z)
 {

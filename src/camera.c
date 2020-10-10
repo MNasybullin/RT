@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 18:08:48 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/07 19:51:11 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/10 18:15:38 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_ray   ray_for_pixel(t_camera *camera, double px, double py)
     world_x = camera->half_width - xoffset;
     wolrd_y = camera->half_height - yoffset;
 
-    if (matrix_inverse_test(camera->transform) == 1)
+    if (matrix_inverse_test(camera->transform) == 1)  // доделать как и с фигурами check transform matrix
     {
         pixel = matrix_mult_v_p(matrix_inverse(camera->transform), set_v_p(world_x, wolrd_y, -1 , 1));
         origin = matrix_mult_v_p(matrix_inverse(camera->transform), set_v_p(0, 0, 0, 1));

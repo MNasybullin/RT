@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 14:28:16 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/07 18:44:04 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/10 18:08:40 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,20 +321,10 @@ t_vec world_point_to_pattern_point(t_pattern p, t_matrix transform, t_vec world_
     t_vec	obj_point;
 	t_vec	pattern_point;
 
-	if (matrix_inverse_test(transform) == 1)
-		obj_point = matrix_mult_v_p(matrix_inverse(transform), world_point);
-	else
-    {
-        printf("matrix s stripe error\n");
-        exit(EXIT_FAILURE);
-    }
-	if (matrix_inverse_test(p.transform) == 1)
-		pattern_point = matrix_mult_v_p(matrix_inverse(p.transform), obj_point);
-	else
-    {
-        printf("matrix p stripe error\n");
-        exit(EXIT_FAILURE);
-    }
+	obj_point = matrix_mult_v_p(matrix_inverse(transform), world_point);
+
+	pattern_point = matrix_mult_v_p(matrix_inverse(p.transform), obj_point);
+
 	return (pattern_point);
 }
 
