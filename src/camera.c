@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 18:08:48 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 22:38:44 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/12 20:18:17 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,6 @@ pthread_attr_t stack_size(void)
 {
     pthread_attr_t thread_attr;
     int err;
-    size_t size;
 
     err = pthread_attr_init(&thread_attr);
     if(err != 0)
@@ -163,8 +162,6 @@ pthread_attr_t stack_size(void)
         printf("Cannot create thread attribute: %i\n", err);
         exit(-1);
     }
-    err = pthread_attr_getstacksize(&thread_attr, &size);
-    printf("Past stack size: %zu\n", size);
     // Устанавливаем минимальный размер стека для потока (в байтах)
     err = pthread_attr_setstacksize(&thread_attr, 5*1024*1024);
     if(err != 0)
@@ -172,8 +169,6 @@ pthread_attr_t stack_size(void)
         printf("Cannot create thread attribute: %i\n", err);
         exit(-1);
     }
-    err = pthread_attr_getstacksize(&thread_attr, &size);
-    printf("Current stack size: %zu\n", size);
 
     return (thread_attr);
 }
@@ -211,6 +206,7 @@ void    render(t_sdl *sdl, t_camera camera, t_world world)
             printf("error threads\n");
             exit(-1);
         }
+
         SDL_UpdateTexture(sdl->text, NULL, sdl->img, WIN_W * (sizeof(int)));
 	    SDL_RenderClear(sdl->ren);
 	    SDL_RenderCopy(sdl->ren, sdl->text, NULL, NULL);

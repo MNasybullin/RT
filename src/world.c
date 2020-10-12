@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:09:18 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 22:43:29 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/12 20:41:13 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,25 +82,24 @@ t_x_t	sortminus(t_x_t x)
 }
 */
 
-t_x_t	intersect_world(t_world *w, t_ray r)
+void	intersect_world(t_world *w, t_ray r, t_x_t *x)
 {
-	t_x_t	x;
 	int		i;
 	//int		hit_obj;
 
 	i = 0;
-	x.max_obj = 0;
+	x->max_obj = 0;
 	//x = set_nul(x, w->ar_count);   //  ????????????
 	while (i < w->ar_count)
 	{
-		x = (*w->obj_ar[i].loc_intersect)(w->obj_ar[i].obj, r, x, i);
+		(*w->obj_ar[i].loc_intersect)(w->obj_ar[i].obj, r, x, i);
 		i++;
 	}
 	//bubblesort(x.t, x.max_obj);     // ???????????
 	//под вопросом
 	//x = sortminus(x);
 	//
-	return (x);
+	//return (x);
 }
 
 /*t_x_t	t_to_h(t_x x, t_x_t x_t)
@@ -299,9 +298,7 @@ t_color	shade_hit(t_world w, t_comps c, int remaining, t_material *m)
 		return (add_col(surface, add_col(mult_col(reflected, reflectance), mult_col(refracted, (1.0 - reflectance)))));
 	}
 	else
-	{
 		return (add_col(refracted, add_col(surface, reflected)));
-	}
 }
 
 t_color effective_shade_hit(t_world w, t_material *m)
@@ -315,7 +312,7 @@ t_color effective_shade_hit(t_world w, t_material *m)
 	{
 		//effective_color = hadamard_prod(m->color, w.light[0].intensity);
 		//ambient = mult_col(effective_color, 1);
-		surface = add_col(surface, m->color);
+		return (m->color);
 	}
 	return (surface);
 }
@@ -330,7 +327,7 @@ t_color	color_at(t_world *w, t_ray r, int remaining)
 	//t_xs xs;
 
 	hit_obj = 0;
-	x = intersect_world(w, r);
+	intersect_world(w, r, &x);
 	hit_obj = hit(x);
 	if (hit_obj != -1)
 	{
@@ -339,6 +336,7 @@ t_color	color_at(t_world *w, t_ray r, int remaining)
 		comps = prepare_computations(hit_obj, r, w, x);
 		w->light_count = w->light_obj - 1;
 		col = shade_hit(*w, comps, remaining, w->obj_ar[comps.obj].m);
+		//remaining = 5;
 		//col = effective_shade_hit(*w, w->obj_ar[x.t[hit_obj].obj].m);
 	}
 	else

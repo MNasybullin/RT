@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 22:33:40 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/12 20:17:40 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,7 +262,7 @@ struct				s_shape
 {
 	void			*obj;
 	int				(*loc_norm)(void *obj, t_vec world_point, t_vec *n);
-	t_x_t			(*loc_intersect)(void *obj, t_ray r, t_x_t x, int obj_n);
+	void			(*loc_intersect)(void *obj, t_ray r, t_x_t *x, int obj_n);
 	t_material		*m;
 	t_matrix		*transform;
 };
@@ -344,7 +344,7 @@ t_ray				set_ray(t_vec or, t_vec di);
 t_vec				position(t_ray r, double t);
 
 t_sp				set_sphere();
-t_x_t				intersect_sp(void *v_s, t_ray r, t_x_t x, int obj_n);
+void				intersect_sp(void *v_s, t_ray r, t_x_t *x, int obj_n);
 
 t_matrix			set_transform(t_matrix s, t_matrix m);
 
@@ -367,7 +367,7 @@ int					col_to_int(t_color c);
 
 //world
 void				default_world(t_world *w);
-t_x_t				intersect_world(t_world *w, t_ray r);
+void				intersect_world(t_world *w, t_ray r, t_x_t *x);
 void				bubblesort(t_t_o *num, int size);
 //t_i					intersection(double t, int obj);
 t_comps	prepare_computations(int hit_obj, t_ray r, t_world *w, t_x_t xs);
@@ -392,12 +392,12 @@ int					is_shadow(t_world w, t_vec light_pos, t_vec	p);
 //shape
 t_vec				sp_normal_at(t_shape s, t_vec local_point);
 void				push_obj(void *obj, int (*loc_norm)(void *, t_vec, t_vec*),
-t_x_t (*loc_intersect)(void *, t_ray, t_x_t, int), t_world *w, t_material *m, t_matrix *transform);
+void (*loc_intersect)(void *, t_ray, t_x_t *, int), t_world *w, t_material *m, t_matrix *transform);
 
 //plane
 int					normal_at_pl(void *v_s, t_vec world_point, t_vec *n);
 t_plane				set_plane();
-t_x_t				intersect_pl(void *v_s, t_ray r, t_x_t x, int obj_n);
+void				intersect_pl(void *v_s, t_ray r, t_x_t *x, int obj_n);
 
 //patterns
 void   stripe_pattern_shape(t_color a, t_color b, t_material *m);
@@ -426,7 +426,7 @@ double	schlick(t_comps c);
 
 //cube
 t_cube	set_cube();
-t_x_t	intersect_cube(void *v_s, t_ray r, t_x_t x, int obj_n);
+void	intersect_cube(void *v_s, t_ray r, t_x_t *x, int obj_n);
 double	min(double x, double y, double z);
 double	max(double x, double y, double z);
 t_t_minmax	check_axis(double origin, double direction);
@@ -434,21 +434,21 @@ int		normal_at_cube(void *v_s, t_vec world_point, t_vec *n);
 
 //cylinder
 t_cyl	set_cylinder();
-t_x_t	intersect_cyl(void *v_s, t_ray r, t_x_t x, int obj_n);
+void	intersect_cyl(void *v_s, t_ray r, t_x_t *x, int obj_n);
 int		normal_at_cyl(void *v_s, t_vec world_point, t_vec *n);
-t_x_t	intersect_caps(t_cyl *cyl, t_ray r, t_x_t x, int obj_n);
+void	intersect_caps(t_cyl *cyl, t_ray r, t_x_t *x, int obj_n);
 
 //cone
 t_cone	set_cone();
-t_x_t	intersect_cone(void *v_s, t_ray r, t_x_t x, int obj_n);
-t_x_t	intersect_caps_cone(t_cone *cone, t_ray r, t_x_t x, int obj_n);
+void	intersect_cone(void *v_s, t_ray r, t_x_t *x, int obj_n);
+void	intersect_caps_cone(t_cone *cone, t_ray r, t_x_t *x, int obj_n);
 int	check_cap_cone(t_ray r, double t, double y);
 int		normal_at_cone(void *v_s, t_vec world_point, t_vec *n);
 
 //triangle
 t_trian	set_trian(t_vec p1, t_vec p2, t_vec p3);
 int		normal_at_trian(void *v_s, t_vec world_point, t_vec *n);
-t_x_t	intersect_trian(void *v_s, t_ray r, t_x_t x, int obj_n);
+void	intersect_trian(void *v_s, t_ray r, t_x_t *x, int obj_n);
 
 
 // soft shadow

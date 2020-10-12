@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/30 15:08:03 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 22:21:00 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/12 19:20:44 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_cyl	set_cylinder()
 	return (c);
 }
 
-t_x_t	intersect_cyl(void *v_s, t_ray r, t_x_t x, int obj_n)
+void	intersect_cyl(void *v_s, t_ray r, t_x_t *x, int obj_n)
 {
 	t_ray	ray2;
 	t_cyl	*s;
@@ -46,14 +46,16 @@ t_x_t	intersect_cyl(void *v_s, t_ray r, t_x_t x, int obj_n)
 	a = (ray2.d.c[0] * ray2.d.c[0]) + (ray2.d.c[2] * ray2.d.c[2]);
 	if (fabs(a) <= EPSILON)
 	{
-		x = intersect_caps(s, ray2, x, obj_n);
-		return (x);
+		intersect_caps(s, ray2, x, obj_n);
+		return ;
+		//return (x);
 	}
 	b = (2 * ray2.o.c[0] * ray2.d.c[0]) + (2 * ray2.o.c[2] * ray2.d.c[2]);
 	c = (ray2.o.c[0] * ray2.o.c[0]) + (ray2.o.c[2] * ray2.o.c[2]) - 1;
 	disc = (b * b) - (4 * a * c);
 	if (disc < 0)
-		return (x);
+		return ;
+		//return (x);
 	else
 	{
 		t0 = ((-b - sqrt(disc)) / (2 * a));
@@ -67,22 +69,23 @@ t_x_t	intersect_cyl(void *v_s, t_ray r, t_x_t x, int obj_n)
 		y0 = ray2.o.c[1] + t0 * ray2.d.c[1];
 		if (s->min < y0 && y0 < s->max)
 		{
-			x.t[x.max_obj].t = t0;
-			x.t[x.max_obj].obj = obj_n;
-			x.t[x.max_obj].count = 2;
-			x.max_obj += 1;
+			x->t[x->max_obj].t = t0;
+			x->t[x->max_obj].obj = obj_n;
+			x->t[x->max_obj].count = 2;
+			x->max_obj += 1;
 		}
 		y1 = ray2.o.c[1] + t1 * ray2.d.c[1];
 		if (s->min < y1 && y1 < s->max)
 		{
-			x.t[x.max_obj].t = t1;
-			x.t[x.max_obj].obj = obj_n;
-			x.t[x.max_obj].count = 2;
-			x.max_obj += 1;
+			x->t[x->max_obj].t = t1;
+			x->t[x->max_obj].obj = obj_n;
+			x->t[x->max_obj].count = 2;
+			x->max_obj += 1;
 		}
 	}
-	x = intersect_caps(s, ray2, x, obj_n);
-	return (x);
+	intersect_caps(s, ray2, x, obj_n);
+	return ;
+	//return (x);
 }
 
 int	check_cap(t_ray r, double t)
@@ -97,29 +100,30 @@ int	check_cap(t_ray r, double t)
 	return (0);
 }
 
-t_x_t	intersect_caps(t_cyl *cyl, t_ray r, t_x_t x, int obj_n)
+void	intersect_caps(t_cyl *cyl, t_ray r, t_x_t *x, int obj_n)
 {
 	double	t;
 
 	if (cyl->closed == 0 || fabs(r.d.c[1]) <= EPSILON)
-		return (x);
+		return ;
+		//return (x);
 	t = (cyl->min - r.o.c[1]) / r.d.c[1];
 	if (check_cap(r, t) == 1) //проверка нижней крышки
 	{
-		x.t[x.max_obj].t = t;
-		x.t[x.max_obj].obj = obj_n;
-		x.t[x.max_obj].count = 2;
-		x.max_obj += 1;
+		x->t[x->max_obj].t = t;
+		x->t[x->max_obj].obj = obj_n;
+		x->t[x->max_obj].count = 2;
+		x->max_obj += 1;
 	}
 	t = (cyl->max - r.o.c[1]) / r.d.c[1];
 	if (check_cap(r, t) == 1) // проверка верхней крышки
 	{
-		x.t[x.max_obj].t = t;
-		x.t[x.max_obj].obj = obj_n;
-		x.t[x.max_obj].count = 2;
-		x.max_obj += 1;
+		x->t[x->max_obj].t = t;
+		x->t[x->max_obj].obj = obj_n;
+		x->t[x->max_obj].count = 2;
+		x->max_obj += 1;
 	}
-	return (x);
+	//return (x);
 }
 
 int		normal_at_cyl(void *v_s, t_vec world_point, t_vec *n)

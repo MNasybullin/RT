@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 16:31:01 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 21:43:24 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/12 19:36:54 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ int	is_shadow(t_world w, t_vec light_pos, t_vec p)
 	distance = magnitude(v);
 	direction = normalize(v);
 	r = set_ray(p, direction);
-	x = intersect_world(&w, r);
+	intersect_world(&w, r, &x);
 	hit_obj = hit(x);
 	if (hit_obj != -1 && x.t[hit_obj].t < distance)
 	{

@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 14:11:03 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 22:19:35 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/12 19:14:40 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_cube	set_cube()
 	return (c);
 }
 
-t_x_t	intersect_cube(void *v_s, t_ray r, t_x_t x, int obj_n)
+void	intersect_cube(void *v_s, t_ray r, t_x_t *x, int obj_n)
 {
 	t_cube		*s;
 	t_t_minmax	xt;
@@ -41,18 +41,19 @@ t_x_t	intersect_cube(void *v_s, t_ray r, t_x_t x, int obj_n)
 	t.min = max(xt.min, yt.min, zt.min);
 	t.max = min(xt.max, yt.max, zt.max);
 	if (t.min > t.max)
-		return (x);
+		return ;
+		//return (x);
 
-	x.t[x.max_obj].t = t.min;
-	x.t[x.max_obj].count = 2;
-	x.t[x.max_obj].obj = obj_n;
-	x.max_obj += 1;
+	x->t[x->max_obj].t = t.min;
+	x->t[x->max_obj].count = 2;
+	x->t[x->max_obj].obj = obj_n;
+	x->max_obj += 1;
 
-	x.t[x.max_obj].t = t.max;
-	x.t[x.max_obj].count = 2;
-	x.t[x.max_obj].obj = obj_n;
-	x.max_obj += 1;
-	return (x);
+	x->t[x->max_obj].t = t.max;
+	x->t[x->max_obj].count = 2;
+	x->t[x->max_obj].obj = obj_n;
+	x->max_obj += 1;
+	//return (x);
 }
 
 double	min(double x, double y, double z)

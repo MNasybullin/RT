@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 15:54:55 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 22:21:08 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/12 19:15:44 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		normal_at_pl(void *v_s, t_vec world_point, t_vec *n)
 	return (1);
 }
 
-t_x_t	intersect_pl(void *v_s, t_ray r, t_x_t x, int obj_n)
+void	intersect_pl(void *v_s, t_ray r, t_x_t *x, int obj_n)
 {
 	t_ray	ray2;
 	t_plane *s;
@@ -49,13 +49,11 @@ t_x_t	intersect_pl(void *v_s, t_ray r, t_x_t x, int obj_n)
 	ray2 = transform(r, matrix_inverse(s->transform));
 
 	if (fabs(ray2.d.c[1]) < EPSILON)
-    {
-        //x.max_obj = x.max_obj + 1;
-        return (x);
-    }
-    x.t[x.max_obj].t = -ray2.o.c[1] / ray2.d.c[1];
-	x.t[x.max_obj].obj = obj_n;
-	x.t[x.max_obj].count = 2;
-	x.max_obj += 1;
-    return (x);
+		return ;
+        //return (x);
+    x->t[x->max_obj].t = -ray2.o.c[1] / ray2.d.c[1];
+	x->t[x->max_obj].obj = obj_n;
+	x->t[x->max_obj].count = 2;
+	x->max_obj += 1;
+    //return (x);
 }

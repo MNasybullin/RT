@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 17:49:00 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 17:58:38 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/12 20:01:55 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,8 @@ int	check_transform_matrix(t_matrix transform, t_matrix pattern_transform, int p
 t_matrix	translation(double x, double y, double z)
 {
 	t_matrix	m;
-	int			i;
-	int			j;
 
-	i = 0;
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			m.m[i][j] = 0;
-			j++;
-		}
-		i++;
-	}
-	m.m[0][0] = 1;
-	m.m[1][1] = 1;
-	m.m[2][2] = 1;
-	m.m[3][3] = 1;
+	m = identity_matrix();
 	m.m[0][3] = x;
 	m.m[1][3] = y;
 	m.m[2][3] = z;
@@ -60,20 +44,8 @@ t_matrix	translation(double x, double y, double z)
 t_matrix	scaling(double x, double y, double z)
 {
 	t_matrix	m;
-	int			i;
-	int			j;
 
-	i = 0;
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			m.m[i][j] = 0;
-			j++;
-		}
-		i++;
-	}
+	m = matrix_nul();
 	m.m[0][0] = x;
 	m.m[1][1] = y;
 	m.m[2][2] = z;
@@ -84,20 +56,8 @@ t_matrix	scaling(double x, double y, double z)
 t_matrix	rotation_x(double r)
 {
 	t_matrix	m;
-	int			i;
-	int			j;
 
-	i = 0;
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			m.m[i][j] = 0;
-			j++;
-		}
-		i++;
-	}
+	m = matrix_nul();
 	m.m[0][0] = 1;
 	m.m[1][1] = cos(r);
 	m.m[1][2] = -1 * sin(r);
@@ -110,20 +70,8 @@ t_matrix	rotation_x(double r)
 t_matrix	rotation_y(double r)
 {
 	t_matrix	m;
-	int			i;
-	int			j;
 
-	i = 0;
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			m.m[i][j] = 0;
-			j++;
-		}
-		i++;
-	}
+	m = matrix_nul();
 	m.m[0][0] = cos(r);
 	m.m[0][2] = sin(r);
 	m.m[1][1] = 1;
@@ -136,20 +84,8 @@ t_matrix	rotation_y(double r)
 t_matrix	rotation_z(double r)
 {
 	t_matrix	m;
-	int			i;
-	int			j;
 
-	i = 0;
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			m.m[i][j] = 0;
-			j++;
-		}
-		i++;
-	}
+	m = matrix_nul();
 	m.m[0][0] = cos(r);
 	m.m[0][1] = -1 * sin(r);
 	m.m[1][0] = sin(r);

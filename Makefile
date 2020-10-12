@@ -6,7 +6,7 @@
 #    By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/06 10:40:08 by aannara           #+#    #+#              #
-#    Updated: 2020/10/10 22:41:19 by sdiego           ###   ########.fr        #
+#    Updated: 2020/10/12 20:42:48 by sdiego           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ OBJ = $(SRC:.c=.o)
 FLAGS = -O2 -Wall -Wextra -Werror
 
 
-SDL_FLAGS = -Iinclude -I SDL_lib/SDL2.framework/Headers
+SDL_FLAGS = -I SDL_lib/SDL2.framework/Headers
 
 SDL2 = -framework SDL2 -F ./SDL_lib/
 
