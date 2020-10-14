@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:09:18 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/12 20:41:13 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/14 18:09:09 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,16 +304,10 @@ t_color	shade_hit(t_world w, t_comps c, int remaining, t_material *m)
 t_color effective_shade_hit(t_world w, t_material *m)
 {
 	t_color surface;
-	//t_color	effective_color;
-	//t_color ambient;
 
 	surface = color(0,0,0);
 	if (w.light_count >= 0)
-	{
-		//effective_color = hadamard_prod(m->color, w.light[0].intensity);
-		//ambient = mult_col(effective_color, 1);
 		return (m->color);
-	}
 	return (surface);
 }
 
