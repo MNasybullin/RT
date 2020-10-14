@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/24 17:34:25 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/12 20:17:40 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,40 @@ typedef struct		s_color
 
 }					t_color;
 
-typedef struct		s_pattern
+typedef struct s_pattern	t_pattern;
+typedef struct s_texturemap	t_texturemap;
+
+struct		s_pattern
 {
+	int	width;
+	int height;
+	double	u;
+	double	v;
 	t_color			a;
 	t_color			b;
 	t_matrix		transform;
-}					t_pattern;
 
-typedef struct		s_material
+	SDL_Surface		*cube_texture[6];
+
+	// for texture cube; test
+	t_color			main[6];
+	t_color			ul[6];
+	t_color			ur[6];
+	t_color			bl[6];
+	t_color			br[6];
+};
+
+//
+struct		s_texturemap
+{
+	t_pattern		uv_pattern;
+	t_vec			(*uv_map)(t_vec p);
+};
+//
+
+typedef struct s_material	t_material;
+
+struct		s_material
 {
 	t_color			color;
 	double			ambient;
@@ -66,10 +92,12 @@ typedef struct		s_material
 	double			transparency;
 	double			refractive_index;
 	int				shadow;
-	t_color			(*pattern_at)(t_pattern p, t_matrix transform, t_vec pos);
+	t_color			(*pattern_at)(t_material m, t_vec pos);
+	t_texturemap	texturemap;
 	t_pattern		p;
-
-}					t_material;
+	int				tex; //1 - yes; 0- no
+	SDL_Surface		*texture;
+};
 
 typedef struct		s_t_h
 {
@@ -97,6 +125,8 @@ typedef struct		s_camera
 	double			half_width;
 	double			half_height;
 	double			pixel_size;
+	int				aliasing;
+	int				sepia;
 }					t_camera;
 /*
 typedef struct		s_x
@@ -168,6 +198,7 @@ typedef struct		s_trian
 	t_matrix		transform;
 }					t_trian;
 
+/*
 typedef struct		s_i
 {
 	double			t;
@@ -182,6 +213,7 @@ typedef struct		s_xs
 	int				max_obj;
 }					t_xs;
 //
+*/
 
 typedef struct		s_comps
 {
@@ -215,9 +247,6 @@ typedef struct		s_light
 	t_vec			vvec;
 	int				vsteps;
 	int				samples;
-
-	double			jetter[10];
-	int				jetter_count;
 }					t_light;
 
 typedef struct		s_ray
@@ -233,7 +262,7 @@ struct				s_shape
 {
 	void			*obj;
 	int				(*loc_norm)(void *obj, t_vec world_point, t_vec *n);
-	t_x_t			(*loc_intersect)(void *obj, t_ray r, t_x_t x, int obj_n);
+	void			(*loc_intersect)(void *obj, t_ray r, t_x_t *x, int obj_n);
 	t_material		*m;
 	t_matrix		*transform;
 };
@@ -266,8 +295,10 @@ typedef struct		s_sdl
 	SDL_Event		e;
 	SDL_Renderer	*ren;
 	SDL_Texture		*text;
+	SDL_Surface		*icon;
 	int				*img;
 	int				run;
+	int				progress;
 }					t_sdl;
 
 int					check_eps(double a, double b);
@@ -301,7 +332,7 @@ double				matrix_determinant_3(t_matrix m);
 double				matrix_determinant_4(t_matrix m);
 int					matrix_inverse_test(t_matrix m);
 t_matrix			matrix_inverse(t_matrix m);
-t_matrix			matrix_nul(t_matrix m);
+t_matrix			matrix_nul();
 t_matrix			translation(double x, double y, double z);
 t_matrix			scaling(double x, double y, double z);
 t_matrix			rotation_x(double r);
@@ -313,7 +344,7 @@ t_ray				set_ray(t_vec or, t_vec di);
 t_vec				position(t_ray r, double t);
 
 t_sp				set_sphere();
-t_x_t				intersect_sp(void *v_s, t_ray r, t_x_t x, int obj_n);
+void				intersect_sp(void *v_s, t_ray r, t_x_t *x, int obj_n);
 
 t_matrix			set_transform(t_matrix s, t_matrix m);
 
@@ -332,14 +363,14 @@ t_light				point_light(t_color color, t_vec pos);
 t_material			default_material(void);
 t_color				lighting(t_material *m, t_world w, t_comps c);
 int					col_to_int(t_color c);
-int					c(double r, double g, double b);
+//int					c(double r, double g, double b);
 
 //world
 void				default_world(t_world *w);
-t_x_t				intersect_world(t_world *w, t_ray r);
+void				intersect_world(t_world *w, t_ray r, t_x_t *x);
 void				bubblesort(t_t_o *num, int size);
-t_i					intersection(double t, int obj);
-t_comps	prepare_computations(t_i i, t_ray r, t_world *w, t_xs xs);
+//t_i					intersection(double t, int obj);
+t_comps	prepare_computations(int hit_obj, t_ray r, t_world *w, t_x_t xs);
 
 
 
@@ -353,7 +384,7 @@ t_matrix			default_view_transf(void);
 
 //camera
 t_camera			camera(double hsize, double vsize, double fov);
-t_ray				ray_for_pixel(t_camera *camera, int px, int py);
+t_ray				ray_for_pixel(t_camera *camera, double px, double py);
 void				render(t_sdl *sdl, t_camera camera, t_world world);
 
 //shadow
@@ -361,26 +392,27 @@ int					is_shadow(t_world w, t_vec light_pos, t_vec	p);
 //shape
 t_vec				sp_normal_at(t_shape s, t_vec local_point);
 void				push_obj(void *obj, int (*loc_norm)(void *, t_vec, t_vec*),
-t_x_t (*loc_intersect)(void *, t_ray, t_x_t, int), t_world *w, t_material *m, t_matrix *transform);
+void (*loc_intersect)(void *, t_ray, t_x_t *, int), t_world *w, t_material *m, t_matrix *transform);
 
 //plane
 int					normal_at_pl(void *v_s, t_vec world_point, t_vec *n);
 t_plane				set_plane();
-t_x_t				intersect_pl(void *v_s, t_ray r, t_x_t x, int obj_n);
+void				intersect_pl(void *v_s, t_ray r, t_x_t *x, int obj_n);
 
 //patterns
 void   stripe_pattern_shape(t_color a, t_color b, t_material *m);
 void   gradient_pattern_shape(t_color a, t_color b, t_material *m);
 void   ring_pattern_shape(t_color a, t_color b, t_material *m);
 void   checker_pattern_shape(t_color a, t_color b, t_material *m);
+t_vec world_point_to_pattern_point(t_pattern p, t_matrix transform, t_vec world_point);
 
 
-t_color stripe_at(t_pattern p, t_vec point);
+t_color stripe_at(t_material m, t_vec point);
 double  realmod(double x, double p);
 //void    push_pat(t_color (*pattern_at)(t_pattern , void *, t_vec), t_world *w);
-t_color gradient_at(t_pattern p, t_vec point);
-t_color ring_at(t_pattern p, t_vec point);
-t_color checker_at(t_pattern p, t_vec point);
+t_color gradient_at(t_material m, t_vec point);
+t_color ring_at(t_material m, t_vec point);
+t_color checker_at(t_material m, t_vec point);
 
 //reflect
 t_color reflected_color(t_world w, t_comps c, int remaining);
@@ -394,35 +426,67 @@ double	schlick(t_comps c);
 
 //cube
 t_cube	set_cube();
-t_x_t	intersect_cube(void *v_s, t_ray r, t_x_t x, int obj_n);
+void	intersect_cube(void *v_s, t_ray r, t_x_t *x, int obj_n);
 double	min(double x, double y, double z);
 double	max(double x, double y, double z);
-t_t_minmax	check_axis(double origin, double direction, t_t_minmax t);
+t_t_minmax	check_axis(double origin, double direction);
 int		normal_at_cube(void *v_s, t_vec world_point, t_vec *n);
 
 //cylinder
 t_cyl	set_cylinder();
-t_x_t	intersect_cyl(void *v_s, t_ray r, t_x_t x, int obj_n);
+void	intersect_cyl(void *v_s, t_ray r, t_x_t *x, int obj_n);
 int		normal_at_cyl(void *v_s, t_vec world_point, t_vec *n);
-t_x_t	intersect_caps(t_cyl *cyl, t_ray r, t_x_t x, int obj_n);
+void	intersect_caps(t_cyl *cyl, t_ray r, t_x_t *x, int obj_n);
 
 //cone
 t_cone	set_cone();
-t_x_t	intersect_cone(void *v_s, t_ray r, t_x_t x, int obj_n);
-t_x_t	intersect_caps_cone(t_cone *cone, t_ray r, t_x_t x, int obj_n);
+void	intersect_cone(void *v_s, t_ray r, t_x_t *x, int obj_n);
+void	intersect_caps_cone(t_cone *cone, t_ray r, t_x_t *x, int obj_n);
 int	check_cap_cone(t_ray r, double t, double y);
 int		normal_at_cone(void *v_s, t_vec world_point, t_vec *n);
 
 //triangle
 t_trian	set_trian(t_vec p1, t_vec p2, t_vec p3);
 int		normal_at_trian(void *v_s, t_vec world_point, t_vec *n);
-t_x_t	intersect_trian(void *v_s, t_ray r, t_x_t x, int obj_n);
+void	intersect_trian(void *v_s, t_ray r, t_x_t *x, int obj_n);
 
 
-
+// soft shadow
 double	intensity_at(t_world w, t_vec p);
 t_light area_light(t_vec corner, t_vec full_uvec, int usteps, t_vec full_vvec, int vsteps, t_color color);
 t_vec	point_on_light(t_light *l, int u, int v);
+
+
+// texture mapping
+t_pattern uv_checkers(int width, int height, t_color a, t_color b);
+t_color uv_patter_at(t_pattern checkers, double u, double v);
+t_vec   spherical_map(t_vec p);
+t_texturemap texture_map(t_pattern checkers, t_vec (*spherical_map)(t_vec));
+t_color pattern_at(t_material m, t_vec point);
+t_vec   planar_map(t_vec p);
+t_vec   cylindrical_map(t_vec p);
+
+
+// cube
+t_color uv_pattern_at_cube(t_pattern pattern, double u, double v, int face);
+t_pattern uv_align_check(t_color main, t_color ul, t_color ur, t_color bl, t_color br, int face);
+int face_from_point(t_vec point);
+t_vec cube_uv_front(t_vec point);
+t_vec cube_uv_back(t_vec point);
+t_vec cube_uv_left(t_vec point);
+t_vec cube_uv_right(t_vec point);
+t_vec cube_uv_up(t_vec point);
+t_vec cube_uv_down(t_vec point);
+t_color pattern_at_cube(t_material m, t_vec point);
+
+
+//texture
+t_color	get_color_tex(SDL_Surface *texture, int x, int y);
+t_color pattern_at_cube_texture(t_material m, t_vec point);
+
+void save_texture(const char* file_name, SDL_Renderer* renderer, SDL_Texture* texture);
+
+int	check_transform_matrix(t_matrix transform, t_matrix pattern_transform, int pattern);
 
 
 #endif

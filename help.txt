@@ -1,0 +1,4 @@
+Keyboard:
+	- "1" - on / off aliasing
+	- "2" - on / off sepia effect
+	- "F12" - screenshot

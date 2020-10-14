@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 16:50:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 19:18:40 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/12 20:40:24 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	identic_m_4(t_matrix a, t_matrix b)
 				return (0);
 			j++;
 		}
-
 		i++;
 	}
 	return (1);
@@ -56,20 +55,11 @@ t_matrix	matrix_mult(t_matrix a, t_matrix b)
 t_vec	matrix_mult_v_p(t_matrix a, t_vec b)
 {
 	t_vec m;
-	int r;
-	int c;
 
-	r = 0;
-	while (r < 4)
-	{
-		c = 0;
-		while (c < 4)
-		{
-			m.c[r] = a.m[r][0] * b.c[0] + a.m[r][1] * b.c[1] + a.m[r][2] * b.c[2] + a.m[r][3] * b.c[3];
-			c++;
-		}
-		r++;
-	}
+	m.c[0] = a.m[0][0] * b.c[0] + a.m[0][1] * b.c[1] + a.m[0][2] * b.c[2] + a.m[0][3] * b.c[3];
+	m.c[1] = a.m[1][0] * b.c[0] + a.m[1][1] * b.c[1] + a.m[1][2] * b.c[2] + a.m[1][3] * b.c[3];
+	m.c[2] = a.m[2][0] * b.c[0] + a.m[2][1] * b.c[1] + a.m[2][2] * b.c[2] + a.m[2][3] * b.c[3];
+	m.c[3] = a.m[3][0] * b.c[0] + a.m[3][1] * b.c[1] + a.m[3][2] * b.c[2] + a.m[3][3] * b.c[3];
 	return (m);
 }
 
@@ -78,32 +68,15 @@ t_matrix	matrix_identity(t_matrix a)
 	t_matrix m;
 	t_matrix b;
 	int r;
-	int c;
 
+	b = identity_matrix();
 	r = 0;
 	while (r < 4)
 	{
-		c = 0;
-		while (c < 4)
-		{
-			b.m[r][c] = 0;
-			c++;
-		}
-		r++;
-	}
-	b.m[0][0] = 1;
-	b.m[1][1] = 1;
-	b.m[2][2] = 1;
-	b.m[3][3] = 1;
-	r = 0;
-	while (r < 4)
-	{
-		c = 0;
-		while (c < 4)
-		{
-			m.m[r][c] = a.m[r][0] * b.m[0][c] + a.m[r][1] * b.m[1][c] + a.m[r][2] * b.m[2][c] + a.m[r][3] * b.m[3][c];
-			c++;
-		}
+		m.m[r][0] = a.m[r][0] * b.m[0][0] + a.m[r][1] * b.m[1][0] + a.m[r][2] * b.m[2][0] + a.m[r][3] * b.m[3][0];
+		m.m[r][1] = a.m[r][0] * b.m[0][1] + a.m[r][1] * b.m[1][1] + a.m[r][2] * b.m[2][1] + a.m[r][3] * b.m[3][1];
+		m.m[r][2] = a.m[r][0] * b.m[0][2] + a.m[r][1] * b.m[1][2] + a.m[r][2] * b.m[2][2] + a.m[r][3] * b.m[3][2];
+		m.m[r][3] = a.m[r][0] * b.m[0][3] + a.m[r][1] * b.m[1][3] + a.m[r][2] * b.m[2][3] + a.m[r][3] * b.m[3][3];
 		r++;
 	}
 	return (m);
@@ -114,32 +87,15 @@ t_vec	matrix_identity_v_p(t_vec a)
 	t_vec m;
 	t_matrix b;
 	int r;
-	int c;
 
+	b = identity_matrix();
 	r = 0;
 	while (r < 4)
 	{
-		c = 0;
-		while (c < 4)
-		{
-			b.m[r][c] = 0;
-			c++;
-		}
-		r++;
-	}
-	b.m[0][0] = 1;
-	b.m[1][1] = 1;
-	b.m[2][2] = 1;
-	b.m[3][3] = 1;
-	r = 0;
-	while (r < 4)
-	{
-		c = 0;
-		while (c < 4)
-		{
-			m.c[r] = a.c[r] * b.m[0][c] + a.c[r] * b.m[1][c] + a.c[r] * b.m[2][c] + a.c[r] * b.m[3][c];
-			c++;
-		}
+		m.c[r] = a.c[r] * b.m[0][0] + a.c[r] * b.m[1][0] + a.c[r] * b.m[2][0] + a.c[r] * b.m[3][0];
+		m.c[r] = a.c[r] * b.m[0][1] + a.c[r] * b.m[1][1] + a.c[r] * b.m[2][1] + a.c[r] * b.m[3][1];
+		m.c[r] = a.c[r] * b.m[0][2] + a.c[r] * b.m[1][2] + a.c[r] * b.m[2][2] + a.c[r] * b.m[3][2];
+		m.c[r] = a.c[r] * b.m[0][3] + a.c[r] * b.m[1][3] + a.c[r] * b.m[2][3] + a.c[r] * b.m[3][3];
 		r++;
 	}
 	return (m);
@@ -149,17 +105,14 @@ t_matrix	matrix_transposing(t_matrix a)
 {
 	t_matrix b;
 	int i;
-	int j;
 
 	i = 0;
 	while (i < 4)
 	{
-		j = 0;
-		while (j < 4)
-		{
-			b.m[j][i] = a.m[i][j];
-			j++;
-		}
+		b.m[0][i] = a.m[i][0];
+		b.m[1][i] = a.m[i][1];
+		b.m[2][i] = a.m[i][2];
+		b.m[3][i] = a.m[i][3];
 		i++;
 	}
 	return (b);
@@ -167,16 +120,7 @@ t_matrix	matrix_transposing(t_matrix a)
 
 double	matrix_determinant_2(t_matrix m)
 {
-	double	a;
-	double	b;
-	double	c;
-	double	d;
-
-	a = m.m[0][0];
-	b = m.m[0][1];
-	c = m.m[1][0];
-	d = m.m[1][1];
-	return((a * d) - (b * c));
+	return((m.m[0][0] * m.m[1][1]) - (m.m[0][1] * m.m[1][0]));
 }
 
 t_matrix	matrix_submatrix(t_matrix m, int a, int b, int size)
@@ -309,20 +253,8 @@ t_matrix	matrix_inverse(t_matrix m)
 t_matrix	identity_matrix(void)
 {
 	t_matrix b;
-	int r;
-	int c;
 
-	r = 0;
-	while (r < 4)
-	{
-		c = 0;
-		while (c < 4)
-		{
-			b.m[r][c] = 0;
-			c++;
-		}
-		r++;
-	}
+	b = matrix_nul();
 	b.m[0][0] = 1;
 	b.m[1][1] = 1;
 	b.m[2][2] = 1;
@@ -330,20 +262,18 @@ t_matrix	identity_matrix(void)
 	return (b);
 }
 
-t_matrix	matrix_nul(t_matrix m)
+t_matrix	matrix_nul(void)
 {
+	t_matrix m;
 	int r;
-	int c;
 
 	r = 0;
 	while (r < 4)
 	{
-		c = 0;
-		while (c < 4)
-		{
-			m.m[r][c] = 0;
-			c++;
-		}
+		m.m[r][0] = 0;
+		m.m[r][1] = 0;
+		m.m[r][2] = 0;
+		m.m[r][3] = 0;
 		r++;
 	}
 	return (m);

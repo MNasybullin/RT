@@ -6,31 +6,27 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 16:31:01 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/24 16:33:02 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/12 19:36:54 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/rt.h"
 
-double	next(t_light *l)
-{
-	double jetter;
-
-	if (l->jetter_count > 9)
-		l->jetter_count = 0;
-	jetter = l->jetter[l->jetter_count];
-	l->jetter_count++;
-	return (jetter);
-}
-
 t_vec	point_on_light(t_light *l, int u, int v)
 {
-/*
-	double a = u + next(l);
-	double b = v + next(l);
-*/
-	double a = u + 0.5;
-	double b = v + 0.5;
+	double a;
+	double b;
+
+	if (l->samples == 1)
+	{
+		a = u;
+		b = v;
+	}
+	else
+	{
+		a = u + drand48();
+		b = v + drand48();
+	}
 
 	t_vec umult = mult(l->uvec, a);
 	t_vec vmult = mult(l->vvec, b);
@@ -73,7 +69,7 @@ t_light	point_light(t_color color, t_vec pos)
 t_material	default_material(void)
 {
 	t_material	m;
-	t_color		c = {1,1,1};
+	t_color		c = {0.5,0.5,0.5};
 
 	m.color = c;
 	m.ambient = 0.1;
@@ -148,7 +144,7 @@ double	intensity_at(t_world w, t_vec p)
 		{
 			t_vec light_position = point_on_light(&w.light[w.light_count], u, v);
 			if (is_shadow(w, light_position ,p) == 0)
-				total = total + 1.0;
+				total += 1.0;
 			u++;
 		}
 		v++;
@@ -179,7 +175,7 @@ int	is_shadow(t_world w, t_vec light_pos, t_vec p)
 	distance = magnitude(v);
 	direction = normalize(v);
 	r = set_ray(p, direction);
-	x = intersect_world(&w, r);
+	intersect_world(&w, r, &x);
 	hit_obj = hit(x);
 	if (hit_obj != -1 && x.t[hit_obj].t < distance)
 	{
@@ -207,7 +203,8 @@ t_color	lighting(t_material *m, t_world w, t_comps c)
 
 	if (m->pattern == 1)
 	{
-		m->color = (*m->pattern_at)(m->p, *w.obj_ar[c.obj].transform, c.over_point);
+		t_vec point = world_point_to_pattern_point(m->p, *w.obj_ar[c.obj].transform, c.over_point);
+		m->color = (*m->pattern_at)(*m, point);
 	}
 	effective_color = hadamard_prod(m->color, w.light[w.light_count].intensity);
 	ambient = mult_col(effective_color, m->ambient);

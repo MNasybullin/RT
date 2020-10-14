@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 15:32:12 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/21 19:55:35 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/12 20:45:52 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,48 +24,42 @@ t_color	color(double r, double g, double b)
 
 t_color	add_col(t_color a1, t_color a2)
 {
-	t_color	b;
-
-	b.r = a1.r + a2.r;
-	b.g = a1.g + a2.g;
-	b.b = a1.b + a2.b;
-	return (b);
+	a1.r += a2.r;
+	a1.g += a2.g;
+	a1.b += a2.b;
+	return (a1);
 }
 
 t_color	sub_col(t_color a1, t_color a2)
 {
-	t_color	b;
-
-	b.r = a1.r - a2.r;
-	b.g = a1.g - a2.g;
-	b.b = a1.b - a2.b;
-	return (b);
+	a1.r -= a2.r;
+	a1.g -= a2.g;
+	a1.b -= a2.b;
+	return (a1);
 }
 
 t_color	mult_col(t_color a, double b)
 {
-	a.r = a.r * b;
-	a.g = a.g * b;
-	a.b = a.b * b;
+	a.r *= b;
+	a.g *= b;
+	a.b *= b;
 	return (a);
 }
 
 t_color	divide_col(t_color a, int b)
 {
-	a.r = a.r / b;
-	a.g = a.g / b;
-	a.b = a.b / b;
+	a.r /= b;
+	a.g /= b;
+	a.b /= b;
 	return (a);
 }
 
 t_color	hadamard_prod(t_color a1, t_color a2)
 {
-	t_color	b;
-
-	b.r = a1.r * a2.r;
-	b.g = a1.g * a2.g;
-	b.b = a1.b * a2.b;
-	return (b);
+	a1.r *= a2.r;
+	a1.g *= a2.g;
+	a1.b *= a2.b;
+	return (a1);
 }
 
 int	col_to_int(t_color c)
@@ -86,6 +80,7 @@ int	col_to_int(t_color c)
 	return (((int)r << 16) + ((int)g << 8) + (int)b);
 }
 
+/*
 int	c(double r, double g, double b)
 {
 
@@ -102,4 +97,24 @@ int	c(double r, double g, double b)
 	if (b < 0)
 		b = 0;
 	return (((int)r << 16) + ((int)g << 8) + (int)b);
+}
+*/
+
+t_color	get_color_tex(SDL_Surface *texture, int x, int y)
+{
+    Uint8 bpp = texture->format->BytesPerPixel;
+	Uint32 pixel = *(Uint32 *)(((Uint8*)texture->pixels) + bpp * x + texture->pitch * y);
+    Uint8 r;
+    Uint8 g;
+    Uint8 b;
+    //Uint8 a;
+	//SDL_GetRGBA(pixel, &format, &r, &g, &b, &a);
+	SDL_GetRGB(pixel, texture->format, &r, &g, &b); // из за тредов иногда проскакивают другие пиксели
+    t_color c;
+	double dr = r;
+	double dg = g;
+	double db = b;
+    c = color(dr/255.0, dg/255.0, db/255.0);
+	//printf("r = %i, g = %i, b = %i, x = %i, y = %i\n", r, g, b, x, y);
+    return (c);
 }

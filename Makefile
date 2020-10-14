@@ -6,7 +6,7 @@
 #    By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/06 10:40:08 by aannara           #+#    #+#              #
-#    Updated: 2020/09/21 20:14:43 by sdiego           ###   ########.fr        #
+#    Updated: 2020/10/12 20:42:48 by sdiego           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,9 +35,10 @@ SRC = ./src/main.c \
 
 OBJ = $(SRC:.c=.o)
 
-FLAGS = -O2
+FLAGS = -O2 -Wall -Wextra -Werror
 
-SDL_FLAGS = -Iinclude -I SDL_lib/SDL2.framework/Headers
+
+SDL_FLAGS = -I SDL_lib/SDL2.framework/Headers
 
 SDL2 = -framework SDL2 -F ./SDL_lib/
 
@@ -58,5 +59,6 @@ clean:
 
 fclean: clean
 	rm -fr $(NAME)
+	rm -fr ./img.bmp
 
 re: fclean all
