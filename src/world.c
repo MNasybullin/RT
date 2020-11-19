@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:09:18 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/14 18:09:09 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/11/19 18:05:07 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,11 +327,15 @@ t_color	color_at(t_world *w, t_ray r, int remaining)
 	{
 		//i = intersection(x.t[hit_obj].t, x.t[hit_obj].obj);
 		//xs = intersections(x);
-		comps = prepare_computations(hit_obj, r, w, x);
 		w->light_count = w->light_obj - 1;
-		col = shade_hit(*w, comps, remaining, w->obj_ar[comps.obj].m);
-		//remaining = 5;
-		//col = effective_shade_hit(*w, w->obj_ar[x.t[hit_obj].obj].m);
+		if (w->effective_render == 0)
+		{
+			comps = prepare_computations(hit_obj, r, w, x);
+			// w->light_count = w->light_obj - 1;
+			col = shade_hit(*w, comps, remaining, w->obj_ar[comps.obj].m);
+		}
+		else
+			col = effective_shade_hit(*w, w->obj_ar[x.t[hit_obj].obj].m);
 	}
 	else
 		col = color(0,0,0);

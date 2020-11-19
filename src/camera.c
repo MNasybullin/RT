@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 18:08:48 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/12 20:18:17 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/11/19 19:13:18 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,17 +138,31 @@ void    draw(t_treads *treads)
     }
 }
 
-void save_texture(const char* file_name, SDL_Renderer* renderer, SDL_Texture* texture)
+void save_texture(SDL_Renderer* renderer, SDL_Texture* texture)
 {
-    SDL_Texture* target = SDL_GetRenderTarget(renderer);
-    SDL_SetRenderTarget(renderer, texture);
-    int width, height;
-    SDL_QueryTexture(texture, NULL, NULL, &width, &height);
-    SDL_Surface* surface = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0);
-    SDL_RenderReadPixels(renderer, NULL, surface->format->format, surface->pixels, surface->pitch);
-    SDL_SaveBMP(surface, file_name);
-    SDL_FreeSurface(surface);
-    SDL_SetRenderTarget(renderer, target);
+    int		i;
+	char	file_name[10];
+
+	i = 0;
+	while (i < 5)
+	{
+		file_name[i] = '0' + rand()%72;
+		i++;
+	}
+	file_name[5] = '.';
+	file_name[6] = 'b';
+	file_name[7] = 'm';
+	file_name[8] = 'p';
+    file_name[9] = '\0';
+	SDL_Texture* target = SDL_GetRenderTarget(renderer);
+	SDL_SetRenderTarget(renderer, texture);
+	int width, height;
+	SDL_QueryTexture(texture, NULL, NULL, &width, &height);
+	SDL_Surface* surface = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0);
+	SDL_RenderReadPixels(renderer, NULL, surface->format->format, surface->pixels, surface->pitch);
+	SDL_SaveBMP(surface, file_name);
+	SDL_FreeSurface(surface);
+	SDL_SetRenderTarget(renderer, target);
 }
 
 pthread_attr_t stack_size(void)

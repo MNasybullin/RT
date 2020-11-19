@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/12 20:17:40 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/11/19 19:08:06 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # define WIN_W 400
 # define WIN_H 400
 # define EPSILON 0.00001
+
+# define KEY sdl->e.key.keysym.sym
 
 typedef struct		s_arr
 {
@@ -127,6 +129,18 @@ typedef struct		s_camera
 	double			pixel_size;
 	int				aliasing;
 	int				sepia;
+
+	double			from_x;
+	double			from_y;
+	double			from_z;
+
+	double			to_x;
+	double			to_y;
+	double			to_z;
+
+	double			up_x;
+	double			up_y;
+	double			up_z;
 }					t_camera;
 /*
 typedef struct		s_x
@@ -287,6 +301,7 @@ struct				s_world
 	int				pl_obj;
 	int				max_obj;
 	int				ar_count;
+	int				effective_render;
 };
 
 typedef struct		s_sdl
@@ -484,9 +499,11 @@ t_color pattern_at_cube(t_material m, t_vec point);
 t_color	get_color_tex(SDL_Surface *texture, int x, int y);
 t_color pattern_at_cube_texture(t_material m, t_vec point);
 
-void save_texture(const char* file_name, SDL_Renderer* renderer, SDL_Texture* texture);
+void save_texture(SDL_Renderer* renderer, SDL_Texture* texture);
 
 int	check_transform_matrix(t_matrix transform, t_matrix pattern_transform, int pattern);
 
+
+void	check_camera_position(t_sdl *sdl, t_camera *c);
 
 #endif

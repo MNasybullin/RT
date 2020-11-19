@@ -6,7 +6,7 @@
 #    By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/06 10:40:08 by aannara           #+#    #+#              #
-#    Updated: 2020/10/12 20:42:48 by sdiego           ###   ########.fr        #
+#    Updated: 2020/11/19 19:08:19 by sdiego           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ SRC = ./src/main.c \
 	./src/cube.c \
 	./src/cylinder.c \
 	./src/cone.c \
-	./src/triangle.c
+	./src/triangle.c \
+	./src/camera_pos.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -59,6 +60,5 @@ clean:
 
 fclean: clean
 	rm -fr $(NAME)
-	rm -fr ./img.bmp
 
 re: fclean all
