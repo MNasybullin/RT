@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 15:03:41 by mgalt             #+#    #+#             */
-/*   Updated: 2020/10/06 19:58:23 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/21 23:19:18 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ void    parse_lights(t_data *p, t_world *w)
 		else if (ft_strequ(p->tab[1], "direction"))
 			p->h.type = 'd';
 	}*/
-	ft_putendl("\n\nparse lights\n");
+	//ft_putendl("\n\nparse lights\n");
 	while (get_next_line(p->fd, &p->line))
 	{
-		ft_putendl("while in parse lights");
+		//ft_putendl("while in parse lights");
 		p->tab = ft_strsplit(p->line, ' ');
 		if (!(ft_strequ(p->tab[0], "-")) && !(ft_strequ(p->tab[1], "object:")) &&
 		!(ft_strequ(p->tab[0], "-")) && !(ft_strequ(p->tab[1], "lights:")) && !(ft_strequ(p->tab[0], "cameras:")))

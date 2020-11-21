@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/08 17:05:44 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/21 23:26:30 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -549,6 +549,8 @@ void	pattern_color_tri(t_data *p, t_world *w, char **tab, int flag);
 void	pushing_objects(t_data *p, t_world *w);
 int		check_make_obj(char **tab);
 void	triangle_sides(t_data *p, t_world *w, char **tab, int flag);
+//void	skip_empty_lines(t_data *p);
+int		valid_len(char ***tab, int len, t_data *p);
 
 //libft
 void	ft_putendl(char const *s);
@@ -560,5 +562,8 @@ int			ft_strequ(char const *s1, char const *s2);
 int			get_next_line(const int fd, char **line);
 char		**ft_strsplit(char const *s, char c);
 int					ft_strcmp(const char *str1, const char *str2);
+
+//errors
+int		err_wrong_format(void);
 
 #endif

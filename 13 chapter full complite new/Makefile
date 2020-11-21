@@ -6,7 +6,7 @@
 #    By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/06 10:40:08 by aannara           #+#    #+#              #
-#    Updated: 2020/09/17 18:56:05 by mgalt            ###   ########.fr        #
+#    Updated: 2020/11/21 23:27:14 by mgalt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,8 @@ SRC = ./src/main.c \
 	./src/make_cube.c \
 	./src/make_triangle.c \
 	./src/parse_lights.c \
-	./src/parse_cameras.c
+	./src/parse_cameras.c \
+	./src/error.c 
 
 OBJ = $(SRC:.c=.o)
 

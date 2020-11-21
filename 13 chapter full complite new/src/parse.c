@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 20:14:25 by mgalt             #+#    #+#             */
-/*   Updated: 2020/10/08 16:17:19 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/21 23:34:38 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,10 @@ void	count_objects(t_data *p, char *file, char *line)
 	char	**tab;
 	int		len = 0;
 
+	//printf("line: %s\n", p->line);
 	//ft_putendl("count_objects");
 	get_next_line(p->fd, &line);
+	//printf("line: %s\n", p->line);
 	tab = NULL;
 	while ((get_next_line(p->fd, &line)) > 0)
 	{
@@ -197,6 +199,34 @@ void	pushing_objects(t_data *p, t_world *w)
 	}
 }
 
+int		valid_len(char ***tab, int len, t_data *p)
+{
+	//ft_putendl("in valid len");
+	//printf("Len tab is %d\n\n", len_tab(*tab));
+	if ((len_tab(*tab)) == len)
+			return (1);
+	while ((len_tab(*tab)) != len)
+	{
+		free_tab(*tab);
+		get_next_line(p->fd, &p->line);
+		//if (len_tab(*tab) == len)
+		//	return(1);
+		//if (get_next_line(p->fd, &p->line) == -1)
+		//	return(0);
+		*tab = ft_strsplit(p->line, ' ');
+		//printf("tab len: %d\n", len_tab(*tab));
+		if ((len_tab(*tab)) == len)
+			return (1);
+	}
+	return (0);
+}
+
+void	skip_empty_lines(t_data *p)
+{
+	while ((get_next_line(p->fd, &p->line)) && !(ft_strcmp(p->line, "\n")))
+		get_next_line(p->fd, &p->line);
+}
+
 int		read_file(char *file, t_data *p, t_world *w)
 {
 	char	**tab;
@@ -222,6 +252,9 @@ int		read_file(char *file, t_data *p, t_world *w)
 	tab = ft_strsplit(p->line, ' ');
 	if (!(ft_strcmp(tab[0], "objects:")))
 	{
+		//printf("line: %s\n", p->line);
+		//if ((get_next_line(p->fd, &p->line)) && !(ft_strcmp(p->line, "\n")))
+		//	skip_empty_lines(p);
 		count_objects(p, file, p->line);
 		alloc_obj_memory(p, w);
 		//w->pl->pattern = 0;
@@ -236,26 +269,26 @@ int		read_file(char *file, t_data *p, t_world *w)
 	//ft_putendl("after fd open");
 	get_next_line(p->fd, &p->line);
 	get_next_line(p->fd, &p->line);
-	//get_next_line(p->fd, &p->line); // simpl2.yml will work if this is commented
+	//get_next_line(p->fd, &p->line); // simple2.yml will work if this is commented
 
 	//ft_putendl("after 3 gnls");
 	while (p->line && (get_next_line(p->fd, &p->line) != 0))
 	{
 		tab = ft_strsplit(p->line, ' ');
-
-		//ft_putendl("3");
-
+		printf("valid len: %d\n", valid_len(&tab, 2, p));
+		if (!(valid_len(&tab, 2, p)))
+			exit(err_wrong_format());
 		if (!(ft_strcmp(tab[1], "object:")))
 		{
-			//ft_putendl("cmp object:");
 			get_next_line(p->fd, &p->line);
 			free_tab(tab);
 			tab = NULL;
 			tab = ft_strsplit(p->line, ' ');
+			if (!(valid_len(&tab, 2, p)))
+				exit(err_wrong_format());
 			p->tab = (char**)malloc(sizeof(char) * 2);
 			p->tab[0] = ft_strdup(tab[0]);
 			p->tab[1] = ft_strdup(tab[1]);
-			//printf("i = %d\np->tab[0] %s\np->obj_n = %d\n", i, p->tab[0], p->obj_n);
 			while (!(ft_strcmp(p->tab[0], "type:")) && i < p->obj_n)
 			{
 				//ft_putendl("if before check type");
@@ -267,7 +300,7 @@ int		read_file(char *file, t_data *p, t_world *w)
 			//print_parameters(w, p);
 		}
 		//ft_putendl("out of if");
-		printf("line before lights: \"%s\"\n", p->line);
+		//printf("line before lights: \"%s\"\n", p->line);
 		//free_tab(p->tab);
 		p->tab = NULL;
 		//while ()
@@ -284,13 +317,13 @@ int		read_file(char *file, t_data *p, t_world *w)
 				parse_lights(p, w);
 			}
 		}
-		printf("line after lights: \"%s\"\n", p->line);
+		//printf("line after lights: \"%s\"\n", p->line);
 		p->tab = NULL;
-		printf("line after lights 2: \"%s\"\n", p->line);
+		//printf("line after lights 2: \"%s\"\n", p->line);
 		if (!(ft_strcmp(p->line, "cameras:")))
 		{
 			
-			ft_putendl("if cameras");
+			//ft_putendl("if cameras");
 
 			get_next_line(p->fd, &p->line);
 			tab = ft_strsplit(p->line, ' ');

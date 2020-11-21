@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 18:55:21 by mgalt             #+#    #+#             */
-/*   Updated: 2020/10/06 18:10:19 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/21 23:20:38 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ void    parse_cameras(t_data *p, t_world *w)
 {
 	t_camera	c;
 
-	ft_putendl("parse cameras");
+	//ft_putendl("parse cameras");
 	
     while (get_next_line(p->fd, &p->line))
 	{
 		p->tab = ft_strsplit(p->line, ' ');
-		printf("\n\n tab[0] %s, tab[1] %s\n", p->tab[0], p->tab[1]);
+		//printf("\n\n tab[0] %s, tab[1] %s\n", p->tab[0], p->tab[1]);
 		if (!(ft_strequ(p->tab[0], "-")) && !(ft_strequ(p->tab[1], "object:")) &&
 		!(ft_strequ(p->tab[0], "-")) && !(ft_strequ(p->tab[1], "lights:")) && !(ft_strequ(p->tab[0], "...")))
 		{
