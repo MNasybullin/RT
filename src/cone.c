@@ -6,13 +6,13 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/01 14:05:29 by sdiego            #+#    #+#             */
-/*   Updated: 2020/11/21 18:53:21 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/10/12 19:23:12 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/rt.h"
 
-t_cone	set_cone(void)
+t_cone	set_cone()
 {
 	t_cone	c;
 
@@ -49,6 +49,7 @@ void	intersect_cone(void *v_s, t_ray r, t_x_t *x, int obj_n)
 	{
 		intersect_caps_cone(s, ray2, x, obj_n);
 		return ;
+		//return (x);
 	}
 	c = (ray2.o.c[0] * ray2.o.c[0]) - (ray2.o.c[1] * ray2.o.c[1]) + (ray2.o.c[2] * ray2.o.c[2]);
 	if (fabs(a) <= EPSILON && fabs(b) > EPSILON)
@@ -59,10 +60,12 @@ void	intersect_cone(void *v_s, t_ray r, t_x_t *x, int obj_n)
 		x->max_obj += 1;
 		intersect_caps_cone(s, ray2, x, obj_n);
 		return ;
+		//return (x);
 	}
 	disc = (b * b) - (4 * a * c);
 	if (disc < 0)
 		return ;
+		//return (x);
 	else
 	{
 		t0 = ((-b - sqrt(disc)) / (2 * a));
@@ -92,6 +95,7 @@ void	intersect_cone(void *v_s, t_ray r, t_x_t *x, int obj_n)
 	}
 	intersect_caps_cone(s, ray2, x, obj_n);
 	return ;
+	//return (x);
 }
 
 int	check_cap_cone(t_ray r, double t, double y)
@@ -112,6 +116,7 @@ void	intersect_caps_cone(t_cone *cone, t_ray r, t_x_t *x, int obj_n)
 
 	if (cone->closed == 0 || fabs(r.d.c[1]) <= EPSILON)
 		return ;
+		//return (x);
 	t = (cone->min - r.o.c[1]) / r.d.c[1];
 	if (check_cap_cone(r, t, cone->min) == 1) //проверка нижней крышки
 	{
@@ -128,24 +133,29 @@ void	intersect_caps_cone(t_cone *cone, t_ray r, t_x_t *x, int obj_n)
 		x->t[x->max_obj].count = 2;
 		x->max_obj += 1;
 	}
+	//return (x);
 }
 
 int		normal_at_cone(void *v_s, t_vec world_point, t_vec *n)
 {
 	t_cone	*s;
 	t_vec	object_point;
-	t_vec	object_normal;
+	t_vec   object_normal;
 	t_vec	world_normal;
 	double	dist;
-	double	y;
+	double y;
 
 	s = (t_cone*)v_s;
 	object_point = matrix_mult_v_p(matrix_inverse(s->transform), world_point);
 	dist = (object_point.c[0] * object_point.c[0]) + (object_point.c[2] * object_point.c[2]);
 	if (dist < 1 && object_point.c[1] >= s->max - EPSILON)
+	{
 		object_normal = set_v_p(0, 1, 0, 0);
+	}
 	else if (dist < 1 && object_point.c[1] <= s->min + EPSILON)
+	{
 		object_normal = set_v_p(0, -1, 0, 0);
+	}
 	else
 	{
 		y = sqrt((object_point.c[0] * object_point.c[0]) + (object_point.c[2] * object_point.c[2]));
