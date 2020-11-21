@@ -6,13 +6,13 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/30 15:08:03 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/12 19:20:44 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/11/21 18:56:26 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/rt.h"
 
-t_cyl	set_cylinder()
+t_cyl	set_cylinder(void)
 {
 	t_cyl	c;
 
@@ -48,14 +48,12 @@ void	intersect_cyl(void *v_s, t_ray r, t_x_t *x, int obj_n)
 	{
 		intersect_caps(s, ray2, x, obj_n);
 		return ;
-		//return (x);
 	}
 	b = (2 * ray2.o.c[0] * ray2.d.c[0]) + (2 * ray2.o.c[2] * ray2.d.c[2]);
 	c = (ray2.o.c[0] * ray2.o.c[0]) + (ray2.o.c[2] * ray2.o.c[2]) - 1;
 	disc = (b * b) - (4 * a * c);
 	if (disc < 0)
 		return ;
-		//return (x);
 	else
 	{
 		t0 = ((-b - sqrt(disc)) / (2 * a));
@@ -85,7 +83,6 @@ void	intersect_cyl(void *v_s, t_ray r, t_x_t *x, int obj_n)
 	}
 	intersect_caps(s, ray2, x, obj_n);
 	return ;
-	//return (x);
 }
 
 int	check_cap(t_ray r, double t)
@@ -106,7 +103,6 @@ void	intersect_caps(t_cyl *cyl, t_ray r, t_x_t *x, int obj_n)
 
 	if (cyl->closed == 0 || fabs(r.d.c[1]) <= EPSILON)
 		return ;
-		//return (x);
 	t = (cyl->min - r.o.c[1]) / r.d.c[1];
 	if (check_cap(r, t) == 1) //проверка нижней крышки
 	{
@@ -123,14 +119,13 @@ void	intersect_caps(t_cyl *cyl, t_ray r, t_x_t *x, int obj_n)
 		x->t[x->max_obj].count = 2;
 		x->max_obj += 1;
 	}
-	//return (x);
 }
 
 int		normal_at_cyl(void *v_s, t_vec world_point, t_vec *n)
 {
 	t_cyl	*s;
 	t_vec	object_point;
-	t_vec   object_normal;
+	t_vec	object_normal;
 	t_vec	world_normal;
 	double	dist;
 
@@ -138,17 +133,11 @@ int		normal_at_cyl(void *v_s, t_vec world_point, t_vec *n)
 	object_point = matrix_mult_v_p(matrix_inverse(s->transform), world_point);
 	dist = (object_point.c[0] * object_point.c[0]) + (object_point.c[2] * object_point.c[2]);
 	if (dist < 1 && object_point.c[1] >= s->max - EPSILON)
-	{
 		object_normal = set_v_p(0, 1, 0, 0);
-	}
 	else if (dist < 1 && object_point.c[1] <= s->min + EPSILON)
-	{
 		object_normal = set_v_p(0, -1, 0, 0);
-	}
 	else
-	{
 		object_normal = set_v_p(object_point.c[0], 0, object_point.c[2], 0);
-	}
 	world_normal = matrix_mult_v_p(matrix_transposing(matrix_inverse(s->transform)), object_normal);
 	world_normal.c[3] = 0;
 	*n = normalize(world_normal);

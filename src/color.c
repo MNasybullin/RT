@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 15:32:12 by sdiego            #+#    #+#             */
-/*   Updated: 2020/11/19 19:12:54 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/11/21 18:51:08 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_color	hadamard_prod(t_color a1, t_color a2)
 	return (a1);
 }
 
-int	col_to_int(t_color c)
+int		col_to_int(t_color c)
 {
 	int	r;
 	int	g;
@@ -102,19 +102,16 @@ int	c(double r, double g, double b)
 
 t_color	get_color_tex(SDL_Surface *texture, int x, int y)
 {
-    Uint8 bpp = texture->format->BytesPerPixel;
+	Uint8 bpp = texture->format->BytesPerPixel;
 	Uint32 pixel = *(Uint32 *)(((Uint8*)texture->pixels) + bpp * x + texture->pitch * y);
-    Uint8 r;
-    Uint8 g;
-    Uint8 b;
-    //Uint8 a;
-	//SDL_GetRGBA(pixel, &format, &r, &g, &b, &a);
+	Uint8 r;
+	Uint8 g;
+	Uint8 b;
 	SDL_GetRGB(pixel, texture->format, &r, &g, &b); // из за тредов иногда проскакивают другие пиксели
 	t_color c;
 	double dr = r;
 	double dg = g;
 	double db = b;
-	c = color(dr/255.0, dg/255.0, db/255.0);
-	//printf("r = %i, g = %i, b = %i, x = %i, y = %i\n", r, g, b, x, y);
-    return (c);
+	c = color(dr / 255.0, dg / 255.0, db / 255.0);
+	return (c);
 }

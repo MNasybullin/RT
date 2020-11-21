@@ -6,24 +6,25 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 17:49:00 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/12 20:01:55 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/11/21 19:57:08 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/rt.h"
 
-int	check_transform_matrix(t_matrix transform, t_matrix pattern_transform, int pattern)
+int			check_transform_matrix(t_matrix transform,
+t_matrix pattern_transform, int pattern)
 {
 	if (matrix_inverse_test(transform) != 1)
 	{
-		write(1, "matrix_inverse_test error int shape transform\n", 46);
+		write(1, "matrix_inverse_test error in shape transform\n", 45);
 		return (EXIT_FAILURE);
 	}
 	if (pattern == 1)
 	{
 		if (matrix_inverse_test(pattern_transform) != 1)
 		{
-			write(1, "matrix_inverse_test error int shape pattern transform\n", 54);
+			write(1, "matrix_inverse_test error in shape pattern transform\n", 53);
 			return (EXIT_FAILURE);
 		}
 	}
@@ -98,6 +99,7 @@ t_matrix	rotation_z(double r)
 t_matrix	shearing(double x_y, double x_z, double y_x, double y_z, double z_x, double z_y)
 {
 	t_matrix	m;
+
 	m = identity_matrix();
 	m.m[0][1] = x_y;
 	m.m[0][2] = x_z;
@@ -108,13 +110,13 @@ t_matrix	shearing(double x_y, double x_z, double y_x, double y_z, double z_x, do
 	return (m);
 }
 
-t_ray	transform(t_ray r, t_matrix m)
+t_ray		transform(t_ray r, t_matrix m)
 {
-	t_ray r2;
+	t_ray	r2;
 
 	r2.o = matrix_mult_v_p(m, r.o);
 	r2.d = matrix_mult_v_p(m, r.d);
-	return(r2);
+	return (r2);
 }
 
 t_matrix	set_transform(t_matrix s, t_matrix m)
@@ -152,11 +154,14 @@ t_matrix	view_transform(t_vec from, t_vec to, t_vec up)
 
 t_matrix	default_view_transf(void)
 {
-	t_vec	from = set_v_p(0,0,0,1);
-	t_vec	to = set_v_p(0,0,-1,1);
-	t_vec	up = set_v_p(0,1,0,0);
+	t_vec		from;
+	t_vec		to;
+	t_vec		up;
+	t_matrix	t;
 
-	t_matrix	t = view_transform(from, to, up);
+	from = set_v_p(0, 0, 0, 1);
+	to = set_v_p(0, 0, -1, 1);
+	up = set_v_p(0, 1, 0, 0);
+	t = view_transform(from, to, up);
 	return (t);
 }
-

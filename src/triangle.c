@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/02 16:01:23 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/12 19:17:08 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/11/21 19:58:07 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ t_trian	set_trian(t_vec p1, t_vec p2, t_vec p3)
 
 int		normal_at_trian(void *v_s, t_vec world_point, t_vec *n)
 {
-	t_trian *s;
-	t_vec   object_point;
-	t_vec   object_normal;
+	t_trian	*s;
+	t_vec	object_point;
+	t_vec	object_normal;
 	t_vec	world_normal;
 
 	s = (t_trian*)v_s;
@@ -55,28 +55,23 @@ void	intersect_trian(void *v_s, t_ray r, t_x_t *x, int obj_n)
 	t_vec	origin_cross_e1;
 	double	v;
 
-
 	s = (t_trian*)v_s;
 	ray2 = transform(r, matrix_inverse(s->transform));
 	dir_cross_e2 = cross(ray2.d, s->e2);
 	det = dot(s->e1, dir_cross_e2);
 	if (fabs(det) < EPSILON)
 		return ;
-		//return (x);
 	f = 1.0 / det;
 	p1_to_origin = sub(ray2.o, s->p1);
 	u = f * dot(p1_to_origin, dir_cross_e2);
 	if (u < 0 || u > 1)
 		return ;
-		//return (x);
 	origin_cross_e1 = cross(p1_to_origin, s->e1);
 	v = f * dot(ray2.d, origin_cross_e1);
 	if (v < 0 || (u + v) > 1)
 		return ;
-		//return (x);
 	x->t[x->max_obj].t = f * dot(s->e2, origin_cross_e1);
 	x->t[x->max_obj].obj = obj_n;
 	x->t[x->max_obj].count = 2;
 	x->max_obj += 1;
-	//return (x);
 }

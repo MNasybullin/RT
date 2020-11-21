@@ -6,16 +6,16 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 16:50:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/12 20:40:24 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/11/21 19:18:41 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/rt.h"
 
-int	identic_m_4(t_matrix a, t_matrix b)
+int			identic_m_4(t_matrix a, t_matrix b)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < 4)
@@ -34,9 +34,9 @@ int	identic_m_4(t_matrix a, t_matrix b)
 
 t_matrix	matrix_mult(t_matrix a, t_matrix b)
 {
-	t_matrix m;
-	int r;
-	int c;
+	t_matrix	m;
+	int			r;
+	int			c;
 
 	r = 0;
 	while (r < 4)
@@ -44,7 +44,8 @@ t_matrix	matrix_mult(t_matrix a, t_matrix b)
 		c = 0;
 		while (c < 4)
 		{
-			m.m[r][c] = a.m[r][0] * b.m[0][c] + a.m[r][1] * b.m[1][c] + a.m[r][2] * b.m[2][c] + a.m[r][3] * b.m[3][c];
+			m.m[r][c] = a.m[r][0] * b.m[0][c] + a.m[r][1] * b.m[1][c] +
+			a.m[r][2] * b.m[2][c] + a.m[r][3] * b.m[3][c];
 			c++;
 		}
 		r++;
@@ -52,50 +53,62 @@ t_matrix	matrix_mult(t_matrix a, t_matrix b)
 	return (m);
 }
 
-t_vec	matrix_mult_v_p(t_matrix a, t_vec b)
+t_vec		matrix_mult_v_p(t_matrix a, t_vec b)
 {
-	t_vec m;
+	t_vec	m;
 
-	m.c[0] = a.m[0][0] * b.c[0] + a.m[0][1] * b.c[1] + a.m[0][2] * b.c[2] + a.m[0][3] * b.c[3];
-	m.c[1] = a.m[1][0] * b.c[0] + a.m[1][1] * b.c[1] + a.m[1][2] * b.c[2] + a.m[1][3] * b.c[3];
-	m.c[2] = a.m[2][0] * b.c[0] + a.m[2][1] * b.c[1] + a.m[2][2] * b.c[2] + a.m[2][3] * b.c[3];
-	m.c[3] = a.m[3][0] * b.c[0] + a.m[3][1] * b.c[1] + a.m[3][2] * b.c[2] + a.m[3][3] * b.c[3];
+	m.c[0] = a.m[0][0] * b.c[0] + a.m[0][1] * b.c[1] + a.m[0][2] *
+	b.c[2] + a.m[0][3] * b.c[3];
+	m.c[1] = a.m[1][0] * b.c[0] + a.m[1][1] * b.c[1] + a.m[1][2] *
+	b.c[2] + a.m[1][3] * b.c[3];
+	m.c[2] = a.m[2][0] * b.c[0] + a.m[2][1] * b.c[1] + a.m[2][2] *
+	b.c[2] + a.m[2][3] * b.c[3];
+	m.c[3] = a.m[3][0] * b.c[0] + a.m[3][1] * b.c[1] + a.m[3][2] *
+	b.c[2] + a.m[3][3] * b.c[3];
 	return (m);
 }
 
 t_matrix	matrix_identity(t_matrix a)
 {
-	t_matrix m;
-	t_matrix b;
-	int r;
+	t_matrix	m;
+	t_matrix	b;
+	int			r;
 
 	b = identity_matrix();
 	r = 0;
 	while (r < 4)
 	{
-		m.m[r][0] = a.m[r][0] * b.m[0][0] + a.m[r][1] * b.m[1][0] + a.m[r][2] * b.m[2][0] + a.m[r][3] * b.m[3][0];
-		m.m[r][1] = a.m[r][0] * b.m[0][1] + a.m[r][1] * b.m[1][1] + a.m[r][2] * b.m[2][1] + a.m[r][3] * b.m[3][1];
-		m.m[r][2] = a.m[r][0] * b.m[0][2] + a.m[r][1] * b.m[1][2] + a.m[r][2] * b.m[2][2] + a.m[r][3] * b.m[3][2];
-		m.m[r][3] = a.m[r][0] * b.m[0][3] + a.m[r][1] * b.m[1][3] + a.m[r][2] * b.m[2][3] + a.m[r][3] * b.m[3][3];
+		m.m[r][0] = a.m[r][0] * b.m[0][0] + a.m[r][1] * b.m[1][0] +
+		a.m[r][2] * b.m[2][0] + a.m[r][3] * b.m[3][0];
+		m.m[r][1] = a.m[r][0] * b.m[0][1] + a.m[r][1] * b.m[1][1] +
+		a.m[r][2] * b.m[2][1] + a.m[r][3] * b.m[3][1];
+		m.m[r][2] = a.m[r][0] * b.m[0][2] + a.m[r][1] * b.m[1][2] +
+		a.m[r][2] * b.m[2][2] + a.m[r][3] * b.m[3][2];
+		m.m[r][3] = a.m[r][0] * b.m[0][3] + a.m[r][1] * b.m[1][3] +
+		a.m[r][2] * b.m[2][3] + a.m[r][3] * b.m[3][3];
 		r++;
 	}
 	return (m);
 }
 
-t_vec	matrix_identity_v_p(t_vec a)
+t_vec		matrix_identity_v_p(t_vec a)
 {
-	t_vec m;
-	t_matrix b;
-	int r;
+	t_vec		m;
+	t_matrix	b;
+	int			r;
 
 	b = identity_matrix();
 	r = 0;
 	while (r < 4)
 	{
-		m.c[r] = a.c[r] * b.m[0][0] + a.c[r] * b.m[1][0] + a.c[r] * b.m[2][0] + a.c[r] * b.m[3][0];
-		m.c[r] = a.c[r] * b.m[0][1] + a.c[r] * b.m[1][1] + a.c[r] * b.m[2][1] + a.c[r] * b.m[3][1];
-		m.c[r] = a.c[r] * b.m[0][2] + a.c[r] * b.m[1][2] + a.c[r] * b.m[2][2] + a.c[r] * b.m[3][2];
-		m.c[r] = a.c[r] * b.m[0][3] + a.c[r] * b.m[1][3] + a.c[r] * b.m[2][3] + a.c[r] * b.m[3][3];
+		m.c[r] = a.c[r] * b.m[0][0] + a.c[r] * b.m[1][0] + a.c[r] *
+		b.m[2][0] + a.c[r] * b.m[3][0];
+		m.c[r] = a.c[r] * b.m[0][1] + a.c[r] * b.m[1][1] + a.c[r] *
+		b.m[2][1] + a.c[r] * b.m[3][1];
+		m.c[r] = a.c[r] * b.m[0][2] + a.c[r] * b.m[1][2] + a.c[r] *
+		b.m[2][2] + a.c[r] * b.m[3][2];
+		m.c[r] = a.c[r] * b.m[0][3] + a.c[r] * b.m[1][3] + a.c[r] *
+		b.m[2][3] + a.c[r] * b.m[3][3];
 		r++;
 	}
 	return (m);
@@ -103,8 +116,8 @@ t_vec	matrix_identity_v_p(t_vec a)
 
 t_matrix	matrix_transposing(t_matrix a)
 {
-	t_matrix b;
-	int i;
+	t_matrix	b;
+	int			i;
 
 	i = 0;
 	while (i < 4)
@@ -118,9 +131,9 @@ t_matrix	matrix_transposing(t_matrix a)
 	return (b);
 }
 
-double	matrix_determinant_2(t_matrix m)
+double		matrix_determinant_2(t_matrix m)
 {
-	return((m.m[0][0] * m.m[1][1]) - (m.m[0][1] * m.m[1][0]));
+	return ((m.m[0][0] * m.m[1][1]) - (m.m[0][1] * m.m[1][0]));
 }
 
 t_matrix	matrix_submatrix(t_matrix m, int a, int b, int size)
@@ -155,9 +168,9 @@ t_matrix	matrix_submatrix(t_matrix m, int a, int b, int size)
 	return (v);
 }
 
-double	matrix_minor(t_matrix m, int a, int b, int size)
+double		matrix_minor(t_matrix m, int a, int b, int size)
 {
-	double w;
+	double	w;
 
 	m = matrix_submatrix(m, a, b, size);
 	if (size == 4)
@@ -167,11 +180,11 @@ double	matrix_minor(t_matrix m, int a, int b, int size)
 	return (w);
 }
 
-double	matrix_cofactor(t_matrix m, int a, int b, int size)
+double		matrix_cofactor(t_matrix m, int a, int b, int size)
 {
-	int i;
-	int j;
-	int c;
+	int	i;
+	int	j;
+	int	c;
 
 	i = 0;
 	while (i < size)
@@ -189,7 +202,7 @@ double	matrix_cofactor(t_matrix m, int a, int b, int size)
 	return (matrix_minor(m, a, b, size));
 }
 
-double	matrix_determinant_3(t_matrix m)
+double		matrix_determinant_3(t_matrix m)
 {
 	double	a;
 	double	b;
@@ -199,12 +212,12 @@ double	matrix_determinant_3(t_matrix m)
 	a = m.m[0][0];
 	b = m.m[0][1];
 	c = m.m[0][2];
-
-	res = (a * matrix_cofactor(m, 0, 0, 3)) + (b * matrix_cofactor(m, 0, 1, 3)) + (c * matrix_cofactor(m, 0, 2, 3));
-	return(res);
+	res = (a * matrix_cofactor(m, 0, 0, 3)) +
+	(b * matrix_cofactor(m, 0, 1, 3)) + (c * matrix_cofactor(m, 0, 2, 3));
+	return (res);
 }
 
-double	matrix_determinant_4(t_matrix m)
+double		matrix_determinant_4(t_matrix m)
 {
 	double	a;
 	double	b;
@@ -216,24 +229,24 @@ double	matrix_determinant_4(t_matrix m)
 	b = m.m[0][1];
 	c = m.m[0][2];
 	d = m.m[0][3];
-
-	res = (a * matrix_cofactor(m, 0, 0, 4)) + (b * matrix_cofactor(m, 0, 1, 4)) + (c * matrix_cofactor(m, 0, 2, 4)) + (d * matrix_cofactor(m, 0, 3, 4));
-	return(res);
+	res = (a * matrix_cofactor(m, 0, 0, 4)) + (b * matrix_cofactor(m, 0, 1, 4))
+	+ (c * matrix_cofactor(m, 0, 2, 4)) + (d * matrix_cofactor(m, 0, 3, 4));
+	return (res);
 }
 
-int	matrix_inverse_test(t_matrix m)
+int			matrix_inverse_test(t_matrix m)
 {
 	if (matrix_determinant_4(m) == 0)
-		return(0);
+		return (0);
 	return (1);
 }
 
 t_matrix	matrix_inverse(t_matrix m)
 {
-	int r;
-	int c;
-	double cof;
-	t_matrix m2;
+	int			r;
+	int			c;
+	double		cof;
+	t_matrix	m2;
 
 	r = 0;
 	while (r < 4)
@@ -252,7 +265,7 @@ t_matrix	matrix_inverse(t_matrix m)
 
 t_matrix	identity_matrix(void)
 {
-	t_matrix b;
+	t_matrix	b;
 
 	b = matrix_nul();
 	b.m[0][0] = 1;
@@ -264,8 +277,8 @@ t_matrix	identity_matrix(void)
 
 t_matrix	matrix_nul(void)
 {
-	t_matrix m;
-	int r;
+	t_matrix	m;
+	int			r;
 
 	r = 0;
 	while (r < 4)

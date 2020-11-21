@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/11/19 19:10:14 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/11/21 20:53:44 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ int		quit(t_sdl *sdl)
 	SDL_DestroyRenderer(sdl->ren);
 	SDL_DestroyWindow(sdl->win);
 	SDL_Quit();
-
-	return(0);
+	return (0);
 }
 
 int		key_press(t_sdl *sdl, t_camera *camera, t_world *w)
@@ -69,7 +68,6 @@ int	clear_img(t_sdl *sdl)
 
 int		init(t_sdl *sdl)
 {
-
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
 		printf("%s\n", SDL_GetError());
@@ -104,7 +102,7 @@ int		init(t_sdl *sdl)
 		write(1, "Can't create texture\n", 21);
 		return (1);
 	}
-	return(0);
+	return (0);
 }
 
 int		hit(t_x_t x)
@@ -246,5 +244,5 @@ int		main(void)
 		}
 	}
 	quit(&sdl);
-	return(0);
+	return (0);
 }

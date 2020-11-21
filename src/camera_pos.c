@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 19:07:35 by sdiego            #+#    #+#             */
-/*   Updated: 2020/11/19 19:07:58 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/11/21 18:42:45 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,18 @@ void	check_camera_up(t_sdl *sdl, t_camera *c)
 
 void	check_camera_position(t_sdl *sdl, t_camera *c)
 {
-	if (KEY == SDLK_q || KEY == SDLK_w || KEY == SDLK_e || KEY == SDLK_r || KEY == SDLK_t || KEY == SDLK_y)
+	if (KEY == SDLK_q || KEY == SDLK_w || KEY == SDLK_e || KEY == SDLK_r ||
+	KEY == SDLK_t || KEY == SDLK_y)
 		check_camera_from(sdl, c);
-	if (KEY == SDLK_a || KEY == SDLK_s || KEY == SDLK_d || KEY == SDLK_f || KEY == SDLK_g || KEY == SDLK_h)
+	if (KEY == SDLK_a || KEY == SDLK_s || KEY == SDLK_d || KEY == SDLK_f ||
+	KEY == SDLK_g || KEY == SDLK_h)
 		check_camera_to(sdl, c);
-	if (KEY == SDLK_z || KEY == SDLK_x || KEY == SDLK_c || KEY == SDLK_v || KEY == SDLK_b || KEY == SDLK_n)
+	if (KEY == SDLK_z || KEY == SDLK_x || KEY == SDLK_c || KEY == SDLK_v ||
+	KEY == SDLK_b || KEY == SDLK_n)
 		check_camera_up(sdl, c);
 	if (sdl->progress == 0)
-		c->transform = view_transform(set_v_p(c->from_x, c->from_y, c->from_z, 1), set_v_p(c->to_x, c->to_y, c->to_z, 1), set_v_p(c->up_x, c->up_y, c->up_z, 0));
+		c->transform = view_transform(
+		set_v_p(c->from_x, c->from_y, c->from_z, 1),
+		set_v_p(c->to_x, c->to_y, c->to_z, 1),
+		set_v_p(c->up_x, c->up_y, c->up_z, 0));
 }
