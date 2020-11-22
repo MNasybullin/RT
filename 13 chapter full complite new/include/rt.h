@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/11/21 23:26:30 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/22 19:30:00 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -551,6 +551,7 @@ int		check_make_obj(char **tab);
 void	triangle_sides(t_data *p, t_world *w, char **tab, int flag);
 //void	skip_empty_lines(t_data *p);
 int		valid_len(char ***tab, int len, t_data *p);
+void	start_count_obj(t_data *p, char *file, t_world *w);
 
 //libft
 void	ft_putendl(char const *s);

@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:19:38 by mgalt             #+#    #+#             */
-/*   Updated: 2020/10/08 16:43:39 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/22 20:19:11 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,8 +164,9 @@ char	**make_cone(t_data *p, t_world *w, char **tab)
 	if ((!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "lights:"))) &&
 	(!(ft_strequ(tab[0], "cameras:")) && !(ft_strequ(tab[1], "camera:"))))
 	{
-		get_next_line(p->fd, &p->line);
+		//get_next_line(p->fd, &p->line);
 		p->tab = ft_strsplit(p->line, ' ');
 	}
+	printf("\n\ntab[0] in make cone %s\n", p->tab[0]);
 	return (p->tab);
 }

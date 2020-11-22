@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 20:14:25 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/21 23:34:38 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/22 20:20:58 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,13 +227,34 @@ void	skip_empty_lines(t_data *p)
 		get_next_line(p->fd, &p->line);
 }
 
+void	start_count_obj(t_data *p, char *file, t_world *w)
+{
+	char	**tab;
+
+	tab = NULL;
+	while ((get_next_line(p->fd, &p->line)))
+	{
+		tab = ft_strsplit(p->line, ' ');
+		if (len_tab(tab) == 1)
+		{
+			if (!(ft_strcmp(tab[0], "objects:")))
+			{
+				count_objects(p, file, p->line);
+				alloc_obj_memory(p, w);
+				break ;
+			}
+		}
+		free_tab(tab);
+		tab = NULL;
+	}
+}
+
 int		read_file(char *file, t_data *p, t_world *w)
 {
 	char	**tab;
 	int		i = 0;
 
 	tab = NULL;
-	//ft_putendl("read_file");
 	init_parse(p, w);
 	if ((p->fd = open(file, O_RDONLY)) == -1)
 	{
@@ -241,117 +262,74 @@ int		read_file(char *file, t_data *p, t_world *w)
 		exit (-1);
 	}
 	get_next_line(p->fd, &p->line);
-	//ft_putendl("1");
 	if ((ft_strcmp(p->line, "---")))
 	{
 		ft_putendl("\nInvalid file (no ---)\n");
 		exit (-1);
 	}
-	get_next_line(p->fd, &p->line);
-	//ft_putendl("2");
-	tab = ft_strsplit(p->line, ' ');
-	if (!(ft_strcmp(tab[0], "objects:")))
-	{
-		//printf("line: %s\n", p->line);
-		//if ((get_next_line(p->fd, &p->line)) && !(ft_strcmp(p->line, "\n")))
-		//	skip_empty_lines(p);
-		count_objects(p, file, p->line);
-		alloc_obj_memory(p, w);
-		//w->pl->pattern = 0;
-	}
-	free_tab(tab);
-	tab = NULL;
-
-	//ft_putendl("before fd open");
-
+	start_count_obj(p, file, w);
 	p->fd = open(file, O_RDONLY);
-
-	//ft_putendl("after fd open");
 	get_next_line(p->fd, &p->line);
+	//printf("line1: %s\n", p->line);
 	get_next_line(p->fd, &p->line);
+	printf("line2: %s\n", p->line);
 	//get_next_line(p->fd, &p->line); // simple2.yml will work if this is commented
-
-	//ft_putendl("after 3 gnls");
-	while (p->line && (get_next_line(p->fd, &p->line) != 0))
+	printf("i before = %d\n", i);
+	while ((get_next_line(p->fd, &p->line)))
 	{
+		printf("\n\nline in beginning of while: %s\n\n", p->line);
 		tab = ft_strsplit(p->line, ' ');
-		printf("valid len: %d\n", valid_len(&tab, 2, p));
-		if (!(valid_len(&tab, 2, p)))
-			exit(err_wrong_format());
-		if (!(ft_strcmp(tab[1], "object:")))
+		if (len_tab(tab) == 2 && !(ft_strcmp(tab[1], "object:")))
+		//if (!(ft_strcmp(tab[0], "object:")))
 		{
 			get_next_line(p->fd, &p->line);
 			free_tab(tab);
 			tab = NULL;
 			tab = ft_strsplit(p->line, ' ');
-			if (!(valid_len(&tab, 2, p)))
-				exit(err_wrong_format());
+			//if (!(valid_len(&tab, 2, p)))
+			//	exit(err_wrong_format());
 			p->tab = (char**)malloc(sizeof(char) * 2);
 			p->tab[0] = ft_strdup(tab[0]);
 			p->tab[1] = ft_strdup(tab[1]);
 			while (!(ft_strcmp(p->tab[0], "type:")) && i < p->obj_n)
 			{
-				//ft_putendl("if before check type");
 				i++;
 				check_type(p, w, p->tab);
-				//free_tab(tab);
-				//tab = NULL;
 			}
-			//print_parameters(w, p);
 		}
-		//ft_putendl("out of if");
-		//printf("line before lights: \"%s\"\n", p->line);
-		//free_tab(p->tab);
+		else
+			free_tab(tab);
+		
 		p->tab = NULL;
-		//while ()
 		if (!(ft_strcmp(p->line, "lights:")))
 		{
-			//ft_putendl("if lights");
+			ft_putendl("in if lights");
 			get_next_line(p->fd, &p->line);
 			tab = ft_strsplit(p->line, ' ');
 			if (ft_strequ(tab[0], "-") && ft_strequ(tab[1], "light:"))
 			{
-				//free_tab(p->tab);
 				p->tab = NULL;
-				//get_next_line(p->fd, &p->line);
 				parse_lights(p, w);
 			}
 		}
-		//printf("line after lights: \"%s\"\n", p->line);
 		p->tab = NULL;
-		//printf("line after lights 2: \"%s\"\n", p->line);
 		if (!(ft_strcmp(p->line, "cameras:")))
 		{
-			
-			//ft_putendl("if cameras");
-
 			get_next_line(p->fd, &p->line);
 			tab = ft_strsplit(p->line, ' ');
 			if (ft_strequ(tab[0], "-") && ft_strequ(tab[1], "camera:"))
 			{
 				p->cam_num++;
-				//free_tab(p->tab);
 				p->tab = NULL;
 				//get_next_line(p->fd, &p->line);
 				parse_cameras(p, w);
 			}
 		}
-		else
-			get_next_line(p->fd, &p->line);
-	}
-	//pushing_objects(p, w);
-	/*i = 0;
-	while (i < p->pl_num)
-	{
-		push_obj((void*)(&w->pl[i]), &normal_at_pl, &intersect_pl, &shade_hit_pl, w, &w->pl[i].m);
 		i++;
+		//else
+		//get_next_line(p->fd, &p->line);
 	}
-	i = 0;
-	while (i < p->sp_num)
-	{
-		push_obj((void*)(&w->s[i]), &normal_at_sp, &intersect_sp, &shade_hit_sp, w, &w->s[i].m);
-		i++;
-	}*/
+	printf("i = %d\n", i);
 	//if (!p->camera.cam)
 	//	return (error_output(NO_CAMERA));
 	//init(p);
