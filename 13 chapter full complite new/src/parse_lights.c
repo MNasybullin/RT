@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 15:03:41 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/24 17:43:44 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/24 18:52:50 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	lights_pos(t_data *p)
 		tab3 = ft_strsplit(p->tab[6], ',');
 		tab4 = ft_strsplit(p->tab[8], '}');
 		p->h.a = ft_strtodbl(tab1[0]);
-		//p->h.a = strtod(tab1[0], NULL);
 		p->h.b = ft_strtodbl(tab2[0]);
 		p->h.c = ft_strtodbl(tab3[0]);
 		p->h.w = ft_strtodbl(tab4[0]);
@@ -79,12 +78,12 @@ void    parse_lights(t_data *p, t_world *w)
 		else if (ft_strequ(p->tab[1], "direction"))
 			p->h.type = 'd';
 	}*/
-	ft_putendl("\n\nparse lights\n");
+	//ft_putendl("\n\nparse lights\n");
 	while (get_next_line(p->fd, &p->line))
 	{
 		//ft_putendl("while in parse lights");
 		p->tab = ft_strsplit(p->line, ' ');
-		if (!(ft_strequ(p->tab[0], "-")) && !(ft_strequ(p->tab[1], "object:")) &&
+		if (!(ft_strequ(p->tab[0], "objects:")) && !(ft_strequ(p->tab[0], "-")) && !(ft_strequ(p->tab[1], "object:")) &&
 		!(ft_strequ(p->tab[0], "-")) && !(ft_strequ(p->tab[1], "lights:")) && !(ft_strequ(p->tab[0], "cameras:")))
 		{
 			if (ft_strequ(p->tab[0], "type:") && len_tab(p->tab) == 2)
@@ -95,9 +94,6 @@ void    parse_lights(t_data *p, t_world *w)
 					p->h.type = 'd';
 			}	
 			if (ft_strequ(p->tab[0], "color:"))
-				/*r = ft_strtodbl(tab1[0]);
-				g = ft_strtodbl(tab2[0]);
-				b = ft_strtodbl(tab3[0]);*/
 				lights_color(p);
 			if (ft_strequ(p->tab[0], "pos:"))
 				lights_pos(p);
