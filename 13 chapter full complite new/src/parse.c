@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 20:14:25 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/24 18:18:25 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/24 18:33:17 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,16 +282,10 @@ int		read_file(char *file, t_data *p, t_world *w)
 		if ((len_tab(tab) == 2 && !(ft_strcmp(tab[1], "object:"))) || !(strcmp_v2(p->line, "objects:")))
 		//if (!(ft_strcmp(tab[0], "object:")))
 		{
-			//get_next_line(p->fd, &p->line);
-			//free_tab(tab);
-			//tab = NULL;
-			//tab = ft_strsplit(p->line, ' ');
-			if (/*len_tab(tab) == 2 && */(ft_strcmp(tab[0], "-") && (ft_strcmp(tab[1], "object:"))))
-			{
-				//ft_putendl("\nin if !(ft_strequ(tab[0], -) && !(ft_strequ(tab[1], light:))\n");
-				get_next_line(p->fd, &p->line);
-				tab = ft_strsplit(p->line, ' ');
-			}
+			get_next_line(p->fd, &p->line);
+			free_tab(tab);
+			tab = NULL;
+			tab = ft_strsplit(p->line, ' ');
 			//if (!(valid_len(&tab, 2, p)))
 			//	exit(err_wrong_format());
 			p->tab = (char**)malloc(sizeof(char) * 2);
@@ -327,10 +321,16 @@ int		read_file(char *file, t_data *p, t_world *w)
 		p->tab = NULL;
 		//if (!(ft_strcmp(p->line, "cameras:")))
 		//if (!(ft_strcmp(tab[0], "cameras:")))
-		if (!(strcmp_v2(p->line, "cameras:")))
+		if (!(strcmp_v2(p->line, "cameras:")) || (len_tab(tab) == 2 && !(ft_strcmp(tab[0], "-")) && !(ft_strcmp(tab[1], "camera:"))))
 		{
-			get_next_line(p->fd, &p->line);
-			tab = ft_strsplit(p->line, ' ');
+			//get_next_line(p->fd, &p->line);
+			//tab = ft_strsplit(p->line, ' ');
+			if (/*len_tab(tab) == 2 && */(ft_strcmp(tab[0], "-") && (ft_strcmp(tab[1], "camera:"))))
+			{
+				//ft_putendl("\nin if !(ft_strequ(tab[0], -) && !(ft_strequ(tab[1], light:))\n");
+				get_next_line(p->fd, &p->line);
+				tab = ft_strsplit(p->line, ' ');
+			}
 			if (ft_strequ(tab[0], "-") && ft_strequ(tab[1], "camera:"))
 			{
 				p->cam_num++;
