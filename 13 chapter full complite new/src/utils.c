@@ -1,26 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/21 23:25:05 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/24 18:13:20 by mgalt            ###   ########.fr       */
+/*   Created: 2020/11/24 17:57:41 by mgalt             #+#    #+#             */
+/*   Updated: 2020/11/24 18:13:26 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/rt.h"
-#include "libft.h"
+#include "rt.h"
 
-int		err_wrong_format(void)
+int		strcmp_v2(char *s1, char *s2)
 {
-    ft_putendl("Error: wrong data format");
-    return (-1);
-}
+	char	**tab;
 
-int		err_mem_alloc(void)
-{
-    ft_putendl("Error: memory allocation failed");
-    return (-1);
+	tab = NULL;
+	//tab[0] = (unsigned char *)tab[0];
+	//s2 = (unsigned char *)s2;
+	tab = ft_strsplit(tab[0], ' ');
+	if (tab)
+	{
+		while (*tab[0] && *s2 && *tab[0] == *s2)
+		{
+			tab[0]++;
+			s2++;
+		}
+		if (*s2 == '\0' && *tab[0])
+			return (1);
+		else
+			return (*tab[0] - *s2);
+	}
+	else
+		exit(err_mem_alloc());
+	return (0);
 }

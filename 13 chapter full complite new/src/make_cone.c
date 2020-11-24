@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:19:38 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/22 20:19:11 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/24 17:31:32 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ char	**make_cone(t_data *p, t_world *w, char **tab)
 			break ;
 	}
 	p->cone_i++;
-	if ((!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "lights:"))) &&
+	if (len_tab(tab) >= 2 && (!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "light:"))) &&
 	(!(ft_strequ(tab[0], "cameras:")) && !(ft_strequ(tab[1], "camera:"))))
 	{
 		//get_next_line(p->fd, &p->line);
