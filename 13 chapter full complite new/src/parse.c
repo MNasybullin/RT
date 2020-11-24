@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 20:14:25 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/24 18:33:17 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/24 18:46:47 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void	print_parameters(t_world *w, t_data *p)
 
 char	**check_type(t_data *p, t_world *w, char **tab)
 {
-	//ft_putendl("check_type");
+	ft_putendl("\n\ncheck_type\n\n");
 
 	if (!(ft_strcmp(tab[1], "plane")))
 		p->tab = make_plane(p, w, tab);
@@ -279,7 +279,7 @@ int		read_file(char *file, t_data *p, t_world *w)
 	{
 		printf("\n\nline in beginning of while: %s\n\n", p->line);
 		tab = ft_strsplit(p->line, ' ');
-		if ((len_tab(tab) == 2 && !(ft_strcmp(tab[1], "object:"))) || !(strcmp_v2(p->line, "objects:")))
+		if ((len_tab(tab) == 2 && !(ft_strcmp(tab[0], "-")) && !(ft_strcmp(tab[1], "object:"))) || !(strcmp_v2(p->line, "objects:")))
 		//if (!(ft_strcmp(tab[0], "object:")))
 		{
 			get_next_line(p->fd, &p->line);
@@ -339,11 +339,11 @@ int		read_file(char *file, t_data *p, t_world *w)
 				parse_cameras(p, w);
 			}
 		}
-		i++;
+		//i++;
 		//else
 		//get_next_line(p->fd, &p->line);
 	}
-	printf("i = %d\n", i);
+	//printf("i = %d\n", i);
 	//if (!p->camera.cam)
 	//	return (error_output(NO_CAMERA));
 	//init(p);
