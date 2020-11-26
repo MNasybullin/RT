@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/11/26 22:20:00 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 22:31:46 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,7 +336,9 @@ int		main(int ac, char **av)
 	w.max_obj = p.obj_n;
 	w.ar_count = 0;
 	pushing_objects(&p, &w);
-	//printf("OBJ PARAMETERS: (%f, %f, %f); radius %f; shininess %f", w.s[0].m.color.r, w.s[0].m.color.g, w.s[0].m.color.b, w.s[0].r, w.s[0].m.shininess);
+	//printf("OBJ PARAMETERS: (%f, %f, %f); radius %f; shininess %f\n", w.s[0].m.color.r, w.s[0].m.color.g, w.s[0].m.color.b, w.s[0].r, w.s[0].m.shininess);
+	//printf("CAMERA PARAMETERS: %d, %d, %f\n", w.c.hsize, w.c.vsize, w.c.fov);
+	//printf("LIGHT PARAMETERS:\n---\n%f %f %f %f %f %f %f\n", p.h[0].r, p.h[0].g, p.h[0].bl, p.h[0].a, p.h[0].b, p.h[0].c, p.h[0].w);
 	while (sdl.run == 0)
 	{
 		while (SDL_PollEvent(&sdl.e) != 0)
