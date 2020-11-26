@@ -6,11 +6,11 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 16:36:11 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 18:45:47 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 19:24:46 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include "../include/rt.h"
 
 void	complex_params_sphere(t_data *p, t_world *w, char **tab, int flag)
 {
@@ -144,7 +144,6 @@ char	**make_sphere(t_data *p, t_world *w, char **tab)
 	char	**tab1;
 	char	**tab2;
 	char	**tab3;
-	int i = 0;
 	int n = 0; // посмотреть сколько раз зайдет в цикл while
 
 	ft_putendl("make sphere");

@@ -6,11 +6,11 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:36:46 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 18:46:50 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 19:23:49 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include "../include/rt.h"
 
 void	complex_params_cyl(t_data *p, t_world *w, char **tab, int flag)
 {
@@ -142,7 +142,6 @@ char	**make_cyl(t_data *p, t_world *w, char **tab)
 	char	**tab2;
 	char	**tab3;
 	char	**tab4;
-	int i = 0;
 
 	tab1 = NULL;
 	tab2 = NULL;

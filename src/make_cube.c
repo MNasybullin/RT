@@ -6,11 +6,11 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:44:43 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 18:46:31 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 19:24:00 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include "../include/rt.h"
 
 void	complex_params_cube(t_data *p, t_world *w, char **tab, int flag)
 {
@@ -136,7 +136,6 @@ char	**make_cube(t_data *p, t_world *w, char **tab)
 	char	**tab2;
 	char	**tab3;
 	char	**tab4;
-	int i = 0;
 
 	tab1 = NULL;
 	tab2 = NULL;

@@ -1,4 +1,4 @@
-#include "rt.h"
+#include "../include/rt.h"
 # define BUFF_SIZE		8
 # define ENDL			'\n'
 # define MAX_LONG_LONG 9223372036854775807

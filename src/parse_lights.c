@@ -6,11 +6,11 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 15:03:41 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 18:15:17 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 19:22:54 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include "../include/rt.h"
 
 void	lights_pos(t_data *p)
 {

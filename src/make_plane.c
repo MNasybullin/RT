@@ -6,11 +6,11 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 15:10:33 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 18:47:14 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 19:22:10 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include "../include/rt.h"
 
 void	complex_params_plane(t_data *p, t_world *w, char **tab, int flag)
 {

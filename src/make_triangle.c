@@ -6,11 +6,11 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:49:57 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 18:48:19 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 19:24:10 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include "../include/rt.h"
 
 void	triangle_sides(t_data *p, t_world *w, char **tab, int flag)
 {
@@ -186,7 +186,6 @@ char	**make_tri(t_data *p, t_world *w, char **tab)
 	char	**tab2;
 	char	**tab3;
 	char	**tab4;
-	int i = 0;
 
 	tab1 = NULL;
 	tab2 = NULL;

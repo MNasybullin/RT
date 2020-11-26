@@ -6,11 +6,11 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:19:38 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 18:46:12 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 19:23:40 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include "../include/rt.h"
 
 void	complex_params_cone(t_data *p, t_world *w, char **tab, int flag)
 {
@@ -142,7 +142,6 @@ char	**make_cone(t_data *p, t_world *w, char **tab)
 	char	**tab2;
 	char	**tab3;
 	char	**tab4;
-	int i = 0;
 
 	tab1 = NULL;
 	tab2 = NULL;

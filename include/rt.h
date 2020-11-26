@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/11/26 18:34:46 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 19:49:02 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <SDL.h>
 # include <math.h>
 # include <stdio.h>
+# include <fcntl.h>
 
 # define WIN_W 400
 # define WIN_H 400
@@ -275,7 +276,7 @@ struct				s_shape
 
 struct				s_world
 {
-	t_light			light;
+	t_light			*light;
 	t_sp			*s;
 	t_plane			*pl;
 	t_cube			*cub;
@@ -338,12 +339,14 @@ typedef struct		s_data
 	int			cyl_num;
 	int			cube_num;
 	int			tri_num;
+	int			lights_num;
 	int			pl_i;
 	int			sp_i;
 	int			cone_i;
 	int			cyl_i;
 	int			cube_i;
 	int			tri_i;
+	int			light_i;
 	char		**tab;
 	char		*line;
 	int			cam_num;
@@ -541,7 +544,7 @@ int	check_transform_matrix(t_matrix transform, t_matrix pattern_transform, int p
 
 //parsing
 int		read_file(char *file, t_data *p, t_world *w);
-void	count_objects(t_data *p, char *file, char *line);
+void	count_objects(t_data *p, char *line);
 int		check_format(char *file);
 int		len_tab(char **tab);
 void	free_tab(char **tab);
@@ -581,19 +584,24 @@ int		check_make_obj(char **tab);
 void	triangle_sides(t_data *p, t_world *w, char **tab, int flag);
 //void	skip_empty_lines(t_data *p);
 int		valid_len(char ***tab, int len, t_data *p);
-void	start_count_obj(t_data *p, char *file, t_world *w);
+void	start_count_obj(t_data *p, t_world *w);
 int		strcmp_v2(char *s1, char *s2);
+void	start_count_lights(t_data *p, t_world *w);
+void	count_lights(t_data *p, char *line);
+void	continue_pushing(t_data *p, t_world *w);
 
 //libft
 void	ft_putendl(char const *s);
 double	ft_strtodbl(char *s);
-int								ft_atoi(const char *str);
+int		ft_atoi(const char *str);
 double	ft_strtodbl(char *s);
 void	check_tab_len(char **tab);
 int			ft_strequ(char const *s1, char const *s2);
 int			get_next_line(const int fd, char **line);
 char		**ft_strsplit(char const *s, char c);
-int					ft_strcmp(const char *str1, const char *str2);
+int			ft_strcmp(const char *str1, const char *str2);
+char	*ft_strdup(const char *src);
+size_t		ft_strlen(const char *str);
 
 /*
 ** errors
@@ -601,10 +609,17 @@ int					ft_strcmp(const char *str1, const char *str2);
 int		err_wrong_format(void);
 int		err_mem_alloc(void);
 int		err_trans_matrix(void);
+int		err_invalid_file(void);
 
 /*
 ** utils
 */
 int		len_tab(char **tab);
+void	print_parameters(t_world *w);
+
+/*
+** for if's
+*/
+int		check_is_obj(char **tab, t_data *p);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 20:14:25 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 17:44:08 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 19:47:49 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,38 @@ void	start_count_obj(t_data *p, char *file, t_world *w)
 	}
 }
 
+void	making_obj(char **tab, t_data *p, t_world *w)
+{
+	int		i;
+
+	i = 0;
+	get_next_line(p->fd, &p->line);
+	free_tab(tab);
+	tab = NULL;
+	tab = ft_strsplit(p->line, ' ');
+	if (len_tab(tab) == 2)
+	{
+		p->tab = (char**)malloc(sizeof(char) * 2);
+		p->tab[0] = ft_strdup(tab[0]);
+		p->tab[1] = ft_strdup(tab[1]);
+		while (!(ft_strcmp(p->tab[0], "type:")) && i < p->obj_n)
+		{
+			i++;
+			check_type(p, w, p->tab);
+		}
+	}
+	else
+		exit(err_wrong_format());
+}
+
+int		check_is_obj(char **tab, t_data *p)
+{
+	if ((len_tab(tab) == 2 && !(ft_strcmp(tab[0], "-"))
+	&& !(ft_strcmp(tab[1], "object:"))) || !(strcmp_v2(p->line, "objects:")))
+		return (1);
+	return (0);
+}
+
 int		read_file(char *file, t_data *p, t_world *w)
 {
 	char	**tab;
@@ -282,36 +314,9 @@ int		read_file(char *file, t_data *p, t_world *w)
 	{
 		printf("\n\nline in beginning of while: %s\n\n", p->line);
 		tab = ft_strsplit(p->line, ' ');
-		/*if (len_tab(tab) == 0)
-		{
-			free_tab(tab);
-			continue ;
-		}*/
-		//printf("\nTab's len is %d\n\n", len_tab(tab));
-		if ((len_tab(tab) == 2 && !(ft_strcmp(tab[0], "-")) && !(ft_strcmp(tab[1], "object:"))) || !(strcmp_v2(p->line, "objects:")))
-		{
-			get_next_line(p->fd, &p->line);
-			free_tab(tab);
-			tab = NULL;
-			tab = ft_strsplit(p->line, ' ');
-			if (len_tab(tab) == 2)
-			{
-				p->tab = (char**)malloc(sizeof(char) * 2);
-				p->tab[0] = ft_strdup(tab[0]);
-				p->tab[1] = ft_strdup(tab[1]);
-				while (!(ft_strcmp(p->tab[0], "type:")) && i < p->obj_n)
-				{
-					i++;
-					check_type(p, w, p->tab);
-				}
-			}
-			else
-				exit(err_wrong_format());
-		}
-		//else
-		//	free_tab(tab);
-		//p->tab = NULL;
-		//if (!(ft_strcmp(p->line, "lights:")) || (len_tab(tab) == 2 && ft_strequ(tab[0], "-") && ft_strequ(tab[1], "light:")))
+		//if ((len_tab(tab) == 2 && !(ft_strcmp(tab[0], "-")) && !(ft_strcmp(tab[1], "object:"))) || !(strcmp_v2(p->line, "objects:")))
+		if (check_is_obj(tab, p))
+			making_obj(tab, p, w);
 		if (!(strcmp_v2(p->line, "lights:")) || (len_tab(tab) == 2 && ft_strequ(tab[0], "-") && ft_strequ(tab[1], "light:")))
 		{
 			ft_putendl("in if lights");
