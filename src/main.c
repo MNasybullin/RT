@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/14 18:13:15 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/11/26 18:32:51 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,18 +122,33 @@ int		hit(t_x_t x)
 }
 
 
-int		main(void)
+int		main(int ac, char **av)
 {
 	t_sdl		sdl;
 	t_world		w;
+	t_data		p;
 
-	if (init(&sdl) != 0)
-		quit(&sdl);
+	if (ac == 2)
+	{	
+		if (init(&sdl) != 0)
+			quit(&sdl);
+		sdl.run = 0;
+		p.obj_n = 0;
+		p.fd = 0;
+		if ((check_format(av[1])) != 1)
+		{
+			ft_putendl("\nWrong Format or invalid file\n");
+            return (0);
+		}
+		read_file(av[1], &p, &w);
+	}
+	else
+	{
+		ft_putendl("\nUsage: ./RT <file.yml>\n");
+		return (0);
+	}
 
-	sdl.run = 0;
-
-
-
+/*
 //CH 11//
 //
 	//floor
@@ -304,7 +319,7 @@ int		main(void)
 	}
 
 	t_camera c = camera(WIN_W, WIN_H, 1.152);
-	c.transform = view_transform(set_v_p(-2.6, 1.5, -3.9, 1), set_v_p(-0.6, 1, -0.8, 1), set_v_p(0, 1, 0, 0));
+	c.transform = view_transform(set_v_p(-2.6, 1.5, -3.9, 1), set_v_p(-0.6, 1, -0.8, 1), set_v_p(0, 1, 0, 0));*/
 
 
 
@@ -312,6 +327,15 @@ int		main(void)
 
 
 	sdl.progress = 0;
+	w.s_obj = p.sp_num;
+	w.pl_obj = p.pl_num;
+	w.cone_obj = p.cone_num;
+	w.cyl_obj = p.cyl_num;
+	w.cub_obj = p.cube_num;
+	w.trian_obj = p.tri_num;
+	w.max_obj = p.obj_n;
+	w.ar_count = 0;
+	pushing_objects(&p, &w);
 	while (sdl.run == 0)
 	{
 		while (SDL_PollEvent(&sdl.e) != 0)
@@ -319,7 +343,7 @@ int		main(void)
 			if (sdl.e.type == SDL_QUIT)
 				sdl.run = 1;
 			if (sdl.e.type == SDL_KEYDOWN)
-				key_press(&sdl, &c);
+				key_press(&sdl, &w.c);
 			/*if (sdl.e.type == SDL_MOUSEMOTION)
 				mouse_move(&m);
 			if (clear_img(&sdl) != 0)
@@ -332,8 +356,8 @@ int		main(void)
 		}
 		if (sdl.progress == 0)
 		{
-			render(&sdl, c, w);
-			write(1, "Render complite!\n", 17);
+			render(&sdl, w.c, w);
+			write(1, "Render complete!\n", 17);
 			sdl.progress++;
 		}
 	}

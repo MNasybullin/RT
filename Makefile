@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+         #
+#    By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/06 10:40:08 by aannara           #+#    #+#              #
-#    Updated: 2020/10/12 20:42:48 by sdiego           ###   ########.fr        #
+#    Updated: 2020/11/26 18:30:47 by mgalt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,20 @@ SRC = ./src/main.c \
 	./src/cube.c \
 	./src/cylinder.c \
 	./src/cone.c \
-	./src/triangle.c
+	./src/triangle.c \
+	./src/parse.c \
+	./src/libft_func.c \
+	./src/init.c \
+	./src/make_plane.c \
+	./src/make_sphere.c \
+	./src/make_cone.c \
+	./src/make_cyl.c \
+	./src/make_cube.c \
+	./src/make_triangle.c \
+	./src/parse_lights.c \
+	./src/parse_cameras.c \
+	./src/error.c \
+	./src/utils.c
 
 OBJ = $(SRC:.c=.o)
 

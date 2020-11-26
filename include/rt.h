@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/12 20:17:40 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/11/26 18:34:46 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ typedef struct		s_sp
 	double			r;
 	t_matrix		transform;
 	t_material		m;
+	int				pattern;
 }					t_sp;
 
 typedef struct		s_cyl
@@ -159,6 +160,7 @@ typedef struct		s_cyl
 	int				closed;
 	t_matrix		transform;
 	t_material		m;
+	int				pattern;
 }					t_cyl;
 
 typedef struct		s_cone
@@ -170,6 +172,7 @@ typedef struct		s_cone
 	int				closed;
 	t_matrix		transform;
 	t_material		m;
+	int				pattern;
 }					t_cone;
 
 typedef struct		s_plane
@@ -177,6 +180,7 @@ typedef struct		s_plane
 	t_vec			c;
 	t_matrix		transform;
 	t_material		m;
+	int				pattern;
 }					t_plane;
 
 typedef struct		s_cube
@@ -184,6 +188,7 @@ typedef struct		s_cube
 	t_vec			c;
 	t_matrix		transform;
 	t_material		m;
+	int				pattern;
 }					t_cube;
 
 typedef struct		s_trian
@@ -196,6 +201,7 @@ typedef struct		s_trian
 	t_vec			norm;
 	t_material		m;
 	t_matrix		transform;
+	int				pattern;
 }					t_trian;
 
 /*
@@ -240,7 +246,7 @@ typedef struct		s_t_minmax
 typedef struct		s_light
 {
 	t_color			intensity;
-//	t_vec			pos;
+	t_vec			pos;
 	t_vec			corner;
 	t_vec			uvec;
 	int				usteps;
@@ -269,13 +275,14 @@ struct				s_shape
 
 struct				s_world
 {
-	t_light			light[5];
-	t_sp			s[10];
-	t_plane			pl[10];
-	t_cube			cub[20];
-	t_cyl			cyl[10];
-	t_cone			cone[10];
-	t_trian			trian[10];
+	t_light			light;
+	t_sp			*s;
+	t_plane			*pl;
+	t_cube			*cub;
+	t_cyl			*cyl;
+	t_cone			*cone;
+	t_trian			*trian;
+	t_camera		c;
 	t_shape			obj_ar[30];
 	int				light_count; // multi light
 	int				light_obj; // multi light
@@ -300,6 +307,50 @@ typedef struct		s_sdl
 	int				run;
 	int				progress;
 }					t_sdl;
+
+typedef struct		s_forlight
+{
+	double			a;
+	double 			b;
+	double 			c;
+	double 			w;
+	double			r;
+	double			g;
+	double			bl;
+	char			type;
+}					t_forlight;
+
+typedef struct		s_forcam
+{
+	t_vec			from;
+	t_vec			to;
+	t_vec			up;
+	double			fov;
+}					t_forcam;
+
+typedef struct		s_data
+{
+	int         obj_n;
+    int         fd;
+	int			pl_num;
+	int			sp_num;
+	int			cone_num;
+	int			cyl_num;
+	int			cube_num;
+	int			tri_num;
+	int			pl_i;
+	int			sp_i;
+	int			cone_i;
+	int			cyl_i;
+	int			cube_i;
+	int			tri_i;
+	char		**tab;
+	char		*line;
+	int			cam_num;
+	int			tri_vect;
+	t_forlight	h;
+	t_forcam	c;
+}					t_data;
 
 int					check_eps(double a, double b);
 t_vec				add(t_vec a1, t_vec a2);
@@ -488,5 +539,72 @@ void save_texture(const char* file_name, SDL_Renderer* renderer, SDL_Texture* te
 
 int	check_transform_matrix(t_matrix transform, t_matrix pattern_transform, int pattern);
 
+//parsing
+int		read_file(char *file, t_data *p, t_world *w);
+void	count_objects(t_data *p, char *file, char *line);
+int		check_format(char *file);
+int		len_tab(char **tab);
+void	free_tab(char **tab);
+void	alloc_obj_memory(t_data *p, t_world *w);
+void    init_parse(t_data *p, t_world *w);
+char	**make_plane(t_data *p, t_world *w, char **tab);
+char	**make_sphere(t_data *p, t_world *w, char **tab);
+void	complex_params_sphere(t_data *p, t_world *w, char **tab, int flag);
+void	make_obj_sphere(t_data *p, t_world *w, char **tab);
+void	complex_params_plane(t_data *p, t_world *w, char **tab, int flag);
+void	make_obj_plane(t_data *p, t_world *w, char **tab);
+char	**make_cone(t_data *p, t_world *w, char **tab);
+void	make_obj_cone(t_data *p, t_world *w, char **tab);
+void	complex_params_cone(t_data *p, t_world *w, char **tab, int flag);
+char	**make_cyl(t_data *p, t_world *w, char **tab);
+void	make_obj_cyl(t_data *p, t_world *w, char **tab);
+void	complex_params_cyl(t_data *p, t_world *w, char **tab, int flag);
+char	**make_cube(t_data *p, t_world *w, char **tab);
+void	make_obj_cube(t_data *p, t_world *w, char **tab);
+void	complex_params_cube(t_data *p, t_world *w, char **tab, int flag);
+char	**make_tri(t_data *p, t_world *w, char **tab);
+void	make_obj_tri(t_data *p, t_world *w, char **tab);
+void	complex_params_tri(t_data *p, t_world *w, char **tab, int flag);
+void    parse_lights(t_data *p, t_world *w);
+void	lights_color(t_data *p);
+void	lights_pos(t_data *p);
+void	parse_cameras(t_data *p, t_world *w);
+void	complex_params_camera(t_data *p, t_world *w, char **tab, int flag);
+void	pattern_color_pl(t_data *p, t_world *w, char **tab, int flag);
+void	pattern_color_sp(t_data *p, t_world *w, char **tab, int flag);
+void	pattern_color_cyl(t_data *p, t_world *w, char **tab, int flag);
+void	pattern_color_cone(t_data *p, t_world *w, char **tab, int flag);
+void	pattern_color_cube(t_data *p, t_world *w, char **tab, int flag);
+void	pattern_color_tri(t_data *p, t_world *w, char **tab, int flag);
+void	pushing_objects(t_data *p, t_world *w);
+int		check_make_obj(char **tab);
+void	triangle_sides(t_data *p, t_world *w, char **tab, int flag);
+//void	skip_empty_lines(t_data *p);
+int		valid_len(char ***tab, int len, t_data *p);
+void	start_count_obj(t_data *p, char *file, t_world *w);
+int		strcmp_v2(char *s1, char *s2);
+
+//libft
+void	ft_putendl(char const *s);
+double	ft_strtodbl(char *s);
+int								ft_atoi(const char *str);
+double	ft_strtodbl(char *s);
+void	check_tab_len(char **tab);
+int			ft_strequ(char const *s1, char const *s2);
+int			get_next_line(const int fd, char **line);
+char		**ft_strsplit(char const *s, char c);
+int					ft_strcmp(const char *str1, const char *str2);
+
+/*
+** errors
+*/
+int		err_wrong_format(void);
+int		err_mem_alloc(void);
+int		err_trans_matrix(void);
+
+/*
+** utils
+*/
+int		len_tab(char **tab);
 
 #endif
