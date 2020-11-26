@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/11/24 18:13:10 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 17:23:03 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -568,5 +568,10 @@ int					ft_strcmp(const char *str1, const char *str2);
 //errors
 int		err_wrong_format(void);
 int		err_mem_alloc(void);
+
+/*
+** utils
+*/
+int		len_tab(char **tab);
 
 #endif

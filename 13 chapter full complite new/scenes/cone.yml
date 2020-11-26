@@ -2,9 +2,9 @@
 objects:
         - object:
                 type: cone
-                color: {r: 0.8, g: 0.5, b: 0.3} 
-                ambient: 0.25
-                diffuse: 0.7                
+                color: {r: 0.8, g: 0.5, b: 0.3}
+                ambient: 0.25          
+                diffuse: 0.7                                
                 specular: 0.9
                 shininess: 300
                 reflective: 0.1

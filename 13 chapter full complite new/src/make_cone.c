@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:19:38 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/24 17:31:32 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 17:50:04 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,8 +155,13 @@ char	**make_cone(t_data *p, t_world *w, char **tab)
 	while ((get_next_line(p->fd, &p->line)))
 	{
 		tab = ft_strsplit(p->line, ' ');
+		if (len_tab(tab) == 0)
+			exit(err_wrong_format());
 		if ((check_make_obj(tab)))
+		{
+			ft_putendl("\n\nin if\n\n");
 			make_obj_cone(p, w, tab);
+		}
 		else
 			break ;
 	}
@@ -167,6 +172,6 @@ char	**make_cone(t_data *p, t_world *w, char **tab)
 		//get_next_line(p->fd, &p->line);
 		p->tab = ft_strsplit(p->line, ' ');
 	}
-	printf("\n\ntab[0] in make cone %s\n", p->tab[0]);
+	//printf("\n\ntab[0] in make cone %s\n", p->tab[0]);
 	return (p->tab);
 }

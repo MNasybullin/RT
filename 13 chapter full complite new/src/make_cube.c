@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:44:43 by mgalt             #+#    #+#             */
-/*   Updated: 2020/10/08 16:50:29 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 18:16:38 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,8 @@ char	**make_cube(t_data *p, t_world *w, char **tab)
 	while ((get_next_line(p->fd, &p->line)))
 	{
 		tab = ft_strsplit(p->line, ' ');
+		if (len_tab(p->tab) == 0)
+			exit(err_wrong_format());
 		/*if (!(ft_strequ(tab[0], "-")) && !(ft_strequ(tab[0], "object:")) &&
 		!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "light:")) &&
 		!(ft_strequ(tab[0], "cameras:")) && !(ft_strequ(tab[1], "camera:")))*/

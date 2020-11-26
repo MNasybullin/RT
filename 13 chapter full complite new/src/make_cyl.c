@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:36:46 by mgalt             #+#    #+#             */
-/*   Updated: 2020/10/08 16:46:58 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 18:16:44 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,8 @@ char	**make_cyl(t_data *p, t_world *w, char **tab)
 	while ((get_next_line(p->fd, &p->line)))
 	{
 		tab = ft_strsplit(p->line, ' ');
+		if (len_tab(p->tab) == 0)
+			exit(err_wrong_format());
 		if ((check_make_obj(tab)))
 			make_obj_cyl(p, w, tab);
 		else
