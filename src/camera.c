@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 18:08:48 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/12 20:18:17 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/11/26 22:07:44 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ void    render(t_sdl *sdl, t_camera camera, t_world world)
 	int i = 0;
 
     pthread_attr_t thread_attr;
-
+    ft_putendl("\n\nIN RENDER\n\n");
     thread_attr = stack_size();
     if (check_transform_matrix(camera.transform, camera.transform, 0) == EXIT_FAILURE)
         exit(-1);

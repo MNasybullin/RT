@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 16:36:11 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 19:24:46 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 21:47:00 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,9 +144,8 @@ char	**make_sphere(t_data *p, t_world *w, char **tab)
 	char	**tab1;
 	char	**tab2;
 	char	**tab3;
-	int n = 0; // посмотреть сколько раз зайдет в цикл while
 
-	ft_putendl("make sphere");
+	//ft_putendl("make sphere");
 	tab1 = NULL;
 	tab2 = NULL;
 	tab3 = NULL;
@@ -159,10 +158,7 @@ char	**make_sphere(t_data *p, t_world *w, char **tab)
 		if (len_tab(p->tab) == 0)
 			exit(err_wrong_format());
 		if ((check_make_obj(tab)))
-		{
 			make_obj_sphere(p, w, tab);
-			n++;
-		}
 		else
 			break ;
 	}

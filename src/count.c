@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 19:27:19 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 19:38:22 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 22:12:03 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	alloc_obj_memory(t_data *p, t_world *w)
 		w->cub = (t_cube*)malloc(sizeof(t_cube) * p->cube_num);
 	if (p->tri_num)
 		w->trian = (t_trian*)malloc(sizeof(t_trian) * p->tri_num);
+	w->obj_ar = (t_shape*)malloc(sizeof(t_shape) * p->obj_n);
 }
 
 void	count_objects(t_data *p, char *line)
@@ -131,5 +132,8 @@ void	start_count_lights(t_data *p, t_world *w)
 		tab = NULL;
 	}
 	if (p->lights_num)
+	{
 		w->light = (t_light*)malloc(sizeof(t_light) * p->lights_num);
+		p->h = (t_forlight*)malloc(sizeof(t_forlight) * p->lights_num);
+	}
 }

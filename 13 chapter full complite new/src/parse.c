@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 20:14:25 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 19:47:49 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 21:11:39 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ int		len_tab(char **tab)
 	int		i;
 
 	i = 0;
-	//ft_putendl("\n\nin len tab\n\n");
 	while (tab[i] != 0)
 		i++;
-	//ft_putendl("\n\nend of len tab\n\n");
 	return (i);
 }
 

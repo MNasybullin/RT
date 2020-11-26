@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/11/26 19:49:02 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 22:10:57 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,7 +284,7 @@ struct				s_world
 	t_cone			*cone;
 	t_trian			*trian;
 	t_camera		c;
-	t_shape			obj_ar[30];
+	t_shape			*obj_ar;
 	int				light_count; // multi light
 	int				light_obj; // multi light
 	int				trian_obj;
@@ -351,7 +351,7 @@ typedef struct		s_data
 	char		*line;
 	int			cam_num;
 	int			tri_vect;
-	t_forlight	h;
+	t_forlight	*h;
 	t_forcam	c;
 }					t_data;
 
@@ -589,7 +589,9 @@ int		strcmp_v2(char *s1, char *s2);
 void	start_count_lights(t_data *p, t_world *w);
 void	count_lights(t_data *p, char *line);
 void	continue_pushing(t_data *p, t_world *w);
-
+void	write_lights(t_data *p, t_world *w);
+void	making_obj(char **tab, t_data *p, t_world *w);
+char	**check_type(t_data *p, t_world *w, char **tab);
 //libft
 void	ft_putendl(char const *s);
 double	ft_strtodbl(char *s);
@@ -621,5 +623,9 @@ void	print_parameters(t_world *w);
 ** for if's
 */
 int		check_is_obj(char **tab, t_data *p);
+int		check_make_obj(char **tab);
+int		check_is_light(char **tab, t_data *p);
+int		check_is_camera(char **tab, t_data *p);
+int		check_make_light(char **tab);
 
 #endif

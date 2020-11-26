@@ -6,20 +6,11 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 20:14:25 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 19:49:16 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 22:04:59 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/rt.h"
-
-int		check_make_obj(char **tab)
-{
-	if (len_tab(tab) >= 2 && !(ft_strequ(tab[0], "-")) &&!(ft_strequ(tab[1], "object:")) &&
-		!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "light:")) &&
-		!(ft_strequ(tab[0], "cameras:")) && !(ft_strequ(tab[1], "camera:")))
-		return (1);
-	return (0);
-}
 
 int		check_format(char *file)
 {
@@ -41,7 +32,7 @@ int		check_format(char *file)
 
 char	**check_type(t_data *p, t_world *w, char **tab)
 {
-	ft_putendl("\n\ncheck_type\n\n");
+	//ft_putendl("\n\ncheck_type\n\n");
 
 	if (!(ft_strcmp(tab[1], "plane")))
 		p->tab = make_plane(p, w, tab);
@@ -56,39 +47,6 @@ char	**check_type(t_data *p, t_world *w, char **tab)
 	if (!(ft_strcmp(tab[1], "triangle")))
 		make_tri(p, w, tab);
 	return (p->tab);
-}
-
-
-void	making_obj(char **tab, t_data *p, t_world *w)
-{
-	int		i;
-
-	i = 0;
-	get_next_line(p->fd, &p->line);
-	free_tab(tab);
-	tab = NULL;
-	tab = ft_strsplit(p->line, ' ');
-	if (len_tab(tab) == 2)
-	{
-		p->tab = (char**)malloc(sizeof(char) * 2);
-		p->tab[0] = ft_strdup(tab[0]);
-		p->tab[1] = ft_strdup(tab[1]);
-		while (!(ft_strcmp(p->tab[0], "type:")) && i < p->obj_n)
-		{
-			i++;
-			check_type(p, w, p->tab);
-		}
-	}
-	else
-		exit(err_wrong_format());
-}
-
-int		check_is_obj(char **tab, t_data *p)
-{
-	if ((len_tab(tab) == 2 && !(ft_strcmp(tab[0], "-"))
-	&& !(ft_strcmp(tab[1], "object:"))) || !(strcmp_v2(p->line, "objects:")))
-		return (1);
-	return (0);
 }
 
 int		read_file(char *file, t_data *p, t_world *w)
@@ -116,7 +74,7 @@ int		read_file(char *file, t_data *p, t_world *w)
 		tab = ft_strsplit(p->line, ' ');
 		if (check_is_obj(tab, p))
 			making_obj(tab, p, w);
-		if (!(strcmp_v2(p->line, "lights:")) || (len_tab(tab) == 2 && ft_strequ(tab[0], "-") && ft_strequ(tab[1], "light:")))
+		if (check_is_light(tab, p))
 		{
 			if (!(strcmp_v2(p->line, "lights:")))
 			{
@@ -135,11 +93,12 @@ int		read_file(char *file, t_data *p, t_world *w)
 			}
 		}
 		p->tab = NULL;
-		if (!(strcmp_v2(p->line, "cameras:")) || (len_tab(tab) == 2 && !(ft_strcmp(tab[0], "-")) && !(ft_strcmp(tab[1], "camera:"))))
+		if (check_is_camera(tab, p))
 		{
 			//get_next_line(p->fd, &p->line);
 			//tab = ft_strsplit(p->line, ' ');
-			if (/*len_tab(tab) == 2 && */(ft_strcmp(tab[0], "-") && (ft_strcmp(tab[1], "camera:"))))
+			if (len_tab(tab) == 2 && (ft_strcmp(tab[0], "-") &&
+			(ft_strcmp(tab[1], "camera:"))))
 			{
 				//ft_putendl("\nin if !(ft_strequ(tab[0], -) && !(ft_strequ(tab[1], light:))\n");
 				get_next_line(p->fd, &p->line);
@@ -154,6 +113,9 @@ int		read_file(char *file, t_data *p, t_world *w)
 			}
 		}
 	}
+	write_lights(p, w);
+	p->light_i = 0;
+	printf("LIGHT:\n---\n%f %f %f %f %f %f %f\n", p->h[p->light_i].r, p->h[p->light_i].g, p->h[p->light_i].bl, p->h[p->light_i].a, p->h[p->light_i].b, p->h[p->light_i].c, p->h[p->light_i].w);
 	//close(p->fd);
 	return (0);
 }

@@ -6,11 +6,11 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 17:57:41 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 19:37:28 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 22:01:42 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include "../include/rt.h"
 
 void	free_tab(char **tab)
 {
@@ -40,7 +40,7 @@ int		strcmp_v2(char *s1, char *s2)
 	tab = NULL;
 	//tab[0] = (unsigned char *)tab[0];
 	//s2 = (unsigned char *)s2;
-	tab = ft_strsplit(tab[0], ' ');
+	tab = ft_strsplit(s1, ' ');
 	if (tab)
 	{
 		while (*tab[0] && *s2 && *tab[0] == *s2)

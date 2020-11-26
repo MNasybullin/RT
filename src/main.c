@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/11/26 18:32:51 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 22:20:00 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,6 +336,7 @@ int		main(int ac, char **av)
 	w.max_obj = p.obj_n;
 	w.ar_count = 0;
 	pushing_objects(&p, &w);
+	//printf("OBJ PARAMETERS: (%f, %f, %f); radius %f; shininess %f", w.s[0].m.color.r, w.s[0].m.color.g, w.s[0].m.color.b, w.s[0].r, w.s[0].m.shininess);
 	while (sdl.run == 0)
 	{
 		while (SDL_PollEvent(&sdl.e) != 0)

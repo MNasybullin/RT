@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 18:55:21 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 19:22:49 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/26 22:00:30 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	complex_params_camera(t_data *p, t_world *w, char **tab, int flag)
 	char	**tab3;
 	char	**tab4;
 
+	w->ar_count += 0;
 	tab1 = NULL;
 	tab2 = NULL;
 	tab3 = NULL;
