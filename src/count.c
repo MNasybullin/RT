@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 19:27:19 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 22:12:03 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/27 14:19:01 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ void	start_count_lights(t_data *p, t_world *w)
 	}
 	if (p->lights_num)
 	{
+		w->light_obj = p->lights_num;
 		w->light = (t_light*)malloc(sizeof(t_light) * p->lights_num);
 		p->h = (t_forlight*)malloc(sizeof(t_forlight) * p->lights_num);
 	}
