@@ -1,0 +1,37 @@
+---
+objects:
+        - object:
+                type: sphere
+                obj_translation: {x: 0, y: 0, z: 5}
+                obj_scaling: {x: 0.75, y: 0.75, z: 0.75}
+                shininess: 20
+                ambient: 0
+                specular: 0.6
+                diffuse: 0.4
+                reflective: 0.6
+        - object:
+                type: cube
+                obj_scaling: {x: 1000, y: 1000, z: 1000}
+                ambient: 1
+                specular: 0
+                diffuse: 0
+                texture: 1
+                pattern: checker
+                right_side: "textures/posx.bmp"
+                left_side: "textures/negx.bmp"
+                upper_side: "textures/posy.bmp"
+                lower_side: "textures/negy.bmp"
+                front_side: "textures/posz.bmp"
+                back_side: "textures/negz.bmp"
+lights:
+        - light:
+                type: point
+                pos: {x: 0, y: 100, z: 0, w: 1}
+                color: {r: 1, g: 1, b: 1}
+cameras:
+      - camera:
+        fov: 1.2
+        from: {x: 0, y: 0, z: 0, w: 1}
+        to: {x: 0, y: 0, z: 5, w: 1}
+        up: {x: 0, y: 1, z: 0, w: 0}
+...   

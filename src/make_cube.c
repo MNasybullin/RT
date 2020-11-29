@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:44:43 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 19:24:00 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/29 20:52:55 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,15 @@ void	pattern_color_cube(t_data *p, t_world *w, char **tab, int flag)
 	}
 }
 
+void	texture_cube(char **tab, t_data *p, t_world *w)
+{
+	if (len_tab(tab) == 2)
+	{
+		if (!(ft_strcmp(tab[1], "1")))
+			w->cub[p->cube_i].tex = 1;
+	}
+}
+
 void	make_obj_cube(t_data *p, t_world *w, char **tab)
 {
 	if (!(ft_strcmp(tab[0], "specular:")))
@@ -110,6 +119,20 @@ void	make_obj_cube(t_data *p, t_world *w, char **tab)
 		complex_params_cube(p, w, tab, 3);
 	if (!(ft_strcmp(tab[0], "obj_scaling:")) || !(ft_strcmp(tab[0], "m_scaling:")))
 		complex_params_cube(p, w, tab, 4);
+	if (!(ft_strcmp(tab[0], "texture:")))
+		texture_cube(tab, p, w);
+	if (!(ft_strcmp(tab[0], "right_side:")) && len_tab(tab) == 2)
+		w->cub[p->cube_i].right = ft_strdup(tab[1]);
+	if (!(ft_strcmp(tab[0], "left_side:")) && len_tab(tab) == 2)
+		w->cub[p->cube_i].left = ft_strdup(tab[1]);
+	if (!(ft_strcmp(tab[0], "upper_side:")) && len_tab(tab) == 2)
+		w->cub[p->cube_i].up = ft_strdup(tab[1]);
+	if (!(ft_strcmp(tab[0], "lower_side:")) && len_tab(tab) == 2)
+		w->cub[p->cube_i].down = ft_strdup(tab[1]);
+	if (!(ft_strcmp(tab[0], "front_side:")) && len_tab(tab) == 2)
+		w->cub[p->cube_i].front = ft_strdup(tab[1]);
+	if (!(ft_strcmp(tab[0], "back_side:")) && len_tab(tab) == 2)
+		w->cub[p->cube_i].back = ft_strdup(tab[1]);
 	if (!(ft_strcmp(tab[0], "pattern:")))
 	{
 		if (!(ft_strcmp(tab[1], "checker")))

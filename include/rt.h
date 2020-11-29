@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/11/26 22:10:57 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/29 20:50:06 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,13 @@ typedef struct		s_cube
 	t_matrix		transform;
 	t_material		m;
 	int				pattern;
+	int				tex;
+	char			*right;
+	char			*left;
+	char			*up;
+	char			*down;
+	char			*front;
+	char			*back;
 }					t_cube;
 
 typedef struct		s_trian
