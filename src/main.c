@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/11/26 22:38:19 by mgalt            ###   ########.fr       */
+=======
+/*   Updated: 2020/11/27 14:23:34 by sdiego           ###   ########.fr       */
+>>>>>>> 3dfd760448128ba893ddd95b270015bac0d7d4c3
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +133,7 @@ int		main(int ac, char **av)
 	t_data		p;
 
 	if (ac == 2)
-	{	
+	{
 		if (init(&sdl) != 0)
 			quit(&sdl);
 		sdl.run = 0;
