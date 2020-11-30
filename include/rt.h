@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/11/29 20:50:06 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/30 17:52:25 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,7 @@ typedef struct		s_cube
 	t_material		m;
 	int				pattern;
 	int				tex;
+	int				tex_num;
 	char			*right;
 	char			*left;
 	char			*up;
@@ -599,6 +600,9 @@ void	continue_pushing(t_data *p, t_world *w);
 void	write_lights(t_data *p, t_world *w);
 void	making_obj(char **tab, t_data *p, t_world *w);
 char	**check_type(t_data *p, t_world *w, char **tab);
+void	make_tex_cube(t_data *p, t_world *w);
+void	texture_cube(char **tab, t_data *p, t_world *w);
+
 //libft
 void	ft_putendl(char const *s);
 double	ft_strtodbl(char *s);
@@ -619,6 +623,7 @@ int		err_wrong_format(void);
 int		err_mem_alloc(void);
 int		err_trans_matrix(void);
 int		err_invalid_file(void);
+int		err_num_tex(void);
 
 /*
 ** utils

@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 23:25:05 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 22:00:42 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/30 17:52:19 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,11 @@ int		err_wrong_format(void)
 int		err_mem_alloc(void)
 {
     ft_putendl("Error: memory allocation failed");
+    return (-1);
+}
+
+int		err_num_tex(void)
+{
+    ft_putendl("Error: number of textures is incorrect");
     return (-1);
 }

@@ -16,7 +16,8 @@ objects:
                 specular: 0
                 diffuse: 0
                 texture: 1
-                pattern: checker
+                pattern: 1
+                transform: 1
                 right_side: "textures/posx.bmp"
                 left_side: "textures/negx.bmp"
                 upper_side: "textures/posy.bmp"

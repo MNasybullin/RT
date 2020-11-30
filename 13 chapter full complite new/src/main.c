@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/01 19:37:25 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/30 17:53:02 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -355,6 +355,7 @@ int		main(int argc, char **argv)
 	w.ar_count = 0;
 	int progress = 0;
 	pushing_objects(&p, &w);
+	printf("\nnumber of textures is %d\n", w->cub[0].tex_num);
 	//printf("sphere1 color: %f %f %f\nshininess %f", w.s[0].m.color.r, w.s[0].m.color.g, w.s[0].m.color.b, w.s[0].m.shininess);
 	//printf("\nsphere2 color: %f %f %f\nshininess %f", w.s[1].m.color.r, w.s[1].m.color.g, w.s[1].m.color.b, w.s[1].m.shininess);
 	//printf("\nsphere1 translation %f %f %f\n", w.s[0].transform.m[0][3], w.s[0].transform.m[1][3], w.s[0].transform.m[2][3]);

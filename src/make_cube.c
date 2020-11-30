@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:44:43 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/29 20:52:55 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/30 18:19:40 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,23 @@ void	texture_cube(char **tab, t_data *p, t_world *w)
 	}
 }
 
+void	make_tex_cube(t_data *p, t_world *w)
+{
+	//printf("\nnumber of textures is %d\n", w->cub[0].tex_num);
+	if (w->cub[p->cube_i].tex_num == 6)
+	{
+		w->cub[p->cube_i].m.p.cube_texture[0] = SDL_LoadBMP(w->cub[p->cube_i].right);
+		//w->cub[p->cube_i].m.p.cube_texture[0] = SDL_LoadBMP("textures/posx.bmp");
+		w->cub[p->cube_i].m.p.cube_texture[1] = SDL_LoadBMP(w->cub[p->cube_i].left);
+		w->cub[p->cube_i].m.p.cube_texture[2] = SDL_LoadBMP(w->cub[p->cube_i].up);
+		w->cub[p->cube_i].m.p.cube_texture[3] = SDL_LoadBMP(w->cub[p->cube_i].down);
+		w->cub[p->cube_i].m.p.cube_texture[4] = SDL_LoadBMP(w->cub[p->cube_i].front);
+		w->cub[p->cube_i].m.p.cube_texture[5] = SDL_LoadBMP(w->cub[p->cube_i].back);
+	}
+	//else
+	//	exit(err_num_tex());
+}
+
 void	make_obj_cube(t_data *p, t_world *w, char **tab)
 {
 	if (!(ft_strcmp(tab[0], "specular:")))
@@ -103,8 +120,8 @@ void	make_obj_cube(t_data *p, t_world *w, char **tab)
 		w->cub[p->cube_i].m.diffuse = ft_strtodbl(tab[1]);
 	if (!(ft_strcmp(tab[0], "shininess:")))
 		w->cub[p->cube_i].m.shininess = ft_strtodbl(tab[1]);
-	if (!(ft_strcmp(tab[0], "pattern:")))
-		w->cub[p->cube_i].m.pattern = ft_atoi(tab[1]);
+	//if (!(ft_strcmp(tab[0], "pattern:")))
+	//	w->cub[p->cube_i].m.pattern = ft_atoi(tab[1]);
 	if (!(ft_strcmp(tab[0], "transparency:")))
 		w->cub[p->cube_i].m.transparency = ft_strtodbl(tab[1]);
 	if (!(ft_strcmp(tab[0], "refractive_index:")))
@@ -119,38 +136,71 @@ void	make_obj_cube(t_data *p, t_world *w, char **tab)
 		complex_params_cube(p, w, tab, 3);
 	if (!(ft_strcmp(tab[0], "obj_scaling:")) || !(ft_strcmp(tab[0], "m_scaling:")))
 		complex_params_cube(p, w, tab, 4);
-	if (!(ft_strcmp(tab[0], "texture:")))
-		texture_cube(tab, p, w);
-	if (!(ft_strcmp(tab[0], "right_side:")) && len_tab(tab) == 2)
-		w->cub[p->cube_i].right = ft_strdup(tab[1]);
-	if (!(ft_strcmp(tab[0], "left_side:")) && len_tab(tab) == 2)
-		w->cub[p->cube_i].left = ft_strdup(tab[1]);
-	if (!(ft_strcmp(tab[0], "upper_side:")) && len_tab(tab) == 2)
-		w->cub[p->cube_i].up = ft_strdup(tab[1]);
-	if (!(ft_strcmp(tab[0], "lower_side:")) && len_tab(tab) == 2)
-		w->cub[p->cube_i].down = ft_strdup(tab[1]);
-	if (!(ft_strcmp(tab[0], "front_side:")) && len_tab(tab) == 2)
-		w->cub[p->cube_i].front = ft_strdup(tab[1]);
-	if (!(ft_strcmp(tab[0], "back_side:")) && len_tab(tab) == 2)
-		w->cub[p->cube_i].back = ft_strdup(tab[1]);
 	if (!(ft_strcmp(tab[0], "pattern:")))
 	{
 		if (!(ft_strcmp(tab[1], "checker")))
 			w->cub[p->cube_i].pattern = 1;
 		if (!(ft_strcmp(tab[1], "stripe")))
 			w->cub[p->cube_i].pattern = 2;
+		if (!(ft_strcmp(tab[1], "1")))
+		{
+			w->cub[p->cube_i].m.pattern_at = &pattern_at_cube_texture;
+			w->cub[p->cube_i].m.p.transform = identity_matrix();
+		}
 	}
+	if (!(ft_strcmp(tab[0], "texture:")))
+		texture_cube(tab, p, w);
+	if (!(ft_strcmp(tab[0], "right_side:")) && len_tab(tab) == 2)
+	{
+		//printf("\n1 if\n");
+		w->cub[p->cube_i].tex_num++;
+		w->cub[p->cube_i].right = ft_strdup(tab[1]);
+	}
+	if (!(ft_strcmp(tab[0], "left_side:")) && len_tab(tab) == 2)
+	{
+		//printf("\n2 if\n");
+		w->cub[p->cube_i].tex_num++;
+		w->cub[p->cube_i].left = ft_strdup(tab[1]);
+	}
+	if (!(ft_strcmp(tab[0], "upper_side:")) && len_tab(tab) == 2)
+	{
+		//printf("\n3 if\n");
+		w->cub[p->cube_i].tex_num++;
+		w->cub[p->cube_i].up = ft_strdup(tab[1]);
+	}
+	if (!(ft_strcmp(tab[0], "lower_side:")) && len_tab(tab) == 2)
+	{
+		w->cub[p->cube_i].tex_num++;
+		w->cub[p->cube_i].down = ft_strdup(tab[1]);
+	}
+	if (!(ft_strcmp(tab[0], "front_side:")) && len_tab(tab) == 2)
+	{
+		w->cub[p->cube_i].tex_num++;
+		w->cub[p->cube_i].front = ft_strdup(tab[1]);
+	}
+	if (!(ft_strcmp(tab[0], "back_side:")) && len_tab(tab) == 2)
+	{
+		w->cub[p->cube_i].tex_num++;
+		w->cub[p->cube_i].back = ft_strdup(tab[1]);
+	}
+	//if (!(ft_strcmp(tab[0], "pattern:")) && !(ft_strcmp(tab[1], "1")))
+	//	w->cub[p->cube_i].m.p.transform = identity_matrix();
 	if (!(ft_strcmp(tab[0], "color_a")))
 		pattern_color_cube(p, w, tab, 1);
 	if (!(ft_strcmp(tab[0], "color_a")))
 		pattern_color_cube(p, w, tab, 2);
-	if (w->cub[p->cube_i].pattern)
+	//if (w->cub[p->cube_i].pattern)
+	//{
+		//if (w->cub[p->cube_i].pattern == 1) // checker
+		//	checker_pattern_shape(w->cub[p->cube_i].m.p.a, w->cub[p->cube_i].m.p.b, &w->cub[p->cube_i].m);
+		//else if (w->cub[p->cube_i].pattern == 2) // stripe
+		//	stripe_pattern_shape(w->cub[p->cube_i].m.p.a, w->cub[p->cube_i].m.p.b, &w->cub[p->cube_i].m);
+	//}
+	/*if (w->cub[p->cube_i].tex == 1)
 	{
-		if (w->cub[p->cube_i].pattern == 1) // checker
-			checker_pattern_shape(w->cub[p->cube_i].m.p.a, w->cub[p->cube_i].m.p.b, &w->cub[p->cube_i].m);
-		else if (w->cub[p->cube_i].pattern == 2) // stripe
-			stripe_pattern_shape(w->cub[p->cube_i].m.p.a, w->cub[p->cube_i].m.p.b, &w->cub[p->cube_i].m);
-	}
+		ft_putendl("in last if");
+		make_tex_cube(p, w);
+	}*/
 }
 
 char	**make_cube(t_data *p, t_world *w, char **tab)
@@ -166,6 +216,7 @@ char	**make_cube(t_data *p, t_world *w, char **tab)
 	tab4 = NULL;
 	w->cub[p->cube_i] = set_cube();
 	w->cub[p->cube_i].pattern = 0;
+	w->cub[p->cube_i].tex_num = 0;
 	//free_tab(tab);
 	tab = NULL;
 	while ((get_next_line(p->fd, &p->line)))
@@ -177,11 +228,20 @@ char	**make_cube(t_data *p, t_world *w, char **tab)
 		!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "light:")) &&
 		!(ft_strequ(tab[0], "cameras:")) && !(ft_strequ(tab[1], "camera:")))*/
 		if ((check_make_obj(tab)))
+		{
 			make_obj_cube(p, w, tab);
+			if (w->cub[p->cube_i].tex == 1)
+			{
+				//ft_putendl("in last if");
+				make_tex_cube(p, w);
+			}
+		}
 		else
 			break ;
 	}
 	p->cube_i++;
+	//printf("\nnumber of textures is %d\n", w->cub[0].tex_num);
+	w->cub[p->cube_i].tex_num = 0;
 	//if (!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "lights:")))
 	if ((!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "lights:"))) &&
 	(!(ft_strequ(tab[0], "cameras:")) && !(ft_strequ(tab[1], "camera:"))))

@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 20:28:00 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/29 20:29:20 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/11/30 18:01:16 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ int		main(int ac, char **av)
 	w.max_obj = p.obj_n;
 	w.ar_count = 0;
 	pushing_objects(&p, &w);
+	printf("\n\nCUBE TEXTURE: %s\n\n\n", w.cub[0].right);
 	//printf("OBJ PARAMETERS: (%f, %f, %f); radius %f; shininess %f\n", w.s[0].m.color.r, w.s[0].m.color.g, w.s[0].m.color.b, w.s[0].r, w.s[0].m.shininess);
 	//printf("CAMERA PARAMETERS: %d, %d, %f\n", w.c.hsize, w.c.vsize, w.c.fov);
 	//printf("LIGHT PARAMETERS:\n---\n%f %f %f %f %f %f %f\n", p.h[0].r, p.h[0].g, p.h[0].bl, p.h[0].a, p.h[0].b, p.h[0].c, p.h[0].w);
