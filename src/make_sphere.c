@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 16:36:11 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/01 14:33:06 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/01 17:29:47 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	make_obj_sphere(t_data *p, t_world *w, char **tab)
 	}
 	if (!(ft_strcmp(tab[0], "texture:")) && len_tab(tab) == 2)
 	{
-		w->s[p->sp_i].texture = ft_strdup(tab[1]);
+		w->s[p->sp_i].texture = ft_strdup(remove_quotes(tab[1]));
 		w->s[p->sp_i].is_tex++;
 	}
 	if (!(ft_strcmp(tab[0], "texturemap:")) && len_tab(tab) == 2)

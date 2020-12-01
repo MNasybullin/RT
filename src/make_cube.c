@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:44:43 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/30 18:19:40 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/01 17:32:16 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	texture_cube(char **tab, t_data *p, t_world *w)
 	if (len_tab(tab) == 2)
 	{
 		if (!(ft_strcmp(tab[1], "1")))
-			w->cub[p->cube_i].tex = 1;
+			w->cub[p->cube_i].m.tex = 1;
 	}
 }
 
@@ -97,7 +97,6 @@ void	make_tex_cube(t_data *p, t_world *w)
 	if (w->cub[p->cube_i].tex_num == 6)
 	{
 		w->cub[p->cube_i].m.p.cube_texture[0] = SDL_LoadBMP(w->cub[p->cube_i].right);
-		//w->cub[p->cube_i].m.p.cube_texture[0] = SDL_LoadBMP("textures/posx.bmp");
 		w->cub[p->cube_i].m.p.cube_texture[1] = SDL_LoadBMP(w->cub[p->cube_i].left);
 		w->cub[p->cube_i].m.p.cube_texture[2] = SDL_LoadBMP(w->cub[p->cube_i].up);
 		w->cub[p->cube_i].m.p.cube_texture[3] = SDL_LoadBMP(w->cub[p->cube_i].down);
@@ -105,11 +104,14 @@ void	make_tex_cube(t_data *p, t_world *w)
 		w->cub[p->cube_i].m.p.cube_texture[5] = SDL_LoadBMP(w->cub[p->cube_i].back);
 	}
 	//else
-	//	exit(err_num_tex());
+		//exit(err_num_tex());
 }
 
 void	make_obj_cube(t_data *p, t_world *w, char **tab)
 {
+	char	*tmp;
+
+	tmp = NULL;
 	if (!(ft_strcmp(tab[0], "specular:")))
 		w->cub[p->cube_i].m.specular = ft_strtodbl(tab[1]);
 	if (!(ft_strcmp(tab[0], "reflective:")))
@@ -144,6 +146,7 @@ void	make_obj_cube(t_data *p, t_world *w, char **tab)
 			w->cub[p->cube_i].pattern = 2;
 		if (!(ft_strcmp(tab[1], "1")))
 		{
+			w->cub[p->cube_i].m.pattern = 1;
 			w->cub[p->cube_i].m.pattern_at = &pattern_at_cube_texture;
 			w->cub[p->cube_i].m.p.transform = identity_matrix();
 		}
@@ -152,36 +155,48 @@ void	make_obj_cube(t_data *p, t_world *w, char **tab)
 		texture_cube(tab, p, w);
 	if (!(ft_strcmp(tab[0], "right_side:")) && len_tab(tab) == 2)
 	{
-		//printf("\n1 if\n");
+		printf("\n1 if\n");
 		w->cub[p->cube_i].tex_num++;
-		w->cub[p->cube_i].right = ft_strdup(tab[1]);
+		tmp = remove_quotes(tab[1]);
+		w->cub[p->cube_i].right = ft_strdup(tmp);
+		//free(tmp);
 	}
 	if (!(ft_strcmp(tab[0], "left_side:")) && len_tab(tab) == 2)
 	{
-		//printf("\n2 if\n");
+		printf("\n2 if\n");
 		w->cub[p->cube_i].tex_num++;
-		w->cub[p->cube_i].left = ft_strdup(tab[1]);
+		tmp = remove_quotes(tab[1]);
+		w->cub[p->cube_i].left = ft_strdup(tmp);
+		free(tmp);
 	}
 	if (!(ft_strcmp(tab[0], "upper_side:")) && len_tab(tab) == 2)
 	{
-		//printf("\n3 if\n");
+		printf("\n3 if\n");
 		w->cub[p->cube_i].tex_num++;
-		w->cub[p->cube_i].up = ft_strdup(tab[1]);
+		tmp = remove_quotes(tab[1]);
+		w->cub[p->cube_i].up = ft_strdup(tmp);
+		free(tmp);
 	}
 	if (!(ft_strcmp(tab[0], "lower_side:")) && len_tab(tab) == 2)
 	{
 		w->cub[p->cube_i].tex_num++;
-		w->cub[p->cube_i].down = ft_strdup(tab[1]);
+		tmp = remove_quotes(tab[1]);
+		w->cub[p->cube_i].down = ft_strdup(tmp);
+		free(tmp);
 	}
 	if (!(ft_strcmp(tab[0], "front_side:")) && len_tab(tab) == 2)
 	{
 		w->cub[p->cube_i].tex_num++;
-		w->cub[p->cube_i].front = ft_strdup(tab[1]);
+		tmp = remove_quotes(tab[1]);
+		w->cub[p->cube_i].front = ft_strdup(tmp);
+		free(tmp);
 	}
 	if (!(ft_strcmp(tab[0], "back_side:")) && len_tab(tab) == 2)
 	{
 		w->cub[p->cube_i].tex_num++;
-		w->cub[p->cube_i].back = ft_strdup(tab[1]);
+		tmp = remove_quotes(tab[1]);
+		w->cub[p->cube_i].back = ft_strdup(tmp);
+		free(tmp);
 	}
 	//if (!(ft_strcmp(tab[0], "pattern:")) && !(ft_strcmp(tab[1], "1")))
 	//	w->cub[p->cube_i].m.p.transform = identity_matrix();
@@ -230,7 +245,7 @@ char	**make_cube(t_data *p, t_world *w, char **tab)
 		if ((check_make_obj(tab)))
 		{
 			make_obj_cube(p, w, tab);
-			if (w->cub[p->cube_i].tex == 1)
+			if (w->cub[p->cube_i].m.tex == 1)
 			{
 				//ft_putendl("in last if");
 				make_tex_cube(p, w);

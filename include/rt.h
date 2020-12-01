@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/01 14:27:27 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/01 16:36:48 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -608,6 +608,7 @@ void	making_obj(char **tab, t_data *p, t_world *w);
 char	**check_type(t_data *p, t_world *w, char **tab);
 void	make_tex_cube(t_data *p, t_world *w);
 void	texture_cube(char **tab, t_data *p, t_world *w);
+char	*remove_quotes(char *s1);
 
 //libft
 void	ft_putendl(char const *s);

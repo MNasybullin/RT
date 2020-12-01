@@ -6,7 +6,7 @@
 #    By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/06 10:40:08 by aannara           #+#    #+#              #
-#    Updated: 2020/11/26 22:03:48 by mgalt            ###   ########.fr        #
+#    Updated: 2020/12/01 16:37:40 by mgalt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,8 @@ SRC = ./src/main.c \
 	./src/count.c \
 	./src/making_stuff.c \
 	./src/ifs.c \
-	./src/pushing.c
+	./src/pushing.c \
+	./src/utils2.c
 
 OBJ = $(SRC:.c=.o)
 
