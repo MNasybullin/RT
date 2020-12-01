@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/11/30 17:52:25 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/01 14:27:27 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,12 @@ typedef struct		s_sp
 	t_matrix		transform;
 	t_material		m;
 	int				pattern;
+	char			*texture;
+	int				is_tex;
+	int				width;
+	int				height;
+	t_color			color_a;
+	t_color			color_b;
 }					t_sp;
 
 typedef struct		s_cyl
