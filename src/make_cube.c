@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:44:43 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/01 17:32:16 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/01 20:29:27 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ void	make_tex_cube(t_data *p, t_world *w)
 		w->cub[p->cube_i].m.p.cube_texture[4] = SDL_LoadBMP(w->cub[p->cube_i].front);
 		w->cub[p->cube_i].m.p.cube_texture[5] = SDL_LoadBMP(w->cub[p->cube_i].back);
 	}
-	//else
-		//exit(err_num_tex());
+	else
+		exit(err_num_tex());
 }
 
 void	make_obj_cube(t_data *p, t_world *w, char **tab)
@@ -122,8 +122,6 @@ void	make_obj_cube(t_data *p, t_world *w, char **tab)
 		w->cub[p->cube_i].m.diffuse = ft_strtodbl(tab[1]);
 	if (!(ft_strcmp(tab[0], "shininess:")))
 		w->cub[p->cube_i].m.shininess = ft_strtodbl(tab[1]);
-	//if (!(ft_strcmp(tab[0], "pattern:")))
-	//	w->cub[p->cube_i].m.pattern = ft_atoi(tab[1]);
 	if (!(ft_strcmp(tab[0], "transparency:")))
 		w->cub[p->cube_i].m.transparency = ft_strtodbl(tab[1]);
 	if (!(ft_strcmp(tab[0], "refractive_index:")))
@@ -138,24 +136,35 @@ void	make_obj_cube(t_data *p, t_world *w, char **tab)
 		complex_params_cube(p, w, tab, 3);
 	if (!(ft_strcmp(tab[0], "obj_scaling:")) || !(ft_strcmp(tab[0], "m_scaling:")))
 		complex_params_cube(p, w, tab, 4);
-	if (!(ft_strcmp(tab[0], "pattern:")))
+	if (!(ft_strcmp(tab[0], "pattern_type:")))
 	{
 		if (!(ft_strcmp(tab[1], "checker")))
-			w->cub[p->cube_i].pattern = 1;
+			w->cub[p->cube_i].pattern_type = 1;
 		if (!(ft_strcmp(tab[1], "stripe")))
-			w->cub[p->cube_i].pattern = 2;
+			w->cub[p->cube_i].pattern_type = 2;
 		if (!(ft_strcmp(tab[1], "1")))
 		{
 			w->cub[p->cube_i].m.pattern = 1;
-			w->cub[p->cube_i].m.pattern_at = &pattern_at_cube_texture;
+			//w->cub[p->cube_i].m.pattern_at = &pattern_at_cube_texture;
+			//w->cub[p->cube_i].m.p.transform = identity_matrix();
+		}
+	}
+	if (!(ft_strcmp(tab[0], "pattern:")))
+	{
+		//printf("\n1 if\n");
+		if (!(ft_strcmp(tab[1], "1")))
+		{
+			//printf("\n2 if\n");
+			w->cub[p->cube_i].m.pattern = 1;
+			//w->cub[p->cube_i].m.pattern_at = &pattern_at_cube_texture;
 			w->cub[p->cube_i].m.p.transform = identity_matrix();
 		}
 	}
-	if (!(ft_strcmp(tab[0], "texture:")))
+	if (!(ft_strcmp(tab[0], "tex:")))
 		texture_cube(tab, p, w);
 	if (!(ft_strcmp(tab[0], "right_side:")) && len_tab(tab) == 2)
 	{
-		printf("\n1 if\n");
+		//printf("\n1 if\n");
 		w->cub[p->cube_i].tex_num++;
 		tmp = remove_quotes(tab[1]);
 		w->cub[p->cube_i].right = ft_strdup(tmp);
@@ -163,7 +172,7 @@ void	make_obj_cube(t_data *p, t_world *w, char **tab)
 	}
 	if (!(ft_strcmp(tab[0], "left_side:")) && len_tab(tab) == 2)
 	{
-		printf("\n2 if\n");
+		//printf("\n2 if\n");
 		w->cub[p->cube_i].tex_num++;
 		tmp = remove_quotes(tab[1]);
 		w->cub[p->cube_i].left = ft_strdup(tmp);
@@ -171,7 +180,7 @@ void	make_obj_cube(t_data *p, t_world *w, char **tab)
 	}
 	if (!(ft_strcmp(tab[0], "upper_side:")) && len_tab(tab) == 2)
 	{
-		printf("\n3 if\n");
+		//printf("\n3 if\n");
 		w->cub[p->cube_i].tex_num++;
 		tmp = remove_quotes(tab[1]);
 		w->cub[p->cube_i].up = ft_strdup(tmp);
@@ -202,15 +211,15 @@ void	make_obj_cube(t_data *p, t_world *w, char **tab)
 	//	w->cub[p->cube_i].m.p.transform = identity_matrix();
 	if (!(ft_strcmp(tab[0], "color_a")))
 		pattern_color_cube(p, w, tab, 1);
-	if (!(ft_strcmp(tab[0], "color_a")))
+	if (!(ft_strcmp(tab[0], "color_b")))
 		pattern_color_cube(p, w, tab, 2);
-	//if (w->cub[p->cube_i].pattern)
-	//{
-		//if (w->cub[p->cube_i].pattern == 1) // checker
-		//	checker_pattern_shape(w->cub[p->cube_i].m.p.a, w->cub[p->cube_i].m.p.b, &w->cub[p->cube_i].m);
-		//else if (w->cub[p->cube_i].pattern == 2) // stripe
-		//	stripe_pattern_shape(w->cub[p->cube_i].m.p.a, w->cub[p->cube_i].m.p.b, &w->cub[p->cube_i].m);
-	//}
+	if (w->cub[p->cube_i].pattern)
+	{
+		if (w->cub[p->cube_i].pattern_type == 1) // checker
+			checker_pattern_shape(w->cub[p->cube_i].m.p.a, w->cub[p->cube_i].m.p.b, &w->cub[p->cube_i].m);
+		else if (w->cub[p->cube_i].pattern_type == 2) // stripe
+			stripe_pattern_shape(w->cub[p->cube_i].m.p.a, w->cub[p->cube_i].m.p.b, &w->cub[p->cube_i].m);
+	}
 	/*if (w->cub[p->cube_i].tex == 1)
 	{
 		ft_putendl("in last if");
@@ -245,14 +254,21 @@ char	**make_cube(t_data *p, t_world *w, char **tab)
 		if ((check_make_obj(tab)))
 		{
 			make_obj_cube(p, w, tab);
-			if (w->cub[p->cube_i].m.tex == 1)
-			{
+			//if (w->cub[p->cube_i].m.tex == 1)
+			//{
 				//ft_putendl("in last if");
-				make_tex_cube(p, w);
-			}
+			//	make_tex_cube(p, w);
+			//}
 		}
 		else
 			break ;
+	}
+	printf("CUBE PATTERN: %d\n", w->cub[p->cube_i].m.pattern);
+	if (w->cub[p->cube_i].m.tex == 1 && w->cub[p->cube_i].m.pattern == 1)
+	{
+		//ft_putendl("in last if");
+		w->cub[p->cube_i].m.pattern_at = &pattern_at_cube_texture;
+		make_tex_cube(p, w);
 	}
 	p->cube_i++;
 	//printf("\nnumber of textures is %d\n", w->cub[0].tex_num);

@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/01 16:36:48 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/01 20:32:06 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ typedef struct		s_sp
 	int				height;
 	t_color			color_a;
 	t_color			color_b;
+	int				pattern_type;
 }					t_sp;
 
 typedef struct		s_cyl
@@ -164,10 +165,14 @@ typedef struct		s_cyl
 	double			r;
 	double			min;
 	double			max;
+	int				width;
+	int				height;
 	int				closed;
+	char			*texture;
 	t_matrix		transform;
 	t_material		m;
 	int				pattern;
+	int				pattern_type;
 }					t_cyl;
 
 typedef struct		s_cone
@@ -177,9 +182,13 @@ typedef struct		s_cone
 	double			min;
 	double			max;
 	int				closed;
+	int				width;
+	int				height;
+	char			*texture;
 	t_matrix		transform;
 	t_material		m;
 	int				pattern;
+	int				pattern_type;
 }					t_cone;
 
 typedef struct		s_plane
@@ -187,7 +196,11 @@ typedef struct		s_plane
 	t_vec			c;
 	t_matrix		transform;
 	t_material		m;
+	int				width;
+	int				height;
 	int				pattern;
+	int				pattern_type;
+	char			*texture;
 }					t_plane;
 
 typedef struct		s_cube
@@ -204,6 +217,7 @@ typedef struct		s_cube
 	char			*down;
 	char			*front;
 	char			*back;
+	int				pattern_type;
 }					t_cube;
 
 typedef struct		s_trian
@@ -217,6 +231,10 @@ typedef struct		s_trian
 	t_material		m;
 	t_matrix		transform;
 	int				pattern;
+	int				width;
+	int				height;
+	int				pattern_type;
+	char			*texture;
 }					t_trian;
 
 /*

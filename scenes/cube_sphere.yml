@@ -15,7 +15,7 @@ objects:
                 ambient: 1
                 specular: 0
                 diffuse: 0
-                texture: 1
+                tex: 1
                 pattern: 1
                 transform: 1
                 right_side: "textures/posx.bmp"

@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 16:36:11 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/01 17:29:47 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/01 20:51:34 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,18 @@ void	pattern_color_sp(t_data *p, t_world *w, char **tab, int flag)
 	}
 }
 
+void	texture_sp(char **tab, t_data *p, t_world *w)
+{
+	if (len_tab(tab) == 2)
+	{
+		if (!(ft_strcmp(tab[1], "1")))
+			w->s[p->sp_i].m.tex = 1;
+	}
+}
+
 void	make_obj_sphere(t_data *p, t_world *w, char **tab)
 {
-	ft_putendl("make obj sphere");
+	//ft_putendl("make obj sphere");
 	if (!(ft_strcmp(tab[0], "specular:")))
 		w->s[p->sp_i].m.specular = ft_strtodbl(tab[1]);
 	if (!(ft_strcmp(tab[0], "reflective:")))
@@ -102,8 +111,6 @@ void	make_obj_sphere(t_data *p, t_world *w, char **tab)
 		w->s[p->sp_i].m.diffuse = ft_strtodbl(tab[1]);
 	if (!(ft_strcmp(tab[0], "shininess:")))
 		w->s[p->sp_i].m.shininess = ft_strtodbl(tab[1]);
-	//if (!(ft_strcmp(tab[0], "pattern:")))
-	//	w->s[p->sp_i].m.pattern = ft_atoi(tab[1]);
 	if (!(ft_strcmp(tab[0], "transparency:")))
 		w->s[p->sp_i].m.transparency = ft_strtodbl(tab[1]);
 	if (!(ft_strcmp(tab[0], "refractive_index:")))
@@ -118,23 +125,37 @@ void	make_obj_sphere(t_data *p, t_world *w, char **tab)
 		complex_params_sphere(p, w, tab, 3);
 	if (!(ft_strcmp(tab[0], "obj_scaling:")) || !(ft_strcmp(tab[0], "m_scaling:")))
 		complex_params_sphere(p, w, tab, 4);
-	//ft_putendl("after all complex params");
 	if (!(ft_strcmp(tab[0], "pattern:")))
 	{
-		//ft_putendl("strcmp pattern");
-		if (!(ft_strcmp(tab[1], "checker")))
-			w->s[p->sp_i].pattern = 1;
-		if (!(ft_strcmp(tab[1], "stripe")))
-			w->s[p->sp_i].pattern = 2;
+		//printf("\n1 if\n");
 		if (!(ft_strcmp(tab[1], "1")))
 		{
+			//printf("\n2 if\n");
+			w->s[p->sp_i].m.pattern = 1;
+			//w->cub[p->cube_i].m.pattern_at = &pattern_at_cube_texture;
+			//w->s[p->sp_i].m.p.transform = identity_matrix();
+		}
+	}
+	//ft_putendl("after all complex params");
+	if (!(ft_strcmp(tab[0], "pattern_type:")))
+	{
+		if (!(ft_strcmp(tab[1], "checker")))
+			w->s[p->sp_i].pattern_type = 1;
+		if (!(ft_strcmp(tab[1], "stripe")))
+			w->s[p->sp_i].pattern_type = 2;
+		if (!(ft_strcmp(tab[1], "1")))
+		{
+			w->s[p->sp_i].m.pattern = 1;
 			//w->s[p->sp_i].m.pattern_at = &pattern_at;
 			//w->s[p->sp_i].m.p.transform = identity_matrix();
 			w->s[p->sp_i].is_tex++;
 		}
 	}
+	if (!(ft_strcmp(tab[0], "tex:")) && len_tab(tab) == 2)
+		texture_sp(tab, p, w);
 	if (!(ft_strcmp(tab[0], "texture:")) && len_tab(tab) == 2)
 	{
+		//texture_sp(tab, p, w);
 		w->s[p->sp_i].texture = ft_strdup(remove_quotes(tab[1]));
 		w->s[p->sp_i].is_tex++;
 	}
@@ -144,14 +165,18 @@ void	make_obj_sphere(t_data *p, t_world *w, char **tab)
 			w->s[p->sp_i].is_tex++;
 	}
 	//if (!(ft_strcmp(tab[0], "texture:")))
-	if (!(ft_strcmp(tab[0], "color_a")))
+	if (!(ft_strcmp(tab[0], "color_a:")))
 		pattern_color_sp(p, w, tab, 1);
-	if (!(ft_strcmp(tab[0], "color_a")))
+	if (!(ft_strcmp(tab[0], "color_b:")))
 		pattern_color_sp(p, w, tab, 2);
-	if (!(ft_strcmp(tab[0], "pattern_color_a")))
+	if (!(ft_strcmp(tab[0], "pattern_color_a:")))
 		pattern_color_sp(p, w, tab, 3);
-	if (!(ft_strcmp(tab[0], "pattern_color_b")))
+	if (!(ft_strcmp(tab[0], "pattern_color_b:")))
 		pattern_color_sp(p, w, tab, 4);
+	if (!(ft_strcmp(tab[0], "width:")))
+		w->s[p->sp_i].width = ft_atoi(tab[1]);
+	if (!(ft_strcmp(tab[0], "height:")))
+		w->s[p->sp_i].height = ft_atoi(tab[1]);
 	//if (w->s[p->sp_i].pattern)
 	//{
 		//ft_putendl("if pattern");
@@ -177,6 +202,8 @@ char	**make_sphere(t_data *p, t_world *w, char **tab)
 	tab = NULL;
 	w->s[p->sp_i].pattern = 0;
 	w->s[p->sp_i].is_tex = 0;
+	w->s[p->sp_i].pattern_type = 0;
+	w->s[p->sp_i].m.tex = 0;
 	while ((get_next_line(p->fd, &p->line)))
 	{
 		tab = ft_strsplit(p->line, ' ');
@@ -187,13 +214,34 @@ char	**make_sphere(t_data *p, t_world *w, char **tab)
 		else
 			break ;
 	}
-	if (w->s[p->sp_i].is_tex == 3)
+	ft_putendl("\n\nout of while\n\n");
+	//printf("\n\nSPHERE TEXTURE IS %s\n\n", w->s[p->sp_i].texture);
+	if (w->s[p->sp_i].m.pattern == 1 && (w->s[p->sp_i].pattern_type == 1
+	|| w->s[p->sp_i].pattern_type == 2))
 	{
-		w->s[p->sp_i].m.p = uv_checkers(w->s[p->sp_i].width, w->s[p->sp_i].height, w->s[p->sp_i].color_a, w->s[p->sp_i].color_b);
-		w->s[p->sp_i].m.pattern_at = &pattern_at;
+		ft_putendl("\n\nin texture if\n\n");
+		//w->s[p->sp_i].m.pattern_at = &pattern_at;
 		w->s[p->sp_i].m.p.transform = identity_matrix();
-		w->s[p->sp_i].m.texturemap = texture_map(w->s[p->sp_i].m.p, &spherical_map);
-		w->s[p->sp_i].m.texture = SDL_LoadBMP(w->s[p->sp_i].texture);
+		if (w->s[p->sp_i].pattern_type == 1)
+		{
+			ft_putendl("\n\nchecker if\n\n");
+			w->s[p->sp_i].m.p = uv_checkers(w->s[p->sp_i].width,
+			w->s[p->sp_i].height, w->s[p->sp_i].color_a, w->s[p->sp_i].color_b);
+		}
+		else if (w->s[p->sp_i].pattern_type == 2)
+			stripe_pattern_shape(w->s[p->sp_i].m.p.a, w->s[p->sp_i].m.p.b,
+			&w->s[p->sp_i].m);
+		if (w->s[p->sp_i].m.tex == 1)
+		{
+			ft_putendl("\n\nin tex == 1 if\n\n");
+			w->s[p->sp_i].m.pattern_at = &pattern_at;
+			ft_putendl("\n\n2\n\n");
+			w->s[p->sp_i].m.texturemap = texture_map(w->s[p->sp_i].m.p,
+			&spherical_map);
+			ft_putendl("\n\n3\n\n");
+			w->s[p->sp_i].m.texture = SDL_LoadBMP(w->s[p->sp_i].texture);
+			ft_putendl("\n\n4\n\n");
+		}
 	}
 	p->sp_i++;
 	//w->s[p->sp_i].is_tex = 0;
