@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/01 20:32:06 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/03 20:26:18 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,11 +168,14 @@ typedef struct		s_cyl
 	int				width;
 	int				height;
 	int				closed;
+	int				is_tex;
 	char			*texture;
 	t_matrix		transform;
 	t_material		m;
 	int				pattern;
 	int				pattern_type;
+	t_color			color_a;
+	t_color			color_b;
 }					t_cyl;
 
 typedef struct		s_cone
@@ -189,6 +192,9 @@ typedef struct		s_cone
 	t_material		m;
 	int				pattern;
 	int				pattern_type;
+	t_color			color_a;
+	t_color			color_b;
+	int				is_tex;
 }					t_cone;
 
 typedef struct		s_plane
@@ -201,6 +207,9 @@ typedef struct		s_plane
 	int				pattern;
 	int				pattern_type;
 	char			*texture;
+	t_color			color_a;
+	t_color			color_b;
+	int				is_tex;
 }					t_plane;
 
 typedef struct		s_cube
@@ -627,6 +636,8 @@ char	**check_type(t_data *p, t_world *w, char **tab);
 void	make_tex_cube(t_data *p, t_world *w);
 void	texture_cube(char **tab, t_data *p, t_world *w);
 char	*remove_quotes(char *s1);
+void	texture_sp(char **tab, t_data *p, t_world *w);
+void	texture_cone(char **tab, t_data *p, t_world *w);
 
 //libft
 void	ft_putendl(char const *s);

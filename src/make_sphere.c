@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 16:36:11 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/01 21:05:06 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/03 20:06:50 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,8 @@ char	**make_sphere(t_data *p, t_world *w, char **tab)
 	w->s[p->sp_i].is_tex = 0;
 	w->s[p->sp_i].pattern_type = 0;
 	w->s[p->sp_i].m.tex = 0;
+	w->s[p->sp_i].width = 0;
+	w->s[p->sp_i].height = 0;
 	while ((get_next_line(p->fd, &p->line)))
 	{
 		tab = ft_strsplit(p->line, ' ');

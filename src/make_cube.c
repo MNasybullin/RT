@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:44:43 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/01 20:29:27 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/03 20:29:19 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ void	make_obj_cube(t_data *p, t_world *w, char **tab)
 		if (!(ft_strcmp(tab[1], "1")))
 		{
 			//printf("\n2 if\n");
+			//w->cub[p->cube_i].pattern = 1;
 			w->cub[p->cube_i].m.pattern = 1;
 			//w->cub[p->cube_i].m.pattern_at = &pattern_at_cube_texture;
 			w->cub[p->cube_i].m.p.transform = identity_matrix();
@@ -213,7 +214,7 @@ void	make_obj_cube(t_data *p, t_world *w, char **tab)
 		pattern_color_cube(p, w, tab, 1);
 	if (!(ft_strcmp(tab[0], "color_b")))
 		pattern_color_cube(p, w, tab, 2);
-	if (w->cub[p->cube_i].pattern)
+	if (w->cub[p->cube_i].pattern_type)
 	{
 		if (w->cub[p->cube_i].pattern_type == 1) // checker
 			checker_pattern_shape(w->cub[p->cube_i].m.p.a, w->cub[p->cube_i].m.p.b, &w->cub[p->cube_i].m);
@@ -241,6 +242,7 @@ char	**make_cube(t_data *p, t_world *w, char **tab)
 	w->cub[p->cube_i] = set_cube();
 	w->cub[p->cube_i].pattern = 0;
 	w->cub[p->cube_i].tex_num = 0;
+	w->cub[p->cube_i].pattern_type = 0;
 	//free_tab(tab);
 	tab = NULL;
 	while ((get_next_line(p->fd, &p->line)))
@@ -263,7 +265,7 @@ char	**make_cube(t_data *p, t_world *w, char **tab)
 		else
 			break ;
 	}
-	printf("CUBE PATTERN: %d\n", w->cub[p->cube_i].m.pattern);
+	//printf("CUBE PATTERN: %d\n", w->cub[p->cube_i].m.pattern);
 	if (w->cub[p->cube_i].m.tex == 1 && w->cub[p->cube_i].m.pattern == 1)
 	{
 		//ft_putendl("in last if");

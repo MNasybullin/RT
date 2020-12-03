@@ -4,7 +4,7 @@ objects:
                 type: cube
                 obj_scaling: {x: 20, y: 7, z: 20}
                 obj_translation: {x: 0, y: 1, z: 0}
-                pattern: checker
+                pattern_type: checker
                 color_a: {r: 0, g: 0, b: 0}
                 color_b: {r: 0.25, g: 0.25, b: 0.25}
                 m_scaling: {x: 0.07, y: 0.07, z: 0.07}
@@ -16,7 +16,7 @@ objects:
         - object: # walls
                 type: cube
                 obj_scaling: {x: 10, y: 10, z: 10}
-                pattern: checker
+                pattern_type: checker
                 color_a: {r: 0.4863, g: 0.3765, b: 0.2941}
                 color_b: {r: 0.3725, g: 0.2902, b: 0.2275}
                 m_scaling: {x: 0.05, y: 20, z: 0.05}
@@ -29,7 +29,7 @@ objects:
                 type: cube
                 obj_scaling: {x: 3, y: 0.1, z: 2}
                 obj_translation: {x: 0, y: 3.1, z: 0}
-                pattern: stripe
+                pattern_type: stripe
                 color_a: {r: 0.5529, g: 0.4235, b: 0.3255}
                 color_b: {r: 0.6588, g: 0.5098, b: 0.4000}
                 m_scaling: {x: 0.05, y: 0.05, z: 0.05}
@@ -149,13 +149,13 @@ objects:
                 reflective: 1
 lights:
         - light:
-        type: POINT
-        color: {r: 1, g: 1, b: 0.9}
-        pos: {x: 0, y: 6.9, z: -5, w: 1}
+                type: point
+                color: {r: 1, g: 1, b: 0.9}
+                pos: {x: 0, y: 6.9, z: -5, w: 1}
 cameras:
-      - camera:
-        fov: 0.785
-        from: {x: 8, y: 6, z: -8, w: 1}
-        to: {x: 0, y: 3, z: 0, w: 1}
-        up: {x: 0, y: 1, z: 0, w: 0}
+        - camera:
+                fov: 0.785
+                from: {x: 8, y: 6, z: -8, w: 1}
+                to: {x: 0, y: 3, z: 0, w: 1}
+                up: {x: 0, y: 1, z: 0, w: 0}
 ...

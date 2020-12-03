@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 15:10:33 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 19:22:10 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/03 20:08:08 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,19 @@ void	pattern_color_pl(t_data *p, t_world *w, char **tab, int flag)
 			w->pl[p->pl_i].m.p.a = color(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
 		else if (flag == 2) // color_b
 			w->pl[p->pl_i].m.p.b = color(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
+		else if (flag == 3)
+			w->pl[p->pl_i].color_a = color(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
+		else if (flag == 4)
+			w->pl[p->pl_i].color_b = color(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
+	}
+}
+
+void	texture_plane(char **tab, t_data *p, t_world *w)
+{
+	if (len_tab(tab) == 2)
+	{
+		if (!(ft_strcmp(tab[1], "1")))
+			w->pl[p->pl_i].m.tex = 1;
 	}
 }
 
@@ -110,22 +123,55 @@ void	make_obj_plane(t_data *p, t_world *w, char **tab)
 		complex_params_plane(p, w, tab, 4);
 	if (!(ft_strcmp(tab[0], "pattern:")))
 	{
+		//printf("\n1 if\n");
+		if (!(ft_strcmp(tab[1], "1")))
+		{
+			//printf("\n2 if\n");
+			w->pl[p->pl_i].m.pattern = 1;
+			//w->cub[p->cube_i].m.pattern_at = &pattern_at_cube_texture;
+			//w->pl[p->pl_i].m.p.transform = identity_matrix();
+		}
+	}
+	//ft_putendl("after all complex params");
+	if (!(ft_strcmp(tab[0], "pattern_type:")))
+	{
 		if (!(ft_strcmp(tab[1], "checker")))
-			w->pl[p->pl_i].pattern = 1;
+			w->pl[p->pl_i].pattern_type = 1;
 		if (!(ft_strcmp(tab[1], "stripe")))
-			w->pl[p->pl_i].pattern = 2;
+			w->pl[p->pl_i].pattern_type = 2;
+		if (!(ft_strcmp(tab[1], "1")))
+		{
+			w->pl[p->pl_i].m.pattern = 1;
+			//w->pl[p->pl_i].m.pattern_at = &pattern_at;
+			//w->pl[p->pl_i].m.p.transform = identity_matrix();
+			w->pl[p->pl_i].is_tex++;
+		}
+	}
+	if (!(ft_strcmp(tab[0], "tex:")) && len_tab(tab) == 2)
+		texture_sp(tab, p, w);
+	if (!(ft_strcmp(tab[0], "texture:")) && len_tab(tab) == 2)
+	{
+		//texture_sp(tab, p, w);
+		w->pl[p->pl_i].texture = ft_strdup(remove_quotes(tab[1]));
+		w->pl[p->pl_i].is_tex++;
+	}
+	if (!(ft_strcmp(tab[0], "texturemap:")) && len_tab(tab) == 2)
+	{
+		if (!(ft_strcmp(tab[1], "1")))
+			w->pl[p->pl_i].is_tex++;
 	}
 	if (!(ft_strcmp(tab[0], "color_a")))
 		pattern_color_pl(p, w, tab, 1);
 	if (!(ft_strcmp(tab[0], "color_a")))
 		pattern_color_pl(p, w, tab, 2);
-	if (w->pl[p->pl_i].pattern)
-	{
-		if (w->pl[p->pl_i].pattern == 1) // checker
-			checker_pattern_shape(w->pl[p->pl_i].m.p.a, w->pl[p->pl_i].m.p.b, &w->pl[p->pl_i].m);
-		else if (w->pl[p->pl_i].pattern == 2) // stripe
-			stripe_pattern_shape(w->pl[p->pl_i].m.p.a, w->pl[p->pl_i].m.p.b, &w->pl[p->pl_i].m);
-	}
+	if (!(ft_strcmp(tab[0], "pattern_color_a:")))
+		pattern_color_sp(p, w, tab, 3);
+	if (!(ft_strcmp(tab[0], "pattern_color_b:")))
+		pattern_color_sp(p, w, tab, 4);
+	if (!(ft_strcmp(tab[0], "width:")))
+		w->pl[p->pl_i].width = ft_atoi(tab[1]);
+	if (!(ft_strcmp(tab[0], "height:")))
+		w->pl[p->pl_i].height = ft_atoi(tab[1]);
 }
 
 char	**make_plane(t_data *p, t_world *w, char **tab)
@@ -142,6 +188,11 @@ char	**make_plane(t_data *p, t_world *w, char **tab)
 	w->pl[p->pl_i] = set_plane();
 	tab = NULL;
 	w->pl[p->pl_i].pattern = 0;
+	w->pl[p->pl_i].is_tex = 0;
+	w->pl[p->pl_i].pattern_type = 0;
+	w->pl[p->pl_i].m.tex = 0;
+	w->pl[p->pl_i].width = 0;
+	w->pl[p->pl_i].height = 0;
 	while ((get_next_line(p->fd, &p->line)))
 	{
 		tab = ft_strsplit(p->line, ' ');
@@ -151,6 +202,27 @@ char	**make_plane(t_data *p, t_world *w, char **tab)
 			make_obj_plane(p, w, tab);
 		else
 			break ;
+	}
+	if (w->pl[p->pl_i].m.pattern == 1 && (w->pl[p->pl_i].pattern_type == 1
+	|| w->pl[p->pl_i].pattern_type == 2))
+	{
+		//ft_putendl("\n\nin texture if\n\n");
+		w->pl[p->pl_i].m.pattern_at = &pattern_at;
+		w->pl[p->pl_i].m.p.transform = identity_matrix();
+		if (w->pl[p->pl_i].pattern_type == 1)
+		{
+			w->pl[p->pl_i].m.p = uv_checkers(w->pl[p->pl_i].width,
+			w->pl[p->pl_i].height, w->pl[p->pl_i].color_a, w->pl[p->pl_i].color_b);
+		}
+		else if (w->pl[p->pl_i].pattern_type == 2)
+			stripe_pattern_shape(w->pl[p->pl_i].m.p.a, w->pl[p->pl_i].m.p.b,
+			&w->pl[p->pl_i].m);
+		if (w->pl[p->pl_i].m.tex == 1)
+		{
+			w->pl[p->pl_i].m.texturemap = texture_map(w->pl[p->pl_i].m.p,
+			&planar_map);
+			w->pl[p->pl_i].m.texture = SDL_LoadBMP(w->pl[p->pl_i].texture);
+		}
 	}
 	p->pl_i++;
 	if ((!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "lights:"))) &&

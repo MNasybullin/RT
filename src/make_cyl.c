@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:36:46 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 19:23:49 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/03 20:05:15 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,19 @@ void	pattern_color_cyl(t_data *p, t_world *w, char **tab, int flag)
 			w->cyl[p->cyl_i].m.p.a = color(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
 		else if (flag == 2) // color_b
 			w->cyl[p->cyl_i].m.p.b = color(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
+		else if (flag == 3)
+			w->cyl[p->cyl_i].color_a = color(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
+		else if (flag == 4)
+			w->cyl[p->cyl_i].color_b = color(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
+	}
+}
+
+void	texture_cyl(char **tab, t_data *p, t_world *w)
+{
+	if (len_tab(tab) == 2)
+	{
+		if (!(ft_strcmp(tab[1], "1")))
+			w->cyl[p->cyl_i].m.tex = 1;
 	}
 }
 
@@ -118,22 +131,53 @@ void	make_obj_cyl(t_data *p, t_world *w, char **tab)
 		complex_params_cyl(p, w, tab, 4);
 	if (!(ft_strcmp(tab[0], "pattern:")))
 	{
+		//printf("\n1 if\n");
+		if (!(ft_strcmp(tab[1], "1")))
+		{
+			//printf("\n2 if\n");
+			w->cyl[p->cyl_i].m.pattern = 1;
+			//w->cub[p->cube_i].m.pattern_at = &pattern_at_cube_texture;
+			//w->cyl[p->cyl_i].m.p.transform = identity_matrix();
+		}
+	}
+	//ft_putendl("after all complex params");
+	if (!(ft_strcmp(tab[0], "pattern_type:")))
+	{
 		if (!(ft_strcmp(tab[1], "checker")))
-			w->cyl[p->cyl_i].pattern = 1;
+			w->cyl[p->cyl_i].pattern_type = 1;
 		if (!(ft_strcmp(tab[1], "stripe")))
-			w->cyl[p->cyl_i].pattern = 2;
+			w->cyl[p->cyl_i].pattern_type = 2;
+		if (!(ft_strcmp(tab[1], "1")))
+		{
+			w->cyl[p->cyl_i].m.pattern = 1;
+			w->cyl[p->cyl_i].is_tex++;
+		}
+	}
+	if (!(ft_strcmp(tab[0], "tex:")) && len_tab(tab) == 2)
+		texture_cyl(tab, p, w);
+	if (!(ft_strcmp(tab[0], "texture:")) && len_tab(tab) == 2)
+	{
+		//texture_sp(tab, p, w);
+		w->cyl[p->cyl_i].texture = ft_strdup(remove_quotes(tab[1]));
+		w->cyl[p->cyl_i].is_tex++;
+	}
+	if (!(ft_strcmp(tab[0], "texturemap:")) && len_tab(tab) == 2)
+	{
+		if (!(ft_strcmp(tab[1], "1")))
+			w->cyl[p->cyl_i].is_tex++;
 	}
 	if (!(ft_strcmp(tab[0], "color_a")))
 		pattern_color_cyl(p, w, tab, 1);
 	if (!(ft_strcmp(tab[0], "color_a")))
 		pattern_color_cyl(p, w, tab, 2);
-	if (w->cyl[p->cyl_i].pattern)
-	{
-		if (w->cyl[p->cyl_i].pattern == 1) // checker
-			checker_pattern_shape(w->cyl[p->cyl_i].m.p.a, w->cyl[p->cyl_i].m.p.b, &w->cyl[p->cyl_i].m);
-		else if (w->cyl[p->cyl_i].pattern == 2) // stripe
-			stripe_pattern_shape(w->cyl[p->cyl_i].m.p.a, w->cyl[p->cyl_i].m.p.b, &w->cyl[p->cyl_i].m);
-	}
+	if (!(ft_strcmp(tab[0], "pattern_color_a:")))
+		pattern_color_sp(p, w, tab, 3);
+	if (!(ft_strcmp(tab[0], "pattern_color_b:")))
+		pattern_color_sp(p, w, tab, 4);
+	if (!(ft_strcmp(tab[0], "width:")))
+		w->cyl[p->cyl_i].width = ft_atoi(tab[1]);
+	if (!(ft_strcmp(tab[0], "height:")))
+		w->cyl[p->cyl_i].height = ft_atoi(tab[1]);
 }
 
 char	**make_cyl(t_data *p, t_world *w, char **tab)
@@ -151,6 +195,9 @@ char	**make_cyl(t_data *p, t_world *w, char **tab)
 	//free_tab(tab);
 	tab = NULL;
 	w->cyl[p->cyl_i].pattern = 0;
+	w->cyl[p->cyl_i].is_tex = 0;
+	w->cyl[p->cyl_i].pattern_type = 0;
+	w->cyl[p->cyl_i].m.tex = 0;
 	while ((get_next_line(p->fd, &p->line)))
 	{
 		tab = ft_strsplit(p->line, ' ');
@@ -160,6 +207,27 @@ char	**make_cyl(t_data *p, t_world *w, char **tab)
 			make_obj_cyl(p, w, tab);
 		else
 			break ;
+	}
+	if (w->cyl[p->cyl_i].m.pattern == 1 && (w->cyl[p->cyl_i].pattern_type == 1
+	|| w->cyl[p->cyl_i].pattern_type == 2))
+	{
+		//ft_putendl("\n\nin texture if\n\n");
+		w->cyl[p->cyl_i].m.pattern_at = &pattern_at;
+		w->cyl[p->cyl_i].m.p.transform = identity_matrix();
+		if (w->cyl[p->cyl_i].pattern_type == 1)
+		{
+			w->cyl[p->cyl_i].m.p = uv_checkers(w->cyl[p->cyl_i].width,
+			w->cyl[p->cyl_i].height, w->cyl[p->cyl_i].color_a, w->cyl[p->cyl_i].color_b);
+		}
+		else if (w->cyl[p->cyl_i].pattern_type == 2)
+			stripe_pattern_shape(w->cyl[p->cyl_i].m.p.a, w->cyl[p->cyl_i].m.p.b,
+			&w->cyl[p->cyl_i].m);
+		if (w->cyl[p->cyl_i].m.tex == 1)
+		{
+			w->cyl[p->cyl_i].m.texturemap = texture_map(w->cyl[p->cyl_i].m.p,
+			&cylindrical_map);
+			w->cyl[p->cyl_i].m.texture = SDL_LoadBMP(w->cyl[p->cyl_i].texture);
+		}
 	}
 	p->cyl_i++;
 	if ((!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "lights:"))) &&

@@ -5,7 +5,7 @@ objects:
                 specular: 0
                 reflective: 0.4
                 obj_rotation: {x: 0, y: 0.31415, z: 0}
-                pattern: checker
+                pattern_type: checker
                 color_a: {r: 0.35, g: 0.35, b: 0.35}
                 color_b: {r: 0.65, g: 0.65, b: 0.65}
         - object: # ceiling
@@ -25,7 +25,7 @@ objects:
                 obj_rotation: {x: 0, y: 1.5708, z: 1.5708}
                 m_scaling: {x: 0.25, y: 0.25, z: 0.25}
                 m_rotation: {x: 0, y: 1.5708, z: 0}
-                pattern: stripe
+                pattern_type: stripe
                 color_a: {r: 0.45, g: 0.45, b: 0.45}
                 color_b: {r: 0.55, g: 0.55, b: 0.55}
         - object: # east wall
@@ -38,7 +38,7 @@ objects:
                 obj_rotation: {x: 0, y: 1.5708, z: 1.5708}
                 m_scaling: {x: 0.25, y: 0.25, z: 0.25}
                 m_rotation: {x: 0, y: 1.5708, z: 0}
-                pattern: stripe
+                pattern_type: stripe
                 color_a: {r: 0.45, g: 0.45, b: 0.45}
                 color_b: {r: 0.55, g: 0.55, b: 0.55}
         - object: # north wall
@@ -51,7 +51,7 @@ objects:
                 obj_rotation: {x: 1.5708, y: 0, z: 0}
                 m_scaling: {x: 0.25, y: 0.25, z: 0.25}
                 m_rotation: {x: 0, y: 1.5708, z: 0}
-                pattern: stripe
+                pattern_type: stripe
                 color_a: {r: 0.45, g: 0.45, b: 0.45}
                 color_b: {r: 0.55, g: 0.55, b: 0.55}
         - object: # south wall
@@ -64,7 +64,7 @@ objects:
                 obj_rotation: {x: 1.5708, y: 0, z: 0}
                 m_scaling: {x: 0.25, y: 0.25, z: 0.25}
                 m_rotation: {x: 0, y: 1.5708, z: 0}
-                pattern: stripe
+                pattern_type: stripe
                 color_a: {r: 0.45, g: 0.45, b: 0.45}
                 color_b: {r: 0.55, g: 0.55, b: 0.55}
         - object: # background ball 1

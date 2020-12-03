@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 20:14:25 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 22:04:59 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/03 20:29:53 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		read_file(char *file, t_data *p, t_world *w)
 	get_next_line(p->fd, &p->line);
 	while ((get_next_line(p->fd, &p->line)))
 	{
-		printf("\n\nline in beginning of while: %s\n\n", p->line);
+		//printf("\n\nline in beginning of while: %s\n\n", p->line);
 		tab = ft_strsplit(p->line, ' ');
 		if (check_is_obj(tab, p))
 			making_obj(tab, p, w);

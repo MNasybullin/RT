@@ -23,7 +23,7 @@ objects:
                 obj_rotation: {x: 0, y: 1.5708, z: 1.5708}
                 m_scaling: {x: 0.25, y: 0.25, z: 0.25}
                 m_rotation: {x: 0, y: 1.5708, z: 0}
-                pattern: stripe
+                pattern_type: stripe
                 color_a: {r: 0.45, g: 0.45, b: 0.45}
                 color_b: {r: 0.55, g: 0.55, b: 0.55}
 lights:
