@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 19:27:19 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/29 20:25:04 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/03 21:31:46 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ void	alloc_obj_memory(t_data *p, t_world *w)
 void	count_objects(t_data *p, char *line)
 {
 	char	**tab;
-	int		len = 0;
+	int		len;
 
+	len = 0;
 	get_next_line(p->fd, &line);
 	tab = NULL;
 	while ((get_next_line(p->fd, &line)) > 0)
@@ -43,26 +44,13 @@ void	count_objects(t_data *p, char *line)
 		if (len == 2)
 		{
 			if (!(ft_strcmp(tab[0], "type:")))
-			{
-				if (!(ft_strcmp(tab[1], "plane")))
-					p->pl_num++;
-				if (!(ft_strcmp(tab[1], "sphere")))
-					p->sp_num++;
-				if (!(ft_strcmp(tab[1], "cone")))
-					p->cone_num++;
-				if (!(ft_strcmp(tab[1], "cylinder")))
-					p->cyl_num++;
-				if (!(ft_strcmp(tab[1], "cube")))
-					p->cube_num++;
-				if (!(ft_strcmp(tab[1], "triangle")))
-					p->tri_num++;
-			}
+				help_counting(p, tab);
 			free_tab(tab);
 			tab = NULL;
 		}
 	}
-	p->obj_n = p->pl_num + p->sp_num + p->cone_num + p->cyl_num + p->cube_num + p->tri_num;
-	printf("\n%d %d %d %d %d %d\n\n", p->pl_num, p->sp_num, p->cone_num, p->cyl_num, p->cube_num, p->tri_num);
+	p->obj_n = p->pl_num + p->sp_num + p->cone_num + p->cyl_num
+	+ p->cube_num + p->tri_num;
 	close(p->fd);
 }
 
@@ -91,8 +79,9 @@ void	start_count_obj(t_data *p, t_world *w)
 void	count_lights(t_data *p, char *line)
 {
 	char	**tab;
-	int		len = 0;
+	int		len;
 
+	len = 0;
 	get_next_line(p->fd, &line);
 	tab = NULL;
 	while ((get_next_line(p->fd, &line)) > 0)
@@ -101,8 +90,8 @@ void	count_lights(t_data *p, char *line)
 		len = len_tab(tab);
 		if (len == 2)
 		{
-			if (!(ft_strcmp(tab[0], "type:")) && (!(ft_strcmp(tab[1], "point")) ||
-			!(ft_strcmp(tab[1], "direction"))))
+			if (!(ft_strcmp(tab[0], "type:")) && (!(ft_strcmp(tab[1], "point"))
+			|| !(ft_strcmp(tab[1], "area"))))
 				p->lights_num++;
 			free_tab(tab);
 			tab = NULL;

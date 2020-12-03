@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 19:51:25 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 21:24:11 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/03 21:36:27 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ void	making_obj(char **tab, t_data *p, t_world *w)
 		exit(err_wrong_format());
 }
 
-void    making_lights(char **tab, t_data *p, t_world *w)
+void	making_lights(char **tab, t_data *p, t_world *w)
 {
-    int     i;
+	int		i;
 
-    i = 0;
-    get_next_line(p->fd, &p->line);
+	i = 0;
+	get_next_line(p->fd, &p->line);
 	free_tab(tab);
 	tab = NULL;
 	tab = ft_strsplit(p->line, ' ');
@@ -53,7 +53,6 @@ void    making_lights(char **tab, t_data *p, t_world *w)
 		while (!(ft_strcmp(p->tab[0], "type:")) && i < p->lights_num)
 		{
 			i++;
-			//check_type(p, w, p->tab);
 			parse_lights(p, w);
 		}
 	}

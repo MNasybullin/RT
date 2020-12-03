@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 21:15:17 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 22:03:06 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/03 21:34:10 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ int		check_is_obj(char **tab, t_data *p)
 
 int		check_make_obj(char **tab)
 {
-	if (len_tab(tab) >= 2 && !(ft_strequ(tab[0], "-")) &&!(ft_strequ(tab[1], "object:")) &&
-		!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "light:")) &&
-		!(ft_strequ(tab[0], "cameras:")) && !(ft_strequ(tab[1], "camera:")))
+	if (len_tab(tab) >= 2 && !(ft_strequ(tab[0], "-")) && !(ft_strequ(tab[1],
+	"object:")) && !(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1],
+	"light:")) && !(ft_strequ(tab[0], "cameras:")) && !(ft_strequ(tab[1],
+	"camera:")))
 		return (1);
 	return (0);
 }

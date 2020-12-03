@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/03 20:26:18 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/03 22:07:13 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -359,7 +359,12 @@ typedef struct		s_forlight
 	double			r;
 	double			g;
 	double			bl;
-	char			type;
+	int				type;
+	t_vec			corner;
+	t_vec			v1;
+	t_vec			v2;
+	int				usteps;
+	id_t			vsteps;
 }					t_forlight;
 
 typedef struct		s_forcam
@@ -638,6 +643,15 @@ void	texture_cube(char **tab, t_data *p, t_world *w);
 char	*remove_quotes(char *s1);
 void	texture_sp(char **tab, t_data *p, t_world *w);
 void	texture_cone(char **tab, t_data *p, t_world *w);
+void	help_counting(t_data *p, char **tab);
+void	make_light(t_data *p);
+void	free_split_tab(char **tab1, char **tab2, char **tab3);
+void	free_split_tab4(char ***tab1, char ***tab2, char ***tab3, char ***tab4);
+void	init_3_tabs(char ***tab1, char ***tab2, char ***tab3);
+void	init_4_tabs(char ***tab1, char ***tab2, char ***tab3, char ***tab4);
+void	making_light(t_data *p, t_world *w, char **tab);
+void	making_camera(t_data *p, t_world *w, char **tab);
+void	reading(t_data *p, t_world *w, char *file);
 
 //libft
 void	ft_putendl(char const *s);

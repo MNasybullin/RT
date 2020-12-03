@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:19:38 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/03 19:59:04 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/03 21:35:08 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,13 +171,6 @@ void	make_obj_cone(t_data *p, t_world *w, char **tab)
 		w->cone[p->cone_i].width = ft_atoi(tab[1]);
 	if (!(ft_strcmp(tab[0], "height:")))
 		w->cone[p->cone_i].height = ft_atoi(tab[1]);
-	/*if (w->cone[p->cone_i].pattern)
-	{
-		if (w->cone[p->cone_i].pattern == 1) // checker
-			checker_pattern_shape(w->cone[p->cone_i].m.p.a, w->cone[p->cone_i].m.p.b, &w->cone[p->cone_i].m);
-		else if (w->cone[p->cone_i].pattern == 2) // stripe
-			stripe_pattern_shape(w->cone[p->cone_i].m.p.a, w->cone[p->cone_i].m.p.b, &w->cone[p->cone_i].m);
-	}*/
 }
 
 char	**make_cone(t_data *p, t_world *w, char **tab)
