@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 21:56:24 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/03 21:58:36 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 15:25:34 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,13 @@ void	write_lights(t_data *p, t_world *w)
 	int		i;
 
 	i = 0;
+	printf("\n\nIN WRITE LIGHTS:\ncolor: %f, %f, %f\ncorner: %f %f %f %f\nv1: %f %f %f %f\n\n", p->h[i].r, p->h[i].g, p->h[i].bl, p->h[i].corner.c[0], p->h[i].corner.c[1], p->h[i].corner.c[2], p->h[i].corner.c[3], p->h[i].v1.c[0], p->h[i].v1.c[1], p->h[i].v1.c[2], p->h[i].v1.c[3]);
 	while (i < p->lights_num)
 	{
 		if (p->h[i].type == 1)
 			w->light[i] = point_light(color(p->h[i].r, p->h[i].g, p->h[i].bl),
 			set_v_p(p->h[i].a, p->h[i].b, p->h[i].c, p->h[i].w));
-		if (p->h[p->light_i].type == 2)
+		if (p->h[i].type == 2)
 			w->light[i] = area_light(p->h[i].corner, p->h[i].v1,
 			p->h[i].usteps, p->h[i].v2, p->h[i].vsteps, color(p->h[i].r,
 			p->h[i].g, p->h[i].bl));

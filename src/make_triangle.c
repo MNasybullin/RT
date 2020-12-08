@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:49:57 by mgalt             #+#    #+#             */
-/*   Updated: 2020/11/26 19:24:10 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 14:59:20 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,9 +167,9 @@ void	make_obj_tri(t_data *p, t_world *w, char **tab)
 		if (!(ft_strcmp(tab[1], "stripe")))
 			w->trian[p->tri_i].pattern = 2;
 	}
-	if (!(ft_strcmp(tab[0], "color_a")))
+	if (!(ft_strcmp(tab[0], "color_a:")))
 		pattern_color_tri(p, w, tab, 1);
-	if (!(ft_strcmp(tab[0], "color_a")))
+	if (!(ft_strcmp(tab[0], "color_b:")))
 		pattern_color_tri(p, w, tab, 2);
 	if (w->trian[p->tri_i].pattern)
 	{

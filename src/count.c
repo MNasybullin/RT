@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 19:27:19 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/03 21:31:46 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 15:22:15 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	count_lights(t_data *p, char *line)
 			tab = NULL;
 		}
 	}
-	printf("\nNumber of lights if: %d\n\n", p->lights_num);
+	printf("\nNumber of lights is: %d\n\n", p->lights_num);
 	close(p->fd);
 }
 

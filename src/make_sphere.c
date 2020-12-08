@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 16:36:11 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/03 20:06:50 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 16:28:55 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	complex_params_sphere(t_data *p, t_world *w, char **tab, int flag)
 		tab1 = ft_strsplit(tab[2], ',');
 		tab2 = ft_strsplit(tab[4], ',');
 		tab3 = ft_strsplit(tab[6], '}');
+		//printf("\n\nSphere translation parameters: %f %f %f\n\n", ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
 		if (flag == 1 && !(ft_strcmp(tab[0], "obj_translation:"))) // translation
 			w->s[p->sp_i].transform = matrix_mult(w->s[p->sp_i].transform,
 			translation(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0])));
@@ -195,7 +196,6 @@ void	make_tex_sp(t_data *p, t_world *w)
 	//{
 		//ft_putendl("\n\nin texture if\n\n");
 		w->s[p->sp_i].m.pattern_at = &pattern_at;
-		w->s[p->sp_i].m.p.transform = identity_matrix();
 		if (w->s[p->sp_i].pattern_type == 1)
 		{
 			w->s[p->sp_i].m.p = uv_checkers(w->s[p->sp_i].width,
@@ -231,6 +231,7 @@ char	**make_sphere(t_data *p, t_world *w, char **tab)
 	w->s[p->sp_i].m.tex = 0;
 	w->s[p->sp_i].width = 0;
 	w->s[p->sp_i].height = 0;
+	//w->s[p->sp_i].m.p.transform = identity_matrix();
 	while ((get_next_line(p->fd, &p->line)))
 	{
 		tab = ft_strsplit(p->line, ' ');
@@ -242,12 +243,11 @@ char	**make_sphere(t_data *p, t_world *w, char **tab)
 			break ;
 	}
 	//make_tex_sp(p, w);
-	if (w->s[p->sp_i].m.pattern == 1 && (w->s[p->sp_i].pattern_type == 1
-	|| w->s[p->sp_i].pattern_type == 2))
+	if (w->s[p->sp_i].m.pattern == 1 /*&& (w->s[p->sp_i].pattern_type == 1
+	|| w->s[p->sp_i].pattern_type == 2)*/)
 	{
 		//ft_putendl("\n\nin texture if\n\n");
 		w->s[p->sp_i].m.pattern_at = &pattern_at;
-		w->s[p->sp_i].m.p.transform = identity_matrix();
 		if (w->s[p->sp_i].pattern_type == 1)
 		{
 			w->s[p->sp_i].m.p = uv_checkers(w->s[p->sp_i].width,
@@ -258,10 +258,11 @@ char	**make_sphere(t_data *p, t_world *w, char **tab)
 			&w->s[p->sp_i].m);
 		if (w->s[p->sp_i].m.tex == 1)
 		{
+			w->s[p->sp_i].m.texture = SDL_LoadBMP(w->s[p->sp_i].texture);
 			w->s[p->sp_i].m.texturemap = texture_map(w->s[p->sp_i].m.p,
 			&spherical_map);
-			w->s[p->sp_i].m.texture = SDL_LoadBMP(w->s[p->sp_i].texture);
 		}
+		w->s[p->sp_i].m.p.transform = identity_matrix();
 	}
 	p->sp_i++;
 	//w->s[p->sp_i].is_tex = 0;

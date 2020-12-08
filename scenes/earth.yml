@@ -21,9 +21,8 @@ objects:
                 reflective: 0.1
         - object:
                 type: sphere
-                obj_translation: {x: 0, y: 2.1, z: 0}
+                obj_translation: {x: 0, y: 1.1, z: 0}
                 obj_rotation: {x: 0, y: 1.9, z: 0}
-                obj_scaling: {x: 2, y: 2, z: 2}
                 pattern_type: checker
                 pattern: 1
                 pattern_color_a: {r: 0, g: 0.5, b: 0}
@@ -43,7 +42,7 @@ lights:
                 pos: {x: -100, y: 100, z: -100, w: 1}
                 color: {r: 1, g: 1, b: 1}
 cameras:
-      - camera:
+        - camera:
                 fov: 0.8
                 from: {x: 1, y: 2, z: -10, w: 1}
                 to: {x: 0, y: 1.1, z: 0, w: 1}

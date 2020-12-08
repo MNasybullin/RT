@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/03 22:07:13 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 15:24:11 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -364,7 +364,7 @@ typedef struct		s_forlight
 	t_vec			v1;
 	t_vec			v2;
 	int				usteps;
-	id_t			vsteps;
+	int				vsteps;
 }					t_forlight;
 
 typedef struct		s_forcam

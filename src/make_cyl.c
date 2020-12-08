@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:36:46 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/03 20:05:15 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 14:58:51 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,9 +166,9 @@ void	make_obj_cyl(t_data *p, t_world *w, char **tab)
 		if (!(ft_strcmp(tab[1], "1")))
 			w->cyl[p->cyl_i].is_tex++;
 	}
-	if (!(ft_strcmp(tab[0], "color_a")))
+	if (!(ft_strcmp(tab[0], "color_a:")))
 		pattern_color_cyl(p, w, tab, 1);
-	if (!(ft_strcmp(tab[0], "color_a")))
+	if (!(ft_strcmp(tab[0], "color_b:")))
 		pattern_color_cyl(p, w, tab, 2);
 	if (!(ft_strcmp(tab[0], "pattern_color_a:")))
 		pattern_color_sp(p, w, tab, 3);

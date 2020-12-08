@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:19:38 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/03 21:35:08 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 14:58:38 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,9 +159,9 @@ void	make_obj_cone(t_data *p, t_world *w, char **tab)
 		if (!(ft_strcmp(tab[1], "1")))
 			w->cone[p->cone_i].is_tex++;
 	}
-	if (!(ft_strcmp(tab[0], "color_a")))
+	if (!(ft_strcmp(tab[0], "color_a:")))
 		pattern_color_cone(p, w, tab, 1);
-	if (!(ft_strcmp(tab[0], "color_a")))
+	if (!(ft_strcmp(tab[0], "color_b:")))
 		pattern_color_cone(p, w, tab, 2);
 	if (!(ft_strcmp(tab[0], "pattern_color_a:")))
 		pattern_color_cone(p, w, tab, 3);

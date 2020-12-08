@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:44:43 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/03 20:29:19 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 15:02:10 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,12 +142,6 @@ void	make_obj_cube(t_data *p, t_world *w, char **tab)
 			w->cub[p->cube_i].pattern_type = 1;
 		if (!(ft_strcmp(tab[1], "stripe")))
 			w->cub[p->cube_i].pattern_type = 2;
-		if (!(ft_strcmp(tab[1], "1")))
-		{
-			w->cub[p->cube_i].m.pattern = 1;
-			//w->cub[p->cube_i].m.pattern_at = &pattern_at_cube_texture;
-			//w->cub[p->cube_i].m.p.transform = identity_matrix();
-		}
 	}
 	if (!(ft_strcmp(tab[0], "pattern:")))
 	{
@@ -210,17 +204,17 @@ void	make_obj_cube(t_data *p, t_world *w, char **tab)
 	}
 	//if (!(ft_strcmp(tab[0], "pattern:")) && !(ft_strcmp(tab[1], "1")))
 	//	w->cub[p->cube_i].m.p.transform = identity_matrix();
-	if (!(ft_strcmp(tab[0], "color_a")))
+	if (!(ft_strcmp(tab[0], "color_a:")))
 		pattern_color_cube(p, w, tab, 1);
-	if (!(ft_strcmp(tab[0], "color_b")))
+	if (!(ft_strcmp(tab[0], "color_b:")))
 		pattern_color_cube(p, w, tab, 2);
-	if (w->cub[p->cube_i].pattern_type)
+	/*if (w->cub[p->cube_i].pattern_type)
 	{
 		if (w->cub[p->cube_i].pattern_type == 1) // checker
 			checker_pattern_shape(w->cub[p->cube_i].m.p.a, w->cub[p->cube_i].m.p.b, &w->cub[p->cube_i].m);
 		else if (w->cub[p->cube_i].pattern_type == 2) // stripe
 			stripe_pattern_shape(w->cub[p->cube_i].m.p.a, w->cub[p->cube_i].m.p.b, &w->cub[p->cube_i].m);
-	}
+	}*/
 	/*if (w->cub[p->cube_i].tex == 1)
 	{
 		ft_putendl("in last if");
@@ -266,6 +260,16 @@ char	**make_cube(t_data *p, t_world *w, char **tab)
 			break ;
 	}
 	//printf("CUBE PATTERN: %d\n", w->cub[p->cube_i].m.pattern);
+	printf("\n\nCube pattern color: %f %f %f\n\n", w->cub[p->cube_i].m.p.b.r, w->cub[p->cube_i].m.p.b.g, w->cub[p->cube_i].m.p.b.b);
+	if (w->cub[p->cube_i].pattern_type)
+	{
+		w->cub[p->cube_i].m.pattern = 1;
+		w->cub[p->cube_i].m.p.transform = identity_matrix();
+		if (w->cub[p->cube_i].pattern_type == 1) // checker
+			checker_pattern_shape(w->cub[p->cube_i].m.p.a, w->cub[p->cube_i].m.p.b, &w->cub[p->cube_i].m);
+		else if (w->cub[p->cube_i].pattern_type == 2) // stripe
+			stripe_pattern_shape(w->cub[p->cube_i].m.p.a, w->cub[p->cube_i].m.p.b, &w->cub[p->cube_i].m);
+	}
 	if (w->cub[p->cube_i].m.tex == 1 && w->cub[p->cube_i].m.pattern == 1)
 	{
 		//ft_putendl("in last if");
