@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 23:25:05 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 20:10:40 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 20:32:36 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,5 @@ int		err_mem_alloc(void)
 int		err_num_tex(void)
 {
 	ft_putendl("Error: number of textures is incorrect");
-	return (-1);
-}
-
-int		err_empty_line(void)
-{
-	ft_putendl("Error: empty line");
 	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:19:38 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 19:59:59 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 20:41:39 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,18 @@ void	pattern_color_cone(t_data *p, t_world *w, char **tab, int flag)
 		tab1 = ft_strsplit(tab[2], ',');
 		tab2 = ft_strsplit(tab[4], ',');
 		tab3 = ft_strsplit(tab[6], '}');
-		if (flag == 1) // color_a
-			w->cone[p->cone_i].m.p.a = color(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
-		else if (flag == 2) // color_b
-			w->cone[p->cone_i].m.p.b = color(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
+		if (flag == 1)
+			w->cone[p->cone_i].m.p.a = color(ft_strtodbl(tab1[0]),
+			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
+		else if (flag == 2)
+			w->cone[p->cone_i].m.p.b = color(ft_strtodbl(tab1[0]),
+			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
 		else if (flag == 3)
-			w->cone[p->cone_i].color_a = color(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
+			w->cone[p->cone_i].color_a = color(ft_strtodbl(tab1[0]),
+			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
 		else if (flag == 4)
-			w->cone[p->cone_i].color_b = color(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
+			w->cone[p->cone_i].color_b = color(ft_strtodbl(tab1[0]),
+			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
 	}
 }
 
@@ -92,6 +96,62 @@ void	texture_cone(char **tab, t_data *p, t_world *w)
 	{
 		if (!(ft_strcmp(tab[1], "1")))
 			w->cone[p->cone_i].m.tex = 1;
+	}
+}
+
+void	make_obj_cone_3(t_data *p, t_world *w, char **tab)
+{
+	if (!(ft_strcmp(tab[0], "tex:")) && len_tab(tab) == 2)
+	{
+		if (len_tab(tab) == 2)
+		{
+			if (!(ft_strcmp(tab[1], "1")))
+				w->cone[p->cone_i].m.tex = 1;
+		}
+	}
+	if (!(ft_strcmp(tab[0], "texture:")) && len_tab(tab) == 2)
+		w->cone[p->cone_i].texture = ft_strdup(remove_quotes(tab[1]));
+	if (!(ft_strcmp(tab[0], "color_a:")))
+		pattern_color_cone(p, w, tab, 1);
+	if (!(ft_strcmp(tab[0], "color_b:")))
+		pattern_color_cone(p, w, tab, 2);
+	if (!(ft_strcmp(tab[0], "pattern_color_a:")))
+		pattern_color_cone(p, w, tab, 3);
+	if (!(ft_strcmp(tab[0], "pattern_color_b:")))
+		pattern_color_cone(p, w, tab, 4);
+	if (!(ft_strcmp(tab[0], "width:")))
+		w->cone[p->cone_i].width = ft_atoi(tab[1]);
+	if (!(ft_strcmp(tab[0], "height:")))
+		w->cone[p->cone_i].height = ft_atoi(tab[1]);
+}
+
+void	make_obj_cone_2(t_data *p, t_world *w, char **tab)
+{
+	if (!(ft_strcmp(tab[0], "obj_translation:")) || !(ft_strcmp(tab[0], "m_translation:")))
+		complex_params_cone(p, w, tab, 1);
+	if (!(ft_strcmp(tab[0], "color:")))
+		complex_params_cone(p, w, tab, 2);
+	if (!(ft_strcmp(tab[0], "obj_rotation:")) || !(ft_strcmp(tab[0], "m_rotation:")))
+		complex_params_cone(p, w, tab, 3);
+	if (!(ft_strcmp(tab[0], "obj_scaling:")) || !(ft_strcmp(tab[0], "m_scaling:")))
+		complex_params_cone(p, w, tab, 4);
+	if (!(ft_strcmp(tab[0], "pattern:")))
+	{
+		if (!(ft_strcmp(tab[1], "1")))
+			w->cone[p->cone_i].m.pattern = 1;
+	}
+	if (!(ft_strcmp(tab[0], "pattern_type:")))
+	{
+		if (!(ft_strcmp(tab[1], "checker")))
+			w->cone[p->cone_i].pattern_type = 1;
+		if (!(ft_strcmp(tab[1], "stripe")))
+			w->cone[p->cone_i].pattern_type = 2;
+		if (!(ft_strcmp(tab[1], "gradient")))
+			w->cone[p->cone_i].pattern_type = 3;
+		if (!(ft_strcmp(tab[1], "ring")))
+			w->cone[p->cone_i].pattern_type = 4;
+		if (!(ft_strcmp(tab[1], "1")))
+			w->cone[p->cone_i].m.pattern = 1;
 	}
 }
 
@@ -121,60 +181,8 @@ void	make_obj_cone(t_data *p, t_world *w, char **tab)
 		w->cone[p->cone_i].max = ft_strtodbl(tab[1]);
 	if (!(ft_strcmp(tab[0], "closed:")))
 		w->cone[p->cone_i].closed = ft_atoi(tab[1]);
-	if (!(ft_strcmp(tab[0], "obj_translation:")) || !(ft_strcmp(tab[0], "m_translation:")))
-		complex_params_cone(p, w, tab, 1);
-	if (!(ft_strcmp(tab[0], "color:")))
-		complex_params_cone(p, w, tab, 2);
-	if (!(ft_strcmp(tab[0], "obj_rotation:")) || !(ft_strcmp(tab[0], "m_rotation:")))
-		complex_params_cone(p, w, tab, 3);
-	if (!(ft_strcmp(tab[0], "obj_scaling:")) || !(ft_strcmp(tab[0], "m_scaling:")))
-		complex_params_cone(p, w, tab, 4);
-	if (!(ft_strcmp(tab[0], "pattern:")))
-	{
-		if (!(ft_strcmp(tab[1], "1")))
-			w->cone[p->cone_i].m.pattern = 1;
-	}
-	if (!(ft_strcmp(tab[0], "pattern_type:")))
-	{
-		if (!(ft_strcmp(tab[1], "checker")))
-			w->cone[p->cone_i].pattern_type = 1;
-		if (!(ft_strcmp(tab[1], "stripe")))
-			w->cone[p->cone_i].pattern_type = 2;
-		if (!(ft_strcmp(tab[1], "gradient")))
-			w->cone[p->cone_i].pattern_type = 3;
-		if (!(ft_strcmp(tab[1], "ring")))
-			w->cone[p->cone_i].pattern_type = 4;
-		if (!(ft_strcmp(tab[1], "1")))
-		{
-			w->cone[p->cone_i].m.pattern = 1;
-			w->cone[p->cone_i].is_tex++;
-		}
-	}
-	if (!(ft_strcmp(tab[0], "tex:")) && len_tab(tab) == 2)
-		texture_cone(tab, p, w);
-	if (!(ft_strcmp(tab[0], "texture:")) && len_tab(tab) == 2)
-	{
-		//texture_sp(tab, p, w);
-		w->cone[p->cone_i].texture = ft_strdup(remove_quotes(tab[1]));
-		w->cone[p->cone_i].is_tex++;
-	}
-	if (!(ft_strcmp(tab[0], "texturemap:")) && len_tab(tab) == 2)
-	{
-		if (!(ft_strcmp(tab[1], "1")))
-			w->cone[p->cone_i].is_tex++;
-	}
-	if (!(ft_strcmp(tab[0], "color_a:")))
-		pattern_color_cone(p, w, tab, 1);
-	if (!(ft_strcmp(tab[0], "color_b:")))
-		pattern_color_cone(p, w, tab, 2);
-	if (!(ft_strcmp(tab[0], "pattern_color_a:")))
-		pattern_color_cone(p, w, tab, 3);
-	if (!(ft_strcmp(tab[0], "pattern_color_b:")))
-		pattern_color_cone(p, w, tab, 4);
-	if (!(ft_strcmp(tab[0], "width:")))
-		w->cone[p->cone_i].width = ft_atoi(tab[1]);
-	if (!(ft_strcmp(tab[0], "height:")))
-		w->cone[p->cone_i].height = ft_atoi(tab[1]);
+	make_obj_cone_2(p, w, tab);
+	make_obj_cone_3(p, w, tab);
 }
 
 char	**make_cone(t_data *p, t_world *w, char **tab)

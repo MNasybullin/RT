@@ -6,11 +6,16 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:36:46 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 20:26:27 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 20:49:27 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/rt.h"
+
+void	cone_crutch_1(t_data *p, t_world *w, char **tab, int flag)
+{
+	
+}
 
 void	complex_params_cyl(t_data *p, t_world *w, char **tab, int flag)
 {
@@ -18,9 +23,7 @@ void	complex_params_cyl(t_data *p, t_world *w, char **tab, int flag)
 	char	**tab2;
 	char	**tab3;
 
-	tab1 = NULL;
-	tab2 = NULL;
-	tab3 = NULL;
+	init_3_tabs(&tab1, &tab2, &tab3);
 	if (len_tab(tab) == 7)
 	{
 		tab1 = ft_strsplit(tab[2], ',');
@@ -52,12 +55,7 @@ void	complex_params_cyl(t_data *p, t_world *w, char **tab, int flag)
 		else if (flag == 4 && !(ft_strcmp(tab[0], "m_scaling:"))) // scaling
 			w->cyl[p->cyl_i].m.p.transform = matrix_mult(w->cyl[p->cyl_i].m.p.transform,
 			scaling(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0])));
-		free_tab(tab1);
-		free_tab(tab2);
-		free_tab(tab3);
-		tab1 = NULL;
-		tab2 = NULL;
-		tab3 = NULL;
+		free_split_tab(tab1, tab2, tab3);
 	}
 }
 

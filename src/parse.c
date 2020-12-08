@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 20:14:25 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 20:07:03 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 20:31:16 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ int		read_file(char *file, t_data *p, t_world *w)
 	reading(p, w, file);
 	while ((get_next_line(p->fd, &p->line)))
 	{
-		if (!p->line)
-			continue ;
 		tab = ft_strsplit(p->line, ' ');
 		if (check_is_obj(tab, p))
 			making_obj(tab, p, w);

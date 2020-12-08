@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/08 20:11:03 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 20:41:52 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -653,7 +653,7 @@ void	make_tex_cube(t_data *p, t_world *w);
 void	texture_cube(char **tab, t_data *p, t_world *w);
 char	*remove_quotes(char *s1);
 void	texture_sp(char **tab, t_data *p, t_world *w);
-void	texture_cone(char **tab, t_data *p, t_world *w);
+//void	texture_cone(char **tab, t_data *p, t_world *w);
 void	help_counting(t_data *p, char **tab);
 void	make_light(t_data *p);
 void	free_split_tab(char **tab1, char **tab2, char **tab3);
@@ -663,6 +663,8 @@ void	init_4_tabs(char ***tab1, char ***tab2, char ***tab3, char ***tab4);
 void	making_light(t_data *p, t_world *w, char **tab);
 void	making_camera(t_data *p, t_world *w, char **tab);
 void	reading(t_data *p, t_world *w, char *file);
+void	make_obj_cone_2(t_data *p, t_world *w, char **tab);
+void	make_obj_cone_3(t_data *p, t_world *w, char **tab);
 
 //libft
 void	ft_putendl(char const *s);
