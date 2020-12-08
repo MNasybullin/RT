@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 20:28:00 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 15:28:58 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 18:34:55 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ int		main(int ac, char **av)
 	w.ar_count = 0;
 	pushing_objects(&p, &w);
 	//printf("\n\nAREA LIGHT:\ncorner: %f %f %f %f\nv1: %f %f %f %f\nusteps: %d\n\n", w.light[0].corner.c[0], w.light[0].corner.c[1], w.light[0].corner.c[2], w.light[0].corner.c[3], w.light[0].vvec.c[0], w.light[0].vvec.c[1], w.light[0].vvec.c[2], w.light[0].vvec.c[3], w.light[0].usteps);
-	printf("tr 0 = %f, %f, %f, %f\n", w.s[0].transform.m[0][0], w.s[0].transform.m[0][1], w.s[0].transform.m[0][2], w.s[0].transform.m[0][3]);
+	/*printf("tr 0 = %f, %f, %f, %f\n", w.s[0].transform.m[0][0], w.s[0].transform.m[0][1], w.s[0].transform.m[0][2], w.s[0].transform.m[0][3]);
     printf("tr 1 = %f, %f, %f, %f\n", w.s[0].transform.m[1][0], w.s[0].transform.m[1][1], w.s[0].transform.m[1][2], w.s[0].transform.m[1][3]);
     printf("tr 2 = %f, %f, %f, %f\n", w.s[0].transform.m[2][0], w.s[0].transform.m[2][1], w.s[0].transform.m[2][2], w.s[0].transform.m[2][3]);
     printf("tr 3 = %f, %f, %f, %f\n", w.s[0].transform.m[3][0], w.s[0].transform.m[3][1], w.s[0].transform.m[3][2], w.s[0].transform.m[3][3]);
@@ -166,8 +166,8 @@ int		main(int ac, char **av)
     printf("m p tr 0 = %f, %f, %f, %f\n", w.s[0].m.p.transform.m[0][0], w.s[0].m.p.transform.m[0][1], w.s[0].m.p.transform.m[0][2], w.s[0].m.p.transform.m[0][3]);
     printf("m p tr 1 = %f, %f, %f, %f\n", w.s[0].m.p.transform.m[1][0], w.s[0].m.p.transform.m[1][1], w.s[0].m.p.transform.m[1][2], w.s[0].m.p.transform.m[1][3]);
     printf("m p tr 2 = %f, %f, %f, %f\n", w.s[0].m.p.transform.m[2][0], w.s[0].m.p.transform.m[2][1], w.s[0].m.p.transform.m[2][2], w.s[0].m.p.transform.m[2][3]);
-    printf("m p tr 3 = %f, %f, %f, %f\n", w.s[0].m.p.transform.m[3][0], w.s[0].m.p.transform.m[3][1], w.s[0].m.p.transform.m[3][2], w.s[0].m.p.transform.m[3][3]);
-	//printf("\n\nCUBE TEXTURE: %s\n\n\n", w.cub[0].right);
+    printf("m p tr 3 = %f, %f, %f, %f\n", w.s[0].m.p.transform.m[3][0], w.s[0].m.p.transform.m[3][1], w.s[0].m.p.transform.m[3][2], w.s[0].m.p.transform.m[3][3]);*/
+	//printf("\n\nTRIANGLE TEXTURE: %s\n\n\n", w.trian[0].texture);
 	//printf("\n\nCUBE TEX: %d\n\n\n", w.cub[0].m.tex);
 	//printf("\n\nCUBE pat: %d\n\n\n", w.cub[0].m.pattern);
 	//printf("OBJ PARAMETERS: (%f, %f, %f); radius %f; shininess %f\n", w.s[0].m.color.r, w.s[0].m.color.g, w.s[0].m.color.b, w.s[0].r, w.s[0].m.shininess);

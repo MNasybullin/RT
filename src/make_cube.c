@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:44:43 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 15:02:10 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 17:57:41 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,6 @@ void	make_obj_cube(t_data *p, t_world *w, char **tab)
 			//w->cub[p->cube_i].pattern = 1;
 			w->cub[p->cube_i].m.pattern = 1;
 			//w->cub[p->cube_i].m.pattern_at = &pattern_at_cube_texture;
-			w->cub[p->cube_i].m.p.transform = identity_matrix();
 		}
 	}
 	if (!(ft_strcmp(tab[0], "tex:")))
@@ -264,7 +263,6 @@ char	**make_cube(t_data *p, t_world *w, char **tab)
 	if (w->cub[p->cube_i].pattern_type)
 	{
 		w->cub[p->cube_i].m.pattern = 1;
-		w->cub[p->cube_i].m.p.transform = identity_matrix();
 		if (w->cub[p->cube_i].pattern_type == 1) // checker
 			checker_pattern_shape(w->cub[p->cube_i].m.p.a, w->cub[p->cube_i].m.p.b, &w->cub[p->cube_i].m);
 		else if (w->cub[p->cube_i].pattern_type == 2) // stripe

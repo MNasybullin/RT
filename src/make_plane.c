@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_plane.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 15:10:33 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 17:45:10 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/12/08 18:24:28 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,9 +207,7 @@ char	**make_plane(t_data *p, t_world *w, char **tab)
 	if (w->pl[p->pl_i].m.pattern == 1 && (w->pl[p->pl_i].pattern_type == 1
 	|| w->pl[p->pl_i].pattern_type == 2))
 	{
-		//ft_putendl("\n\nin texture if\n\n");
 		w->pl[p->pl_i].m.pattern_at = &pattern_at;
-		//w->pl[p->pl_i].m.p.transform = identity_matrix();
 		if (w->pl[p->pl_i].pattern_type == 1)
 		{
 			check.color_a = w->pl[p->pl_i].color_a;

@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:49:57 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 14:59:20 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 18:58:56 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,12 +113,25 @@ void	pattern_color_tri(t_data *p, t_world *w, char **tab, int flag)
 			w->trian[p->tri_i].m.p.a = color(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
 		else if (flag == 2) // color_b
 			w->trian[p->tri_i].m.p.b = color(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
+		else if (flag == 3)
+			w->trian[p->tri_i].color_a = color(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
+		else if (flag == 4)
+			w->trian[p->tri_i].color_b = color(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
 	}
 }
 
+void	texture_tri(char **tab, t_data *p, t_world *w)
+{
+	if (len_tab(tab) == 2)
+	{
+		if (!(ft_strcmp(tab[1], "1")))
+			w->trian[p->tri_i].m.tex = 1;
+	}
+}
 
 void	make_obj_tri(t_data *p, t_world *w, char **tab)
 {
+	//ft_putendl("\n\nmake obj tri\n\n");
 	if (!(ft_strcmp(tab[0], "specular:")))
 		w->trian[p->tri_i].m.specular = ft_strtodbl(tab[1]);
 	if (!(ft_strcmp(tab[0], "reflective:")))
@@ -160,24 +173,52 @@ void	make_obj_tri(t_data *p, t_world *w, char **tab)
 		p->tri_vect++;
 		triangle_sides(p, w, tab, 7);
 	}
-	if (!(ft_strcmp(tab[0], "pattern:")))
+	if (!(ft_strcmp(tab[0], "pattern_type:")))
 	{
 		if (!(ft_strcmp(tab[1], "checker")))
-			w->trian[p->tri_i].pattern = 1;
+			w->trian[p->tri_i].pattern_type = 1;
 		if (!(ft_strcmp(tab[1], "stripe")))
-			w->trian[p->tri_i].pattern = 2;
+			w->trian[p->tri_i].pattern_type = 2;
+	}
+	if (!(ft_strcmp(tab[0], "pattern:")))
+	{
+		//printf("\n1 if\n");
+		if (!(ft_strcmp(tab[1], "1")))
+		{
+			//printf("\n2 if\n");
+			w->trian[p->tri_i].m.pattern = 1;
+			//w->cub[p->cube_i].m.pattern_at = &pattern_at_cube_texture;
+		}
 	}
 	if (!(ft_strcmp(tab[0], "color_a:")))
 		pattern_color_tri(p, w, tab, 1);
 	if (!(ft_strcmp(tab[0], "color_b:")))
 		pattern_color_tri(p, w, tab, 2);
-	if (w->trian[p->tri_i].pattern)
+	if (!(ft_strcmp(tab[0], "tex:")) && len_tab(tab) == 2)
+		texture_tri(tab, p, w);
+	if (!(ft_strcmp(tab[0], "texture:")) && len_tab(tab) == 2)
 	{
-		if (w->trian[p->tri_i].pattern == 1) // checker
-			checker_pattern_shape(w->trian[p->tri_i].m.p.a, w->trian[p->tri_i].m.p.b, &w->trian[p->tri_i].m);
-		else if (w->trian[p->tri_i].pattern == 2) // stripe
-			stripe_pattern_shape(w->trian[p->tri_i].m.p.a, w->trian[p->tri_i].m.p.b, &w->trian[p->tri_i].m);
+		//texture_sp(tab, p, w);
+		//ft_putendl("\n\nin if texture\n");
+		w->trian[p->tri_i].texture = ft_strdup(remove_quotes(tab[1]));
+		w->trian[p->tri_i].is_tex++;
+		//ft_putendl("\n\nend of if texture\n");
+		printf("\n\nTRI TEXTURE IN MAKE TRI: %s\n\n", w->trian[p->tri_i].texture);
 	}
+	if (!(ft_strcmp(tab[0], "texturemap:")) && len_tab(tab) == 2)
+	{
+		if (!(ft_strcmp(tab[1], "1")))
+			w->trian[p->tri_i].is_tex++;
+	}
+	if (!(ft_strcmp(tab[0], "pattern_color_a:")))
+		pattern_color_tri(p, w, tab, 3);
+	if (!(ft_strcmp(tab[0], "pattern_color_b:")))
+		pattern_color_tri(p, w, tab, 4);
+	if (!(ft_strcmp(tab[0], "width:")))
+		w->trian[p->tri_i].width = ft_atoi(tab[1]);
+	if (!(ft_strcmp(tab[0], "height:")))
+		w->trian[p->tri_i].height = ft_atoi(tab[1]);
+	//ft_putendl("\n\nend of make obj tri\n\n");
 }
 
 char	**make_tri(t_data *p, t_world *w, char **tab)
@@ -186,6 +227,7 @@ char	**make_tri(t_data *p, t_world *w, char **tab)
 	char	**tab2;
 	char	**tab3;
 	char	**tab4;
+	t_uv_check check;
 
 	tab1 = NULL;
 	tab2 = NULL;
@@ -196,6 +238,13 @@ char	**make_tri(t_data *p, t_world *w, char **tab)
 	tab = NULL;
 	w->trian[p->tri_i].pattern = 0;
 	p->tri_vect = 0;
+	w->trian[p->tri_i].pattern = 0;
+	w->trian[p->tri_i].is_tex = 0;
+	w->trian[p->tri_i].pattern_type = 0;
+	w->trian[p->tri_i].m.tex = 0;
+	w->trian[p->tri_i].width = 0;
+	w->trian[p->tri_i].height = 0;
+	ft_putendl("\n\nin make tri\n\n");
 	while ((get_next_line(p->fd, &p->line)))
 	{
 		tab = ft_strsplit(p->line, ' ');
@@ -206,8 +255,36 @@ char	**make_tri(t_data *p, t_world *w, char **tab)
 		else
 			break ;
 	}
+	ft_putendl("\n\nbefore 1st if\n\n");
 	if (p->tri_vect == 3)
 		w->trian[p->tri_i] = set_trian(w->trian[p->tri_i].p1, w->trian[p->tri_i].p2, w->trian[p->tri_i].p3);
+	ft_putendl("\n\nbefore 2nd if\n\n");
+	if (w->trian[p->tri_i].m.pattern == 1 && (w->trian[p->tri_i].pattern_type == 1
+	|| w->trian[p->tri_i].pattern_type == 2))
+	{
+		//ft_putendl("\n\nin texture if\n\n");
+		w->trian[p->tri_i].m.pattern_at = &pattern_at;
+		//w->trian[p->tri_i].m.p.transform = identity_matrix();
+		if (w->trian[p->tri_i].pattern_type == 1)
+		{
+			check.color_a = w->trian[p->tri_i].color_a;
+			check.color_b = w->trian[p->tri_i].color_b;
+			check.width = w->trian[p->tri_i].width;
+			check.height = w->trian[p->tri_i].height;
+			uv_checkers(check, &w->trian[p->tri_i].m.p);
+		}
+		else if (w->trian[p->tri_i].pattern_type == 2)
+			stripe_pattern_shape(w->trian[p->tri_i].m.p.a, w->trian[p->tri_i].m.p.b,
+			&w->trian[p->tri_i].m);
+		if (w->trian[p->tri_i].m.tex == 1)
+		{
+			w->trian[p->tri_i].m.texturemap = texture_map(w->trian[p->tri_i].m.p,
+			&planar_map);
+			//printf("\n\nTRI TEXTURE IN MAKE TRI: %s\n\n", w->trian[0].texture);
+			w->trian[p->tri_i].m.texture = SDL_LoadBMP(w->trian[p->tri_i].texture);
+		}
+	}
+	//printf("\n\nTRI TEXTURE IN MAKE TRI: %s\n\n", w->trian[0].texture);
 	p->tri_vect = 0;
 	p->tri_i++;
 	if ((!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "lights:"))) &&

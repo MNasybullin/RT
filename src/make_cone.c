@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_cone.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:19:38 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 17:44:25 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/12/08 18:20:27 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,8 @@ char	**make_cone(t_data *p, t_world *w, char **tab)
 	w->cone[p->cone_i].is_tex = 0;
 	w->cone[p->cone_i].pattern_type = 0;
 	w->cone[p->cone_i].m.tex = 0;
+	w->cone[p->cone_i].width = 0;
+	w->cone[p->cone_i].height = 0;
 	while ((get_next_line(p->fd, &p->line)))
 	{
 		tab = ft_strsplit(p->line, ' ');
@@ -224,9 +226,10 @@ char	**make_cone(t_data *p, t_world *w, char **tab)
 			&w->cone[p->cone_i].m);
 		if (w->cone[p->cone_i].m.tex == 1)
 		{
-			w->cone[p->cone_i].m.texturemap = texture_map(w->cone[p->cone_i].m.p,
-			&spherical_map);
 			w->cone[p->cone_i].m.texture = SDL_LoadBMP(w->cone[p->cone_i].texture);
+			w->cone[p->cone_i].m.texturemap = texture_map(w->cone[p->cone_i].m.p,
+			&cylindrical_map);
+			
 		}
 	}
 	p->cone_i++;

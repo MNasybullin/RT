@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 21:56:24 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 15:25:34 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 18:29:14 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	write_lights(t_data *p, t_world *w)
 	int		i;
 
 	i = 0;
-	printf("\n\nIN WRITE LIGHTS:\ncolor: %f, %f, %f\ncorner: %f %f %f %f\nv1: %f %f %f %f\n\n", p->h[i].r, p->h[i].g, p->h[i].bl, p->h[i].corner.c[0], p->h[i].corner.c[1], p->h[i].corner.c[2], p->h[i].corner.c[3], p->h[i].v1.c[0], p->h[i].v1.c[1], p->h[i].v1.c[2], p->h[i].v1.c[3]);
+	//printf("\n\nIN WRITE LIGHTS:\ncolor: %f, %f, %f\ncorner: %f %f %f %f\nv1: %f %f %f %f\n\n", p->h[i].r, p->h[i].g, p->h[i].bl, p->h[i].corner.c[0], p->h[i].corner.c[1], p->h[i].corner.c[2], p->h[i].corner.c[3], p->h[i].v1.c[0], p->h[i].v1.c[1], p->h[i].v1.c[2], p->h[i].v1.c[3]);
 	while (i < p->lights_num)
 	{
 		if (p->h[i].type == 1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/08 17:41:19 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/12/08 18:24:18 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,9 @@ typedef struct		s_trian
 	int				height;
 	int				pattern_type;
 	char			*texture;
+	t_color			color_a;
+	t_color			color_b;
+	int				is_tex;
 }					t_trian;
 
 /*
