@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 16:36:11 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 16:28:55 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 16:33:32 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,7 +262,7 @@ char	**make_sphere(t_data *p, t_world *w, char **tab)
 			w->s[p->sp_i].m.texturemap = texture_map(w->s[p->sp_i].m.p,
 			&spherical_map);
 		}
-		w->s[p->sp_i].m.p.transform = identity_matrix();
+		//w->s[p->sp_i].m.p.transform = identity_matrix();
 	}
 	p->sp_i++;
 	//w->s[p->sp_i].is_tex = 0;
