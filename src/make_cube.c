@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:44:43 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 17:57:41 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 20:00:41 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,10 @@ void	make_obj_cube(t_data *p, t_world *w, char **tab)
 			w->cub[p->cube_i].pattern_type = 1;
 		if (!(ft_strcmp(tab[1], "stripe")))
 			w->cub[p->cube_i].pattern_type = 2;
+		if (!(ft_strcmp(tab[1], "gradient")))
+			w->cub[p->cube_i].pattern_type = 3;
+		if (!(ft_strcmp(tab[1], "ring")))
+			w->cub[p->cube_i].pattern_type = 4;
 	}
 	if (!(ft_strcmp(tab[0], "pattern:")))
 	{
@@ -259,14 +263,22 @@ char	**make_cube(t_data *p, t_world *w, char **tab)
 			break ;
 	}
 	//printf("CUBE PATTERN: %d\n", w->cub[p->cube_i].m.pattern);
-	printf("\n\nCube pattern color: %f %f %f\n\n", w->cub[p->cube_i].m.p.b.r, w->cub[p->cube_i].m.p.b.g, w->cub[p->cube_i].m.p.b.b);
-	if (w->cub[p->cube_i].pattern_type)
+	//printf("\n\nCube pattern color: %f %f %f\n\n", w->cub[p->cube_i].m.p.b.r, w->cub[p->cube_i].m.p.b.g, w->cub[p->cube_i].m.p.b.b);
+	if (w->cub[p->cube_i].pattern_type != 0)
 	{
 		w->cub[p->cube_i].m.pattern = 1;
 		if (w->cub[p->cube_i].pattern_type == 1) // checker
 			checker_pattern_shape(w->cub[p->cube_i].m.p.a, w->cub[p->cube_i].m.p.b, &w->cub[p->cube_i].m);
 		else if (w->cub[p->cube_i].pattern_type == 2) // stripe
 			stripe_pattern_shape(w->cub[p->cube_i].m.p.a, w->cub[p->cube_i].m.p.b, &w->cub[p->cube_i].m);
+		else if (w->cub[p->cube_i].pattern_type == 2) // stripe
+			stripe_pattern_shape(w->cub[p->cube_i].m.p.a, w->cub[p->cube_i].m.p.b, &w->cub[p->cube_i].m);
+		else if (w->cub[p->cube_i].pattern_type == 3) // gradient
+			gradient_pattern_shape(w->cub[p->cube_i].m.p.a, w->cub[p->cube_i].m.p.b, &w->cub[p->cube_i].m);
+		else if (w->cub[p->cube_i].pattern_type == 4) // gradient
+			ring_pattern_shape(w->cub[p->cube_i].m.p.a, w->cub[p->cube_i].m.p.b, &w->cub[p->cube_i].m);
+		else
+			exit(-1);		
 	}
 	if (w->cub[p->cube_i].m.tex == 1 && w->cub[p->cube_i].m.pattern == 1)
 	{

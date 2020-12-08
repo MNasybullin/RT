@@ -19,7 +19,7 @@ objects:
                 height: 10
                 tex: 1
                 texture_map: 1
-                texture: "textures/earthmap1k.bmp"
+                texture: "textures/posx.bmp"
 lights:
       - light:
                 type: point

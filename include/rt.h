@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/08 18:24:18 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 20:11:03 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -557,7 +557,7 @@ int	check_cap_cone(t_ray r, double t, double y);
 int		normal_at_cone(void *v_s, t_vec world_point, t_vec *n);
 
 //triangle
-t_trian	set_trian(t_vec p1, t_vec p2, t_vec p3);
+void	set_trian(t_vec p1, t_vec p2, t_vec p3, t_trian	*t);
 int		normal_at_trian(void *v_s, t_vec world_point, t_vec *n);
 void	intersect_trian(void *v_s, t_ray r, t_x_t *x, int obj_n);
 
@@ -685,6 +685,7 @@ int		err_mem_alloc(void);
 int		err_trans_matrix(void);
 int		err_invalid_file(void);
 int		err_num_tex(void);
+int		err_empty_line(void);
 
 /*
 ** utils

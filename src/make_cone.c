@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:19:38 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 18:20:27 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 19:59:59 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,10 @@ void	make_obj_cone(t_data *p, t_world *w, char **tab)
 			w->cone[p->cone_i].pattern_type = 1;
 		if (!(ft_strcmp(tab[1], "stripe")))
 			w->cone[p->cone_i].pattern_type = 2;
+		if (!(ft_strcmp(tab[1], "gradient")))
+			w->cone[p->cone_i].pattern_type = 3;
+		if (!(ft_strcmp(tab[1], "ring")))
+			w->cone[p->cone_i].pattern_type = 4;
 		if (!(ft_strcmp(tab[1], "1")))
 		{
 			w->cone[p->cone_i].m.pattern = 1;
@@ -207,8 +211,7 @@ char	**make_cone(t_data *p, t_world *w, char **tab)
 		else
 			break ;
 	}
-	if (w->cone[p->cone_i].m.pattern == 1 && (w->cone[p->cone_i].pattern_type == 1
-	|| w->cone[p->cone_i].pattern_type == 2))
+	if (w->cone[p->cone_i].m.pattern == 1)
 	{
 		//ft_putendl("\n\nin texture if\n\n");
 		w->cone[p->cone_i].m.pattern_at = &pattern_at;
@@ -223,6 +226,12 @@ char	**make_cone(t_data *p, t_world *w, char **tab)
 		}
 		else if (w->cone[p->cone_i].pattern_type == 2)
 			stripe_pattern_shape(w->cone[p->cone_i].m.p.a, w->cone[p->cone_i].m.p.b,
+			&w->cone[p->cone_i].m);
+		else if (w->cone[p->cone_i].pattern_type == 3)
+			gradient_pattern_shape(w->cone[p->cone_i].m.p.a, w->cone[p->cone_i].m.p.b,
+			&w->cone[p->cone_i].m);
+		else if (w->cone[p->cone_i].pattern_type == 4)
+			ring_pattern_shape(w->cone[p->cone_i].m.p.a, w->cone[p->cone_i].m.p.b,
 			&w->cone[p->cone_i].m);
 		if (w->cone[p->cone_i].m.tex == 1)
 		{

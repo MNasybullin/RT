@@ -3,28 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   triangle.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/02 16:01:23 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/12 19:17:08 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/12/08 19:26:25 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/rt.h"
 
-t_trian	set_trian(t_vec p1, t_vec p2, t_vec p3)
+void	set_trian(t_vec p1, t_vec p2, t_vec p3, t_trian	*t)
 {
-	t_trian	t;
-
-	t.p1 = p1;
-	t.p2 = p2;
-	t.p3 = p3;
-	t.e1 = sub(p2, p1);
-	t.e2 = sub(p3, p1);
-	t.norm = normalize(cross(t.e2, t.e1));
-	t.m = default_material();
-	t.transform = identity_matrix();
-	return (t);
+	t->p1 = p1;
+	t->p2 = p2;
+	t->p3 = p3;
+	t->e1 = sub(p2, p1);
+	t->e2 = sub(p3, p1);
+	t->norm = normalize(cross(t->e2, t->e1));
+	//t->m = default_material();
+	t->transform = identity_matrix();
 }
 
 int		normal_at_trian(void *v_s, t_vec world_point, t_vec *n)

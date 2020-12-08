@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 16:36:11 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 18:24:26 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 20:28:00 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,10 @@ void	make_obj_sphere(t_data *p, t_world *w, char **tab)
 			w->s[p->sp_i].pattern_type = 1;
 		if (!(ft_strcmp(tab[1], "stripe")))
 			w->s[p->sp_i].pattern_type = 2;
+		if (!(ft_strcmp(tab[1], "gradient")))
+			w->s[p->sp_i].pattern_type = 3;
+		if (!(ft_strcmp(tab[1], "ring")))
+			w->s[p->sp_i].pattern_type = 4;
 		if (!(ft_strcmp(tab[1], "1")))
 		{
 			w->s[p->sp_i].m.pattern = 1;
@@ -223,7 +227,7 @@ char	**make_sphere(t_data *p, t_world *w, char **tab)
 	char	**tab2;
 	char	**tab3;
 	t_uv_check	check;
-	//ft_putendl("make sphere");
+
 	tab1 = NULL;
 	tab2 = NULL;
 	tab3 = NULL;
@@ -239,18 +243,15 @@ char	**make_sphere(t_data *p, t_world *w, char **tab)
 	while ((get_next_line(p->fd, &p->line)))
 	{
 		tab = ft_strsplit(p->line, ' ');
-		if (len_tab(p->tab) == 0)
+		if (len_tab(tab) == 0)
 			exit(err_wrong_format());
 		if ((check_make_obj(tab)))
 			make_obj_sphere(p, w, tab);
 		else
 			break ;
 	}
-	//make_tex_sp(p, w);
-	if (w->s[p->sp_i].m.pattern == 1 /*&& (w->s[p->sp_i].pattern_type == 1
-	|| w->s[p->sp_i].pattern_type == 2)*/)
+	if (w->s[p->sp_i].m.pattern == 1)
 	{
-		//ft_putendl("\n\nin texture if\n\n");
 		w->s[p->sp_i].m.pattern_at = &pattern_at;
 		if (w->s[p->sp_i].pattern_type == 1)
 		{
@@ -263,6 +264,12 @@ char	**make_sphere(t_data *p, t_world *w, char **tab)
 		else if (w->s[p->sp_i].pattern_type == 2)
 			stripe_pattern_shape(w->s[p->sp_i].m.p.a, w->s[p->sp_i].m.p.b,
 			&w->s[p->sp_i].m);
+		else if (w->s[p->sp_i].pattern_type == 3)
+			gradient_pattern_shape(w->s[p->sp_i].m.p.a, w->s[p->sp_i].m.p.b,
+			&w->s[p->sp_i].m);
+		else if (w->s[p->sp_i].pattern_type == 4)
+			ring_pattern_shape(w->s[p->sp_i].m.p.a, w->s[p->sp_i].m.p.b,
+			&w->s[p->sp_i].m);
 		if (w->s[p->sp_i].m.tex == 1)
 		{
 			w->s[p->sp_i].m.texture = SDL_LoadBMP(w->s[p->sp_i].texture);
@@ -271,6 +278,7 @@ char	**make_sphere(t_data *p, t_world *w, char **tab)
 		}
 		//w->s[p->sp_i].m.p.transform = identity_matrix();
 	}
+	//ft_putendl("6");
 	p->sp_i++;
 	//w->s[p->sp_i].is_tex = 0;
 	//printf("\nsphere1: %f\n\n", w->s[0].m.shininess);
@@ -278,12 +286,13 @@ char	**make_sphere(t_data *p, t_world *w, char **tab)
 	//if (!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "lights:")))
 	//if ((!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "lights:")))/* &&
 	//(!(ft_strequ(tab[0], "cameras:")) && !(ft_strequ(tab[1], "camera:")))*/)
-	printf("\nLINE BEFORE GNL IN MAKE SPHERE: %s\n\n", tab[0]);
-	if ((!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "lights:"))) &&
-	(!(ft_strequ(tab[0], "cameras:")) && !(ft_strequ(tab[1], "camera:"))))
+	//printf("\nLINE BEFORE GNL IN MAKE SPHERE: %s\n\n", tab[0]);
+	if ((!(ft_strequ(tab[0], "lights:")) && (len_tab(tab) == 2 && !(ft_strequ(tab[1], "lights:")))) &&
+	(len_tab(tab) == 2 && (!(ft_strequ(tab[0], "cameras:")) && !(ft_strequ(tab[1], "camera:")))))
 	{
 		get_next_line(p->fd, &p->line);
 		p->tab = ft_strsplit(p->line, ' ');
 	}
+	//ft_putendl("7");
 	return (p->tab);
 }

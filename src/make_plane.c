@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 15:10:33 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 18:24:28 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 20:26:40 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,10 @@ void	make_obj_plane(t_data *p, t_world *w, char **tab)
 			w->pl[p->pl_i].pattern_type = 1;
 		if (!(ft_strcmp(tab[1], "stripe")))
 			w->pl[p->pl_i].pattern_type = 2;
+		if (!(ft_strcmp(tab[1], "gradient")))
+			w->pl[p->pl_i].pattern_type = 3;
+		if (!(ft_strcmp(tab[1], "ring")))
+			w->pl[p->pl_i].pattern_type = 4;
 		if (!(ft_strcmp(tab[1], "1")))
 		{
 			w->pl[p->pl_i].m.pattern = 1;
@@ -197,15 +201,14 @@ char	**make_plane(t_data *p, t_world *w, char **tab)
 	while ((get_next_line(p->fd, &p->line)))
 	{
 		tab = ft_strsplit(p->line, ' ');
-		if (len_tab(p->tab) == 0)
+		if (len_tab(tab) == 0)
 			exit(err_wrong_format());
 		if ((check_make_obj(tab)))
 			make_obj_plane(p, w, tab);
 		else
 			break ;
 	}
-	if (w->pl[p->pl_i].m.pattern == 1 && (w->pl[p->pl_i].pattern_type == 1
-	|| w->pl[p->pl_i].pattern_type == 2))
+	if (w->pl[p->pl_i].m.pattern == 1)
 	{
 		w->pl[p->pl_i].m.pattern_at = &pattern_at;
 		if (w->pl[p->pl_i].pattern_type == 1)
@@ -218,6 +221,12 @@ char	**make_plane(t_data *p, t_world *w, char **tab)
 		}
 		else if (w->pl[p->pl_i].pattern_type == 2)
 			stripe_pattern_shape(w->pl[p->pl_i].m.p.a, w->pl[p->pl_i].m.p.b,
+			&w->pl[p->pl_i].m);
+		else if (w->pl[p->pl_i].pattern_type == 3)
+			gradient_pattern_shape(w->pl[p->pl_i].m.p.a, w->pl[p->pl_i].m.p.b,
+			&w->pl[p->pl_i].m);
+		else if (w->pl[p->pl_i].pattern_type == 4)
+			ring_pattern_shape(w->pl[p->pl_i].m.p.a, w->pl[p->pl_i].m.p.b,
 			&w->pl[p->pl_i].m);
 		if (w->pl[p->pl_i].m.tex == 1)
 		{

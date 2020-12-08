@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:49:57 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 18:58:56 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 20:26:48 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,7 @@ void	make_obj_tri(t_data *p, t_world *w, char **tab)
 		w->trian[p->tri_i].texture = ft_strdup(remove_quotes(tab[1]));
 		w->trian[p->tri_i].is_tex++;
 		//ft_putendl("\n\nend of if texture\n");
-		printf("\n\nTRI TEXTURE IN MAKE TRI: %s\n\n", w->trian[p->tri_i].texture);
+		//printf("\n\nTRI TEXTURE IN MAKE TRI: %s\n\n", w->trian[p->tri_i].texture);
 	}
 	if (!(ft_strcmp(tab[0], "texturemap:")) && len_tab(tab) == 2)
 	{
@@ -244,23 +244,21 @@ char	**make_tri(t_data *p, t_world *w, char **tab)
 	w->trian[p->tri_i].m.tex = 0;
 	w->trian[p->tri_i].width = 0;
 	w->trian[p->tri_i].height = 0;
-	ft_putendl("\n\nin make tri\n\n");
+	w->trian[p->tri_i].m = default_material();
+	//ft_putendl("\n\nin make tri\n\n");
 	while ((get_next_line(p->fd, &p->line)))
 	{
 		tab = ft_strsplit(p->line, ' ');
-		if (len_tab(p->tab) == 0)
+		if (len_tab(tab) == 0)
 			exit(err_wrong_format());
 		if ((check_make_obj(tab)))
 			make_obj_tri(p, w, tab);
 		else
 			break ;
 	}
-	ft_putendl("\n\nbefore 1st if\n\n");
 	if (p->tri_vect == 3)
-		w->trian[p->tri_i] = set_trian(w->trian[p->tri_i].p1, w->trian[p->tri_i].p2, w->trian[p->tri_i].p3);
-	ft_putendl("\n\nbefore 2nd if\n\n");
-	if (w->trian[p->tri_i].m.pattern == 1 && (w->trian[p->tri_i].pattern_type == 1
-	|| w->trian[p->tri_i].pattern_type == 2))
+		set_trian(w->trian[p->tri_i].p1, w->trian[p->tri_i].p2, w->trian[p->tri_i].p3, &w->trian[p->tri_i]);
+	if (w->trian[p->tri_i].m.pattern == 1)
 	{
 		//ft_putendl("\n\nin texture if\n\n");
 		w->trian[p->tri_i].m.pattern_at = &pattern_at;
@@ -276,12 +274,19 @@ char	**make_tri(t_data *p, t_world *w, char **tab)
 		else if (w->trian[p->tri_i].pattern_type == 2)
 			stripe_pattern_shape(w->trian[p->tri_i].m.p.a, w->trian[p->tri_i].m.p.b,
 			&w->trian[p->tri_i].m);
+		else if (w->trian[p->tri_i].pattern_type == 3)
+			gradient_pattern_shape(w->trian[p->tri_i].m.p.a, w->trian[p->tri_i].m.p.b,
+			&w->trian[p->tri_i].m);
+		else if (w->trian[p->tri_i].pattern_type == 4)
+			ring_pattern_shape(w->trian[p->tri_i].m.p.a, w->trian[p->tri_i].m.p.b,
+			&w->trian[p->tri_i].m);
 		if (w->trian[p->tri_i].m.tex == 1)
 		{
 			w->trian[p->tri_i].m.texturemap = texture_map(w->trian[p->tri_i].m.p,
 			&planar_map);
-			//printf("\n\nTRI TEXTURE IN MAKE TRI: %s\n\n", w->trian[0].texture);
+			printf("\n\nTRI TEXTURE IN MAKE TRI: %s\n\n", w->trian[0].texture);
 			w->trian[p->tri_i].m.texture = SDL_LoadBMP(w->trian[p->tri_i].texture);
+			printf("\n\nTRI TEXTURE IN MAKE TRI: %s\n\n", w->trian[0].texture);
 		}
 	}
 	//printf("\n\nTRI TEXTURE IN MAKE TRI: %s\n\n", w->trian[0].texture);
