@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_cyl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:36:46 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 14:58:51 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 17:44:14 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ char	**make_cyl(t_data *p, t_world *w, char **tab)
 	char	**tab2;
 	char	**tab3;
 	char	**tab4;
+	t_uv_check check;
 
 	tab1 = NULL;
 	tab2 = NULL;
@@ -213,11 +214,14 @@ char	**make_cyl(t_data *p, t_world *w, char **tab)
 	{
 		//ft_putendl("\n\nin texture if\n\n");
 		w->cyl[p->cyl_i].m.pattern_at = &pattern_at;
-		w->cyl[p->cyl_i].m.p.transform = identity_matrix();
+		//w->cyl[p->cyl_i].m.p.transform = identity_matrix();
 		if (w->cyl[p->cyl_i].pattern_type == 1)
 		{
-			w->cyl[p->cyl_i].m.p = uv_checkers(w->cyl[p->cyl_i].width,
-			w->cyl[p->cyl_i].height, w->cyl[p->cyl_i].color_a, w->cyl[p->cyl_i].color_b);
+			check.color_a = w->cyl[p->cyl_i].color_a;
+			check.color_b = w->cyl[p->cyl_i].color_b;
+			check.width = w->cyl[p->cyl_i].width;
+			check.height = w->cyl[p->cyl_i].height;
+			uv_checkers(check, &w->cyl[p->cyl_i].m.p);
 		}
 		else if (w->cyl[p->cyl_i].pattern_type == 2)
 			stripe_pattern_shape(w->cyl[p->cyl_i].m.p.a, w->cyl[p->cyl_i].m.p.b,

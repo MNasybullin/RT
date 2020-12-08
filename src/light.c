@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 16:31:01 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/08 16:17:45 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 17:34:30 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ t_material	default_material(void)
 	m.refractive_index = 1;
 	m.transparency = 0;
 	m.shadow = 1;
+	m.p.transform = identity_matrix();
 	return (m);
 }
 

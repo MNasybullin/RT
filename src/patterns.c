@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 14:28:16 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 18:08:40 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/12/08 17:41:21 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,12 @@ t_color uv_patter_at_texture(SDL_Surface *texture, double u, double v)
     return (get_color_tex(texture, round(x), round(y)));    // (int) вместо round()
 }
 
-t_pattern uv_checkers(int width, int height, t_color a, t_color b)
+void	uv_checkers(t_uv_check c, t_pattern *p)
 {
-    t_pattern p;
-
-    p.a = a;
-    p.b = b;
-    p.height = height;
-    p.width = width;
-    return (p);
+    p->a = c.color_a;
+    p->b = c.color_b;
+    p->height = c.height;
+    p->width = c.width;
 }
 
 t_vec cube_uv_front(t_vec point)

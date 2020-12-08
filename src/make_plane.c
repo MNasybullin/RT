@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_plane.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 15:10:33 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 14:59:03 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 17:45:10 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ char	**make_plane(t_data *p, t_world *w, char **tab)
 	char	**tab2;
 	char	**tab3;
 	char	**tab4;
+	t_uv_check	check;
 
 	tab1 = NULL;
 	tab2 = NULL;
@@ -208,11 +209,14 @@ char	**make_plane(t_data *p, t_world *w, char **tab)
 	{
 		//ft_putendl("\n\nin texture if\n\n");
 		w->pl[p->pl_i].m.pattern_at = &pattern_at;
-		w->pl[p->pl_i].m.p.transform = identity_matrix();
+		//w->pl[p->pl_i].m.p.transform = identity_matrix();
 		if (w->pl[p->pl_i].pattern_type == 1)
 		{
-			w->pl[p->pl_i].m.p = uv_checkers(w->pl[p->pl_i].width,
-			w->pl[p->pl_i].height, w->pl[p->pl_i].color_a, w->pl[p->pl_i].color_b);
+			check.color_a = w->pl[p->pl_i].color_a;
+			check.color_b = w->pl[p->pl_i].color_b;
+			check.width = w->pl[p->pl_i].width;
+			check.height = w->pl[p->pl_i].height;
+			uv_checkers(check, &w->pl[p->pl_i].m.p);
 		}
 		else if (w->pl[p->pl_i].pattern_type == 2)
 			stripe_pattern_shape(w->pl[p->pl_i].m.p.a, w->pl[p->pl_i].m.p.b,

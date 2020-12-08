@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/08 15:24:11 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 17:41:19 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,14 @@ typedef struct		s_sp
 	t_color			color_b;
 	int				pattern_type;
 }					t_sp;
+
+typedef struct		s_uv_check
+{
+	int				width;
+	int				height;
+	t_color			color_a;
+	t_color			color_b;
+}					t_uv_check;
 
 typedef struct		s_cyl
 {
@@ -558,7 +566,7 @@ t_vec	point_on_light(t_light *l, int u, int v);
 
 
 // texture mapping
-t_pattern uv_checkers(int width, int height, t_color a, t_color b);
+void	uv_checkers(t_uv_check c, t_pattern *p);
 t_color uv_patter_at(t_pattern checkers, double u, double v);
 t_vec   spherical_map(t_vec p);
 t_texturemap texture_map(t_pattern checkers, t_vec (*spherical_map)(t_vec));

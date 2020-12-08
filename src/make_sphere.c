@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_sphere.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 16:36:11 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 16:33:32 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/08 17:46:56 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,7 @@ void	make_obj_sphere(t_data *p, t_world *w, char **tab)
 
 void	make_tex_sp(t_data *p, t_world *w)
 {
+	t_uv_check check;
 	//if (w->s[p->sp_i].m.pattern == 1 && (w->s[p->sp_i].pattern_type == 1
 	//|| w->s[p->sp_i].pattern_type == 2))
 	//{
@@ -198,8 +199,11 @@ void	make_tex_sp(t_data *p, t_world *w)
 		w->s[p->sp_i].m.pattern_at = &pattern_at;
 		if (w->s[p->sp_i].pattern_type == 1)
 		{
-			w->s[p->sp_i].m.p = uv_checkers(w->s[p->sp_i].width,
-			w->s[p->sp_i].height, w->s[p->sp_i].color_a, w->s[p->sp_i].color_b);
+			check.color_a = w->s[p->sp_i].color_a;
+			check.color_b = w->s[p->sp_i].color_b;
+			check.width = w->s[p->sp_i].width;
+			check.height = w->s[p->sp_i].height;
+			uv_checkers(check, &w->s[p->sp_i].m.p);
 		}
 		else if (w->s[p->sp_i].pattern_type == 2)
 			stripe_pattern_shape(w->s[p->sp_i].m.p.a, w->s[p->sp_i].m.p.b,
@@ -218,7 +222,7 @@ char	**make_sphere(t_data *p, t_world *w, char **tab)
 	char	**tab1;
 	char	**tab2;
 	char	**tab3;
-
+	t_uv_check	check;
 	//ft_putendl("make sphere");
 	tab1 = NULL;
 	tab2 = NULL;
@@ -250,8 +254,11 @@ char	**make_sphere(t_data *p, t_world *w, char **tab)
 		w->s[p->sp_i].m.pattern_at = &pattern_at;
 		if (w->s[p->sp_i].pattern_type == 1)
 		{
-			w->s[p->sp_i].m.p = uv_checkers(w->s[p->sp_i].width,
-			w->s[p->sp_i].height, w->s[p->sp_i].color_a, w->s[p->sp_i].color_b);
+			check.color_a = w->s[p->sp_i].color_a;
+			check.color_b = w->s[p->sp_i].color_b;
+			check.width = w->s[p->sp_i].width;
+			check.height = w->s[p->sp_i].height;
+			uv_checkers(check, &w->s[p->sp_i].m.p);
 		}
 		else if (w->s[p->sp_i].pattern_type == 2)
 			stripe_pattern_shape(w->s[p->sp_i].m.p.a, w->s[p->sp_i].m.p.b,
