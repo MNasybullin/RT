@@ -6,7 +6,7 @@
 #    By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/06 10:40:08 by aannara           #+#    #+#              #
-#    Updated: 2020/12/03 21:56:45 by mgalt            ###   ########.fr        #
+#    Updated: 2020/12/15 17:14:49 by mgalt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,12 @@ SRC = ./src/main.c \
 	./src/ifs.c \
 	./src/pushing.c \
 	./src/utils2.c \
-	./src/light_utils.c
+	./src/light_utils.c \
+	./src/cone_utils.c \
+	./src/cone_patterns.c \
+	./src/cube_patterns.c \
+	./src/cube_utils.c \
+	./src/ifs_2.c \
 
 OBJ = $(SRC:.c=.o)
 

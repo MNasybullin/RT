@@ -6,118 +6,11 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:19:38 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 21:07:43 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/15 16:54:50 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/rt.h"
-
-void	cone_crutch_2(t_data *p, t_world *w, char **tab, int flag)
-{
-	char	**tab1;
-	char	**tab2;
-	char	**tab3;
-
-	init_3_tabs(&tab1, &tab2, &tab3);
-	if (flag == 3 && !(ft_strcmp(tab[0], "m_rotation:")))
-	{
-		w->cone[p->cone_i].m.p.transform = matrix_mult
-		(w->cone[p->cone_i].m.p.transform, rotation_x(ft_strtodbl(tab1[0])));
-		w->cone[p->cone_i].m.p.transform = matrix_mult
-		(w->cone[p->cone_i].m.p.transform, rotation_y(ft_strtodbl(tab2[0])));
-		w->cone[p->cone_i].m.p.transform = matrix_mult
-		(w->cone[p->cone_i].m.p.transform, rotation_z(ft_strtodbl(tab3[0])));
-	}
-	else if (flag == 4 && !(ft_strcmp(tab[0], "obj_scaling:")))
-		w->cone[p->cone_i].transform = matrix_mult
-		(w->cone[p->cone_i].transform, scaling(ft_strtodbl(tab1[0]),
-		ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0])));
-	if (flag == 4 && !(ft_strcmp(tab[0], "m_scaling:")))
-			w->cone[p->cone_i].m.p.transform =
-			matrix_mult(w->cone[p->cone_i].m.p.transform,
-			scaling(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]),
-			ft_strtodbl(tab3[0])));
-	free_split_tab(tab1, tab2, tab3);
-}
-
-void	cone_crutch_1(t_data *p, t_world *w, char **tab, int flag)
-{
-	char	**tab1;
-	char	**tab2;
-	char	**tab3;
-
-	init_3_tabs(&tab1, &tab2, &tab3);
-	if (flag == 3 && !(ft_strcmp(tab[0], "obj_rotation:")))
-	{
-		w->cone[p->cone_i].transform = matrix_mult
-		(w->cone[p->cone_i].transform, rotation_x(ft_strtodbl(tab1[0])));
-		w->cone[p->cone_i].transform = matrix_mult
-		(w->cone[p->cone_i].transform, rotation_y(ft_strtodbl(tab2[0])));
-		w->cone[p->cone_i].transform = matrix_mult
-		(w->cone[p->cone_i].transform, rotation_z(ft_strtodbl(tab3[0])));
-	}
-	else
-		cone_crutch_2(p, w, tab, flag);
-	free_split_tab(tab1, tab2, tab3);
-}
-
-void	complex_params_cone(t_data *p, t_world *w, char **tab, int flag)
-{
-	char	**tab1;
-	char	**tab2;
-	char	**tab3;
-
-	init_3_tabs(&tab1, &tab2, &tab3);
-	if (len_tab(tab) == 7)
-	{
-		tab1 = ft_strsplit(tab[2], ',');
-		tab2 = ft_strsplit(tab[4], ',');
-		tab3 = ft_strsplit(tab[6], '}');
-		if (flag == 1 && !(ft_strcmp(tab[0], "obj_translation:")))
-			w->cone[p->cone_i].transform = matrix_mult
-			(w->cone[p->cone_i].transform, translation(ft_atoi(tab1[0]),
-			ft_atoi(tab2[0]), ft_atoi(tab3[0])));
-		else if (flag == 1 && !(ft_strcmp(tab[0], "m_translation:")))
-			w->cone[p->cone_i].m.p.transform = matrix_mult
-			(w->cone[p->cone_i].m.p.transform, translation(ft_atoi(tab1[0]),
-			ft_atoi(tab2[0]), ft_atoi(tab3[0])));
-		else if (flag == 2)
-			w->cone[p->cone_i].m.color = color(ft_strtodbl(tab1[0]),
-			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
-		else
-			cone_crutch_1(p, w, tab, flag);
-		free_split_tab(tab1, tab2, tab3);
-	}
-}
-
-void	pattern_color_cone(t_data *p, t_world *w, char **tab, int flag)
-{
-	char	**tab1;
-	char	**tab2;
-	char	**tab3;
-
-	tab1 = NULL;
-	tab2 = NULL;
-	tab3 = NULL;
-	if (len_tab(tab) == 7)
-	{
-		tab1 = ft_strsplit(tab[2], ',');
-		tab2 = ft_strsplit(tab[4], ',');
-		tab3 = ft_strsplit(tab[6], '}');
-		if (flag == 1)
-			w->cone[p->cone_i].m.p.a = color(ft_strtodbl(tab1[0]),
-			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
-		else if (flag == 2)
-			w->cone[p->cone_i].m.p.b = color(ft_strtodbl(tab1[0]),
-			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
-		else if (flag == 3)
-			w->cone[p->cone_i].color_a = color(ft_strtodbl(tab1[0]),
-			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
-		else if (flag == 4)
-			w->cone[p->cone_i].color_b = color(ft_strtodbl(tab1[0]),
-			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
-	}
-}
 
 void	make_obj_cone_3(t_data *p, t_world *w, char **tab)
 {
@@ -147,6 +40,12 @@ void	make_obj_cone_3(t_data *p, t_world *w, char **tab)
 
 void	make_obj_cone_2(t_data *p, t_world *w, char **tab)
 {
+	if (!(ft_strcmp(tab[0], "min:")))
+		w->cone[p->cone_i].min = ft_strtodbl(tab[1]);
+	if (!(ft_strcmp(tab[0], "max:")))
+		w->cone[p->cone_i].max = ft_strtodbl(tab[1]);
+	if (!(ft_strcmp(tab[0], "closed:")))
+		w->cone[p->cone_i].closed = ft_atoi(tab[1]);
 	if (!(ft_strcmp(tab[0], "obj_translation:")) ||
 	!(ft_strcmp(tab[0], "m_translation:")))
 		complex_params_cone(p, w, tab, 1);
@@ -164,18 +63,7 @@ void	make_obj_cone_2(t_data *p, t_world *w, char **tab)
 			w->cone[p->cone_i].m.pattern = 1;
 	}
 	if (!(ft_strcmp(tab[0], "pattern_type:")))
-	{
-		if (!(ft_strcmp(tab[1], "checker")))
-			w->cone[p->cone_i].pattern_type = 1;
-		if (!(ft_strcmp(tab[1], "stripe")))
-			w->cone[p->cone_i].pattern_type = 2;
-		if (!(ft_strcmp(tab[1], "gradient")))
-			w->cone[p->cone_i].pattern_type = 3;
-		if (!(ft_strcmp(tab[1], "ring")))
-			w->cone[p->cone_i].pattern_type = 4;
-		if (!(ft_strcmp(tab[1], "1")))
-			w->cone[p->cone_i].m.pattern = 1;
-	}
+		pattern_type_cone(p, w, tab);
 }
 
 void	make_obj_cone(t_data *p, t_world *w, char **tab)
@@ -198,28 +86,12 @@ void	make_obj_cone(t_data *p, t_world *w, char **tab)
 		w->cone[p->cone_i].m.refractive_index = ft_strtodbl(tab[1]);
 	if (!(ft_strcmp(tab[0], "shadow:")))
 		w->cone[p->cone_i].m.shadow = ft_atoi(tab[1]);
-    if (!(ft_strcmp(tab[0], "min:")))
-		w->cone[p->cone_i].min = ft_strtodbl(tab[1]);
-	if (!(ft_strcmp(tab[0], "max:")))
-		w->cone[p->cone_i].max = ft_strtodbl(tab[1]);
-	if (!(ft_strcmp(tab[0], "closed:")))
-		w->cone[p->cone_i].closed = ft_atoi(tab[1]);
 	make_obj_cone_2(p, w, tab);
 	make_obj_cone_3(p, w, tab);
 }
 
-char	**make_cone(t_data *p, t_world *w, char **tab)
+void	init_cone(t_data *p, t_world *w, char **tab)
 {
-	char		**tab1;
-	char		**tab2;
-	char		**tab3;
-	char		**tab4;
-	t_uv_check check;
-
-	tab1 = NULL;
-	tab2 = NULL;
-	tab3 = NULL;
-	tab4 = NULL;
 	w->cone[p->cone_i] = set_cone();
 	tab = NULL;
 	w->cone[p->cone_i].pattern = 0;
@@ -228,50 +100,27 @@ char	**make_cone(t_data *p, t_world *w, char **tab)
 	w->cone[p->cone_i].m.tex = 0;
 	w->cone[p->cone_i].width = 0;
 	w->cone[p->cone_i].height = 0;
+}
+
+char	**make_cone(t_data *p, t_world *w, char **tab)
+{
+	init_cone(p, w, tab);
 	while ((get_next_line(p->fd, &p->line)))
 	{
 		tab = ft_strsplit(p->line, ' ');
 		if (len_tab(tab) == 0)
 			exit(err_wrong_format());
 		if ((check_make_obj(tab)))
-		{
-			ft_putendl("\n\nin if\n\n");
 			make_obj_cone(p, w, tab);
-		}
 		else
 			break ;
 	}
 	if (w->cone[p->cone_i].m.pattern == 1)
-	{
-		w->cone[p->cone_i].m.pattern_at = &pattern_at;
-		if (w->cone[p->cone_i].pattern_type == 1)
-		{
-			check.color_a = w->cone[p->cone_i].color_a;
-			check.color_b = w->cone[p->cone_i].color_b;
-			check.width = w->cone[p->cone_i].width;
-			check.height = w->cone[p->cone_i].height;
-			uv_checkers(check, &w->cone[p->cone_i].m.p);
-		}
-		else if (w->cone[p->cone_i].pattern_type == 2)
-			stripe_pattern_shape(w->cone[p->cone_i].m.p.a, w->cone[p->cone_i].m.p.b,
-			&w->cone[p->cone_i].m);
-		else if (w->cone[p->cone_i].pattern_type == 3)
-			gradient_pattern_shape(w->cone[p->cone_i].m.p.a, w->cone[p->cone_i].m.p.b,
-			&w->cone[p->cone_i].m);
-		else if (w->cone[p->cone_i].pattern_type == 4)
-			ring_pattern_shape(w->cone[p->cone_i].m.p.a, w->cone[p->cone_i].m.p.b,
-			&w->cone[p->cone_i].m);
-		if (w->cone[p->cone_i].m.tex == 1)
-		{
-			w->cone[p->cone_i].m.texture = SDL_LoadBMP(w->cone[p->cone_i].texture);
-			w->cone[p->cone_i].m.texturemap = texture_map(w->cone[p->cone_i].m.p,
-			&cylindrical_map);
-			
-		}
-	}
+		cone_patterns(p, w);
 	p->cone_i++;
-	if (len_tab(tab) >= 2 && (!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "light:"))) &&
-	(!(ft_strequ(tab[0], "cameras:")) && !(ft_strequ(tab[1], "camera:"))))
+	if (len_tab(tab) >= 2 && (!(ft_strequ(tab[0], "lights:"))
+	&& !(ft_strequ(tab[1], "light:"))) && (!(ft_strequ(tab[0], "cameras:"))
+	&& !(ft_strequ(tab[1], "camera:"))))
 		p->tab = ft_strsplit(p->line, ' ');
 	return (p->tab);
 }

@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/08 20:41:52 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/15 17:44:38 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -665,6 +665,23 @@ void	making_camera(t_data *p, t_world *w, char **tab);
 void	reading(t_data *p, t_world *w, char *file);
 void	make_obj_cone_2(t_data *p, t_world *w, char **tab);
 void	make_obj_cone_3(t_data *p, t_world *w, char **tab);
+void	pattern_color_cone(t_data *p, t_world *w, char **tab, int flag);
+void	cone_crutch_1(t_data *p, t_world *w, char **tab, int flag);
+void	cone_crutch_2(t_data *p, t_world *w, char **tab, int flag);
+void	pattern_type_cone(t_data *p, t_world *w, char **tab);
+void	cone_patterns(t_data *p, t_world *w);
+void	cone_patterns_1(t_data *p, t_world *w, t_uv_check check);
+void	init_cone(t_data *p, t_world *w, char **tab);
+void	cube_patterns(t_data *p, t_world *w);
+int		final_if_cube(char **tab);
+void	make_obj_cube_2(t_data *p, t_world *w, char **tab);
+void	make_obj_cube_3(t_data *p, t_world *w, char **tab, char *tmp);
+void	make_obj_cube_4(t_data *p, t_world *w, char **tab, char *tmp);
+void	pattern_color_cube(t_data *p, t_world *w, char **tab, int flag);
+void	cube_crutch_1(t_data *p, t_world *w, char **tab, int flag);
+void	cube_crutch_2(t_data *p, t_world *w, char **tab, int flag);
+void	cube_crutch_3(t_data *p, t_world *w, char **tab, int flag);
+void	init_cube(t_data *p, t_world *w, char **tab);
 
 //libft
 void	ft_putendl(char const *s);
