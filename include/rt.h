@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/15 17:44:38 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/17 19:53:04 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -671,7 +671,7 @@ void	cone_crutch_2(t_data *p, t_world *w, char **tab, int flag);
 void	pattern_type_cone(t_data *p, t_world *w, char **tab);
 void	cone_patterns(t_data *p, t_world *w);
 void	cone_patterns_1(t_data *p, t_world *w, t_uv_check check);
-void	init_cone(t_data *p, t_world *w, char **tab);
+void	init_cone(t_data *p, t_world *w);
 void	cube_patterns(t_data *p, t_world *w);
 int		final_if_cube(char **tab);
 void	make_obj_cube_2(t_data *p, t_world *w, char **tab);
@@ -682,6 +682,15 @@ void	cube_crutch_1(t_data *p, t_world *w, char **tab, int flag);
 void	cube_crutch_2(t_data *p, t_world *w, char **tab, int flag);
 void	cube_crutch_3(t_data *p, t_world *w, char **tab, int flag);
 void	init_cube(t_data *p, t_world *w, char **tab);
+void	cyl_crutch_1(t_data *p, t_world *w, char **tab, int flag);
+void	cyl_crutch_2(t_data *p, t_world *w, char **tab, int flag);
+void	cyl_crutch_3(t_data *p, t_world *w, char **tab, int flag);
+void	pattern_color_cyl(t_data *p, t_world *w, char **tab, int flag);
+void	texture_cyl(char **tab, t_data *p, t_world *w);
+void	cyl_patterns_1(t_data *p, t_world *w, t_uv_check check);
+void	cyl_patterns(t_data *p, t_world *w);
+void	init_cyl(t_data *p, t_world *w, char **tab);
+void	complex_params_cyl(t_data *p, t_world *w, char **tab, int flag);
 
 //libft
 void	ft_putendl(char const *s);

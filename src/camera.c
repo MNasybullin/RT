@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 18:08:48 by sdiego            #+#    #+#             */
-/*   Updated: 2020/11/26 22:07:44 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/17 19:36:14 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void    draw(t_treads *treads)
     t_color col;
     int remaining = 5; // повторений рекурсии в отражении
 
+    //ft_putendl("\n\nIN DRAW\n");
     y = treads->start;
     while (y < treads->finish)
     {
@@ -136,6 +137,7 @@ void    draw(t_treads *treads)
         }
         y++;
     }
+    //ft_putendl("\n\nEND OF DRAW\n");
 }
 
 void save_texture(const char* file_name, SDL_Renderer* renderer, SDL_Texture* texture)
@@ -199,6 +201,7 @@ void    render(t_sdl *sdl, t_camera camera, t_world world)
 		i++;
 	}
     i = 0;
+    //ft_putendl("\n\nAFTER FIRST WHILE\n");
 	while (i < THREADS)
     {
 		if (pthread_join(threads[i], NULL))
@@ -206,13 +209,15 @@ void    render(t_sdl *sdl, t_camera camera, t_world world)
             printf("error threads\n");
             exit(-1);
         }
-
+        //ft_putendl("\n\nBEFORE SDL FUNCTIONS\n");
         SDL_UpdateTexture(sdl->text, NULL, sdl->img, WIN_W * (sizeof(int)));
 	    SDL_RenderClear(sdl->ren);
 	    SDL_RenderCopy(sdl->ren, sdl->text, NULL, NULL);
 	    SDL_RenderPresent(sdl->ren);
+        //ft_putendl("\n\nAFTER SDL FUNCTIONS\n");
         i++;
     }
+    ft_putendl("\n\nEND OF RENDER\n");
 }
 
 /*

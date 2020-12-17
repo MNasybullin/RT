@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 15:10:33 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 20:26:40 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/17 19:55:40 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,17 +121,8 @@ void	make_obj_plane(t_data *p, t_world *w, char **tab)
 		complex_params_plane(p, w, tab, 3);
 	if (!(ft_strcmp(tab[0], "obj_scaling:")) || !(ft_strcmp(tab[0], "m_scaling:")))
 		complex_params_plane(p, w, tab, 4);
-	if (!(ft_strcmp(tab[0], "pattern:")))
-	{
-		//printf("\n1 if\n");
-		if (!(ft_strcmp(tab[1], "1")))
-		{
-			//printf("\n2 if\n");
-			w->pl[p->pl_i].m.pattern = 1;
-			//w->cub[p->cube_i].m.pattern_at = &pattern_at_cube_texture;
-			//w->pl[p->pl_i].m.p.transform = identity_matrix();
-		}
-	}
+	if (!(ft_strcmp(tab[0], "pattern:")) && !(ft_strcmp(tab[1], "1")))
+		w->pl[p->pl_i].m.pattern = 1;
 	//ft_putendl("after all complex params");
 	if (!(ft_strcmp(tab[0], "pattern_type:")))
 	{
@@ -143,13 +134,7 @@ void	make_obj_plane(t_data *p, t_world *w, char **tab)
 			w->pl[p->pl_i].pattern_type = 3;
 		if (!(ft_strcmp(tab[1], "ring")))
 			w->pl[p->pl_i].pattern_type = 4;
-		if (!(ft_strcmp(tab[1], "1")))
-		{
-			w->pl[p->pl_i].m.pattern = 1;
-			//w->pl[p->pl_i].m.pattern_at = &pattern_at;
-			//w->pl[p->pl_i].m.p.transform = identity_matrix();
-			w->pl[p->pl_i].is_tex++;
-		}
+		w->pl[p->pl_i].m.pattern = 1;
 	}
 	if (!(ft_strcmp(tab[0], "tex:")) && len_tab(tab) == 2)
 		texture_sp(tab, p, w);
@@ -169,35 +154,67 @@ void	make_obj_plane(t_data *p, t_world *w, char **tab)
 	if (!(ft_strcmp(tab[0], "color_b:")))
 		pattern_color_pl(p, w, tab, 2);
 	if (!(ft_strcmp(tab[0], "pattern_color_a:")))
-		pattern_color_sp(p, w, tab, 3);
+		pattern_color_pl(p, w, tab, 3);
 	if (!(ft_strcmp(tab[0], "pattern_color_b:")))
-		pattern_color_sp(p, w, tab, 4);
+		pattern_color_pl(p, w, tab, 4);
 	if (!(ft_strcmp(tab[0], "width:")))
 		w->pl[p->pl_i].width = ft_atoi(tab[1]);
 	if (!(ft_strcmp(tab[0], "height:")))
 		w->pl[p->pl_i].height = ft_atoi(tab[1]);
 }
 
-char	**make_plane(t_data *p, t_world *w, char **tab)
+void	init_plane(t_data *p, t_world *w)
 {
-	char	**tab1;
-	char	**tab2;
-	char	**tab3;
-	char	**tab4;
-	t_uv_check	check;
-
-	tab1 = NULL;
-	tab2 = NULL;
-	tab3 = NULL;
-	tab4 = NULL;
 	w->pl[p->pl_i] = set_plane();
-	tab = NULL;
 	w->pl[p->pl_i].pattern = 0;
 	w->pl[p->pl_i].is_tex = 0;
 	w->pl[p->pl_i].pattern_type = 0;
 	w->pl[p->pl_i].m.tex = 0;
 	w->pl[p->pl_i].width = 0;
 	w->pl[p->pl_i].height = 0;
+	w->pl[p->pl_i].color_a.r = 0;
+	w->pl[p->pl_i].color_a.g = 0;
+	w->pl[p->pl_i].color_a.b = 0;
+}
+
+void	plane_patterns_1(t_data *p, t_world *w, t_uv_check check)
+{
+	check.color_a = w->pl[p->pl_i].color_a;
+	check.color_b = w->pl[p->pl_i].color_b;
+	check.width = w->pl[p->pl_i].width;
+	check.height = w->pl[p->pl_i].height;
+	uv_checkers(check, &w->pl[p->pl_i].m.p);
+}
+
+void	plane_patterns(t_data *p, t_world *w)
+{
+	t_uv_check	check;
+
+	check.width = 0;
+	w->pl[p->pl_i].m.pattern_at = &pattern_at;
+	if (w->pl[p->pl_i].pattern_type == 1)
+		plane_patterns_1(p, w, check);
+	else if (w->pl[p->pl_i].pattern_type == 2)
+		stripe_pattern_shape(w->pl[p->pl_i].m.p.a, w->pl[p->pl_i].m.p.b,
+		&w->pl[p->pl_i].m);
+	else if (w->pl[p->pl_i].pattern_type == 3)
+		gradient_pattern_shape(w->pl[p->pl_i].m.p.a, w->pl[p->pl_i].m.p.b,
+		&w->pl[p->pl_i].m);
+	else if (w->pl[p->pl_i].pattern_type == 4)
+		ring_pattern_shape(w->pl[p->pl_i].m.p.a, w->pl[p->pl_i].m.p.b,
+		&w->pl[p->pl_i].m);
+	if (w->pl[p->pl_i].m.tex == 1)
+	{
+		w->pl[p->pl_i].m.texturemap = texture_map(w->pl[p->pl_i].m.p,
+		&planar_map);
+		w->pl[p->pl_i].m.texture = SDL_LoadBMP(w->pl[p->pl_i].texture);
+	}
+}
+
+char	**make_plane(t_data *p, t_world *w, char **tab)
+{
+	init_plane(p, w);
+	tab = NULL;
 	while ((get_next_line(p->fd, &p->line)))
 	{
 		tab = ft_strsplit(p->line, ' ');
@@ -208,33 +225,9 @@ char	**make_plane(t_data *p, t_world *w, char **tab)
 		else
 			break ;
 	}
+	//printf("pattern color a: %f %f %f\nwidth: %d\nheight:%d\n", w->pl[0].color_a.r, w->pl[0].color_a.g, w->pl[0].color_a.b, w->pl[0].width, w->pl[0].height);
 	if (w->pl[p->pl_i].m.pattern == 1)
-	{
-		w->pl[p->pl_i].m.pattern_at = &pattern_at;
-		if (w->pl[p->pl_i].pattern_type == 1)
-		{
-			check.color_a = w->pl[p->pl_i].color_a;
-			check.color_b = w->pl[p->pl_i].color_b;
-			check.width = w->pl[p->pl_i].width;
-			check.height = w->pl[p->pl_i].height;
-			uv_checkers(check, &w->pl[p->pl_i].m.p);
-		}
-		else if (w->pl[p->pl_i].pattern_type == 2)
-			stripe_pattern_shape(w->pl[p->pl_i].m.p.a, w->pl[p->pl_i].m.p.b,
-			&w->pl[p->pl_i].m);
-		else if (w->pl[p->pl_i].pattern_type == 3)
-			gradient_pattern_shape(w->pl[p->pl_i].m.p.a, w->pl[p->pl_i].m.p.b,
-			&w->pl[p->pl_i].m);
-		else if (w->pl[p->pl_i].pattern_type == 4)
-			ring_pattern_shape(w->pl[p->pl_i].m.p.a, w->pl[p->pl_i].m.p.b,
-			&w->pl[p->pl_i].m);
-		if (w->pl[p->pl_i].m.tex == 1)
-		{
-			w->pl[p->pl_i].m.texturemap = texture_map(w->pl[p->pl_i].m.p,
-			&planar_map);
-			w->pl[p->pl_i].m.texture = SDL_LoadBMP(w->pl[p->pl_i].texture);
-		}
-	}
+		plane_patterns(p, w);
 	p->pl_i++;
 	if ((!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "lights:"))) &&
 	(!(ft_strequ(tab[0], "cameras:")) && !(ft_strequ(tab[1], "camera:"))))

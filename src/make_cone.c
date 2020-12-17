@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:19:38 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/15 16:54:50 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/17 19:52:56 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,9 @@ void	make_obj_cone(t_data *p, t_world *w, char **tab)
 	make_obj_cone_3(p, w, tab);
 }
 
-void	init_cone(t_data *p, t_world *w, char **tab)
+void	init_cone(t_data *p, t_world *w)
 {
 	w->cone[p->cone_i] = set_cone();
-	tab = NULL;
 	w->cone[p->cone_i].pattern = 0;
 	w->cone[p->cone_i].is_tex = 0;
 	w->cone[p->cone_i].pattern_type = 0;
@@ -104,7 +103,8 @@ void	init_cone(t_data *p, t_world *w, char **tab)
 
 char	**make_cone(t_data *p, t_world *w, char **tab)
 {
-	init_cone(p, w, tab);
+	init_cone(p, w);
+	tab = NULL;
 	while ((get_next_line(p->fd, &p->line)))
 	{
 		tab = ft_strsplit(p->line, ' ');

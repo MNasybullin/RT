@@ -6,7 +6,7 @@
 #    By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/06 10:40:08 by aannara           #+#    #+#              #
-#    Updated: 2020/12/15 17:14:49 by mgalt            ###   ########.fr        #
+#    Updated: 2020/12/17 18:54:18 by mgalt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,8 @@ SRC = ./src/main.c \
 	./src/cube_patterns.c \
 	./src/cube_utils.c \
 	./src/ifs_2.c \
+	./src/cyl_patterns.c \
+	./src/cyl_utils.c \
 
 OBJ = $(SRC:.c=.o)
 
