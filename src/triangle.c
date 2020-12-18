@@ -3,38 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   triangle.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/02 16:01:23 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/08 19:26:25 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/06 18:38:39 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/rt.h"
 
-void	set_trian(t_vec p1, t_vec p2, t_vec p3, t_trian	*t)
+t_trian	set_trian(t_vec p1, t_vec p2, t_vec p3)
 {
-	t->p1 = p1;
-	t->p2 = p2;
-	t->p3 = p3;
-	t->e1 = sub(p2, p1);
-	t->e2 = sub(p3, p1);
-	t->norm = normalize(cross(t->e2, t->e1));
-	//t->m = default_material();
-	t->transform = identity_matrix();
+	t_trian	t;
+
+	t.p1 = p1;
+	t.p2 = p2;
+	t.p3 = p3;
+	t.e1 = sub(p2, p1);
+	t.e2 = sub(p3, p1);
+	t.norm = normalize(cross(t.e2, t.e1));
+	t.m = default_material();
+	t.transform = identity_matrix();
+	return (t);
 }
 
 int		normal_at_trian(void *v_s, t_vec world_point, t_vec *n)
 {
-	t_trian *s;
-	t_vec   object_point;
-	t_vec   object_normal;
+	t_trian	*s;
+	t_vec	object_point;
+	t_vec	object_normal;
 	t_vec	world_normal;
 
 	s = (t_trian*)v_s;
-	object_point = matrix_mult_v_p(matrix_inverse(s->transform), world_point);
+	object_point = matrix_mult_v_p(s->transform, world_point);
 	object_normal = s->norm;
-	world_normal = matrix_mult_v_p(matrix_transposing(matrix_inverse(s->transform)), object_normal);
+	world_normal = matrix_mult_v_p(matrix_transposing(s->transform),
+	object_normal);
 	world_normal.c[3] = 0;
 	*n = normalize(world_normal);
 	return (1);
@@ -42,38 +46,29 @@ int		normal_at_trian(void *v_s, t_vec world_point, t_vec *n)
 
 void	intersect_trian(void *v_s, t_ray r, t_x_t *x, int obj_n)
 {
-	t_ray	ray2;
-	t_trian *s;
-	t_vec	dir_cross_e2;
-	double	det;
-	double	f;
-	t_vec	p1_to_origin;
-	double	u;
-	t_vec	origin_cross_e1;
-	double	v;
-
+	t_ray			ray2;
+	t_trian			*s;
+	t_vec			dir_cross_e2;
+	t_vec			origin_cross_e1;
+	t_inter_trian	t;
 
 	s = (t_trian*)v_s;
-	ray2 = transform(r, matrix_inverse(s->transform));
+	ray2 = transform(r, s->transform);
 	dir_cross_e2 = cross(ray2.d, s->e2);
-	det = dot(s->e1, dir_cross_e2);
-	if (fabs(det) < EPSILON)
+	t.det = dot(s->e1, dir_cross_e2);
+	if (fabs(t.det) < EPSILON)
 		return ;
-		//return (x);
-	f = 1.0 / det;
-	p1_to_origin = sub(ray2.o, s->p1);
-	u = f * dot(p1_to_origin, dir_cross_e2);
-	if (u < 0 || u > 1)
+	t.f = 1.0 / t.det;
+	t.p1_to_origin = sub(ray2.o, s->p1);
+	t.u = t.f * dot(t.p1_to_origin, dir_cross_e2);
+	if (t.u < 0 || t.u > 1)
 		return ;
-		//return (x);
-	origin_cross_e1 = cross(p1_to_origin, s->e1);
-	v = f * dot(ray2.d, origin_cross_e1);
-	if (v < 0 || (u + v) > 1)
+	origin_cross_e1 = cross(t.p1_to_origin, s->e1);
+	t.v = t.f * dot(ray2.d, origin_cross_e1);
+	if (t.v < 0 || (t.u + t.v) > 1)
 		return ;
-		//return (x);
-	x->t[x->max_obj].t = f * dot(s->e2, origin_cross_e1);
+	x->t[x->max_obj].t = t.f * dot(s->e2, origin_cross_e1);
 	x->t[x->max_obj].obj = obj_n;
 	x->t[x->max_obj].count = 2;
 	x->max_obj += 1;
-	//return (x);
 }

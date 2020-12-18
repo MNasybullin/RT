@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.c                                              :+:      :+:    :+:   */
+/*   mem_lst.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/03 15:38:47 by sdiego            #+#    #+#             */
-/*   Updated: 2020/11/21 19:40:59 by sdiego           ###   ########.fr       */
+/*   Created: 2019/10/04 09:05:51 by aannara           #+#    #+#             */
+/*   Updated: 2020/12/14 16:43:40 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/rt.h"
+#ifndef MEM_LST_H
+# define MEM_LST_H
 
-t_vec	position(t_ray r, double t)
+# include "../include/rt.h"
+
+typedef struct	s_mem
 {
-	t_vec	a;
-	t_vec	b;
+	void		*p;
+	void		*next;
+	void		*last;
+}				t_mem;
 
-	a = mult(r.d, t);
-	b = add(r.o, a);
-	return (b);
-}
+t_mem			g_m;
 
-t_ray	set_ray(t_vec or, t_vec di)
-{
-	t_ray	r;
+void			set_m(void);
+void			new_m(void *pointer);
+void			del_m(void);
+void			del_memory(void);
+void			*mem(size_t size);
 
-	r.o = or;
-	r.d = di;
-	return (r);
-}
+#endif
