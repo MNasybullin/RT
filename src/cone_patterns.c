@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 16:51:52 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/22 21:26:23 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/22 23:04:39 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,18 @@ void	cone_patterns(t_data *p, t_world *w)
 		w->cone[p->cone_i].m.texturemap =
 		texture_map(w->cone[p->cone_i].m.p, &cylindrical_map);
 	}
+}
+
+void	pattern_type_cone(t_data *p, t_world *w, char **tab)
+{
+	if (!(ft_strcmp(tab[1], "checker")))
+		w->cone[p->cone_i].pattern_type = 1;
+	if (!(ft_strcmp(tab[1], "stripe")))
+		w->cone[p->cone_i].pattern_type = 2;
+	if (!(ft_strcmp(tab[1], "gradient")))
+		w->cone[p->cone_i].pattern_type = 3;
+	if (!(ft_strcmp(tab[1], "ring")))
+		w->cone[p->cone_i].pattern_type = 4;
+	if (!(ft_strcmp(tab[1], "1")))
+		w->cone[p->cone_i].m.pattern = 1;
 }

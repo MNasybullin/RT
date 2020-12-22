@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/22 22:06:31 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/22 23:04:08 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -703,6 +703,13 @@ void	plane_crutch_2(t_data *p, t_world *w, char **tab, int flag);
 void	complex_params_plane(t_data *p, t_world *w, char **tab, int flag);
 void	sphere_patterns(t_data *p, t_world *w);
 void	sphere_patterns_1(t_data *p, t_world *w);
+void	texture_sp(char **tab, t_data *p, t_world *w);
+void	pattern_type_sphere(t_data *p, t_world *w, char **tab);
+void	pattern_color_sp(t_data *p, t_world *w, char **tab, int flag);
+void	sp_crutch_1(t_data *p, t_world *w, char **tab, int flag);
+void	sp_crutch_2(t_data *p, t_world *w, char **tab, int flag);
+void	sp_m_rotation(t_data *p, t_world *w, char **tab1, char **tab2);
+void	cone_m_rotation(t_data *p, t_world *w, char **tab1, char **tab2);
 
 //libft
 void	ft_putendl(char const *s);

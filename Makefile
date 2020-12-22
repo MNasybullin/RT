@@ -6,7 +6,7 @@
 #    By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/06 10:40:08 by aannara           #+#    #+#              #
-#    Updated: 2020/12/17 21:09:06 by mgalt            ###   ########.fr        #
+#    Updated: 2020/12/22 22:57:01 by mgalt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,8 @@ SRC = ./src/main.c \
 	./src/cyl_utils.c \
 	./src/plane_patterns.c \
 	./src/plane_utils.c \
+	./src/sphere_patterns.c \
+	./src/sphere_utils.c \
 
 OBJ = $(SRC:.c=.o)
 
