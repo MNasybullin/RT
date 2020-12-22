@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/17 20:55:16 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/22 22:06:31 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct		s_arr
 	int				size;
 //	double			t[40];
 }					t_arr;
+
 
 typedef struct		s_matrix
 {
@@ -143,6 +144,14 @@ typedef struct		s_x_t
 	int				max_obj;
 }					t_x_t;
 
+typedef struct		s_uv_check
+{
+	int				width;
+	int				height;
+	t_color			color_a;
+	t_color			color_b;
+}					t_uv_check;
+
 typedef struct		s_sp
 {
 	t_vec			c;
@@ -157,15 +166,8 @@ typedef struct		s_sp
 	t_color			color_a;
 	t_color			color_b;
 	int				pattern_type;
+	t_uv_check		check;
 }					t_sp;
-
-typedef struct		s_uv_check
-{
-	int				width;
-	int				height;
-	t_color			color_a;
-	t_color			color_b;
-}					t_uv_check;
 
 typedef struct		s_cyl
 {
@@ -203,6 +205,7 @@ typedef struct		s_cone
 	t_color			color_a;
 	t_color			color_b;
 	int				is_tex;
+	t_uv_check		check;
 }					t_cone;
 
 typedef struct		s_plane
@@ -670,7 +673,7 @@ void	cone_crutch_1(t_data *p, t_world *w, char **tab, int flag);
 void	cone_crutch_2(t_data *p, t_world *w, char **tab, int flag);
 void	pattern_type_cone(t_data *p, t_world *w, char **tab);
 void	cone_patterns(t_data *p, t_world *w);
-void	cone_patterns_1(t_data *p, t_world *w, t_uv_check check);
+void	cone_patterns_1(t_data *p, t_world *w);
 void	init_cone(t_data *p, t_world *w);
 void	cube_patterns(t_data *p, t_world *w);
 int		final_if_cube(char **tab);
@@ -699,7 +702,7 @@ void	plane_crutch_1(t_data *p, t_world *w, char **tab, int flag);
 void	plane_crutch_2(t_data *p, t_world *w, char **tab, int flag);
 void	complex_params_plane(t_data *p, t_world *w, char **tab, int flag);
 void	sphere_patterns(t_data *p, t_world *w);
-void	sphere_patterns_1(t_data *p, t_world *w, t_uv_check check);
+void	sphere_patterns_1(t_data *p, t_world *w);
 
 //libft
 void	ft_putendl(char const *s);

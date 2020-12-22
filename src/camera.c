@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 18:08:48 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/17 19:36:14 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/22 21:37:47 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ t_ray   ray_for_pixel(t_camera *camera, double px, double py)
     t_vec   origin;
     t_vec   direction;
 
+    //ft_putendl("in ray for pixel");
     xoffset = (px + 0.5) * camera->pixel_size;
     yoffset = (py + 0.5) * camera->pixel_size;
     world_x = camera->half_width - xoffset;
@@ -58,7 +59,7 @@ t_ray   ray_for_pixel(t_camera *camera, double px, double py)
     pixel = matrix_mult_v_p(matrix_inverse(camera->transform), set_v_p(world_x, wolrd_y, -1 , 1));
     origin = matrix_mult_v_p(matrix_inverse(camera->transform), set_v_p(0, 0, 0, 1));
     direction = normalize(sub(pixel, origin));
-
+    //ft_putendl("end of ray for pixel");
     return (set_ray(origin, direction));
 }
 
@@ -116,7 +117,7 @@ void    draw(t_treads *treads)
     t_color col;
     int remaining = 5; // повторений рекурсии в отражении
 
-    //ft_putendl("\n\nIN DRAW\n");
+   // ft_putendl("\n\nIN DRAW\n");
     y = treads->start;
     while (y < treads->finish)
     {
@@ -125,6 +126,7 @@ void    draw(t_treads *treads)
         {
             if (treads->camera->aliasing == 0)
             {
+                //ft_putendl("before ray for pixel");
                 r = ray_for_pixel(treads->camera, x, y);
                 col = color_at(treads->world, r, remaining);
                 if (treads->camera->sepia == 1)

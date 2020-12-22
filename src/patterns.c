@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   patterns.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 14:28:16 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/08 17:41:21 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/12/22 21:26:39 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@ t_color uv_patter_at_texture(SDL_Surface *texture, double u, double v)
 
 void	uv_checkers(t_uv_check c, t_pattern *p)
 {
+    //ft_putendl("start of uv_checkers");
     p->a = c.color_a;
     p->b = c.color_b;
     p->height = c.height;
     p->width = c.width;
+    //ft_putendl("end of uv_checkers");
 }
 
 t_vec cube_uv_front(t_vec point)

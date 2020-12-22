@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   world.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:09:18 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/14 18:09:09 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/12/22 21:36:41 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,7 +319,7 @@ t_color	color_at(t_world *w, t_ray r, int remaining)
 	t_comps comps;
 	//t_i i;
 	//t_xs xs;
-
+	
 	hit_obj = 0;
 	intersect_world(w, r, &x);
 	hit_obj = hit(x);

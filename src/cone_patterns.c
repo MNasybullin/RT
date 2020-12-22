@@ -6,29 +6,29 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 16:51:52 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/15 16:52:26 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/22 21:26:23 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/rt.h"
 
-void	cone_patterns_1(t_data *p, t_world *w, t_uv_check check)
+void	cone_patterns_1(t_data *p, t_world *w)
 {
-	check.color_a = w->cone[p->cone_i].color_a;
-	check.color_b = w->cone[p->cone_i].color_b;
-	check.width = w->cone[p->cone_i].width;
-	check.height = w->cone[p->cone_i].height;
-	uv_checkers(check, &w->cone[p->cone_i].m.p);
+	w->cone[p->cone_i].check.color_a = w->cone[p->cone_i].color_a;
+	w->cone[p->cone_i].check.color_b = w->cone[p->cone_i].color_b;
+	w->cone[p->cone_i].check.width = w->cone[p->cone_i].width;
+	w->cone[p->cone_i].check.height = w->cone[p->cone_i].height;
+	uv_checkers(w->cone[p->cone_i].check, &w->cone[p->cone_i].m.p);
 }
 
 void	cone_patterns(t_data *p, t_world *w)
 {
-	t_uv_check	check;
+	//t_uv_check	check;
 
-	check.width = 0;
+	//check.width = 0;
 	w->cone[p->cone_i].m.pattern_at = &pattern_at;
 	if (w->cone[p->cone_i].pattern_type == 1)
-		cone_patterns_1(p, w, check);
+		cone_patterns_1(p, w);
 	else if (w->cone[p->cone_i].pattern_type == 2)
 		stripe_pattern_shape(w->cone[p->cone_i].m.p.a,
 		w->cone[p->cone_i].m.p.b, &w->cone[p->cone_i].m);

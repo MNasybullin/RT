@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:19:38 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/22 19:43:18 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/22 21:20:30 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ void	init_cone(t_data *p, t_world *w)
 	w->cone[p->cone_i].m.tex = 0;
 	w->cone[p->cone_i].width = 0;
 	w->cone[p->cone_i].height = 0;
+	w->cone[p->cone_i].check.height = 0;
+	w->cone[p->cone_i].check.width = 0;
 }
 
 char	**make_cone(t_data *p, t_world *w, char **tab)

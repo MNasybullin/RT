@@ -2,7 +2,7 @@
 objects:
         - object:
                 type: cylinder
-                color: {r: 0.08, g: 0.05, b: 0.95} 
+                color: {r: 0.08, g: 0.05, b: 0.95}
                 ambient: 0.25
                 diffuse: 0.7
                 specular: 0.9

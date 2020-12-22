@@ -1,19 +1,15 @@
 ---
 objects:
         - object:
-                type: cone
-                color: {r: 0.8, g: 0.5, b: 0.3}
-                ambient: 0.25
-                diffuse: 0.7
-                specular: 0.9
-                shininess: 300
-                reflective: 0.1
+                type: sphere
+                obj_translation: {x: -0.6, y: 1, z: 0.6}
+                color: {r: 1, g: 0.3, b: 0.2}
+                specular: 0.4
+                shininess: 5
                 pattern: 1
-                pattern_type: checker
+                pattern_type: stripe
                 color_a: {r: 1, g: 0, b: 0}
                 color_b: {r: 0, g: 0.6, b: 0}
-                height: 5
-                width: 5
 lights:
       - light:
                 type: point
@@ -22,7 +18,7 @@ lights:
 cameras:
       - camera:
                 fov: 1.152
-                from: {x: 0, y: 0, z: -9, w: 1}
+                from: {x: -2.6, y: 1.5, z: -3.9, w: 1}
                 to: {x: -0.6, y: 1, z: -0.8, w: 1}
                 up: {x: 0, y: 1, z: 0, w: 0}
-...
+...                

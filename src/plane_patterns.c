@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 20:45:42 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/17 20:48:13 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/22 21:54:24 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ void	plane_patterns(t_data *p, t_world *w)
 	check.width = 0;
 	w->pl[p->pl_i].m.pattern_at = &pattern_at;
 	if (w->pl[p->pl_i].pattern_type == 1)
-		plane_patterns_1(p, w, check);
+		//plane_patterns_1(p, w, check);
+	{
+		checker_pattern_shape(w->pl[p->pl_i].color_a, w->pl[p->pl_i].color_b, &w->pl[p->pl_i].m);
+	}
 	else if (w->pl[p->pl_i].pattern_type == 2)
 		stripe_pattern_shape(w->pl[p->pl_i].m.p.a, w->pl[p->pl_i].m.p.b,
 		&w->pl[p->pl_i].m);
