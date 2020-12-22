@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:44:43 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/15 17:45:00 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/22 19:33:23 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,13 +123,14 @@ char	**make_cube(t_data *p, t_world *w, char **tab)
 		else
 			break ;
 	}
-	if (w->cub[p->cube_i].pattern_type != 0)
-		cube_patterns(p, w);
-	if (w->cub[p->cube_i].m.tex == 1 && w->cub[p->cube_i].m.pattern == 1)
+	if (w->cub[p->cube_i].m.pattern == 1)
 	{
 		w->cub[p->cube_i].m.pattern_at = &pattern_at_cube_texture;
-		make_tex_cube(p, w);
+		if (w->cub[p->cube_i].m.tex == 1)
+			make_tex_cube(p, w);
 	}
+	if (w->cub[p->cube_i].pattern_type != 0)
+		cube_patterns(p, w);
 	p->cube_i++;
 	if ((final_if_cube(tab)))
 	{

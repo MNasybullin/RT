@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 16:36:11 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 20:28:00 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/22 19:42:33 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,25 +221,23 @@ void	make_tex_sp(t_data *p, t_world *w)
 	//}
 }
 
-char	**make_sphere(t_data *p, t_world *w, char **tab)
+void	init_sphere(t_data *p, t_world *w)
 {
-	char	**tab1;
-	char	**tab2;
-	char	**tab3;
-	t_uv_check	check;
-
-	tab1 = NULL;
-	tab2 = NULL;
-	tab3 = NULL;
 	w->s[p->sp_i] = set_sphere();
-	tab = NULL;
 	w->s[p->sp_i].pattern = 0;
 	w->s[p->sp_i].is_tex = 0;
 	w->s[p->sp_i].pattern_type = 0;
 	w->s[p->sp_i].m.tex = 0;
 	w->s[p->sp_i].width = 0;
 	w->s[p->sp_i].height = 0;
-	//w->s[p->sp_i].m.p.transform = identity_matrix();
+}
+
+char	**make_sphere(t_data *p, t_world *w, char **tab)
+{
+	t_uv_check	check;
+
+	tab = NULL;
+	init_sphere(p, w);
 	while ((get_next_line(p->fd, &p->line)))
 	{
 		tab = ft_strsplit(p->line, ' ');
@@ -276,17 +274,11 @@ char	**make_sphere(t_data *p, t_world *w, char **tab)
 			w->s[p->sp_i].m.texturemap = texture_map(w->s[p->sp_i].m.p,
 			&spherical_map);
 		}
-		//w->s[p->sp_i].m.p.transform = identity_matrix();
+		if ((w->s[p->sp_i].pattern_type < 1 || w->s[p->sp_i].pattern_type > 4)
+		&& w->s[p->sp_i].m.tex != 1)
+			w->s[p->sp_i].m.pattern = 0;
 	}
-	//ft_putendl("6");
 	p->sp_i++;
-	//w->s[p->sp_i].is_tex = 0;
-	//printf("\nsphere1: %f\n\n", w->s[0].m.shininess);
-	//printf("\nn = %d\n\n", n);
-	//if (!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "lights:")))
-	//if ((!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "lights:")))/* &&
-	//(!(ft_strequ(tab[0], "cameras:")) && !(ft_strequ(tab[1], "camera:")))*/)
-	//printf("\nLINE BEFORE GNL IN MAKE SPHERE: %s\n\n", tab[0]);
 	if ((!(ft_strequ(tab[0], "lights:")) && (len_tab(tab) == 2 && !(ft_strequ(tab[1], "lights:")))) &&
 	(len_tab(tab) == 2 && (!(ft_strequ(tab[0], "cameras:")) && !(ft_strequ(tab[1], "camera:")))))
 	{

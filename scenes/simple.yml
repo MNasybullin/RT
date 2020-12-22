@@ -6,6 +6,7 @@ objects:
                 color: {r: 1, g: 0.3, b: 0.2}
                 specular: 0.4
                 shininess: 5
+                pattern: 1
 lights:
       - light:
                 type: point

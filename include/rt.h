@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/17 19:53:04 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/17 20:55:16 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -691,6 +691,15 @@ void	cyl_patterns_1(t_data *p, t_world *w, t_uv_check check);
 void	cyl_patterns(t_data *p, t_world *w);
 void	init_cyl(t_data *p, t_world *w, char **tab);
 void	complex_params_cyl(t_data *p, t_world *w, char **tab, int flag);
+void	texture_plane(char **tab, t_data *p, t_world *w);
+void	pattern_color_pl(t_data *p, t_world *w, char **tab, int flag);
+void	plane_patterns(t_data *p, t_world *w);
+void	plane_patterns_1(t_data *p, t_world *w, t_uv_check check);
+void	plane_crutch_1(t_data *p, t_world *w, char **tab, int flag);
+void	plane_crutch_2(t_data *p, t_world *w, char **tab, int flag);
+void	complex_params_plane(t_data *p, t_world *w, char **tab, int flag);
+void	sphere_patterns(t_data *p, t_world *w);
+void	sphere_patterns_1(t_data *p, t_world *w, t_uv_check check);
 
 //libft
 void	ft_putendl(char const *s);
