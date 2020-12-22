@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 16:51:52 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/22 23:04:39 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/22 23:05:10 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ void	cone_patterns_1(t_data *p, t_world *w)
 
 void	cone_patterns(t_data *p, t_world *w)
 {
-	//t_uv_check	check;
-
-	//check.width = 0;
 	w->cone[p->cone_i].m.pattern_at = &pattern_at;
 	if (w->cone[p->cone_i].pattern_type == 1)
 		cone_patterns_1(p, w);

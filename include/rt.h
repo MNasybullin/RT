@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/22 23:04:08 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/22 23:34:45 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,6 +258,7 @@ typedef struct		s_trian
 	t_color			color_a;
 	t_color			color_b;
 	int				is_tex;
+	t_uv_check		check;
 }					t_trian;
 
 /*
@@ -642,7 +643,6 @@ void	pattern_color_tri(t_data *p, t_world *w, char **tab, int flag);
 void	pushing_objects(t_data *p, t_world *w);
 int		check_make_obj(char **tab);
 void	triangle_sides(t_data *p, t_world *w, char **tab, int flag);
-//void	skip_empty_lines(t_data *p);
 int		valid_len(char ***tab, int len, t_data *p);
 void	start_count_obj(t_data *p, t_world *w);
 int		strcmp_v2(char *s1, char *s2);
@@ -656,7 +656,6 @@ void	make_tex_cube(t_data *p, t_world *w);
 void	texture_cube(char **tab, t_data *p, t_world *w);
 char	*remove_quotes(char *s1);
 void	texture_sp(char **tab, t_data *p, t_world *w);
-//void	texture_cone(char **tab, t_data *p, t_world *w);
 void	help_counting(t_data *p, char **tab);
 void	make_light(t_data *p);
 void	free_split_tab(char **tab1, char **tab2, char **tab3);
@@ -710,6 +709,16 @@ void	sp_crutch_1(t_data *p, t_world *w, char **tab, int flag);
 void	sp_crutch_2(t_data *p, t_world *w, char **tab, int flag);
 void	sp_m_rotation(t_data *p, t_world *w, char **tab1, char **tab2);
 void	cone_m_rotation(t_data *p, t_world *w, char **tab1, char **tab2);
+void	init_tri(t_data *p, t_world *w);
+void	tri_patterns_1(t_data *p, t_world *w);
+void	tri_patterns(t_data *p, t_world *w);
+void	texture_tri(char **tab, t_data *p, t_world *w);
+void	tri_m_rotation(t_data *p, t_world *w, char **tab1, char **tab2);
+void	pattern_color_tri(t_data *p, t_world *w, char **tab, int flag);
+void	complex_params_tri(t_data *p, t_world *w, char **tab, int flag);
+void	tri_crutch_1(t_data *p, t_world *w, char **tab, int flag);
+void	tri_crutch_2(t_data *p, t_world *w, char **tab, int flag);
+void	tri_crutch_3(t_data *p, t_world *w, char **tab, int flag);
 
 //libft
 void	ft_putendl(char const *s);
