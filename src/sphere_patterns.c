@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere_patterns.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 22:54:47 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/22 23:01:33 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/23 19:27:18 by out-nasybul      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	sphere_patterns_1(t_data *p, t_world *w)
 	w->s[p->sp_i].check.width = w->s[p->sp_i].width;
 	w->s[p->sp_i].check.height = w->s[p->sp_i].height;
 	uv_checkers(w->s[p->sp_i].check, &w->s[p->sp_i].m.p);
+	w->s[p->sp_i].m.texturemap = texture_map(w->s[p->sp_i].m.p,
+		&spherical_map);
 }
 
 void	sphere_patterns(t_data *p, t_world *w)

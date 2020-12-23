@@ -3,8 +3,6 @@ objects:
         - object:
                 type: plane
                 color: {r: 1, g: 1, b: 1}
-                obj_translation: {x: 0, y: 0, z: 5}
-                obj_scaling: {x: 0.75, y: 0.75, z: 0.75}
                 ambient: 0
                 specular: 0
                 diffuse: 0.1

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane_patterns.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 20:45:42 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/22 21:54:24 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/23 19:28:46 by out-nasybul      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	plane_patterns_1(t_data *p, t_world *w, t_uv_check check)
 	check.width = w->pl[p->pl_i].width;
 	check.height = w->pl[p->pl_i].height;
 	uv_checkers(check, &w->pl[p->pl_i].m.p);
+	w->pl[p->pl_i].m.texturemap = texture_map(w->pl[p->pl_i].m.p,
+		&planar_map);
 }
 
 void	plane_patterns(t_data *p, t_world *w)

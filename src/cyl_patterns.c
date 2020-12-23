@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cyl_patterns.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 18:52:03 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/17 18:53:59 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/23 19:28:18 by out-nasybul      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	cyl_patterns_1(t_data *p, t_world *w, t_uv_check check)
 	check.width = w->cyl[p->cyl_i].width;
 	check.height = w->cyl[p->cyl_i].height;
 	uv_checkers(check, &w->cyl[p->cyl_i].m.p);
+	w->cyl[p->cyl_i].m.texturemap = texture_map(w->cyl[p->cyl_i].m.p,
+		&cylindrical_map);
 }
 
 void	cyl_patterns(t_data *p, t_world *w)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cone_patterns.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 16:51:52 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/22 23:05:10 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/23 19:20:58 by out-nasybul      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	cone_patterns_1(t_data *p, t_world *w)
 	w->cone[p->cone_i].check.width = w->cone[p->cone_i].width;
 	w->cone[p->cone_i].check.height = w->cone[p->cone_i].height;
 	uv_checkers(w->cone[p->cone_i].check, &w->cone[p->cone_i].m.p);
+	w->cone[p->cone_i].m.texturemap = texture_map(w->cone[p->cone_i].m.p, &cylindrical_map);
 }
 
 void	cone_patterns(t_data *p, t_world *w)

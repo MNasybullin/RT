@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tri_utils_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:28:12 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/22 23:33:30 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/23 19:29:12 by out-nasybul      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	tri_patterns_1(t_data *p, t_world *w)
 	w->trian[p->tri_i].check.width = w->trian[p->tri_i].width;
 	w->trian[p->tri_i].check.height = w->trian[p->tri_i].height;
 	uv_checkers(w->trian[p->tri_i].check, &w->trian[p->tri_i].m.p);
+	w->trian[p->tri_i].m.texturemap = texture_map(w->trian[p->tri_i].m.p,
+		&planar_map);
 }
 
 void	tri_patterns(t_data *p, t_world *w)

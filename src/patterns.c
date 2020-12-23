@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   patterns.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 14:28:16 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/22 21:26:39 by mgalt            ###   ########.fr       */
+/*   Updated: 2020/12/23 18:23:41 by out-nasybul      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -396,7 +396,7 @@ void   stripe_pattern_shape(t_color a, t_color b, t_material *m)
 {
     m->p.a = a;
     m->p.b = b;
-    m->p.transform = identity_matrix();
+    //m->p.transform = identity_matrix();
     m->pattern = 1;
     m->pattern_at = &stripe_at;
 }
@@ -405,7 +405,7 @@ void   gradient_pattern_shape(t_color a, t_color b, t_material *m)
 {
     m->p.a = a;
     m->p.b = b;
-    m->p.transform = identity_matrix();
+    //m->p.transform = identity_matrix();
     m->pattern = 1;
     m->pattern_at = &gradient_at;
 }
@@ -414,7 +414,7 @@ void   ring_pattern_shape(t_color a, t_color b, t_material *m)
 {
    m->p.a = a;
    m->p.b = b;
-   m->p.transform = identity_matrix();
+   //m->p.transform = identity_matrix();
    m->pattern = 1;
    m->pattern_at = &ring_at;
 }
@@ -423,7 +423,7 @@ void    checker_pattern_shape(t_color a, t_color b, t_material *m)
 {
    m->p.a = a;
    m->p.b = b;
-   m->p.transform = identity_matrix();
+   //m->p.transform = identity_matrix();
    m->pattern = 1;
    m->pattern_at = &checker_at;
 }
