@@ -108,8 +108,22 @@ void	make_obj_cyl(t_data *p, t_world *w, char **tab)
 	make_obj_cyl_4(p, w, tab);
 }
 
+void	init_cyl(t_data *p, t_world *w)
+{
+	w->cyl[p->cyl_i] = set_cylinder();
+	w->cyl[p->cyl_i].pattern = 0;
+	w->cyl[p->cyl_i].is_tex = 0;
+	w->cyl[p->cyl_i].pattern_type = 0;
+	w->cyl[p->cyl_i].m.tex = 0;
+	w->cyl[p->cyl_i].width = 0;
+	w->cyl[p->cyl_i].height = 0;
+	w->cyl[p->cyl_i].check.height = 0;
+	w->cyl[p->cyl_i].check.width = 0;
+}
+
 char	**make_cyl(t_data *p, t_world *w, char **tab)
 {
+	init_cyl(p, w);
 	while ((get_next_line(p->fd, &p->line)))
 	{
 		tab = ft_strsplit(p->line, ' ');

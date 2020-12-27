@@ -27,8 +27,8 @@ objects:
                 reflective: 0.1
         - object:
                 type: cube
-                obj_scaling: {x: 3, y: 0.1, z: 2}
                 obj_translation: {x: 0, y: 3.1, z: 0}
+                obj_scaling: {x: 3, y: 0.1, z: 2}
                 pattern_type: stripe
                 color_a: {r: 0.5529, g: 0.4235, b: 0.3255}
                 color_b: {r: 0.6588, g: 0.5098, b: 0.4000}
@@ -41,37 +41,37 @@ objects:
                 reflective: 0.2
         - object:
                 type: cube
-                obj_scaling: {x: 0.1, y: 1.5, z: 0.1}
                 obj_translation: {x: 2.7, y: 1.5, z: -1.7}
+                obj_scaling: {x: 0.1, y: 1.5, z: 0.1}
                 ambient: 0.2
                 diffuse: 0.7
                 color: {r: 0.5529, g: 0.4235, b: 0.3255}
         - object: 
                 type: cube
-                obj_scaling: {x: 0.1, y: 1.5, z: 0.1}
                 obj_translation: {x: 2.7, y: 1.5, z: 1.7}
+                obj_scaling: {x: 0.1, y: 1.5, z: 0.1}
                 ambient: 0.2
                 diffuse: 0.7
                 color: {r: 0.5529, g: 0.4235, b: 0.3255}
         - object: 
                 type: cube
-                obj_scaling: {x: 0.1, y: 1.5, z: 0.1}
                 obj_translation: {x: -2.7, y: 1.5, z: -1.7}
+                obj_scaling: {x: 0.1, y: 1.5, z: 0.1}
                 ambient: 0.2
                 diffuse: 0.7
                 color: {r: 0.5529, g: 0.4235, b: 0.3255}
         - object: 
                 type: cube
+                obj_translation: {x: -2.7, y: 1.5, z: 1.7}                
                 obj_scaling: {x: 0.1, y: 1.5, z: 0.1}
-                obj_translation: {x: -2.7, y: 1.5, z: 1.7}
                 ambient: 0.2
                 diffuse: 0.7
                 color: {r: 0.5529, g: 0.4235, b: 0.3255}
         - object: 
                 type: cube
                 obj_translation: {x: 0, y: 3.45001, z: 0}
-                obj_scaling: {x: 0.25, y: 0.25, z: 0.25}
                 obj_rotation: {x: 0, y: 0.2, z: 0}
+                obj_scaling: {x: 0.25, y: 0.25, z: 0.25}
                 color: {r: 1, g: 1, b: 0.8}
                 ambient: 0
                 diffuse: 0.3
@@ -92,26 +92,26 @@ objects:
         - object:
                 type: cube
                 obj_translation: {x: -1.5, y: 3.27, z: 0.3}
-                obj_scaling: {x: 0.15, y: 0.07, z: 0.15}
                 obj_rotation: {x: 0, y: 0.4, z: 0}
+                obj_scaling: {x: 0.15, y: 0.07, z: 0.15}
                 color: {r: 1, g: 1, b: 0.5}
         - object: 
                 type: cube
                 obj_translation: {x: 0, y: 3.25, z: 1}
-                obj_scaling: {x: 0.2, y: 0.05, z: 0.05}
                 obj_rotation: {x: 0, y: 0.4, z: 0}
+                obj_scaling: {x: 0.2, y: 0.05, z: 0.05}
                 color: {r: 0.5, g: 1, b: 0.5}
         - object: 
                 type: cube
                 obj_translation: {x: -0.6, y: 3.4, z: -1}
-                obj_scaling: {x: 0.05, y: 0.2, z: 0.05}
                 obj_rotation: {x: 0, y: 0.8, z: 0}
+                obj_scaling: {x: 0.05, y: 0.2, z: 0.05}
                 color: {r: 0.5, g: 0.5, b: 1}
         - object: 
                 type: cube
                 obj_translation: {x: 2, y: 3.4, z: 1}
-                obj_scaling: {x: 0.05, y: 0.2, z: 0.05}
                 obj_rotation: {x: 0, y: 0.8, z: 0}
+                obj_scaling: {x: 0.05, y: 0.2, z: 0.05}
                 color: {r: 0.5, g: 1, b: 1}
         - object: 
                 type: cube

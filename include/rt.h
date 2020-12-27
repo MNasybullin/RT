@@ -186,6 +186,7 @@ typedef struct		s_cyl
 	int				pattern_type;
 	t_color			color_a;
 	t_color			color_b;
+	t_uv_check		check;
 }					t_cyl;
 
 typedef struct		s_cone
@@ -691,7 +692,7 @@ void	pattern_color_cyl(t_data *p, t_world *w, char **tab, int flag);
 void	texture_cyl(char **tab, t_data *p, t_world *w);
 void	cyl_patterns_1(t_data *p, t_world *w, t_uv_check check);
 void	cyl_patterns(t_data *p, t_world *w);
-void	init_cyl(t_data *p, t_world *w, char **tab);
+void	init_cyl(t_data *p, t_world *w);
 void	complex_params_cyl(t_data *p, t_world *w, char **tab, int flag);
 void	texture_plane(char **tab, t_data *p, t_world *w);
 void	pattern_color_pl(t_data *p, t_world *w, char **tab, int flag);

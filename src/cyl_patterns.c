@@ -12,7 +12,7 @@
 
 #include "../include/rt.h"
 
-void	init_cyl(t_data *p, t_world *w, char **tab)
+/*void	init_cyl(t_data *p, t_world *w, char **tab)
 {
 	w->cyl[p->cyl_i] = set_cylinder();
 	tab = NULL;
@@ -20,7 +20,7 @@ void	init_cyl(t_data *p, t_world *w, char **tab)
 	w->cyl[p->cyl_i].is_tex = 0;
 	w->cyl[p->cyl_i].pattern_type = 0;
 	w->cyl[p->cyl_i].m.tex = 0;
-}
+}*/
 
 void	pattern_color_cyl(t_data *p, t_world *w, char **tab, int flag)
 {
