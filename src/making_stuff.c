@@ -21,7 +21,7 @@ void	making_obj(char **tab, t_data *p, t_world *w)
 	free_tab(tab);
 	tab = NULL;
 	tab = ft_strsplit(p->line, ' ');
-	if (len_tab(tab) == 2)
+	if (len_tab(tab) >= 2)
 	{
 		p->tab = (char**)malloc(sizeof(char) * 2);
 		p->tab[0] = ft_strdup(tab[0]);

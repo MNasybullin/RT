@@ -2,15 +2,15 @@
 objects:
         - object:
                 type: triangle
-                color: {r: 0.8, g: 0.5, b: 0.3} 
+                color: {r: 0.5, g: 1, b: 0.83} 
                 ambient: 0.25
                 diffuse: 0.7
                 specular: 0.9
                 shininess: 300
                 reflective: 0.1
                 p1: {x: 0, y: 3, z: 0, w: 1}
-                p2: {x: -3, y: 0, z: 0, w: 1}
-                p3: {x: 3, y: 0, z: 0, w: 1}
+                p2: {x: -3, y: -1, z: 0, w: 1}
+                p3: {x: 3, y: -1, z: 0, w: 1}
 lights:
       - light:
         type: point
