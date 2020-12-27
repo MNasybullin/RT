@@ -95,12 +95,12 @@ void	complex_params_cube(t_data *p, t_world *w, char **tab, int flag)
 		tab3 = ft_strsplit(tab[6], '}');
 		if (flag == 1 && !(ft_strcmp(tab[0], "obj_translation:")))
 			w->cub[p->cube_i].transform = matrix_mult(w->cub[p->cube_i].
-			transform, translation(ft_atoi(tab1[0]), ft_atoi(tab2[0]),
-			ft_atoi(tab3[0])));
+			transform, translation(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]),
+			ft_strtodbl(tab3[0])));
 		else if (flag == 1 && !(ft_strcmp(tab[0], "m_translation:")))
 			w->cub[p->cube_i].m.p.transform = matrix_mult(w->cub[p->cube_i].
-			m.p.transform, translation(ft_atoi(tab1[0]), ft_atoi(tab2[0]),
-			ft_atoi(tab3[0])));
+			m.p.transform, translation(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]),
+			ft_strtodbl(tab3[0])));
 		else if (flag == 2)
 			w->cub[p->cube_i].m.color = color(ft_strtodbl(tab1[0]),
 			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
