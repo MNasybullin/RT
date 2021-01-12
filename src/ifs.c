@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 21:15:17 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 14:49:02 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/01/12 14:30:38 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int		check_make_light(char **tab)
 int		check_is_light(char **tab, t_data *p)
 {
 	if (!(strcmp_v2(p->line, "lights:")) ||
-	(len_tab(tab) == 2 && ft_strequ(tab[0], "-") &&
-	ft_strequ(tab[1], "light:")))
+	(len_tab(tab) == 2 && !(ft_strcmp(tab[0], "-")) &&
+	!(ft_strcmp(tab[1], "light:"))))
 		return (1);
 	return (0);
 }

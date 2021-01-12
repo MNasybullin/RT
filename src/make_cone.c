@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_cone.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:19:38 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/23 19:30:57 by out-nasybul      ###   ########.fr       */
+/*   Updated: 2021/01/12 13:11:05 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,10 @@ void	make_obj_cone_3(t_data *p, t_world *w, char **tab)
 	}
 	if (!(ft_strcmp(tab[0], "texture:")) && len_tab(tab) == 2)
 		w->cone[p->cone_i].texture = ft_strdup(remove_quotes(tab[1]));
-	if (!(ft_strcmp(tab[0], "color_a:")))
-		pattern_color_cone(p, w, tab, 1);
-	if (!(ft_strcmp(tab[0], "color_b:")))
-		pattern_color_cone(p, w, tab, 2);
 	if (!(ft_strcmp(tab[0], "pattern_color_a:")))
-		pattern_color_cone(p, w, tab, 3);
+		pattern_color_cone(p, w, tab, 1);
 	if (!(ft_strcmp(tab[0], "pattern_color_b:")))
-		pattern_color_cone(p, w, tab, 4);
+		pattern_color_cone(p, w, tab, 2);
 	if (!(ft_strcmp(tab[0], "width:")))
 		w->cone[p->cone_i].width = ft_atoi(tab[1]);
 	if (!(ft_strcmp(tab[0], "height:")))

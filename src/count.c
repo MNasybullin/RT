@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 19:27:19 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 15:22:15 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/01/12 14:26:19 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	start_count_obj(t_data *p, t_world *w)
 				break ;
 			}
 		}
+		else if (len_tab(tab) == 0)
+			exit(err_wrong_format());
 		free_tab(tab);
 		tab = NULL;
 	}

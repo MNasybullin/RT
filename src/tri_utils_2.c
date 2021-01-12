@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tri_utils_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:28:12 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/23 19:29:12 by out-nasybul      ###   ########.fr       */
+/*   Updated: 2021/01/12 14:03:29 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	texture_tri(char **tab, t_data *p, t_world *w)
 
 void	tri_patterns_1(t_data *p, t_world *w)
 {
-	w->trian[p->tri_i].check.color_a = w->trian[p->tri_i].color_a;
-	w->trian[p->tri_i].check.color_b = w->trian[p->tri_i].color_b;
+	w->trian[p->tri_i].check.color_a = w->trian[p->tri_i].m.p.a;
+	w->trian[p->tri_i].check.color_b = w->trian[p->tri_i].m.p.b;
 	w->trian[p->tri_i].check.width = w->trian[p->tri_i].width;
 	w->trian[p->tri_i].check.height = w->trian[p->tri_i].height;
 	uv_checkers(w->trian[p->tri_i].check, &w->trian[p->tri_i].m.p);

@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 22:53:31 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/22 23:01:37 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/01/12 13:57:12 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,12 +119,6 @@ void	pattern_color_sp(t_data *p, t_world *w, char **tab, int flag)
 			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
 		else if (flag == 2)
 			w->s[p->sp_i].m.p.b = color(ft_strtodbl(tab1[0]),
-			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
-		else if (flag == 3)
-			w->s[p->sp_i].color_a = color(ft_strtodbl(tab1[0]),
-			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
-		else if (flag == 4)
-			w->s[p->sp_i].color_b = color(ft_strtodbl(tab1[0]),
 			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
 	}
 }

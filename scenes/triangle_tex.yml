@@ -11,15 +11,12 @@ objects:
                 p1: {x: 0, y: 3, z: 0, w: 1}
                 p2: {x: -3, y: 0, z: 0, w: 1}
                 p3: {x: 3, y: 0, z: 0, w: 1}
-                pattern_type: checker
+                pattern_type: stripe
                 pattern: 1
                 pattern_color_a: {r: 0, g: 0.5, b: 0}
                 pattern_color_b: {r: 1, g: 1, b: 1}
-                width: 20
-                height: 10
-                tex: 1
-                texture_map: 1
-                texture: "textures/posx.bmp"
+                width: 2
+                height: 2
 lights:
       - light:
                 type: point

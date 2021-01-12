@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 15:10:33 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/22 22:00:13 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/01/12 14:20:38 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,10 @@ void	make_obj_plane_2(t_data *p, t_world *w, char **tab)
 		if (!(ft_strcmp(tab[1], "1")))
 			w->pl[p->pl_i].is_tex++;
 	}
-	if (!(ft_strcmp(tab[0], "color_a:")))
-		pattern_color_pl(p, w, tab, 1);
-	if (!(ft_strcmp(tab[0], "color_b:")))
-		pattern_color_pl(p, w, tab, 2);
 	if (!(ft_strcmp(tab[0], "pattern_color_a:")))
-		pattern_color_pl(p, w, tab, 3);
+		pattern_color_pl(p, w, tab, 1);
 	if (!(ft_strcmp(tab[0], "pattern_color_b:")))
-		pattern_color_pl(p, w, tab, 4);
+		pattern_color_pl(p, w, tab, 2);
 	if (!(ft_strcmp(tab[0], "tex:")) && len_tab(tab) == 2)
 		texture_sp(tab, p, w);
 	if (!(ft_strcmp(tab[0], "height:")))

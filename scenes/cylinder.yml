@@ -8,6 +8,12 @@ objects:
                 specular: 0.9
                 shininess: 300
                 reflective: 0.1
+                pattern: 1
+                width: 10
+                height: 20
+                pattern_type: gradient
+                pattern_color_a: {r: 0.5, g: 0, b: 0.5}
+                pattern_color_b: {r: 1, g: 1, b: 0}
 lights:
       - light:
                 type: point

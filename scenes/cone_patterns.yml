@@ -9,7 +9,7 @@ objects:
                 shininess: 300
                 reflective: 0.1
                 pattern: 1
-                pattern_type: checker
+                pattern_type: stripe
                 pattern_color_a: {r: 1, g: 0, b: 0}
                 pattern_color_b: {r: 0, g: 0.6, b: 0}
                 height: 5

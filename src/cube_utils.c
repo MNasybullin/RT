@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 17:15:32 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/15 17:48:51 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/01/12 13:51:26 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	make_obj_cube_4(t_data *p, t_world *w, char **tab, char *tmp)
 		w->cub[p->cube_i].back = ft_strdup(tmp);
 		free(tmp);
 	}
-	if (!(ft_strcmp(tab[0], "color_a:")))
+	if (!(ft_strcmp(tab[0], "pattern_color_a:")))
 		pattern_color_cube(p, w, tab, 1);
-	if (!(ft_strcmp(tab[0], "color_b:")))
+	if (!(ft_strcmp(tab[0], "pattern_color_b:")))
 		pattern_color_cube(p, w, tab, 2);
 }
 

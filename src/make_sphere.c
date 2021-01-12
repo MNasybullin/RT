@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 16:36:11 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/22 22:57:42 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/01/12 13:57:23 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,10 @@ void	make_obj_sphere_2(t_data *p, t_world *w, char **tab)
 	if (!(ft_strcmp(tab[0], "obj_scaling:")) ||
 	!(ft_strcmp(tab[0], "m_scaling:")))
 		complex_params_sphere(p, w, tab, 4);
-	if (!(ft_strcmp(tab[0], "color_a:")))
-		pattern_color_sp(p, w, tab, 1);
-	if (!(ft_strcmp(tab[0], "color_b:")))
-		pattern_color_sp(p, w, tab, 2);
 	if (!(ft_strcmp(tab[0], "pattern_color_a:")))
-		pattern_color_sp(p, w, tab, 3);
+		pattern_color_sp(p, w, tab, 1);
 	if (!(ft_strcmp(tab[0], "pattern_color_b:")))
-		pattern_color_sp(p, w, tab, 4);
+		pattern_color_sp(p, w, tab, 2);
 	if (!(ft_strcmp(tab[0], "width:")))
 		w->s[p->sp_i].width = ft_atoi(tab[1]);
 	if (!(ft_strcmp(tab[0], "height:")))

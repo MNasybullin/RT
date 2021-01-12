@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 20:14:25 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 20:31:16 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/01/12 14:32:33 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	making_light(t_data *p, t_world *w, char **tab)
 	{
 		get_next_line(p->fd, &p->line);
 		tab = ft_strsplit(p->line, ' ');
+		if (len_tab(tab) == 0)
+			exit(err_wrong_format());
 	}
 	if (len_tab(tab) == 2 && (ft_strcmp(tab[0], "-") &&
 	(ft_strcmp(tab[1], "light:"))))
@@ -58,7 +60,7 @@ void	making_camera(t_data *p, t_world *w, char **tab)
 		get_next_line(p->fd, &p->line);
 		tab = ft_strsplit(p->line, ' ');
 	}
-	if (ft_strequ(tab[0], "-") && ft_strequ(tab[1], "camera:"))
+	if (len_tab(tab) == 2 && ft_strequ(tab[0], "-") && ft_strequ(tab[1], "camera:"))
 	{
 		p->cam_num++;
 		p->tab = NULL;
@@ -93,6 +95,8 @@ int		read_file(char *file, t_data *p, t_world *w)
 	while ((get_next_line(p->fd, &p->line)))
 	{
 		tab = ft_strsplit(p->line, ' ');
+		if (len_tab(tab) == 0)
+			exit(err_wrong_format());
 		if (check_is_obj(tab, p))
 			making_obj(tab, p, w);
 		if (check_is_light(tab, p))

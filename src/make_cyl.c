@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_cyl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:36:46 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/23 19:32:08 by out-nasybul      ###   ########.fr       */
+/*   Updated: 2021/01/12 14:15:40 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,10 @@ void	make_obj_cyl_2(t_data *p, t_world *w, char **tab)
 		complex_params_cyl(p, w, tab, 4);
 	if (!(ft_strcmp(tab[0], "pattern:")) && !(ft_strcmp(tab[1], "1")))
 		w->cyl[p->cyl_i].m.pattern = 1;
-	if (!(ft_strcmp(tab[0], "color_a:")))
-		pattern_color_cyl(p, w, tab, 1);
-	if (!(ft_strcmp(tab[0], "color_b:")))
-		pattern_color_cyl(p, w, tab, 2);
 	if (!(ft_strcmp(tab[0], "pattern_color_a:")))
-		pattern_color_sp(p, w, tab, 3);
+		pattern_color_cyl(p, w, tab, 1);
+	if (!(ft_strcmp(tab[0], "pattern_color_b:")))
+		pattern_color_cyl(p, w, tab, 2);
 }
 
 void	make_obj_cyl(t_data *p, t_world *w, char **tab)
@@ -137,7 +135,6 @@ char	**make_cyl(t_data *p, t_world *w, char **tab)
 	if (w->cyl[p->cyl_i].m.pattern == 1)
 		cyl_patterns(p, w);
 	p->cyl_i++;
-	//printf("color: %f %f %f\n, amb: %f\nshine %f\ndiffuse %f\n", w->cyl[0].m.color.r, w->cyl[0].m.color.g, w->cyl[0].m.color.b, w->cyl[0].m.ambient, w->cyl[0].m.shininess, w->cyl[0].m.diffuse);
 	if ((!(ft_strequ(tab[0], "lights:")) &&
 	!(ft_strequ(tab[1], "lights:"))) && (!(ft_strequ(tab[0], "cameras:"))
 	&& !(ft_strequ(tab[1], "camera:"))))

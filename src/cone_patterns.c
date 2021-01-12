@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cone_patterns.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 16:51:52 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/23 19:20:58 by out-nasybul      ###   ########.fr       */
+/*   Updated: 2021/01/12 13:10:05 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	cone_patterns_1(t_data *p, t_world *w)
 {
-	w->cone[p->cone_i].check.color_a = w->cone[p->cone_i].color_a;
-	w->cone[p->cone_i].check.color_b = w->cone[p->cone_i].color_b;
+	w->cone[p->cone_i].check.color_a = w->cone[p->cone_i].m.p.a;
+	w->cone[p->cone_i].check.color_b = w->cone[p->cone_i].m.p.b;
 	w->cone[p->cone_i].check.width = w->cone[p->cone_i].width;
 	w->cone[p->cone_i].check.height = w->cone[p->cone_i].height;
 	uv_checkers(w->cone[p->cone_i].check, &w->cone[p->cone_i].m.p);

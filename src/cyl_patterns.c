@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cyl_patterns.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 18:52:03 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/23 19:28:18 by out-nasybul      ###   ########.fr       */
+/*   Updated: 2021/01/12 14:16:43 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,6 @@ void	pattern_color_cyl(t_data *p, t_world *w, char **tab, int flag)
 		else if (flag == 2)
 			w->cyl[p->cyl_i].m.p.b = color(ft_strtodbl(tab1[0]),
 			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
-		else if (flag == 3)
-			w->cyl[p->cyl_i].color_a = color(ft_strtodbl(tab1[0]),
-			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
-		else if (flag == 4)
-			w->cyl[p->cyl_i].color_b = color(ft_strtodbl(tab1[0]),
-			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
 	}
 }
 
@@ -62,8 +56,8 @@ void	texture_cyl(char **tab, t_data *p, t_world *w)
 
 void	cyl_patterns_1(t_data *p, t_world *w, t_uv_check check)
 {
-	check.color_a = w->cyl[p->cyl_i].color_a;
-	check.color_b = w->cyl[p->cyl_i].color_b;
+	check.color_a = w->cyl[p->cyl_i].m.p.a;
+	check.color_b = w->cyl[p->cyl_i].m.p.b;
 	check.width = w->cyl[p->cyl_i].width;
 	check.height = w->cyl[p->cyl_i].height;
 	uv_checkers(check, &w->cyl[p->cyl_i].m.p);

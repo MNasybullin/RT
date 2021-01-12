@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:49:57 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/22 23:31:43 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/01/12 14:05:04 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	make_obj_tri_4(t_data *p, t_world *w, char **tab)
 {
 	if (!(ft_strcmp(tab[0], "pattern_color_a:")))
-		pattern_color_tri(p, w, tab, 3);
+		pattern_color_tri(p, w, tab, 1);
 	if (!(ft_strcmp(tab[0], "pattern_color_b:")))
-		pattern_color_tri(p, w, tab, 4);
+		pattern_color_tri(p, w, tab, 2);
 	if (!(ft_strcmp(tab[0], "width:")))
 		w->trian[p->tri_i].width = ft_atoi(tab[1]);
 	if (!(ft_strcmp(tab[0], "height:")))
@@ -32,16 +32,20 @@ void	make_obj_tri_3(t_data *p, t_world *w, char **tab)
 			w->trian[p->tri_i].pattern_type = 1;
 		if (!(ft_strcmp(tab[1], "stripe")))
 			w->trian[p->tri_i].pattern_type = 2;
+		if (!(ft_strcmp(tab[1], "ring")))
+			w->trian[p->tri_i].pattern_type = 3;
+		if (!(ft_strcmp(tab[1], "gradient")))
+			w->trian[p->tri_i].pattern_type = 4;
 	}
 	if (!(ft_strcmp(tab[0], "pattern:")))
 	{
 		if (!(ft_strcmp(tab[1], "1")))
 			w->trian[p->tri_i].m.pattern = 1;
 	}
-	if (!(ft_strcmp(tab[0], "color_a:")))
+	/*if (!(ft_strcmp(tab[0], "color_a:")))
 		pattern_color_tri(p, w, tab, 1);
 	if (!(ft_strcmp(tab[0], "color_b:")))
-		pattern_color_tri(p, w, tab, 2);
+		pattern_color_tri(p, w, tab, 2);*/
 	if (!(ft_strcmp(tab[0], "tex:")) && len_tab(tab) == 2)
 		texture_tri(tab, p, w);
 	if (!(ft_strcmp(tab[0], "texture:")) && len_tab(tab) == 2)

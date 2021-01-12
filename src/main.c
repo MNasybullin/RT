@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 20:28:00 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/23 19:22:39 by out-nasybul      ###   ########.fr       */
+/*   Updated: 2021/01/12 14:04:39 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ int		main(int ac, char **av)
 	w.max_obj = p.obj_n;
 	w.ar_count = 0;
 	pushing_objects(&p, &w);
+	printf("Triangle pattern type: %d\n", w.trian[0].pattern_type);
 	//printf("\n\nAREA LIGHT:\ncorner: %f %f %f %f\nv1: %f %f %f %f\nusteps: %d\n\n", w.light[0].corner.c[0], w.light[0].corner.c[1], w.light[0].corner.c[2], w.light[0].corner.c[3], w.light[0].vvec.c[0], w.light[0].vvec.c[1], w.light[0].vvec.c[2], w.light[0].vvec.c[3], w.light[0].usteps);
 	/*printf("tr 0 = %f, %f, %f, %f\n", w.s[0].transform.m[0][0], w.s[0].transform.m[0][1], w.s[0].transform.m[0][2], w.s[0].transform.m[0][3]);
     printf("tr 1 = %f, %f, %f, %f\n", w.s[0].transform.m[1][0], w.s[0].transform.m[1][1], w.s[0].transform.m[1][2], w.s[0].transform.m[1][3]);
