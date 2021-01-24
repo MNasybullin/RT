@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 19:51:25 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/08 14:49:20 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/01/24 18:38:19 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	making_obj(char **tab, t_data *p, t_world *w)
 	free_tab(tab);
 	tab = NULL;
 	tab = ft_strsplit(p->line, ' ');
-	if (len_tab(tab) >= 2)
+	if (len_tab(tab) == 2)
 	{
 		p->tab = (char**)malloc(sizeof(char) * 2);
 		p->tab[0] = ft_strdup(tab[0]);

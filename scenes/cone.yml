@@ -1,4 +1,4 @@
----  
+---
 objects:
         - object:
                 type: cone
@@ -8,16 +8,12 @@ objects:
                 specular: 0.9
                 shininess: 300
                 reflective: 0.1
-                tex: 1
-                pattern: 1
-                texture: "textures/posx.bmp"
 lights:
       - light:
                 type: point
                 color: {r: 1, g: 1, b: 1}
                 pos: {x: -4.9, y: 4.9, z: -1, w: 1}
 cameras:
-      
       - camera:
                 fov: 1.152
                 from: {x: 0, y: 0, z: -9, w: 1}
