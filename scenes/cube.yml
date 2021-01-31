@@ -3,7 +3,6 @@ objects:
         - object:
                 type: cube
                 color: {r: 0.5, g: 1, b: 0.5}
-                
                 ambient: 0.25
                 diffuse: 0.7
                 specular: 0.9

@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/22 23:34:45 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/01/31 18:33:33 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -743,6 +743,7 @@ int		err_trans_matrix(void);
 int		err_invalid_file(void);
 int		err_num_tex(void);
 int		err_empty_line(void);
+int		err_empty_file(void);
 
 /*
 ** utils

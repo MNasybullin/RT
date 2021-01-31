@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 20:14:25 by mgalt             #+#    #+#             */
-/*   Updated: 2021/01/24 18:37:14 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/01/31 18:32:17 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ int		read_file(char *file, t_data *p, t_world *w)
 	init_parse(p, w);
 	if ((p->fd = open(file, O_RDONLY)) == -1)
 		exit(err_invalid_file());
-	get_next_line(p->fd, &p->line);
+	if (!(get_next_line(p->fd, &p->line)))
+		exit(err_empty_file());
 	if ((ft_strcmp(p->line, "---")))
 		exit(err_invalid_file());
 	reading(p, w, file);

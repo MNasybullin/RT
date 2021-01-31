@@ -6,7 +6,7 @@
 #    By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/06 10:40:08 by aannara           #+#    #+#              #
-#    Updated: 2020/12/22 23:31:38 by mgalt            ###   ########.fr        #
+#    Updated: 2021/01/31 18:33:55 by mgalt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,8 @@ SRC = ./src/main.c \
 	./src/sphere_utils.c \
 	./src/init_tri.c \
 	./src/tri_utils.c \
-	./src/tri_utils_2.c
+	./src/tri_utils_2.c \
+	./src/error_2.c
 
 OBJ = $(SRC:.c=.o)
 
