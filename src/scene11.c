@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/27 19:29:04 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/10 21:16:35 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/12/08 18:02:07 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@
 	int i = 0;
 	while (i < w.pl_obj)
 	{
-		if (check_transform_matrix(w.pl[i].transform, w.pl[i].m.p.transform, w.pl[i].m.pattern) == EXIT_FAILURE)
+		if (check_transform_matrix(&w.pl[i].transform, &w.pl[i].m.p.transform, w.pl[i].m.pattern) == EXIT_FAILURE)
 			exit(-1); // нужно сделать правильный выход из программы
 		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &w, &w.pl[i].m, &w.pl[i].transform);
 		i++;
@@ -173,7 +173,7 @@
 	i = 0;
 	while (i < w.s_obj)
 	{
-		if (check_transform_matrix(w.s[i].transform, w.s[i].m.p.transform, w.s[i].m.pattern) == EXIT_FAILURE)
+		if (check_transform_matrix(&w.s[i].transform, &w.s[i].m.p.transform, w.s[i].m.pattern) == EXIT_FAILURE)
 			exit(-1); // нужно сделать правильный выход из программы
 		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &w, &w.s[i].m, &w.s[i].transform);
 		i++;
@@ -369,7 +369,7 @@ w.ar_count = 0;
 int i = 0;
 while (i < w.max_obj)
 {
-	if (check_transform_matrix(w.cub[i].transform, w.cub[i].m.p.transform, w.cub[i].m.pattern) == EXIT_FAILURE)
+	if (check_transform_matrix(&w.cub[i].transform, &w.cub[i].m.p.transform, w.cub[i].m.pattern) == EXIT_FAILURE)
 		exit(-1); // нужно сделать правильный выход из программы
 	push_obj((void*)(&w.cub[i]), &normal_at_cube, &intersect_cube, &w, &w.cub[i].m, &w.cub[i].transform);
 	i++;
@@ -437,7 +437,7 @@ c.transform = view_transform(set_v_p(8, 6, -8, 1), set_v_p(0, 3, 0, 1), set_v_p(
 	int i = 0;
 	while (i < w.pl_obj)
 	{
-		if (check_transform_matrix(w.pl[i].transform, w.pl[i].m.p.transform, w.pl[i].m.pattern) == EXIT_FAILURE)
+		if (check_transform_matrix(&w.pl[i].transform, &w.pl[i].m.p.transform, w.pl[i].m.pattern) == EXIT_FAILURE)
 			exit(-1); // нужно сделать правильный выход из программы
 		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &w, &w.pl[i].m, &w.pl[i].transform);
 		i++;
@@ -445,7 +445,7 @@ c.transform = view_transform(set_v_p(8, 6, -8, 1), set_v_p(0, 3, 0, 1), set_v_p(
 	i = 0;
 	while (i < w.s_obj)
 	{
-		if (check_transform_matrix(w.s[i].transform, w.s[i].m.p.transform, w.s[i].m.pattern) == EXIT_FAILURE)
+		if (check_transform_matrix(&w.s[i].transform, &w.s[i].m.p.transform, w.s[i].m.pattern) == EXIT_FAILURE)
 			exit(-1); // нужно сделать правильный выход из программы
 		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &w, &w.s[i].m, &w.s[i].transform);
 		i++;
@@ -454,7 +454,7 @@ c.transform = view_transform(set_v_p(8, 6, -8, 1), set_v_p(0, 3, 0, 1), set_v_p(
 	i = 0;
 	while (i < w.cub_obj)
 	{
-		if (check_transform_matrix(w.cub[i].transform, w.cub[i].m.p.transform, w.cub[i].m.pattern) == EXIT_FAILURE)
+		if (check_transform_matrix(&w.cub[i].transform, &w.cub[i].m.p.transform, w.cub[i].m.pattern) == EXIT_FAILURE)
 			exit(-1); // нужно сделать правильный выход из программы
 		push_obj((void*)(&w.cub[i]), &normal_at_cube, &intersect_cube, &w, &w.cub[i].m, &w.cub[i].transform);
 		i++;
@@ -498,7 +498,7 @@ c.transform = view_transform(set_v_p(8, 6, -8, 1), set_v_p(0, 3, 0, 1), set_v_p(
 	int i = 0;
 	while (i < w.s_obj)
 	{
-		if (check_transform_matrix(w.s[i].transform, w.s[i].m.p.transform, w.s[i].m.pattern) == EXIT_FAILURE)
+		if (check_transform_matrix(&w.s[i].transform, &w.s[i].m.p.transform, w.s[i].m.pattern) == EXIT_FAILURE)
 			exit(-1); // нужно сделать правильный выход из программы
 		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &w, &w.s[i].m, &w.s[i].transform);
 		i++;
@@ -534,7 +534,7 @@ c.transform = view_transform(set_v_p(8, 6, -8, 1), set_v_p(0, 3, 0, 1), set_v_p(
 	int i = 0;
 	while (i < w.pl_obj)
 	{
-		if (check_transform_matrix(w.pl[i].transform, w.pl[i].m.p.transform, w.pl[i].m.pattern) == EXIT_FAILURE)
+		if (check_transform_matrix(&w.pl[i].transform, &w.pl[i].m.p.transform, w.pl[i].m.pattern) == EXIT_FAILURE)
 			exit(-1); // нужно сделать правильный выход из программы
 		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &w, &w.pl[i].m, &w.pl[i].transform);
 		i++;
@@ -578,7 +578,7 @@ c.transform = view_transform(set_v_p(8, 6, -8, 1), set_v_p(0, 3, 0, 1), set_v_p(
 	int i = 0;
 	while (i < w.cyl_obj)
 	{
-		if (check_transform_matrix(w.cyl[i].transform, w.cyl[i].m.p.transform, w.cyl[i].m.pattern) == EXIT_FAILURE)
+		if (check_transform_matrix(&w.cyl[i].transform, &w.cyl[i].m.p.transform, w.cyl[i].m.pattern) == EXIT_FAILURE)
 			exit(-1); // нужно сделать правильный выход из программы
 		push_obj((void*)(&w.cyl[i]), &normal_at_cyl, &intersect_cyl, &w, &w.cyl[i].m, &w.cyl[i].transform);
 		i++;
@@ -730,7 +730,7 @@ c.transform = view_transform(set_v_p(8, 6, -8, 1), set_v_p(0, 3, 0, 1), set_v_p(
 	int i = 0;
 	while (i < w.cub_obj)
 	{
-		if (check_transform_matrix(w.cub[i].transform, w.cub[i].m.p.transform, w.cub[i].m.pattern) == EXIT_FAILURE)
+		if (check_transform_matrix(&w.cub[i].transform, &w.cub[i].m.p.transform, w.cub[i].m.pattern) == EXIT_FAILURE)
 			exit(-1); // нужно сделать правильный выход из программы
 		push_obj((void*)(&w.cub[i]), &normal_at_cube, &intersect_cube, &w, &w.cub[i].m, &w.cub[i].transform);
 		i++;
@@ -796,7 +796,7 @@ c.transform = view_transform(set_v_p(8, 6, -8, 1), set_v_p(0, 3, 0, 1), set_v_p(
 	int i = 0;
 	while (i < w.s_obj)
 	{
-		if (check_transform_matrix(w.s[i].transform, w.s[i].m.p.transform, w.s[i].m.pattern) == EXIT_FAILURE)
+		if (check_transform_matrix(&w.s[i].transform, &w.s[i].m.p.transform, w.s[i].m.pattern) == EXIT_FAILURE)
 			exit(-1); // нужно сделать правильный выход из программы
 		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &w, &w.s[i].m, &w.s[i].transform);
 		i++;
@@ -805,7 +805,7 @@ c.transform = view_transform(set_v_p(8, 6, -8, 1), set_v_p(0, 3, 0, 1), set_v_p(
 	i = 0;
 	while (i < w.cub_obj)
 	{
-		if (check_transform_matrix(w.cub[i].transform, w.cub[i].m.p.transform, w.cub[i].m.pattern) == EXIT_FAILURE)
+		if (check_transform_matrix(&w.cub[i].transform, &w.cub[i].m.p.transform, w.cub[i].m.pattern) == EXIT_FAILURE)
 			exit(-1); // нужно сделать правильный выход из программы
 		push_obj((void*)(&w.cub[i]), &normal_at_cube, &intersect_cube, &w, &w.cub[i].m, &w.cub[i].transform);
 		i++;
@@ -890,7 +890,7 @@ c.transform = view_transform(set_v_p(8, 6, -8, 1), set_v_p(0, 3, 0, 1), set_v_p(
 	int i = 0;
 	while (i < w.s_obj)
 	{
-		if (check_transform_matrix(w.s[i].transform, w.s[i].m.p.transform, w.s[i].m.pattern) == EXIT_FAILURE)
+		if (check_transform_matrix(&w.s[i].transform, &w.s[i].m.p.transform, w.s[i].m.pattern) == EXIT_FAILURE)
 			exit(-1); // нужно сделать правильный выход из программы
 		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &w, &w.s[i].m, &w.s[i].transform);
 		i++;
@@ -899,7 +899,7 @@ c.transform = view_transform(set_v_p(8, 6, -8, 1), set_v_p(0, 3, 0, 1), set_v_p(
 	i = 0;
 	while (i < w.pl_obj)
 	{
-		if (check_transform_matrix(w.pl[i].transform, w.pl[i].m.p.transform, w.pl[i].m.pattern) == EXIT_FAILURE)
+		if (check_transform_matrix(&w.pl[i].transform, &w.pl[i].m.p.transform, w.pl[i].m.pattern) == EXIT_FAILURE)
 			exit(-1); // нужно сделать правильный выход из программы
 		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &w, &w.pl[i].m, &w.pl[i].transform);
 		i++;
@@ -908,7 +908,7 @@ c.transform = view_transform(set_v_p(8, 6, -8, 1), set_v_p(0, 3, 0, 1), set_v_p(
 	i = 0;
 	while (i < w.cyl_obj)
 	{
-		if (check_transform_matrix(w.cyl[i].transform, w.cyl[i].m.p.transform, w.cyl[i].m.pattern) == EXIT_FAILURE)
+		if (check_transform_matrix(&w.cyl[i].transform, &w.cyl[i].m.p.transform, w.cyl[i].m.pattern) == EXIT_FAILURE)
 			exit(-1); // нужно сделать правильный выход из программы
 		push_obj((void*)(&w.cyl[i]), &normal_at_cyl, &intersect_cyl, &w, &w.cyl[i].m, &w.cyl[i].transform);
 		i++;
@@ -1021,7 +1021,7 @@ c.transform = view_transform(set_v_p(8, 6, -8, 1), set_v_p(0, 3, 0, 1), set_v_p(
 	int i = 0;
 	while (i < w.s_obj)
 	{
-		if (check_transform_matrix(w.s[i].transform, w.s[i].m.p.transform, w.s[i].m.pattern) == EXIT_FAILURE)
+		if (check_transform_matrix(&w.s[i].transform, &w.s[i].m.p.transform, w.s[i].m.pattern) == EXIT_FAILURE)
 			exit(-1); // нужно сделать правильный выход из программы
 		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &w, &w.s[i].m, &w.s[i].transform);
 		i++;
@@ -1030,7 +1030,7 @@ c.transform = view_transform(set_v_p(8, 6, -8, 1), set_v_p(0, 3, 0, 1), set_v_p(
 	i = 0;
 	while (i < w.pl_obj)
 	{
-		if (check_transform_matrix(w.pl[i].transform, w.pl[i].m.p.transform, w.pl[i].m.pattern) == EXIT_FAILURE)
+		if (check_transform_matrix(&w.pl[i].transform, &w.pl[i].m.p.transform, w.pl[i].m.pattern) == EXIT_FAILURE)
 			exit(-1); // нужно сделать правильный выход из программы
 		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &w, &w.pl[i].m, &w.pl[i].transform);
 		i++;
@@ -1039,7 +1039,7 @@ c.transform = view_transform(set_v_p(8, 6, -8, 1), set_v_p(0, 3, 0, 1), set_v_p(
 	i = 0;
 	while (i < w.cyl_obj)
 	{
-		if (check_transform_matrix(w.cyl[i].transform, w.cyl[i].m.p.transform, w.cyl[i].m.pattern) == EXIT_FAILURE)
+		if (check_transform_matrix(&w.cyl[i].transform, &w.cyl[i].m.p.transform, w.cyl[i].m.pattern) == EXIT_FAILURE)
 			exit(-1); // нужно сделать правильный выход из программы
 		push_obj((void*)(&w.cyl[i]), &normal_at_cyl, &intersect_cyl, &w, &w.cyl[i].m, &w.cyl[i].transform);
 		i++;
@@ -1047,3 +1047,155 @@ c.transform = view_transform(set_v_p(8, 6, -8, 1), set_v_p(0, 3, 0, 1), set_v_p(
 
 	t_camera c = camera(WIN_W, WIN_H, 0.8);
 	c.transform = view_transform(set_v_p(1, 2, -12, 1), set_v_p(0, 0.9, 0, 1), set_v_p(0, 1, 0, 0));
+
+
+
+
+
+
+
+
+// Texture mapping
+// planar checkers pattern
+	w.pl[0] = set_plane();
+	checker_pattern_shape(color(0, 0.5, 0), color(1, 1, 1), &w.pl[0].m);
+
+	t_vec	p1 = set_v_p(1,0,0,1);
+	t_vec	p2 = set_v_p(-1,0,0,1);
+	t_vec	p3 = set_v_p(0,1,0,1);
+	w.trian[0] = set_trian(p1, p2, p3);
+	checker_pattern_shape(color(0, 0.5, 0), color(1, 1, 1), &w.trian[0].m);
+	w.trian[0].transform = matrix_mult(w.trian[0].transform, translation(0, 2, 0));
+	w.trian[0].transform = matrix_mult(w.trian[0].transform, rotation_y(1));
+	w.trian[0].m.p.transform = matrix_mult(w.trian[0].m.p.transform, scaling(0.2, 0.2, 0.2));
+
+	w.cub[0] = set_cube();
+	w.cub[0].m.color = color(1, 0, 0);
+	w.cub[0].transform = matrix_mult(w.cub[0].transform, translation(0, 0, -3));
+	checker_pattern_shape(color(0, 0.5, 0), color(1, 1, 1), &w.cub[0].m);
+	w.cub[0].m.p.transform = matrix_mult(w.cub[0].m.p.transform, scaling(0.2, 0.2, 0.2));
+
+	w.s[0] = set_sphere();
+	w.s[0].m.color = color(0.5, 0.5, 0);
+	w.s[0].m.pattern = 1;
+	t_uv_check check;
+	check.color_a = color(0, 0.5, 0);
+	check.color_b = color(1, 1, 1);
+	check.width = 20;
+	check.height = 10;
+	uv_checkers(check, &w.s[0].m.p);
+	w.s[0].m.pattern_at = &pattern_at;
+	w.s[0].m.p.transform = identity_matrix();
+	w.s[0].m.texturemap = texture_map(w.s[0].m.p, &spherical_map);
+	w.s[0].m.ambient = 0.1;
+	w.s[0].m.specular = 0.4;
+	w.s[0].m.diffuse = 0.6;
+	w.s[0].m.shininess = 10;
+
+	w.cyl[0] = set_cylinder();
+	w.cyl[0].min = 0;
+	w.cyl[0].max = 1;
+	w.cyl[0].closed = 1;
+	w.cyl[0].m.pattern = 1;
+	w.cyl[0].transform = matrix_mult(w.cyl[0].transform, translation(2, 0, 0));
+	check.color_a = color(0, 0.5, 0);
+	check.color_b = color(1, 1, 1);
+	check.width = 16;
+	check.height = 8;
+	uv_checkers(check, &w.cyl[0].m.p);
+	w.cyl[0].m.pattern_at = &pattern_at;
+	w.cyl[0].m.p.transform = identity_matrix();
+	w.cyl[0].m.texturemap = texture_map(w.cyl[0].m.p, &cylindrical_map);
+	w.cyl[0].m.ambient = 0.1;
+	w.cyl[0].m.specular = 0.6;
+	w.cyl[0].m.diffuse = 0.8;
+	w.cyl[0].m.shininess = 15;
+
+	w.cone[0] = set_cone();
+	w.cone[0].min = -1;
+	w.cone[0].max = 1;
+	w.cone[0].closed = 1;
+	w.cone[0].m.pattern = 1;
+	w.cone[0].transform = matrix_mult(w.cone[0].transform, translation(-2, 2, 0));
+	check.color_a = color(0, 0.5, 0);
+	check.color_b = color(1, 1, 1);
+	check.width = 16;
+	check.height = 8;
+	uv_checkers(check, &w.cone[0].m.p);
+	w.cone[0].m.pattern_at = &pattern_at;
+	w.cone[0].m.p.transform = identity_matrix();
+	w.cone[0].m.texturemap = texture_map(w.cone[0].m.p, &cylindrical_map);
+	w.cone[0].m.ambient = 0.1;
+	w.cone[0].m.specular = 0.6;
+	w.cone[0].m.diffuse = 0.8;
+	w.cone[0].m.shininess = 15;
+
+	//light
+	w.light_obj = 1;
+	t_vec corner = set_v_p(-10, 10, -10, 1);
+	w.light[0] = point_light(color(1, 1, 1), corner);
+
+	w.pl_obj = 1;
+	w.s_obj = 1;
+	w.cyl_obj = 1;
+	w.cone_obj = 1;
+	w.cub_obj = 1;
+	w.trian_obj = 1;
+	w.ar_count = 0;
+
+	int i = 0;
+	while (i < w.pl_obj)
+	{
+		if (check_transform_matrix(&w.pl[i].transform, &w.pl[i].m.p.transform, w.pl[i].m.pattern) == EXIT_FAILURE)
+			exit(-1); // нужно сделать правильный выход из программы
+		push_obj((void*)(&w.pl[i]), &normal_at_pl, &intersect_pl, &w, &w.pl[i].m, &w.pl[i].transform);
+		i++;
+	}
+
+	i = 0;
+	while (i < w.trian_obj)
+	{
+		if (check_transform_matrix(&w.trian[i].transform, &w.trian[i].m.p.transform, w.trian[i].m.pattern) == EXIT_FAILURE)
+			exit(-1); // нужно сделать правильный выход из программы
+		push_obj((void*)(&w.trian[i]), &normal_at_trian, &intersect_trian, &w, &w.trian[i].m, &w.trian[i].transform);
+		i++;
+	}
+
+	i = 0;
+	while (i < w.s_obj)
+	{
+		if (check_transform_matrix(&w.s[i].transform, &w.s[i].m.p.transform, w.s[i].m.pattern) == EXIT_FAILURE)
+			exit(-1); // нужно сделать правильный выход из программы
+		push_obj((void*)(&w.s[i]), &normal_at_sp, &intersect_sp, &w, &w.s[i].m, &w.s[i].transform);
+		i++;
+	}
+
+	i = 0;
+	while (i < w.cyl_obj)
+	{
+		if (check_transform_matrix(&w.cyl[i].transform, &w.cyl[i].m.p.transform, w.cyl[i].m.pattern) == EXIT_FAILURE)
+			exit(-1); // нужно сделать правильный выход из программы
+		push_obj((void*)(&w.cyl[i]), &normal_at_cyl, &intersect_cyl, &w, &w.cyl[i].m, &w.cyl[i].transform);
+		i++;
+	}
+
+	i = 0;
+	while (i < w.cone_obj)
+	{
+		if (check_transform_matrix(&w.cone[i].transform, &w.cone[i].m.p.transform, w.cone[i].m.pattern) == EXIT_FAILURE)
+			exit(-1); // нужно сделать правильный выход из программы
+		push_obj((void*)(&w.cone[i]), &normal_at_cone, &intersect_cone, &w, &w.cone[i].m, &w.cone[i].transform);
+		i++;
+	}
+
+	i = 0;
+	while (i < w.cub_obj)
+	{
+		if (check_transform_matrix(&w.cub[i].transform, &w.cub[i].m.p.transform, w.cub[i].m.pattern) == EXIT_FAILURE)
+			exit(-1); // нужно сделать правильный выход из программы
+		push_obj((void*)(&w.cub[i]), &normal_at_cube, &intersect_cube, &w, &w.cub[i].m, &w.cub[i].transform);
+		i++;
+	}
+
+	t_camera c = camera(WIN_W, WIN_H, 0.5);
+	c.transform = view_transform(set_v_p(2, 3, -13, 1), set_v_p(0, 0, 0, 1), set_v_p(0, 1, 0, 0));

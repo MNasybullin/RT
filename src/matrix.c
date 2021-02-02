@@ -6,121 +6,15 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 16:50:33 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/12 20:40:24 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/12/08 16:55:14 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/rt.h"
 
-int	identic_m_4(t_matrix a, t_matrix b)
+double		matrix_determinant_2(t_matrix m)
 {
-	int i;
-	int j;
-
-	i = 0;
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			if (check_eps(a.m[i][j], b.m[i][j]) == 0)
-				return (0);
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-
-t_matrix	matrix_mult(t_matrix a, t_matrix b)
-{
-	t_matrix m;
-	int r;
-	int c;
-
-	r = 0;
-	while (r < 4)
-	{
-		c = 0;
-		while (c < 4)
-		{
-			m.m[r][c] = a.m[r][0] * b.m[0][c] + a.m[r][1] * b.m[1][c] + a.m[r][2] * b.m[2][c] + a.m[r][3] * b.m[3][c];
-			c++;
-		}
-		r++;
-	}
-	return (m);
-}
-
-t_vec	matrix_mult_v_p(t_matrix a, t_vec b)
-{
-	t_vec m;
-
-	m.c[0] = a.m[0][0] * b.c[0] + a.m[0][1] * b.c[1] + a.m[0][2] * b.c[2] + a.m[0][3] * b.c[3];
-	m.c[1] = a.m[1][0] * b.c[0] + a.m[1][1] * b.c[1] + a.m[1][2] * b.c[2] + a.m[1][3] * b.c[3];
-	m.c[2] = a.m[2][0] * b.c[0] + a.m[2][1] * b.c[1] + a.m[2][2] * b.c[2] + a.m[2][3] * b.c[3];
-	m.c[3] = a.m[3][0] * b.c[0] + a.m[3][1] * b.c[1] + a.m[3][2] * b.c[2] + a.m[3][3] * b.c[3];
-	return (m);
-}
-
-t_matrix	matrix_identity(t_matrix a)
-{
-	t_matrix m;
-	t_matrix b;
-	int r;
-
-	b = identity_matrix();
-	r = 0;
-	while (r < 4)
-	{
-		m.m[r][0] = a.m[r][0] * b.m[0][0] + a.m[r][1] * b.m[1][0] + a.m[r][2] * b.m[2][0] + a.m[r][3] * b.m[3][0];
-		m.m[r][1] = a.m[r][0] * b.m[0][1] + a.m[r][1] * b.m[1][1] + a.m[r][2] * b.m[2][1] + a.m[r][3] * b.m[3][1];
-		m.m[r][2] = a.m[r][0] * b.m[0][2] + a.m[r][1] * b.m[1][2] + a.m[r][2] * b.m[2][2] + a.m[r][3] * b.m[3][2];
-		m.m[r][3] = a.m[r][0] * b.m[0][3] + a.m[r][1] * b.m[1][3] + a.m[r][2] * b.m[2][3] + a.m[r][3] * b.m[3][3];
-		r++;
-	}
-	return (m);
-}
-
-t_vec	matrix_identity_v_p(t_vec a)
-{
-	t_vec m;
-	t_matrix b;
-	int r;
-
-	b = identity_matrix();
-	r = 0;
-	while (r < 4)
-	{
-		m.c[r] = a.c[r] * b.m[0][0] + a.c[r] * b.m[1][0] + a.c[r] * b.m[2][0] + a.c[r] * b.m[3][0];
-		m.c[r] = a.c[r] * b.m[0][1] + a.c[r] * b.m[1][1] + a.c[r] * b.m[2][1] + a.c[r] * b.m[3][1];
-		m.c[r] = a.c[r] * b.m[0][2] + a.c[r] * b.m[1][2] + a.c[r] * b.m[2][2] + a.c[r] * b.m[3][2];
-		m.c[r] = a.c[r] * b.m[0][3] + a.c[r] * b.m[1][3] + a.c[r] * b.m[2][3] + a.c[r] * b.m[3][3];
-		r++;
-	}
-	return (m);
-}
-
-t_matrix	matrix_transposing(t_matrix a)
-{
-	t_matrix b;
-	int i;
-
-	i = 0;
-	while (i < 4)
-	{
-		b.m[0][i] = a.m[i][0];
-		b.m[1][i] = a.m[i][1];
-		b.m[2][i] = a.m[i][2];
-		b.m[3][i] = a.m[i][3];
-		i++;
-	}
-	return (b);
-}
-
-double	matrix_determinant_2(t_matrix m)
-{
-	return((m.m[0][0] * m.m[1][1]) - (m.m[0][1] * m.m[1][0]));
+	return ((m.m[0][0] * m.m[1][1]) - (m.m[0][1] * m.m[1][0]));
 }
 
 t_matrix	matrix_submatrix(t_matrix m, int a, int b, int size)
@@ -142,10 +36,7 @@ t_matrix	matrix_submatrix(t_matrix m, int a, int b, int size)
 			while (j < size)
 			{
 				if (j != b)
-				{
-					v.m[r][c] = m.m[i][j];
-					c++;
-				}
+					v.m[r][c++] = m.m[i][j];
 				j++;
 			}
 			r++;
@@ -155,104 +46,57 @@ t_matrix	matrix_submatrix(t_matrix m, int a, int b, int size)
 	return (v);
 }
 
-double	matrix_minor(t_matrix m, int a, int b, int size)
-{
-	double w;
-
-	m = matrix_submatrix(m, a, b, size);
-	if (size == 4)
-		w = matrix_determinant_3(m);
-	else
-		w = matrix_determinant_2(m);
-	return (w);
-}
-
-double	matrix_cofactor(t_matrix m, int a, int b, int size)
-{
-	int i;
-	int j;
-	int c;
-
-	i = 0;
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			c = i + j;
-			if (c == 1 || c == 3 || c == 5 || c == 7)
-				m.m[i][j] = -m.m[i][j];
-			j++;
-		}
-		i++;
-	}
-	return (matrix_minor(m, a, b, size));
-}
-
-double	matrix_determinant_3(t_matrix m)
-{
-	double	a;
-	double	b;
-	double	c;
-	double	res;
-
-	a = m.m[0][0];
-	b = m.m[0][1];
-	c = m.m[0][2];
-
-	res = (a * matrix_cofactor(m, 0, 0, 3)) + (b * matrix_cofactor(m, 0, 1, 3)) + (c * matrix_cofactor(m, 0, 2, 3));
-	return(res);
-}
-
-double	matrix_determinant_4(t_matrix m)
-{
-	double	a;
-	double	b;
-	double	c;
-	double	d;
-	double	res;
-
-	a = m.m[0][0];
-	b = m.m[0][1];
-	c = m.m[0][2];
-	d = m.m[0][3];
-
-	res = (a * matrix_cofactor(m, 0, 0, 4)) + (b * matrix_cofactor(m, 0, 1, 4)) + (c * matrix_cofactor(m, 0, 2, 4)) + (d * matrix_cofactor(m, 0, 3, 4));
-	return(res);
-}
-
-int	matrix_inverse_test(t_matrix m)
-{
-	if (matrix_determinant_4(m) == 0)
-		return(0);
-	return (1);
-}
-
 t_matrix	matrix_inverse(t_matrix m)
 {
-	int r;
-	int c;
-	double cof;
-	t_matrix m2;
+	t_matrix	m2;
+	double		determinant_4;
 
-	r = 0;
-	while (r < 4)
-	{
-		c = 0;
-		while (c < 4)
-		{
-			cof = matrix_cofactor(m, r, c, 4);
-			m2.m[c][r] = cof / matrix_determinant_4(m);
-			c++;
-		}
-		r++;
-	}
+	determinant_4 = matrix_determinant_4(m);
+	m2.m[0][0] = matrix_cofactor(m, 0, 0, 4) / determinant_4;
+	m2.m[1][0] = matrix_cofactor(m, 0, 1, 4) / determinant_4;
+	m2.m[2][0] = matrix_cofactor(m, 0, 2, 4) / determinant_4;
+	m2.m[3][0] = matrix_cofactor(m, 0, 3, 4) / determinant_4;
+	m2.m[0][1] = matrix_cofactor(m, 1, 0, 4) / determinant_4;
+	m2.m[1][1] = matrix_cofactor(m, 1, 1, 4) / determinant_4;
+	m2.m[2][1] = matrix_cofactor(m, 1, 2, 4) / determinant_4;
+	m2.m[3][1] = matrix_cofactor(m, 1, 3, 4) / determinant_4;
+	m2.m[0][2] = matrix_cofactor(m, 2, 0, 4) / determinant_4;
+	m2.m[1][2] = matrix_cofactor(m, 2, 1, 4) / determinant_4;
+	m2.m[2][2] = matrix_cofactor(m, 2, 2, 4) / determinant_4;
+	m2.m[3][2] = matrix_cofactor(m, 2, 3, 4) / determinant_4;
+	m2.m[0][3] = matrix_cofactor(m, 3, 0, 4) / determinant_4;
+	m2.m[1][3] = matrix_cofactor(m, 3, 1, 4) / determinant_4;
+	m2.m[2][3] = matrix_cofactor(m, 3, 2, 4) / determinant_4;
+	m2.m[3][3] = matrix_cofactor(m, 3, 3, 4) / determinant_4;
 	return (m2);
+}
+
+t_matrix	matrix_nul(void)
+{
+	t_matrix	m;
+
+	m.m[0][0] = 0;
+	m.m[0][1] = 0;
+	m.m[0][2] = 0;
+	m.m[0][3] = 0;
+	m.m[1][0] = 0;
+	m.m[1][1] = 0;
+	m.m[1][2] = 0;
+	m.m[1][3] = 0;
+	m.m[2][0] = 0;
+	m.m[2][1] = 0;
+	m.m[2][2] = 0;
+	m.m[2][3] = 0;
+	m.m[3][0] = 0;
+	m.m[3][1] = 0;
+	m.m[3][2] = 0;
+	m.m[3][3] = 0;
+	return (m);
 }
 
 t_matrix	identity_matrix(void)
 {
-	t_matrix b;
+	t_matrix	b;
 
 	b = matrix_nul();
 	b.m[0][0] = 1;
@@ -260,21 +104,4 @@ t_matrix	identity_matrix(void)
 	b.m[2][2] = 1;
 	b.m[3][3] = 1;
 	return (b);
-}
-
-t_matrix	matrix_nul(void)
-{
-	t_matrix m;
-	int r;
-
-	r = 0;
-	while (r < 4)
-	{
-		m.m[r][0] = 0;
-		m.m[r][1] = 0;
-		m.m[r][2] = 0;
-		m.m[r][3] = 0;
-		r++;
-	}
-	return (m);
 }

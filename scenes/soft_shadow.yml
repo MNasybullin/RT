@@ -1,0 +1,51 @@
+---
+objects:
+        - object:
+                type: plane
+                color: {r: 1, g: 1, b: 1}
+                ambient: 0.025
+                specular: 0
+                diffuse: 0.67
+        - object:
+                type: sphere
+                obj_translation: {x: 0.5, y: 0.5, z: 0}
+                obj_scaling: {x: 0.5, y: 0.5, z: 0.5}
+                color: {r: 1, g: 0, b: 0}
+                ambient: 0.1
+                specular: 0
+                diffuse: 0.6
+                reflective: 0.3
+        - object:
+                type: sphere
+                obj_translation: {x: -0.25, y: 0.33, z: 0}
+                obj_scaling: {x: 0.33, y: 0.33, z: 0.33}
+                color: {r: 0.5, g: 0.5, b: 1}
+                ambient: 0.1
+                specular: 0
+                diffuse: 0.6
+                reflective: 0.3
+        - object:
+                type: cube
+                obj_translation: {x: 0, y: 3, z: 4}
+                obj_scaling: {x: 1, y: 1, z: 0.01}
+                color: {r: 1.5, g: 1.5, b: 1.5}
+                ambient: 1
+                specular: 0
+                diffuse: 0
+                shadow: 0
+lights:
+        - light:
+                type: area
+                corner: {x: -1, y: 2, z: 4, w: 1}
+                v1: {x: 2, y: 0, z: 0, w: 0}
+                v2: {x: 0, y: 2, z: 0, w: 0}
+                usteps: 10
+                vsteps: 10
+                color: {r: 1.5, g: 1.5, b: 1.5}
+cameras:
+      - camera:
+                fov: 0.7854
+                from: {x: -3, y: 1, z: 2.5, w: 1}
+                to: {x: 0, y: 0.5, z: 0, w: 1}
+                up: {x: 0, y: 1, z: 0, w: 0}
+...   

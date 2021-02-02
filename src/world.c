@@ -6,169 +6,53 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:09:18 by sdiego            #+#    #+#             */
-/*   Updated: 2020/10/14 18:09:09 by sdiego           ###   ########.fr       */
+/*   Updated: 2020/12/12 15:46:56 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/rt.h"
 
-void	default_world(t_world *w)
+t_material	default_material(void)
 {
-	w->ar_count = 0;
-	w->light_obj = 1;
-	w->light[0] = point_light(color(1,1,1), set_v_p(-10,10,-10,1));
-	w->s[0] = set_sphere(0);
-	w->s[0].m.color = color(0.8, 1.0, 0.6);
-	w->s[0].m.diffuse = 0.7;
-	w->s[0].m.specular = 0.2;
-//
-	//w->s[0].m.ambient = 1;
-//
-	w->s[1] = set_sphere(1);
+	t_material	m;
 
-	w->s[1].transform = scaling(0.5, 0.5, 0.5);
-	w->max_obj = 2;
-	int i = 0;
-	while (i < w->max_obj)
-	{
-		push_obj((void*)(&w->s[i]), &normal_at_sp, &intersect_sp, w, &w->s[i].m, &w->s[i].transform);
-		i++;
-	}
-
-/*
-	w->pl[2] = set_plane();
-	w->pl[2].m.reflective = 0.5;
-	w->pl[2].transform = translation(0, -1, 0);
-	push_obj((void*)(&w->pl[2]), &normal_at_pl, &intersect_pl, &shade_hit_pl, w, &w->pl[2].m);
-	w->max_obj = 3;
-*/
+	m.color = color(0.5, 0.5, 0.5);
+	m.ambient = 0.1;
+	m.diffuse = 0.9;
+	m.specular = 0.9;
+	m.shininess = 200;
+	m.reflective = 0;
+	m.pattern = 0;
+	m.refractive_index = 1;
+	m.transparency = 0;
+	m.shadow = 1;
+	m.p.transform = identity_matrix();
+	return (m);
 }
 
-t_x_t	set_nul(t_x_t x, int size)
-{
-	int i = 0;
-
-	while (i < size + size)
-	{
-		x.t[i].count = 0;
-		x.t[i].t = 0;
-		x.t[i].obj = 0;
-		i++;
-	}
-	return (x);
-}
-
-/*
-t_x_t	sortminus(t_x_t x)
-{
-	int i;
-	int j;
-	t_x_t newx;
-
-	i = 0;
-	j = 0;
-	while (i < x.max_obj)
-	{
-		while (x.t[i].t < 0)
-		{
-			i++;
-		}
-		newx.t[j] =x.t[i];
-		j++;
-		i++;
-	}
-	newx.max_obj = j;
-	return (newx);
-}
-*/
-
-void	intersect_world(t_world *w, t_ray r, t_x_t *x)
+void		intersect_world(t_world *w, t_ray r, t_x_t *x)
 {
 	int		i;
-	//int		hit_obj;
 
 	i = 0;
 	x->max_obj = 0;
-	//x = set_nul(x, w->ar_count);   //  ????????????
 	while (i < w->ar_count)
 	{
 		(*w->obj_ar[i].loc_intersect)(w->obj_ar[i].obj, r, x, i);
 		i++;
 	}
-	//bubblesort(x.t, x.max_obj);     // ???????????
-	//под вопросом
-	//x = sortminus(x);
-	//
-	//return (x);
 }
 
-/*t_x_t	t_to_h(t_x x, t_x_t x_t)
+t_arr		removenull(t_arr arr, int stack_size)
 {
-	int i;
-	int	j;
+	t_arr	res;
+	int		aa;
+	int		bb;
 
-	i = 0;
-	while (i < x.max_obj)
-	{
-		x_t.t[i].t = x.t[i].t1;
-		x_t.t[i].count = x.t[i].count;
-		x_t.t[i].obj = x.t[i].obj;
-		i++;
-	}
-	j = i;
-	i = 0;
-	while (j < x.max_obj + x.max_obj)
-	{
-		x_t.t[j].t = x.t[i].t2;
-		x_t.t[j].count = x.t[i].count;
-		x_t.t[j].obj = x.t[i].obj;
-		i++;
-		j++;
-	}
-	x_t.max_obj = x.max_obj + x.max_obj;
-	return (x_t);
-}*/
-
-void	bubblesort(t_t_o *num, int size)
-{
-	int		i;
-	int		j;
-	t_t_o	min;
-	t_t_o	max;
-
-	i = 0;
-	while (i < size - 1)
-	{
-		j = (size - 1);
-		while (j > i)
-		{
-			min = num[j - 1].t < num[j].t ? num[j - 1] : num[j];
-			max = num[j - 1].t < num[j].t ? num[j] : num[j - 1];
-			num[j - 1] = min;
-			num[j] = max;
-			j--;
-		}
-		i++;
-	}
-}
-
-/*
-t_i	intersection(double t, int obj)
-{
-	t_i	i;
-
-	i.t = t;
-	i.obj = obj;
-	return(i);
-}
-*/
-
-t_arr	removenull(t_arr arr)
-{
-	t_arr res;
+	res.arr = alloc_int(stack_size);
 	res.size = 0;
-	int aa = 0;
-	int bb = 0;
+	aa = 0;
+	bb = 0;
 	while (aa < arr.size)
 	{
 		if (arr.arr[aa] != -1)
@@ -179,161 +63,16 @@ t_arr	removenull(t_arr arr)
 		}
 		aa++;
 	}
+	free_int(arr.arr);
 	return (res);
 }
 
-t_comps comps_n_calculate(t_world *w, int hit_obj, t_x_t x, t_comps c)
+t_color		effective_shade_hit(t_world w, t_material *m)
 {
-	t_arr containers;
-	containers.size = 0;
-	int aa = 0;
-	while (aa < x.max_obj)
-	{
-		t_t_o curr_i = x.t[aa];
-		if (curr_i.t == x.t[hit_obj].t && curr_i.obj == x.t[hit_obj].obj)
-		{
-			if (containers.size == 0)
-				c.n1 = 1.0;
-			else
-				c.n1 = w->obj_ar[containers.arr[containers.size - 1]].m->refractive_index;
-		}
-		int	flag = -1;
-		int bb = 0;
-		while (bb < containers.size)
-		{
-			if (containers.arr[bb] == curr_i.obj)
-				flag = bb;
-			bb++;
-		}
-		if (flag > -1)
-		{
-			containers.arr[flag] = -1;
-			containers = removenull(containers);
-		}
-		else
-		{
-			containers.arr[containers.size] = curr_i.obj;
-			containers.size = containers.size + 1;
-		}
-		if (curr_i.t == x.t[hit_obj].t && curr_i.obj == x.t[hit_obj].obj)
-		{
-			if (containers.size == 0)
-				c.n2 = 1.0;
-			else
-				c.n2 = w->obj_ar[containers.arr[containers.size - 1]].m->refractive_index;
-			aa = x.max_obj;
-		}
-		aa++;
-	}
-	return (c);
-}
+	t_color	surface;
 
-t_comps	prepare_computations(int hit_obj, t_ray r, t_world *w, t_x_t x)
-{
-	t_comps	c;
-	t_vec	normal;
-
-	c.t = x.t[hit_obj].t;
-	c.obj = x.t[hit_obj].obj;
-	c.point = position(r, c.t);
-	c.eyev = neg(r.d);
-	if ((*w->obj_ar[c.obj].loc_norm)(w->obj_ar[c.obj].obj, c.point, &normal) == 0)
-		printf("normal error");
-	else
-		c.normalv = normal;
-	if (dot(c.normalv, c.eyev) < 0)
-	{
-		c.inside = 1;
-		c.normalv = neg(c.normalv);
-	}
-	else
-	{
-		c.inside = 0;
-	}
-	c.over_point = add(c.point, mult(c.normalv, EPSILON));
-	c.reflectv = reflect(r.d, c.normalv);
-	c.under_point = sub(c.point, mult(c.normalv, EPSILON));
-
-	c = comps_n_calculate(w, hit_obj, x, c);
-	return(c);
-}
-
-/*
-t_xs	intersections(t_x_t x) // для прозрачный обьектов список  всех пересечений
-{
-	t_xs xs;
-	int i;
-
-	i = 0;
-	while (i < x.max_obj)
-	{
-		xs.i[i].t = x.t[i].t;
-		xs.i[i].obj = x.t[i].obj;
-		i++;
-	}
-	xs.max_obj = x.max_obj;
-	return (xs);
-}
-*/
-
-t_color	shade_hit(t_world w, t_comps c, int remaining, t_material *m)
-{
-	t_color surface;
-	t_color	reflected;
-	t_color refracted;
-	double	reflectance;
-
-	surface = color(0,0,0);
-	while (w.light_count >= 0)
-	{
-		c.shadow = intensity_at(w, c.over_point);
-		surface = add_col(surface, lighting(m, w, c));
-		w.light_count--;
-	}
-	reflected = reflected_color(w, c, remaining);
-	refracted = refracted_color(w, c, remaining);
-	if (m->reflective > 0 && m->transparency > 0)
-	{
-		reflectance = schlick(c);
-		return (add_col(surface, add_col(mult_col(reflected, reflectance), mult_col(refracted, (1.0 - reflectance)))));
-	}
-	else
-		return (add_col(refracted, add_col(surface, reflected)));
-}
-
-t_color effective_shade_hit(t_world w, t_material *m)
-{
-	t_color surface;
-
-	surface = color(0,0,0);
+	surface = color(0, 0, 0);
 	if (w.light_count >= 0)
 		return (m->color);
 	return (surface);
-}
-
-t_color	color_at(t_world *w, t_ray r, int remaining)
-{
-	t_x_t	x;
-	int hit_obj;
-	t_color col;
-	t_comps comps;
-	//t_i i;
-	//t_xs xs;
-
-	hit_obj = 0;
-	intersect_world(w, r, &x);
-	hit_obj = hit(x);
-	if (hit_obj != -1)
-	{
-		//i = intersection(x.t[hit_obj].t, x.t[hit_obj].obj);
-		//xs = intersections(x);
-		comps = prepare_computations(hit_obj, r, w, x);
-		w->light_count = w->light_obj - 1;
-		col = shade_hit(*w, comps, remaining, w->obj_ar[comps.obj].m);
-		//remaining = 5;
-		//col = effective_shade_hit(*w, w->obj_ar[x.t[hit_obj].obj].m);
-	}
-	else
-		col = color(0,0,0);
-	return(col);
 }
