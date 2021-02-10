@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_color_at.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 15:44:37 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/12 15:02:18 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/10 18:34:57 by out-nasybul      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ t_color	shade_hit(t_world w, t_comps c, int remaining, t_material *m)
 	double	reflectance;
 
 	surface = color(0, 0, 0);
+	if (w.light_count == -1)
+		surface = mult_col(m->color, m->ambient);
 	while (w.light_count >= 0)
 	{
 		c.shadow = intensity_at(w, c.over_point);

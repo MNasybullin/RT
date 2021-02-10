@@ -6,7 +6,7 @@
 /*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/02 22:38:40 by out-nasybul      ###   ########.fr       */
+/*   Updated: 2021/02/10 18:44:24 by out-nasybul      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int		main(int ac, char **av)
 		sdl.run = 0;
 		p.obj_n = 0;
 		p.fd = 0;
+		w.light_obj = 0;
 		if ((check_format(av[1])) != 1)
 		{
 			ft_putendl("\nWrong Format or invalid file\n");
