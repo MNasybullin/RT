@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light_type.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 19:27:10 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/12 15:01:44 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/10 19:15:07 by out-nasybul      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,16 @@ int			hit(t_x_t x)
 	return (a);
 }
 
-int			is_shadow(t_world w, t_vec light_pos, t_vec p)
+double			is_shadow(t_world w, t_vec light_pos, t_vec p)
 {
 	t_vec	v;
 	t_vec	direction;
 	double	distance;
 	t_x_t	x;
 	int		hit_obj;
+	double	shadow_intens;
 
+	shadow_intens = 0;
 	x.t = alloc_tto(w.ar_count);
 	v = sub(light_pos, p);
 	distance = magnitude(v);
@@ -83,14 +85,13 @@ int			is_shadow(t_world w, t_vec light_pos, t_vec p)
 	{
 		if (w.obj_ar[x.t[hit_obj].obj].m->shadow != 0)
 		{
+			shadow_intens = w.obj_ar[x.t[hit_obj].obj].m->transparency == 0 ? -1 : w.obj_ar[x.t[hit_obj].obj].m->transparency;
 			free_tto(x.t);
-			return (1);
+			return (shadow_intens);
 		}
-		free_tto(x.t);
-		return (0);
 	}
 	free_tto(x.t);
-	return (0);
+	return (0.0);
 }
 
 double		intensity_at(t_world w, t_vec p)
@@ -99,6 +100,7 @@ double		intensity_at(t_world w, t_vec p)
 	int		u;
 	int		v;
 	t_vec	light_position;
+	double	is_shad;
 
 	v = 0;
 	total = 0.0;
@@ -108,8 +110,11 @@ double		intensity_at(t_world w, t_vec p)
 		while (u < w.light[w.light_count].usteps)
 		{
 			light_position = point_on_light(&w.light[w.light_count], u, v);
-			if (is_shadow(w, light_position, p) == 0)
+			is_shad = is_shadow(w, light_position, p);
+			if (is_shad == 0.0)
 				total += 1.0;
+			else if (is_shad != -1)
+				total += is_shad;
 			u++;
 		}
 		v++;
