@@ -21,3 +21,4 @@ Keyboard:
 		}
 	}
 	- "F12" - screenshot
+	- "N" - re read scene

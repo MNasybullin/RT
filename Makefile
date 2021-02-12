@@ -19,6 +19,8 @@ SRC_BASE	=	main.c \
 	vec_math.c \
 	vec.c \
 	color.c \
+	read_config.c \
+	get_mem.c \
 	matrix.c \
 	transformation.c \
 	ray.c \

@@ -26,7 +26,7 @@ void	quit(t_sdl *sdl, int error)
 	exit(error);
 }
 
-int		key_press(t_sdl *sdl, t_camera *camera, t_world *w)
+void	key_press(t_sdl *sdl, t_world *w, t_data *p, char *path)
 {
 	if (KEY == SDLK_ESCAPE)
 		sdl->run = 1;
@@ -35,18 +35,19 @@ int		key_press(t_sdl *sdl, t_camera *camera, t_world *w)
 	else if (KEY == SDLK_1 || KEY == SDLK_2 || KEY == SDLK_3)
 	{
 		if (KEY == SDLK_1)
-			camera->aliasing = camera->aliasing == 0 ? 1 : 0;
+			w->c.aliasing = w->c.aliasing == 0 ? 1 : 0;
 		else if (KEY == SDLK_2)
-			camera->sepia = camera->sepia == 0 ? 1 : 0;
+			w->c.sepia = w->c.sepia == 0 ? 1 : 0;
 		else if (KEY == SDLK_3)
 			w->effective_render = w->effective_render == 0 ? 1 : 0;
 		sdl->progress = 0;
 	}
+	else if (KEY == SDLK_n && !(sdl->progress = 0))
+		read_config(sdl, w, p, path);
 	if (w->effective_render == 1)
 		check_camera_position(sdl, w);
 	if (sdl->progress == 0)
 		SDL_SetWindowTitle(sdl->win, "RT - Rendering in progress ...");
-	return (0);
 }
 
 void	init_sdl_error(void)
@@ -81,34 +82,12 @@ int		main(int ac, char **av)
 	t_data		p;
 
 	if (ac == 2)
-	{
-		init(&sdl);
-		sdl.run = 0;
-		p.obj_n = 0;
-		p.fd = 0;
-		w.light_obj = 0;
-		if ((check_format(av[1])) != 1)
-		{
-			ft_putendl("\nWrong Format or invalid file\n");
-            return (0);
-		}
-		read_file(av[1], &p, &w);
-	}
+		read_config(&sdl, &w, &p, av[1]);
 	else
 	{
 		ft_putendl("\nUsage: ./RT <file.yml>\n");
-		return (0);
+		return (1);
 	}
-	sdl.progress = 0;
-	w.s_obj = p.sp_num;
-	w.pl_obj = p.pl_num;
-	w.cone_obj = p.cone_num;
-	w.cyl_obj = p.cyl_num;
-	w.cub_obj = p.cube_num;
-	w.trian_obj = p.tri_num;
-	w.max_obj = p.obj_n;
-	w.ar_count = 0;
-	pushing_objects(&p, &w);
 	
 // Добавть камеру в парсер 
 	// t_camera c;
@@ -133,7 +112,7 @@ int		main(int ac, char **av)
 			if (sdl.e.type == SDL_QUIT)
 				sdl.run = 1;
 			if (sdl.e.type == SDL_KEYDOWN)
-				key_press(&sdl, &w.c, &w);
+				key_press(&sdl, &w, &p, av[1]);
 		}
 		if (sdl.progress == 0)
 		{

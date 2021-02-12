@@ -14,9 +14,9 @@
 
 void	set_m(void)
 {
-	g_m.p = NULL;
-	g_m.next = NULL;
-	g_m.last = NULL;
+	get_mem()->p = NULL;
+	get_mem()->next = NULL;
+	get_mem()->last = NULL;
 }
 
 void	new_m(void *pointer)
@@ -29,14 +29,14 @@ void	new_m(void *pointer)
 	new->p = pointer;
 	new->next = NULL;
 	new->last = new;
-	if (g_m.last == NULL)
-		g_m.next = new;
+	if (get_mem()->last == NULL)
+		get_mem()->next = new;
 	else
 	{
-		tmp = (t_mem*)g_m.last;
+		tmp = (t_mem*)get_mem()->last;
 		tmp->next = new;
 	}
-	g_m.last = new;
+	get_mem()->last = new;
 }
 
 void	del_m(void)
@@ -44,7 +44,7 @@ void	del_m(void)
 	t_mem	*tmp;
 	t_mem	*curr;
 
-	curr = (t_mem*)g_m.next;
+	curr = (t_mem*)get_mem()->next;
 	while (curr != NULL)
 	{
 		tmp = curr->next;
@@ -57,7 +57,7 @@ void	del_memory(void)
 {
 	t_mem	*tmp;
 
-	tmp = g_m.next;
+	tmp = get_mem()->next;
 	while (tmp != NULL)
 	{
 		free(tmp->p);

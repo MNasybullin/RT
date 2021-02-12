@@ -22,7 +22,7 @@ typedef struct	s_mem
 	void		*last;
 }				t_mem;
 
-t_mem			g_m;
+t_mem			*get_mem();
 
 void			set_m(void);
 void			new_m(void *pointer);

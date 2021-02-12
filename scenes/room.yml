@@ -72,15 +72,14 @@ objects:
                 obj_translation: {x: 0, y: 3.45001, z: 0}
                 obj_rotation: {x: 0, y: 0.2, z: 0}
                 obj_scaling: {x: 0.25, y: 0.25, z: 0.25}
-                color: {r: 1, g: 1, b: 0.8}
+                color: {r: 0.3, g: 0.5, b: 0.8}
                 ambient: 0
                 diffuse: 0.3
                 specular: 0.9
                 shininess: 300
                 reflective: 0.7
-                transparency: 0.7
+                transparency: 0.85
                 refractive index: 1.5
-                shadow: 0
         - object: 
                 type: cube
                 obj_translation: {x: 1, y: 3.35, z: -0.9}

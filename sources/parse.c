@@ -78,7 +78,7 @@ void	reading(t_data *p, t_world *w, char *file)
 	get_next_line(p->fd, &p->line);
 }
 
-int		read_file(char *file, t_data *p, t_world *w)
+void	read_file(char *file, t_data *p, t_world *w)
 {
 	char	**tab;
 	int		i;
@@ -105,7 +105,7 @@ int		read_file(char *file, t_data *p, t_world *w)
 		if (check_is_camera(tab, p))
 			making_camera(p, w, tab);
 	}
+	close(p->fd);
 	write_lights(p, w);
 	p->light_i = 0;
-	return (0);
 }

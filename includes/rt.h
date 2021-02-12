@@ -723,7 +723,7 @@ SDL_Texture	*texture);
 
 
 //parsing
-int		read_file(char *file, t_data *p, t_world *w);
+void	read_file(char *file, t_data *p, t_world *w);
 void	count_objects(t_data *p, char *line);
 int		check_format(char *file);
 int		len_tab(char **tab);
@@ -771,6 +771,8 @@ void	continue_pushing(t_data *p, t_world *w);
 void	write_lights(t_data *p, t_world *w);
 void	making_obj(char **tab, t_data *p, t_world *w);
 char	**check_type(t_data *p, t_world *w, char **tab);
+void	init(t_sdl *sdl);
+void	read_config(t_sdl *sdl, t_world *w, t_data *p, char *path);
 void	make_tex_cube(t_data *p, t_world *w);
 void	texture_cube(char **tab, t_data *p, t_world *w);
 char	*remove_quotes(char *s1);
