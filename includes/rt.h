@@ -456,7 +456,7 @@ typedef struct		s_forcam
 typedef struct		s_data
 {
 	int         obj_n;
-    int         fd;
+    int			fd;
 	int			pl_num;
 	int			sp_num;
 	int			cone_num;
@@ -475,9 +475,12 @@ typedef struct		s_data
 	char		*line;
 	int			cam_num;
 	int			tri_vect;
+	int			vertex_count;
 	t_forlight	*h;
 	t_forcam	c;
 }					t_data;
+
+void						create_triangle(t_data *p, t_world *w, char **tab, t_forcam *forcam);
 
 int							ft_check_file(const char *file, unsigned check);
 int							ft_open_file(const char *path);
