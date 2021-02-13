@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/13 19:08:22 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/13 19:42:10 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -477,6 +477,8 @@ typedef struct		s_data
 	int			tri_vect;
 	t_forlight	*h;
 	t_forcam	c;
+	t_forcam	tr_vec;
+	int			is_obj_file;
 }					t_data;
 
 int							ft_check_file(const char *file, unsigned check);
