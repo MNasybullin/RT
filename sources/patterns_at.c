@@ -34,7 +34,7 @@ t_color			gradient_at(t_material m, t_vec point)
 	double	fraction;
 
 	distance = sub_col(m.p.b, m.p.a);
-	fraction = point.c[0] - floor(point.c[0]);
+	fraction = point.c[0] - SDL_floor(point.c[0]);
 	return (add_col(m.p.a, mult_col(distance, fraction)));
 }
 

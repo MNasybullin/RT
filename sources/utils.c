@@ -12,7 +12,7 @@
 
 #include "rt.h"
 
-void	free_tab(char **tab)
+int		free_tab(char **tab)
 {
 	int	i;
 
@@ -20,7 +20,7 @@ void	free_tab(char **tab)
 	while (tab[++i])
 		free(tab[i]);
 	free(tab);
-	tab = NULL;
+	return (1);
 }
 
 int		len_tab(char **tab)

@@ -34,7 +34,7 @@ t_t_o	*alloc_tto(int size)
 
 	if ((i = (t_t_o *)malloc(sizeof(t_t_o) * (size * 4))) == NULL)
 	{
-		write(1, "malloc alloc_tto error\n", 23);
+		write(2, "malloc alloc_tto error\n", 23);
 		exit(EXIT_FAILURE);
 	}
 	return (i);
@@ -46,7 +46,7 @@ int		*alloc_int(int size)
 
 	if ((i = (int *)malloc(sizeof(int) * (size * 4))) == NULL)
 	{
-		write(1, "malloc alloc_int error\n", 23);
+		write(2, "malloc alloc_int error\n", 23);
 		exit(EXIT_FAILURE);
 	}
 	return (i);

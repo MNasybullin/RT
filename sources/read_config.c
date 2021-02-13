@@ -2,7 +2,9 @@
 
 void	read_config(t_sdl *sdl, t_world *w, t_data *p, char *path)
 {
-	init(sdl);
+	SDL_RenderClear(sdl->ren);
+	SDL_RenderPresent(sdl->ren);
+	bzero(sdl->img, WIN_H * WIN_W * sizeof(int));
 	sdl->run = 0;
 	p->obj_n = 0;
 	p->fd = 0;

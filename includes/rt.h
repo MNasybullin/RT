@@ -23,10 +23,16 @@
 # include "mem_lst.h"
 
 # define THREADS 400
-# define WIN_W 1200
-# define WIN_H 1200
+# define WIN_W 800
+# define WIN_H 800
 # define EPSILON 0.00001
 # define KEY sdl->e.key.keysym.sym
+
+# define IS_E			0
+# define IS_R			1
+# define IS_W			2
+# define IS_X			4
+# define IS_D			8
 
 typedef struct				s_disc
 {
@@ -74,7 +80,6 @@ typedef struct				s_color
 	double					r;
 	double					g;
 	double					b;
-
 }							t_color;
 
 typedef struct				s_lighting
@@ -474,6 +479,9 @@ typedef struct		s_data
 	t_forcam	c;
 }					t_data;
 
+int							ft_check_file(const char *file, unsigned check);
+int							ft_open_file(const char *path);
+
 t_vec						add(t_vec a1, t_vec a2);
 t_vec						set_v_p(double a, double b, double c, double d);
 t_vec						sub(t_vec a1, t_vec a2);
@@ -727,7 +735,7 @@ void	read_file(char *file, t_data *p, t_world *w);
 void	count_objects(t_data *p, char *line);
 int		check_format(char *file);
 int		len_tab(char **tab);
-void	free_tab(char **tab);
+int		free_tab(char **tab);
 void	alloc_obj_memory(t_data *p, t_world *w);
 void    init_parse(t_data *p, t_world *w);
 char	**make_plane(t_data *p, t_world *w, char **tab);
@@ -811,6 +819,7 @@ void	cyl_crutch_3(t_data *p, t_world *w, char **tab, int flag);
 void	pattern_color_cyl(t_data *p, t_world *w, char **tab, int flag);
 void	texture_cyl(char **tab, t_data *p, t_world *w);
 void	cyl_patterns_1(t_data *p, t_world *w, t_uv_check check);
+void	ft_crash(const char *message);
 void	cyl_patterns(t_data *p, t_world *w);
 void	init_cyl(t_data *p, t_world *w);
 void	complex_params_cyl(t_data *p, t_world *w, char **tab, int flag);
@@ -844,6 +853,7 @@ void	tri_crutch_3(t_data *p, t_world *w, char **tab, int flag);
 //libft
 void	ft_putendl(char const *s);
 double	ft_strtodbl(char *s);
+int		tab_length(char **tab);
 int		ft_atoi(const char *str);
 double	ft_strtodbl(char *s);
 void	check_tab_len(char **tab);

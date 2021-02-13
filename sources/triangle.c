@@ -20,7 +20,6 @@ void	set_trian(t_vec p1, t_vec p2, t_vec p3, t_trian	*t)
 	t->e1 = sub(p2, p1);
 	t->e2 = sub(p3, p1);
 	t->norm = normalize(cross(t->e2, t->e1));
-	//t->m = default_material();
 	t->transform = identity_matrix();
 }
 

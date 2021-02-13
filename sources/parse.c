@@ -71,9 +71,9 @@ void	making_camera(t_data *p, t_world *w, char **tab)
 void	reading(t_data *p, t_world *w, char *file)
 {
 	start_count_obj(p, w);
-	p->fd = open(file, O_RDONLY);
+	p->fd = ft_open_file(file);
 	start_count_lights(p, w);
-	p->fd = open(file, O_RDONLY);
+	p->fd = ft_open_file(file);
 	get_next_line(p->fd, &p->line);
 	get_next_line(p->fd, &p->line);
 }
@@ -86,8 +86,7 @@ void	read_file(char *file, t_data *p, t_world *w)
 	tab = NULL;
 	i = 0;
 	init_parse(p, w);
-	if ((p->fd = open(file, O_RDONLY)) == -1)
-		exit(err_invalid_file());
+	p->fd = ft_open_file(file);
 	if (!(get_next_line(p->fd, &p->line)))
 		exit(err_empty_file());
 	if ((ft_strcmp(p->line, "---")))

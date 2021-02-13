@@ -52,7 +52,7 @@ void	key_press(t_sdl *sdl, t_world *w, t_data *p, char *path)
 
 void	init_sdl_error(void)
 {
-	write(1, "SDL Init Error\n", 15);
+	write(2, "SDL Init Error\n", 15);
 	exit(EXIT_FAILURE);
 }
 
@@ -82,27 +82,15 @@ int		main(int ac, char **av)
 	t_data		p;
 
 	if (ac == 2)
+	{
+		init(&sdl);
 		read_config(&sdl, &w, &p, av[1]);
+	}
 	else
 	{
 		ft_putendl("\nUsage: ./RT <file.yml>\n");
 		return (1);
 	}
-	
-// Добавть камеру в парсер 
-	// t_camera c;
-	// c.from_x = 1;
-	// c.from_y = 2;
-	// c.from_z = -10;
-
-	// c.to_x = 0;
-	// c.to_y = 1.1;
-	// c.to_z = 0;
-
-	// c.up_x = 0;
-	// c.up_y = 1;
-	// c.up_z = 0;
-
 	w.effective_render = 0;
 	SDL_SetWindowTitle(sdl.win, "RT - Rendering in progress ...");
 	while (sdl.run == 0)

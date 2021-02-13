@@ -88,5 +88,4 @@ void    parse_cameras(t_data *p, t_world *w)
 	w->c = c;
 	//free_tab(p->tab);
 	p->tab = NULL;
-	printf("CAMERAAAA: %d %d %f\n", w->c.hsize, w->c.vsize, w->c.fov);
 }

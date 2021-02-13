@@ -199,7 +199,7 @@ char		**ft_strsplit(char const *s, char c)
 	if (!s)
 		return (NULL);
 	if (!(str = (char **)ft_memalloc(sizeof(char **) * (ft_words(s, c) + 1))))
-		return (NULL);
+		ft_crash("Malloc error");
 	i = -1;
 	j = 0;
 	while (++i < ft_words(s, c))
@@ -414,9 +414,18 @@ void	check_tab_len(char **tab)
 	if (len_tab(tab) != 2)
 	{
 		free_tab(tab);
-		//error_output(INVALID);
 		exit(-1);
 	}
+}
+
+int		tab_length(char **tab)
+{
+	int	i;
+
+	i = -1;
+	while (tab[++i])
+		;
+	return (i);
 }
 
 double	ft_strtodbl(char *s)

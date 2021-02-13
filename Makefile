@@ -16,6 +16,8 @@ INC_DIR		=	includes -I frameworks/SDL2.framework/Headers
 OBJ_DIR		=	.objs/
 
 SRC_BASE	=	main.c \
+	ft_crash.c \
+	ft_open_file.c \
 	vec_math.c \
 	vec.c \
 	color.c \

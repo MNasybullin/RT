@@ -99,7 +99,6 @@ void	count_lights(t_data *p, char *line)
 			tab = NULL;
 		}
 	}
-	printf("\nNumber of lights is: %d\n\n", p->lights_num);
 	close(p->fd);
 }
 
