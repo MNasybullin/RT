@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/30 15:08:03 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/06 18:39:11 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/13 18:34:59 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	intersect_cyl(void *v_s, t_ray r, t_x_t *x, int obj_n)
 	s = (t_cyl*)v_s;
 	ray2 = transform(r, s->transform);
 	d.a = (ray2.d.c[0] * ray2.d.c[0]) + (ray2.d.c[2] * ray2.d.c[2]);
-	if (fabs(d.a) <= EPSILON)
+	if (SDL_fabs(d.a) <= EPSILON)
 	{
 		intersect_caps(s, ray2, x, obj_n);
 		return ;
@@ -71,7 +71,7 @@ void	intersect_caps(t_cyl *cyl, t_ray r, t_x_t *x, int obj_n)
 {
 	double	t;
 
-	if (cyl->closed == 0 || fabs(r.d.c[1]) <= EPSILON)
+	if (cyl->closed == 0 || SDL_fabs(r.d.c[1]) <= EPSILON)
 		return ;
 	t = (cyl->min - r.o.c[1]) / r.d.c[1];
 	if (check_cap(r, t) == 1)

@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 19:18:26 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/10 21:30:56 by wstygg           ###   ########.fr       */
+/*   Updated: 2021/02/13 18:31:00 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ double			realmod(double x, double p)
 
 t_color			stripe_at(t_material m, t_vec point)
 {
-	if (realmod(floor(point.c[0]), 2) == 0)
+	if (realmod(SDL_floor(point.c[0]), 2) == 0)
 		return (m.p.a);
 	else
 		return (m.p.b);
@@ -40,7 +40,7 @@ t_color			gradient_at(t_material m, t_vec point)
 
 t_color			ring_at(t_material m, t_vec point)
 {
-	if (realmod(floor(sqrt((point.c[0] * point.c[0]) +
+	if (realmod(SDL_floor(SDL_sqrt((point.c[0] * point.c[0]) +
 	(point.c[2] * point.c[2]))), 2) == 0)
 		return (m.p.a);
 	else
@@ -49,8 +49,8 @@ t_color			ring_at(t_material m, t_vec point)
 
 t_color			checker_at(t_material m, t_vec point)
 {
-	if ((realmod(floor(point.c[0]) + floor(point.c[1]) +
-	floor(point.c[2]), 2)) == 0)
+	if ((realmod(SDL_floor(point.c[0]) + SDL_floor(point.c[1]) +
+	SDL_floor(point.c[2]), 2)) == 0)
 		return (m.p.a);
 	else
 		return (m.p.b);

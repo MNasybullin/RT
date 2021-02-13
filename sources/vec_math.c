@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 14:19:19 by aannara           #+#    #+#             */
-/*   Updated: 2020/12/12 14:56:10 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/13 18:36:04 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 double	magnitude(t_vec a)
 {
-	return (sqrt(a.c[0] * a.c[0] + a.c[1] * a.c[1] +
+	return (SDL_sqrt(a.c[0] * a.c[0] + a.c[1] * a.c[1] +
 	a.c[2] * a.c[2] + a.c[3] * a.c[3]));
 }
 
@@ -53,7 +53,7 @@ int		identic_m_4(t_matrix a, t_matrix b)
 		j = 0;
 		while (j < 4)
 		{
-			if (fabs(a.m[i][j] - b.m[i][j]) >= EPSILON)
+			if (SDL_fabs(a.m[i][j] - b.m[i][j]) >= EPSILON)
 				return (0);
 			j++;
 		}

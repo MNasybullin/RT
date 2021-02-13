@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/10 21:06:57 by wstygg           ###   ########.fr       */
+/*   Updated: 2021/02/13 18:36:51 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include "mem_lst.h"
 
 # define THREADS 400
-# define WIN_W 800
-# define WIN_H 800
+# define WIN_W 1200
+# define WIN_H 1200
 # define EPSILON 0.00001
 # define KEY sdl->e.key.keysym.sym
 

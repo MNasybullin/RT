@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 19:43:41 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/06 18:38:28 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/13 18:36:07 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		normal_at_cone(void *v_s, t_vec world_point, t_vec *n)
 		obj_n = set_v_p(0, -1, 0, 0);
 	else
 	{
-		dist = sqrt(dist);
+		dist = SDL_sqrt(dist);
 		if (obj_p.c[1] > 0)
 			dist = -dist;
 		obj_n = set_v_p(obj_p.c[0], dist, obj_p.c[2], 0);
@@ -74,11 +74,11 @@ int		normal_at_cube(void *v_s, t_vec world_point, t_vec *n)
 
 	s = (t_cube*)v_s;
 	object_point = matrix_mult_v_p(s->transform, world_point);
-	maxc = max(fabs(object_point.c[0]), fabs(object_point.c[1]),
-	fabs(object_point.c[2]));
-	if (maxc == fabs(object_point.c[0]))
+	maxc = max(SDL_fabs(object_point.c[0]), SDL_fabs(object_point.c[1]),
+	SDL_fabs(object_point.c[2]));
+	if (maxc == SDL_fabs(object_point.c[0]))
 		object_normal = set_v_p(object_point.c[0], 0, 0, 0);
-	else if (maxc == fabs(object_point.c[1]))
+	else if (maxc == SDL_fabs(object_point.c[1]))
 		object_normal = set_v_p(0, object_point.c[1], 0, 0);
 	else
 		object_normal = set_v_p(0, 0, object_point.c[2], 0);
