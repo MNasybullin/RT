@@ -20,9 +20,9 @@
 # include "SDL.h"
 # include "mem_lst.h"
 
-# define THREADS 207
-# define WIN_W 896
-# define WIN_H 414
+# define THREADS 40
+# define WIN_W 400
+# define WIN_H 400
 # define EPSILON 0.00001
 # define KEY sdl->e.key.keysym.sym
 
@@ -396,6 +396,18 @@ struct						s_world
 	double					up_z;
 };
 
+typedef union				u_argb
+{
+	struct
+	{
+		u_int8_t			b;
+		u_int8_t			g;
+		u_int8_t			r;
+		u_int8_t			a;
+	}						parts;
+	u_int32_t				color;
+}							t_argb;
+
 typedef struct				s_sdl
 {
 	SDL_Window				*win;
@@ -406,6 +418,8 @@ typedef struct				s_sdl
 	int						*img;
 	int						run;
 	int						progress;
+	int						blur;
+	int						stereo;
 }							t_sdl;
 
 typedef struct				s_screenshot
