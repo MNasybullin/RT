@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 16:58:22 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/08 18:13:55 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/13 20:20:40 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ t_vec			spherical_map(t_vec p)
 	double	u;
 	double	v;
 
-	theta = atan2(p.c[0], p.c[2]);
+	theta = SDL_atan2(p.c[0], p.c[2]);
 	vec = set_v_p(p.c[0], p.c[1], p.c[2], 0);
-	phi = acos(p.c[1] / magnitude(vec));
+	phi = SDL_acos(p.c[1] / magnitude(vec));
 	u = 1 - ((theta / (2 * M_PI)) + 0.5);
 	v = 1 - phi / M_PI;
 	return (set_v_p(u, v, 0, 0));

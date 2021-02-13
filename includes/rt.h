@@ -14,17 +14,15 @@
 # define RT_H
 
 # include <unistd.h>
-# include <math.h>
 # include <stdio.h>
-# include <pthread.h>
 # include <fcntl.h>
 
 # include "SDL.h"
 # include "mem_lst.h"
 
-# define THREADS 400
-# define WIN_W 1200
-# define WIN_H 1200
+# define THREADS 207
+# define WIN_W 896
+# define WIN_H 414
 # define EPSILON 0.00001
 # define KEY sdl->e.key.keysym.sym
 
