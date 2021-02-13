@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/13 21:26:47 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/13 21:49:26 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,16 @@ void	key_press(t_sdl *sdl, t_world *w, t_data *p, char *path)
 	}
 	else if (KEY == SDLK_n && !(sdl->progress = 0))
 		read_config(sdl, w, p, path);
+	if (KEY == SDLK_4)
+	{
+		sdl->blur = sdl->blur == 0 ? 1 : 0;
+		sdl->progress = 0;
+	}
+	if (KEY == SDLK_5)
+	{
+		sdl->stereo = sdl->stereo == 0 ? 1 : 0;
+		sdl->progress = 0;
+	}
 	if (w->effective_render == 1)
 		check_camera_position(sdl, w);
 	if (sdl->progress == 0)
@@ -75,6 +85,47 @@ void	init(t_sdl *sdl)
 		init_sdl_error();
 }
 
+void	add_blurfilter(t_sdl *sdl)
+{
+	t_argb	argb;
+	t_argb	argb2;
+	t_argb	argb3;
+	for (int i = 0; i < (WIN_H * WIN_W) - 1; ++i)
+	{
+		argb.color = sdl->img[i];
+		argb2.color = sdl->img[i + 1];
+		argb3.color = sdl->img[i + 2];
+		argb3.parts.r = (argb2.parts.r + argb.parts.r + argb3.parts.r) / 3;
+		argb3.parts.g = (argb2.parts.g + argb.parts.g + argb3.parts.g) / 3;
+		argb3.parts.b = (argb2.parts.b + argb.parts.b + argb3.parts.b) / 3;
+		sdl->img[i + 2] = argb3.color;
+	}
+	SDL_UpdateTexture(sdl->text, NULL, sdl->img, sizeof(int) * WIN_W);
+	SDL_RenderClear(sdl->ren);
+	SDL_RenderCopy(sdl->ren, sdl->text, NULL, NULL);
+	SDL_RenderPresent(sdl->ren);
+}
+
+void	add_stereofilter(t_sdl *sdl)
+{
+	t_sdl *sdl2;
+	t_argb	argb;
+	t_argb	argb2;
+	sdl2 = sdl;
+	for (int i = 0; i < (WIN_H * WIN_W) - 1; ++i)
+	{
+		argb.color = sdl->img[i];
+		argb2.color = sdl2->img[i + 10];
+		argb.parts.g = 0;
+		argb.parts.g = argb2.parts.g;
+		sdl->img[i] = argb.color;
+	}
+	SDL_UpdateTexture(sdl->text, NULL, sdl->img, sizeof(int) * WIN_W);
+	SDL_RenderClear(sdl->ren);
+	SDL_RenderCopy(sdl->ren, sdl->text, NULL, NULL);
+	SDL_RenderPresent(sdl->ren);
+}
+
 int		main(int ac, char **av)
 {
 	t_sdl		sdl;
@@ -92,6 +143,8 @@ int		main(int ac, char **av)
 		return (1);
 	}
 	w.effective_render = 0;
+	sdl.blur = 0;
+	sdl.stereo = 0;
 	SDL_SetWindowTitle(sdl.win, "RT - Rendering in progress ...");
 	while (sdl.run == 0)
 	{
@@ -105,6 +158,10 @@ int		main(int ac, char **av)
 		if (sdl.progress == 0)
 		{
 			render(&sdl, w.c, w);
+			if (sdl.blur == 1)
+				add_blurfilter(&sdl);
+			if (sdl.stereo == 1)
+				add_stereofilter(&sdl);
 			SDL_SetWindowTitle(sdl.win, "RT");
 			sdl.progress++;
 		}
