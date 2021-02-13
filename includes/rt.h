@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/13 18:36:51 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/13 21:15:19 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,15 @@
 # define RT_H
 
 # include <unistd.h>
-# include <math.h>
 # include <stdio.h>
-# include <pthread.h>
 # include <fcntl.h>
 
 # include "SDL.h"
 # include "mem_lst.h"
 
-# define THREADS 400
-# define WIN_W 1200
-# define WIN_H 1200
+# define THREADS 207
+# define WIN_W 896
+# define WIN_H 414
 # define EPSILON 0.00001
 # define KEY sdl->e.key.keysym.sym
 

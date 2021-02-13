@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 18:44:11 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/13 18:28:32 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/13 21:08:26 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,14 @@ void			aliasing(t_treads *treads, int x, int y, int remaining)
 	treads->sdl->img[y * treads->camera->hsize + x] = col_to_int(col);
 }
 
-void			draw(t_treads *treads)
+int			draw(void *data)
 {
 	int		x;
 	int		y;
 	t_color	col;
+	t_treads *treads;
 
+	treads = data;
 	y = treads->start;
 	while (y < treads->finish)
 	{
@@ -62,41 +64,21 @@ void			draw(t_treads *treads)
 		}
 		y++;
 	}
+	return (0);
 }
 
-pthread_attr_t	stack_size(void)
-{
-	pthread_attr_t	thread_attr;
-
-	if (pthread_attr_init(&thread_attr) != 0)
-	{
-		write(1, "Cannot create thread\n", 21);
-		exit(EXIT_FAILURE);
-	}
-	if (pthread_attr_setstacksize(&thread_attr, 5 * 1024 * 1024) != 0)
-	{
-		write(1, "Cannot create thread\n", 21);
-		exit(EXIT_FAILURE);
-	}
-	return (thread_attr);
-}
-
-void			render_join(t_sdl *sdl, pthread_t *threads)
+void			render_join(t_sdl *sdl, SDL_Thread **threads)
 {
 	int	i;
+	int	status;
 
 	i = 0;
 	while (i < THREADS)
 	{
-		if (pthread_join(threads[i], NULL) ||
-		SDL_UpdateTexture(sdl->text, NULL, sdl->img,
-		sizeof(int) * WIN_W) == -1 ||
-		SDL_RenderClear(sdl->ren) == -1 || SDL_RenderCopy(sdl->ren,
-		sdl->text, NULL, NULL) == -1)
-		{
-			write(1, "error threads or sdl update render error\n", 41);
-			exit(-1);
-		}
+		SDL_WaitThread(threads[i], NULL);
+		SDL_UpdateTexture(sdl->text, NULL, sdl->img, sizeof(int) * WIN_W);
+		SDL_RenderClear(sdl->ren);
+		SDL_RenderCopy(sdl->ren, sdl->text, NULL, NULL);
 		SDL_RenderPresent(sdl->ren);
 		i++;
 	}
@@ -104,13 +86,11 @@ void			render_join(t_sdl *sdl, pthread_t *threads)
 
 void			render(t_sdl *sdl, t_camera camera, t_world world)
 {
-	pthread_t		threads[THREADS];
-	t_treads		htreads[THREADS];
-	pthread_attr_t	thread_attr;
-	int				i;
+	SDL_Thread	*threads[THREADS];
+	t_treads	htreads[THREADS];
+	int			i;
 
 	i = 0;
-	thread_attr = stack_size();
 	if (check_transform_matrix(&camera.transform, &camera.transform, 0) == 1)
 		exit(-1);
 	while (i < THREADS)
@@ -120,12 +100,7 @@ void			render(t_sdl *sdl, t_camera camera, t_world world)
 		htreads[i].world = &world;
 		htreads[i].start = i * (camera.hsize / THREADS);
 		htreads[i].finish = (i + 1) * (camera.hsize / THREADS);
-		if (pthread_create(&threads[i], &thread_attr, (void *)draw,
-		(void *)&htreads[i]) != 0)
-		{
-			write(1, "error threads create\n", 21);
-			exit(-1);
-		}
+		threads[i] = SDL_CreateThread(draw, NULL, htreads + i);
 		i++;
 	}
 	render_join(sdl, threads);
