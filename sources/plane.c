@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 15:54:55 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/06 18:22:11 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/13 18:35:46 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	intersect_pl(void *v_s, t_ray r, t_x_t *x, int obj_n)
 
 	s = (t_plane*)v_s;
 	ray2 = transform(r, s->transform);
-	if (fabs(ray2.d.c[1]) < EPSILON)
+	if (SDL_fabs(ray2.d.c[1]) < EPSILON)
 		return ;
 	x->t[x->max_obj].t = -ray2.o.c[1] / ray2.d.c[1];
 	x->t[x->max_obj].obj = obj_n;

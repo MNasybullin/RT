@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/16 16:24:47 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/02 20:51:42 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/13 18:31:27 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_color	refracted_color(t_world w, t_comps c, int remaining)
 	sin2_t = (n_ratio * n_ratio) * (1.0 - (cos_i * cos_i));
 	if (sin2_t > 1.0)
 		return (color(0, 0, 0));
-	cos_t = sqrt(1.0 - sin2_t);
+	cos_t = SDL_sqrt(1.0 - sin2_t);
 	direction = sub(mult(c.normalv, (n_ratio * cos_i - cos_t)),
 	mult(c.eyev, n_ratio));
 	return (mult_col(color_at(&w, set_ray(c.under_point, direction),

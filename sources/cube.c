@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 14:11:03 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/06 18:21:31 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/13 18:33:14 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_t_minmax	check_axis(double origin, double direction)
 
 	tmin_numerator = (-1 - origin);
 	tmax_numerator = (1 - origin);
-	if (fabs(direction) >= EPSILON)
+	if (SDL_fabs(direction) >= EPSILON)
 	{
 		t.min = tmin_numerator / direction;
 		t.max = tmax_numerator / direction;
