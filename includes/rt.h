@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/10 21:06:57 by wstygg           ###   ########.fr       */
+/*   Updated: 2021/02/13 19:08:22 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -892,5 +892,7 @@ int		check_make_obj(char **tab);
 int		check_is_light(char **tab, t_data *p);
 int		check_is_camera(char **tab, t_data *p);
 int		check_make_light(char **tab);
+
+void                        create_triangle(t_data *p, t_world *w, char **tab, t_forcam *forcam);
 
 #endif

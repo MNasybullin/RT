@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 20:14:25 by mgalt             #+#    #+#             */
-/*   Updated: 2021/01/31 18:32:17 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/13 19:35:47 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ char	**check_type(t_data *p, t_world *w, char **tab)
 
 void	making_light(t_data *p, t_world *w, char **tab)
 {
+	int		i;
+
+	i = 0;
 	if (!(strcmp_v2(p->line, "lights:")))
 	{
 		get_next_line(p->fd, &p->line);
@@ -44,12 +47,22 @@ void	making_light(t_data *p, t_world *w, char **tab)
 		get_next_line(p->fd, &p->line);
 		tab = ft_strsplit(p->line, ' ');
 	}
-	if (len_tab(tab) == 2 && ft_strequ(tab[0], "-") &&
+	while (i < p->lights_num)
+	{
+		if (len_tab(tab) == 2 && ft_strequ(tab[0], "-") &&
+		ft_strequ(tab[1], "light:"))
+		{
+			p->tab = NULL;
+			parse_lights(p, w);
+		}
+		i++;
+	}
+	/*if (len_tab(tab) == 2 && ft_strequ(tab[0], "-") &&
 	ft_strequ(tab[1], "light:"))
 	{
 		p->tab = NULL;
 		parse_lights(p, w);
-	}
+	}*/
 }
 
 void	making_camera(t_data *p, t_world *w, char **tab)

@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 15:03:41 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/03 21:58:40 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/13 19:37:09 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,13 @@ void	parse_lights(t_data *p, t_world *w)
 			break ;
 	}
 	p->light_i++;
+	if ((!(ft_strequ(p->tab[0], "lights:")) && (len_tab(p->tab) == 2 &&
+	!(ft_strequ(p->tab[1], "light:")))) && (len_tab(p->tab) == 2 &&
+	(!(ft_strequ(p->tab[0], "cameras:")) && !(ft_strequ(p->tab[1], "camera:")))))
+	{
+		get_next_line(p->fd, &p->line);
+		p->tab = ft_strsplit(p->line, ' ');
+	}
 	free_tab(p->tab);
 	p->tab = NULL;
 }
