@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/13 20:09:27 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/13 21:51:33 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ void	quit(t_sdl *sdl, int error)
 
 void	key_press(t_sdl *sdl, t_world *w, t_data *p, char *path)
 {
+	int		n = 1;
+	int		i = 0;
+
 	if (KEY == SDLK_ESCAPE)
 		sdl->run = 1;
 	else if (KEY == SDLK_F12)
@@ -42,9 +45,15 @@ void	key_press(t_sdl *sdl, t_world *w, t_data *p, char *path)
 			w->effective_render = w->effective_render == 0 ? 1 : 0;
 		else if (KEY == SDLK_o)
 		{
-			w->obj_ar[0].m->color.r += 0.2;
-			w->obj_ar[0].m->color.g += 0.3;
-			w->obj_ar[0].m->color.b += 0.5;
+			/*n++;
+			while (/i < w->max_obj)
+			{
+				w->obj_ar[i].m->color.r = rand() / (rand() + 0.2) + 0.1;
+				w->obj_ar[i].m->color.g = rand() / (rand() + 0.2) + 0.1;
+				w->obj_ar[i].m->color.b = rand() / (rand() + 0.2) + 0.1;
+				i++;
+			}*/
+			w->aquadisco *= -1;
 		}
 		sdl->progress = 0;
 	}
@@ -81,12 +90,26 @@ void	init(t_sdl *sdl)
 		init_sdl_error();
 }
 
+void	ft_aquadisco(t_world *w)
+{
+	int 		i;
+	
+	i = 0;
+	while (i < w->max_obj)
+	{
+		w->obj_ar[i].m->color.r = rand() / (rand() + 0.2) + 0.1;
+		w->obj_ar[i].m->color.g = rand() / (rand() + 0.2) + 0.1;
+		w->obj_ar[i].m->color.b = rand() / (rand() + 0.2) + 0.1;
+		i++;
+	}
+}
+
 int		main(int ac, char **av)
 {
 	t_sdl		sdl;
 	t_world		w;
 	t_data		p;
-
+	
 	if (ac == 2)
 	{
 		init(&sdl);
@@ -98,6 +121,7 @@ int		main(int ac, char **av)
 		return (1);
 	}
 	w.effective_render = 0;
+	w.aquadisco = -1;
 	SDL_SetWindowTitle(sdl.win, "RT - Rendering in progress ...");
 	while (sdl.run == 0)
 	{
@@ -112,7 +136,10 @@ int		main(int ac, char **av)
 		{
 			render(&sdl, w.c, w);
 			SDL_SetWindowTitle(sdl.win, "RT");
-			sdl.progress++;
+			if (w.aquadisco == 1)
+				ft_aquadisco(&w);
+			else
+				++sdl.progress;
 		}
 	}
 	quit(&sdl, EXIT_SUCCESS);

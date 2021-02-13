@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 14:35:51 by mgalt             #+#    #+#             */
-/*   Updated: 2021/02/13 19:42:44 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/13 22:04:24 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,17 @@ void	init_parse(t_data *p, t_world *w)
 	p->cam_num = 0;
 	w->pl_obj += 0;
 	p->is_obj_file = 0;
+}
+
+void	init_cyl(t_data *p, t_world *w)
+{
+	w->cyl[p->cyl_i] = set_cylinder();
+	w->cyl[p->cyl_i].pattern = 0;
+	w->cyl[p->cyl_i].is_tex = 0;
+	w->cyl[p->cyl_i].pattern_type = 0;
+	w->cyl[p->cyl_i].m.tex = 0;
+	w->cyl[p->cyl_i].width = 0;
+	w->cyl[p->cyl_i].height = 0;
+	w->cyl[p->cyl_i].check.height = 0;
+	w->cyl[p->cyl_i].check.width = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 16:27:42 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/03 22:07:57 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/13 22:03:17 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,20 @@ void	help_counting(t_data *p, char **tab)
 		p->tri_num++;
 }
 
+void	cycle_triangle(t_data *p, t_world *w)
+{
+	while ((get_next_line(p->fd, &p->line)))
+	{
+		p->tab = ft_strsplit(p->line, ' ');
+		if (len_tab(p->tab) == 0)
+			exit(err_wrong_format());
+		if ((check_make_obj(p->tab)))
+			make_obj_tri(p, w, p->tab);
+		else
+			break ;
+	}
+}
+
 char	*remove_quotes(char *s1)
 {
     char	**res;
@@ -55,4 +69,19 @@ char	*remove_quotes(char *s1)
 	if (res)
 		return (res[0]);
 	return (NULL);
+}
+
+
+void	cycle_cube(t_data *p, t_world *w)
+{
+	while ((get_next_line(p->fd, &p->line)))
+	{
+		p->tab = ft_strsplit(p->line, ' ');
+		if (len_tab(p->tab) == 0)
+			exit(err_wrong_format());
+		if ((check_make_obj(p->tab)))
+			make_obj_cube(p, w, p->tab);
+		else
+			break ;
+	}
 }

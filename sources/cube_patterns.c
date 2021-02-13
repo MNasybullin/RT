@@ -6,19 +6,18 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 16:55:40 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/15 17:44:29 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/13 22:01:49 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void	init_cube(t_data *p, t_world *w, char **tab)
+void	init_cube(t_data *p, t_world *w)
 {
 	w->cub[p->cube_i] = set_cube();
 	w->cub[p->cube_i].pattern = 0;
 	w->cub[p->cube_i].tex_num = 0;
 	w->cub[p->cube_i].pattern_type = 0;
-	tab = NULL;
 }
 
 void	texture_cube(char **tab, t_data *p, t_world *w)

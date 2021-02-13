@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:49:57 by mgalt             #+#    #+#             */
-/*   Updated: 2021/02/13 20:07:29 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/13 21:26:56 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ void	make_obj_tri_4(t_data *p, t_world *w, char **tab)
 		w->trian[p->tri_i].width = ft_atoi(tab[1]);
 	if (!(ft_strcmp(tab[0], "height:")))
 		w->trian[p->tri_i].height = ft_atoi(tab[1]);
+	if (!(ft_strcmp(tab[0], "p3:")))
+	{
+		p->tri_vect++;
+		triangle_sides(p, w, tab, 7);
+	}
 }
 
 void	make_obj_tri_3(t_data *p, t_world *w, char **tab)
@@ -42,10 +47,6 @@ void	make_obj_tri_3(t_data *p, t_world *w, char **tab)
 		if (!(ft_strcmp(tab[1], "1")))
 			w->trian[p->tri_i].m.pattern = 1;
 	}
-	/*if (!(ft_strcmp(tab[0], "color_a:")))
-		pattern_color_tri(p, w, tab, 1);
-	if (!(ft_strcmp(tab[0], "color_b:")))
-		pattern_color_tri(p, w, tab, 2);*/
 	if (!(ft_strcmp(tab[0], "tex:")) && len_tab(tab) == 2)
 		texture_tri(tab, p, w);
 	if (!(ft_strcmp(tab[0], "texture:")) && len_tab(tab) == 2)
@@ -80,11 +81,6 @@ void	make_obj_tri_2(t_data *p, t_world *w, char **tab)
 		p->tri_vect++;
 		triangle_sides(p, w, tab, 6);
 	}
-	if (!(ft_strcmp(tab[0], "p3:")))
-	{
-		p->tri_vect++;
-		triangle_sides(p, w, tab, 7);
-	}
 }
 
 void	make_obj_tri(t_data *p, t_world *w, char **tab)
@@ -112,58 +108,26 @@ void	make_obj_tri(t_data *p, t_world *w, char **tab)
 	make_obj_tri_4(p, w, tab);
 }
 
-/*void	create_triangle(t_data *p, t_world *w, char **tab, t_forcam *forcam)
-{
-	tab = NULL;
-	init_tri(p, w);
-	while ((get_next_line(p->fd, &p->line)))
-	{
-		tab = ft_strsplit(p->line, ' ');
-		if (len_tab(tab) == 0)
-			exit(err_wrong_format());
-		if ((check_make_obj(tab)))
-			make_obj_tri(p, w, tab);
-		else
-			break ;
-	}
-}*/
-
 char	**make_tri(t_data *p, t_world *w, char **tab)
 {
 	tab = NULL;
 	init_tri(p, w);
-	//if (p->is_obj_file == 0)
-	//{
-		while ((get_next_line(p->fd, &p->line)))
-		{
-			tab = ft_strsplit(p->line, ' ');
-			if (len_tab(tab) == 0)
-				exit(err_wrong_format());
-			if ((check_make_obj(tab)))
-				make_obj_tri(p, w, tab);
-			else
-				break ;
-		}
-		if (p->tri_vect == 3)
-			set_trian(w->trian[p->tri_i].p1, w->trian[p->tri_i].p2,
-			w->trian[p->tri_i].p3, &w->trian[p->tri_i]);
-		else if (p->is_obj_file == 1)
-		{
-			set_trian(p->tr_vec.from, p->tr_vec.to,
-			p->tr_vec.up, &w->trian[p->tri_i]);
-		}
-		if (w->trian[p->tri_i].m.pattern == 1)
-			tri_patterns(p, w);
-	//}
-	//else if (p->is_obj_file == 1)
-	//{
-
-	//}
+	cycle_triangle(p, w);
+	if (p->tri_vect == 3)
+		set_trian(w->trian[p->tri_i].p1, w->trian[p->tri_i].p2,
+		w->trian[p->tri_i].p3, &w->trian[p->tri_i]);
+	else if (p->is_obj_file == 1)
+		set_trian(p->tr_vec.from, p->tr_vec.to,
+		p->tr_vec.up, &w->trian[p->tri_i]);
+	if (w->trian[p->tri_i].m.pattern == 1)
+		tri_patterns(p, w);
 	p->tri_vect = 0;
 	p->is_obj_file = 0;
 	p->tri_i++;
-	if ((!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "lights:"))) &&
-	(!(ft_strequ(tab[0], "cameras:")) && !(ft_strequ(tab[1], "camera:"))))
+	if ((!(ft_strequ(p->tab[0], "lights:")) &&
+	!(ft_strequ(p->tab[1], "lights:"))) &&
+	(!(ft_strequ(p->tab[0], "cameras:")) &&
+	!(ft_strequ(p->tab[1], "camera:"))))
 	{
 		get_next_line(p->fd, &p->line);
 		p->tab = ft_strsplit(p->line, ' ');

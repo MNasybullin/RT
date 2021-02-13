@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/13 19:42:10 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/13 22:03:04 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -396,6 +396,8 @@ struct						s_world
 	double					up_x;
 	double					up_y;
 	double					up_z;
+
+	int						aquadisco;
 };
 
 typedef struct				s_sdl
@@ -814,7 +816,7 @@ void	pattern_color_cube(t_data *p, t_world *w, char **tab, int flag);
 void	cube_crutch_1(t_data *p, t_world *w, char **tab, int flag);
 void	cube_crutch_2(t_data *p, t_world *w, char **tab, int flag);
 void	cube_crutch_3(t_data *p, t_world *w, char **tab, int flag);
-void	init_cube(t_data *p, t_world *w, char **tab);
+void	init_cube(t_data *p, t_world *w);
 void	cyl_crutch_1(t_data *p, t_world *w, char **tab, int flag);
 void	cyl_crutch_2(t_data *p, t_world *w, char **tab, int flag);
 void	cyl_crutch_3(t_data *p, t_world *w, char **tab, int flag);
@@ -851,6 +853,9 @@ void	complex_params_tri(t_data *p, t_world *w, char **tab, int flag);
 void	tri_crutch_1(t_data *p, t_world *w, char **tab, int flag);
 void	tri_crutch_2(t_data *p, t_world *w, char **tab, int flag);
 void	tri_crutch_3(t_data *p, t_world *w, char **tab, int flag);
+void	cycle_triangle(t_data *p, t_world *w);
+void	cycle_cube(t_data *p, t_world *w);
+void	ft_aquadisco(t_world *w);
 
 //libft
 void	ft_putendl(char const *s);

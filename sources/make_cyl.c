@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:36:46 by mgalt             #+#    #+#             */
-/*   Updated: 2021/01/12 14:15:40 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/13 22:04:13 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,19 +104,6 @@ void	make_obj_cyl(t_data *p, t_world *w, char **tab)
 	make_obj_cyl_2(p, w, tab);
 	make_obj_cyl_3(p, w, tab);
 	make_obj_cyl_4(p, w, tab);
-}
-
-void	init_cyl(t_data *p, t_world *w)
-{
-	w->cyl[p->cyl_i] = set_cylinder();
-	w->cyl[p->cyl_i].pattern = 0;
-	w->cyl[p->cyl_i].is_tex = 0;
-	w->cyl[p->cyl_i].pattern_type = 0;
-	w->cyl[p->cyl_i].m.tex = 0;
-	w->cyl[p->cyl_i].width = 0;
-	w->cyl[p->cyl_i].height = 0;
-	w->cyl[p->cyl_i].check.height = 0;
-	w->cyl[p->cyl_i].check.width = 0;
 }
 
 char	**make_cyl(t_data *p, t_world *w, char **tab)
