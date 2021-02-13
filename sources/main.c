@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/10 18:44:24 by out-nasybul      ###   ########.fr       */
+/*   Updated: 2021/02/13 20:09:27 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	key_press(t_sdl *sdl, t_world *w, t_data *p, char *path)
 		sdl->run = 1;
 	else if (KEY == SDLK_F12)
 		save_texture(sdl->ren, sdl->text);
-	else if (KEY == SDLK_1 || KEY == SDLK_2 || KEY == SDLK_3)
+	else if (KEY == SDLK_1 || KEY == SDLK_2 || KEY == SDLK_3 || KEY == SDLK_o)
 	{
 		if (KEY == SDLK_1)
 			w->c.aliasing = w->c.aliasing == 0 ? 1 : 0;
@@ -40,6 +40,12 @@ void	key_press(t_sdl *sdl, t_world *w, t_data *p, char *path)
 			w->c.sepia = w->c.sepia == 0 ? 1 : 0;
 		else if (KEY == SDLK_3)
 			w->effective_render = w->effective_render == 0 ? 1 : 0;
+		else if (KEY == SDLK_o)
+		{
+			w->obj_ar[0].m->color.r += 0.2;
+			w->obj_ar[0].m->color.g += 0.3;
+			w->obj_ar[0].m->color.b += 0.5;
+		}
 		sdl->progress = 0;
 	}
 	else if (KEY == SDLK_n && !(sdl->progress = 0))
