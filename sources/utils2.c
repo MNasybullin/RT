@@ -35,7 +35,10 @@ void	help_counting(t_data *p, char **tab)
 	if (!(ft_strcmp(tab[1], "plane")))
 		p->pl_num++;
 	if (!(ft_strcmp(tab[1], "sphere")))
-		p->sp_num++;
+		{
+			p->sp_num++;
+			get_obj_triangle_count("tetra.obj", p);
+		}
 	if (!(ft_strcmp(tab[1], "cone")))
 		p->cone_num++;
 	if (!(ft_strcmp(tab[1], "cylinder")))

@@ -14,6 +14,7 @@ void	read_config(t_sdl *sdl, t_world *w, t_data *p, char *path)
 		ft_putendl("\nWrong Format or invalid file\n");
 		exit(1);
 	}
+	printf("start readfile\n");
 	read_file(path, p, w);
 	sdl->progress = 0;
 	w->s_obj = p->sp_num;

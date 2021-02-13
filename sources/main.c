@@ -101,6 +101,7 @@ void			get_indexes(char **split, int *indexes, int max_index)
 		number = SDL_atoi(split[i + 1]);
 		if (number <= 0 || number > max_index)
 			ft_crash("Vertex index error");
+		indexes[i] = number;
 	}
 }
 
@@ -113,7 +114,9 @@ void			add_triangles(char ***pointer, t_vec *vertices, t_data *p, t_world *w)
 	forcam.from = vertices[indexes[0]];
 	forcam.to = vertices[indexes[1]];
 	forcam.up = vertices[indexes[2]];
-	//create_triangle(p, w, pointer[1], &forcam);
+	p->is_obj_file = 1;
+	p->tr_vec = forcam;
+	make_tri(p, w, pointer[1]);
 }
 
 void			read_obj(const char *path, t_data *p, t_world *w, char **tab)
@@ -123,23 +126,33 @@ void			read_obj(const char *path, t_data *p, t_world *w, char **tab)
 	char		**split;
 	t_vec		*vertices;
 
+	int lin = 1;
 	if (!(vertices = malloc(sizeof(t_vec) * p->vertex_count)))
 		ft_crash("Vertices malloc error");
 	add_vertices(NULL, NULL, 1);
-	while (get_next_line(fd, &line) > 0)
+	int ret;
+	while ((ret = get_next_line(fd, &line)) > 0)
 	{
+		printf("line is %d\n", lin++);
 		split = ft_strsplit(line, ' ');
 		if (tab_length(split) != 4)
 			ft_crash("obj file error");
 		if (!SDL_strcmp(split[0], "v"))
+		{
+			printf("adding verticle\n");
 			add_vertices(vertices, split, 0);
+		}
 		else if (!SDL_strcmp(split[0], "f"))
+		{
+			printf("adding triange\n");
 			add_triangles((char**[2]){split, tab}, vertices, p, w);
+		}
 		else if (split[0][0] != '#')
 			ft_crash("simple obj reader supports only f, v, and comments");
 		free_tab(split);
 		free(line);
 	}
+	printf("%d\n", ret);
 }
 
 void	init(t_sdl *sdl)

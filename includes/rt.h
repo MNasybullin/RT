@@ -482,7 +482,8 @@ typedef struct		s_data
 	int			is_obj_file;
 }					t_data;
 
-void						create_triangle(t_data *p, t_world *w, char **tab, t_forcam *forcam);
+void			get_obj_triangle_count(const char *path, t_data *p);
+void			read_obj(const char *path, t_data *p, t_world *w, char **tab);
 
 int							ft_check_file(const char *file, unsigned check);
 int							ft_open_file(const char *path);

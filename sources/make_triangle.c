@@ -112,7 +112,7 @@ void	make_obj_tri(t_data *p, t_world *w, char **tab)
 	make_obj_tri_4(p, w, tab);
 }
 
-/*void	create_triangle(t_data *p, t_world *w, char **tab, t_forcam *forcam)
+void	create_triangle(t_data *p, t_world *w, char **tab, t_forcam *forcam)
 {
 	tab = NULL;
 	init_tri(p, w);
@@ -126,47 +126,40 @@ void	make_obj_tri(t_data *p, t_world *w, char **tab)
 		else
 			break ;
 	}
-}*/
+}
 
 char	**make_tri(t_data *p, t_world *w, char **tab)
 {
 	tab = NULL;
 	init_tri(p, w);
-	//if (p->is_obj_file == 0)
-	//{
-		while ((get_next_line(p->fd, &p->line)))
-		{
-			tab = ft_strsplit(p->line, ' ');
-			if (len_tab(tab) == 0)
-				exit(err_wrong_format());
-			if ((check_make_obj(tab)))
-				make_obj_tri(p, w, tab);
-			else
-				break ;
-		}
-		if (p->tri_vect == 3)
-			set_trian(w->trian[p->tri_i].p1, w->trian[p->tri_i].p2,
-			w->trian[p->tri_i].p3, &w->trian[p->tri_i]);
-		else if (p->is_obj_file == 1)
-		{
-			set_trian(p->tr_vec.from, p->tr_vec.to,
-			p->tr_vec.up, &w->trian[p->tri_i]);
-		}
-		if (w->trian[p->tri_i].m.pattern == 1)
-			tri_patterns(p, w);
-	//}
-	//else if (p->is_obj_file == 1)
-	//{
-
-	//}
+	// while ((get_next_line(p->fd, &p->line)))
+	// {
+	// 	tab = ft_strsplit(p->line, ' ');
+	// 	if (len_tab(tab) == 0)
+	// 		exit(err_wrong_format());
+	// 	if ((check_make_obj(tab)))
+	// 		make_obj_tri(p, w, tab);
+	// 	else
+	// 		break ;
+	// }
+	if (p->tri_vect == 3)
+		set_trian(w->trian[p->tri_i].p1, w->trian[p->tri_i].p2,
+		w->trian[p->tri_i].p3, &w->trian[p->tri_i]);
+	if (p->is_obj_file == 1)
+	{
+		set_trian(p->tr_vec.from, p->tr_vec.to,
+		p->tr_vec.up, &w->trian[p->tri_i]);
+	}
+	if (w->trian[p->tri_i].m.pattern == 1)
+		tri_patterns(p, w);
 	p->tri_vect = 0;
 	p->is_obj_file = 0;
-	p->tri_i++;
-	if ((!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "lights:"))) &&
-	(!(ft_strequ(tab[0], "cameras:")) && !(ft_strequ(tab[1], "camera:"))))
-	{
-		get_next_line(p->fd, &p->line);
-		p->tab = ft_strsplit(p->line, ' ');
-	}
+	// p->tri_i++;
+	// if ((!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "lights:"))) &&
+	// (!(ft_strequ(tab[0], "cameras:")) && !(ft_strequ(tab[1], "camera:"))))
+	// {
+	// 	get_next_line(p->fd, &p->line);
+	// 	p->tab = ft_strsplit(p->line, ' ');
+	// }
 	return (p->tab);
 }

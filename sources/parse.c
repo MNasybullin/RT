@@ -120,4 +120,6 @@ void	read_file(char *file, t_data *p, t_world *w)
 	close(p->fd);
 	write_lights(p, w);
 	p->light_i = 0;
+	printf("read obj\n");
+	read_obj("tetra.obj", p, w, tab);
 }
