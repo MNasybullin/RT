@@ -683,7 +683,7 @@ t_vec *n);
 /*
 ** triangle
 */
-void	set_trian(t_vec p1, t_vec p2, t_vec p3, t_trian	*t);
+void						set_trian(t_vec p1, t_vec p2, t_vec p3, t_trian	*t);
 int							normal_at_trian(void *v_s, t_vec world_point,
 t_vec *n);
 void						intersect_trian(void *v_s, t_ray r, t_x_t *x,
