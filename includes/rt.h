@@ -575,7 +575,7 @@ void						intersect_world(t_world *w, t_ray r, t_x_t *x);
 t_comps						prepare_computations(int hit_obj, t_ray r,
 t_world *w, t_x_t xs);
 t_t_o						*alloc_tto(int size);
-void						free_tto(t_t_o *tto);
+int							free_tto(t_t_o *tto);
 int							*alloc_int(int size);
 void						free_int(int *i);
 
@@ -693,8 +693,8 @@ int obj_n);
 ** soft shadow
 */
 double						intensity_at(t_world w, t_vec p);
-t_light						area_light(t_vec corner, t_vec full_uvec,
-int usteps, t_vec full_vvec, int vsteps, t_color color);
+t_light						area_light(t_vec *vecs, int usteps, int vsteps,
+										t_color color);
 t_vec						point_on_light(t_light *l, int u, int v);
 
 /*

@@ -33,7 +33,6 @@ void	making_light(t_data *p, t_world *w, char **tab)
 {
 	int		i;
 
-	i = 0;
 	if (!(strcmp_v2(p->line, "lights:")))
 	{
 		get_next_line(p->fd, &p->line);
@@ -47,7 +46,8 @@ void	making_light(t_data *p, t_world *w, char **tab)
 		get_next_line(p->fd, &p->line);
 		tab = ft_strsplit(p->line, ' ');
 	}
-	while (i < p->lights_num)
+	i = -1;
+	while (++i < p->lights_num)
 	{
 		if (len_tab(tab) == 2 && ft_strequ(tab[0], "-") &&
 		ft_strequ(tab[1], "light:"))
@@ -55,7 +55,6 @@ void	making_light(t_data *p, t_world *w, char **tab)
 			p->tab = NULL;
 			parse_lights(p, w);
 		}
-		i++;
 	}
 }
 
@@ -78,6 +77,10 @@ void	making_camera(t_data *p, t_world *w, char **tab)
 
 void	reading(t_data *p, t_world *w, char *file)
 {
+	if (!(get_next_line(p->fd, &p->line)))
+		exit(err_empty_file());
+	if ((ft_strcmp(p->line, "---")))
+		exit(err_invalid_file());
 	start_count_obj(p, w);
 	p->fd = ft_open_file(file);
 	start_count_lights(p, w);
@@ -95,10 +98,6 @@ void	read_file(char *file, t_data *p, t_world *w)
 	i = 0;
 	init_parse(p, w);
 	p->fd = ft_open_file(file);
-	if (!(get_next_line(p->fd, &p->line)))
-		exit(err_empty_file());
-	if ((ft_strcmp(p->line, "---")))
-		exit(err_invalid_file());
 	reading(p, w, file);
 	while ((get_next_line(p->fd, &p->line)))
 	{
