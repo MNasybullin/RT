@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_plane.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 15:10:33 by mgalt             #+#    #+#             */
-/*   Updated: 2021/01/12 14:20:38 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/14 14:17:05 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ char	**make_plane(t_data *p, t_world *w, char **tab)
 		else
 			break ;
 	}
-	//printf("pattern color a: %f %f %f\nwidth: %d\nheight:%d\n", w->pl[0].color_a.r, w->pl[0].color_a.g, w->pl[0].color_a.b, w->pl[0].width, w->pl[0].height);
 	if (w->pl[p->pl_i].m.pattern == 1)
 		plane_patterns(p, w);
 	p->pl_i++;

@@ -6,13 +6,13 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/02 16:01:23 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/13 18:36:07 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/14 14:22:19 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void	set_trian(t_vec p1, t_vec p2, t_vec p3, t_trian	*t)
+void	set_trian(t_vec p1, t_vec p2, t_vec p3, t_trian *t)
 {
 	t->p1 = p1;
 	t->p2 = p2;

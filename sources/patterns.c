@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 14:28:16 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/13 18:35:36 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/14 14:24:27 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int				face_from_point(t_vec point)
 {
 	double coord;
 
-	coord = max(SDL_fabs(point.c[0]), SDL_fabs(point.c[1]), SDL_fabs(point.c[2]));
+	coord = max(SDL_fabs(point.c[0]), SDL_fabs(point.c[1]),
+		SDL_fabs(point.c[2]));
 	if (coord == point.c[0])
 		return (0);
 	if (coord == -point.c[0])

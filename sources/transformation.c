@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 17:49:00 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/06 18:18:58 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/14 14:18:10 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,19 +74,3 @@ t_matrix	view_transform(t_vec from, t_vec to, t_vec up)
 	return (matrix_mult(orientation,
 	translation(-from.c[0], -from.c[1], -from.c[2])));
 }
-
-/*
-t_matrix	default_view_transf(void)
-{
-	t_vec		from;
-	t_vec		to;
-	t_vec		up;
-	t_matrix	t;
-
-	from = set_v_p(0, 0, 0, 1);
-	to = set_v_p(0, 0, -1, 1);
-	up = set_v_p(0, 1, 0, 0);
-	t = view_transform(from, to, up);
-	return (t);
-}
-*/

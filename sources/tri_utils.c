@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tri_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:27:09 by mgalt             #+#    #+#             */
-/*   Updated: 2021/01/12 14:00:26 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/14 14:28:11 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,11 +136,5 @@ void	pattern_color_tri(t_data *p, t_world *w, char **tab, int flag)
 		else if (flag == 2)
 			w->trian[p->tri_i].m.p.b = color(ft_strtodbl(tab1[0]),
 			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
-		/*else if (flag == 3)
-			w->trian[p->tri_i].color_a = color(ft_strtodbl(tab1[0]),
-			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
-		else if (flag == 4)
-			w->trian[p->tri_i].color_b = color(ft_strtodbl(tab1[0]),
-			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));*/
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/14 13:57:42 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/14 14:46:45 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -911,5 +911,7 @@ int		get_pixel(int *sdl, int i, int j);
 int		get_sobel_pix(int *sdl, int i, int j);
 int*	sobel_op(t_sdl *sdl);
 void	cartoon_filter(t_sdl *sdl);
+
+void			draw_ne_vlezlo(t_treads *treads, int x, int y, t_color *col);
 
 #endif

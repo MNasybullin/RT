@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 20:52:59 by rnarbo            #+#    #+#             */
-/*   Updated: 2021/02/14 13:48:06 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/14 14:12:29 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int		get_pixel(int *sdl, int i, int j)
 
 int		get_sobel_pix(int *sdl, int i, int j)
 {
-	int pixel_x;
-	int pixel_y;
-	int ret;
+	int		pixel_x;
+	int		pixel_y;
+	int		ret;
 
 	pixel_x =
 		(-get_pixel(sdl, i - 1, j - 1) + get_pixel(sdl, i + 1, j - 1)) +
@@ -38,12 +38,12 @@ int		get_sobel_pix(int *sdl, int i, int j)
 	return (ret);
 }
 
-int*	ft_gray(t_sdl *sdl)
+int		*ft_gray(t_sdl *sdl)
 {
-	int i;
-	int deff;
+	int		i;
+	int		deff;
 	t_argb	argb;
-	int	*new;
+	int		*new;
 
 	new = malloc(sizeof(int) * WIN_H * WIN_W);
 	i = 0;
@@ -57,15 +57,15 @@ int*	ft_gray(t_sdl *sdl)
 		new[i] = argb.color;
 		i++;
 	}
-	return(new);
+	return (new);
 }
 
-int*	sobel_op(t_sdl *sdl)
+int		*sobel_op(t_sdl *sdl)
 {
-	int i;
-	int j;
-	int	*new;
-	int *grey;
+	int		i;
+	int		j;
+	int		*new;
+	int		*grey;
 
 	new = malloc(sizeof(int) * WIN_H * WIN_W);
 	grey = ft_gray(sdl);
@@ -81,13 +81,13 @@ int*	sobel_op(t_sdl *sdl)
 		j++;
 	}
 	free(grey);
-	return(new);
+	return (new);
 }
 
 void	cartoon_filter(t_sdl *sdl)
 {
-	int i;
-	int	*new;
+	int		i;
+	int		*new;
 
 	new = sobel_op(sdl);
 	i = 0;
