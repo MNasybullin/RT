@@ -16,7 +16,6 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
-
 # include "SDL.h"
 # include "mem_lst.h"
 
@@ -25,12 +24,14 @@
 # define WIN_H 400
 # define EPSILON 0.00001
 # define KEY sdl->e.key.keysym.sym
-
-# define IS_E			0
-# define IS_R			1
-# define IS_W			2
-# define IS_X			4
-# define IS_D			8
+# define BUFF_SIZE 8
+# define ENDL '\n'
+# define MAX_LONG_LONG 9223372036854775807
+# define IS_E 0
+# define IS_R 1
+# define IS_W 2
+# define IS_X 4
+# define IS_D 8
 
 typedef struct				s_disc
 {
@@ -196,15 +197,15 @@ typedef struct				s_sp
 	double					r;
 	t_matrix				transform;
 	t_material				m;
-	int				pattern;
-	char			*texture;
-	int				is_tex;
-	int				width;
-	int				height;
-	t_color			color_a;
-	t_color			color_b;
-	int				pattern_type;
-	t_uv_check		check;
+	int						pattern;
+	char					*texture;
+	int						is_tex;
+	int						width;
+	int						height;
+	t_color					color_a;
+	t_color					color_b;
+	int						pattern_type;
+	t_uv_check				check;
 }							t_sp;
 
 typedef struct				s_cyl
@@ -216,15 +217,15 @@ typedef struct				s_cyl
 	int						closed;
 	t_matrix				transform;
 	t_material				m;
-	int				width;
-	int				height;
-	int				is_tex;
-	char			*texture;
-	int				pattern;
-	int				pattern_type;
-	t_color			color_a;
-	t_color			color_b;
-	t_uv_check		check;
+	int						width;
+	int						height;
+	int						is_tex;
+	char					*texture;
+	int						pattern;
+	int						pattern_type;
+	t_color					color_a;
+	t_color					color_b;
+	t_uv_check				check;
 }							t_cyl;
 
 typedef struct				s_cone
@@ -236,15 +237,15 @@ typedef struct				s_cone
 	int						closed;
 	t_matrix				transform;
 	t_material				m;
-	int				width;
-	int				height;
-	char			*texture;
-	int				pattern;
-	int				pattern_type;
-	t_color			color_a;
-	t_color			color_b;
-	int				is_tex;
-	t_uv_check		check;
+	int						width;
+	int						height;
+	char					*texture;
+	int						pattern;
+	int						pattern_type;
+	t_color					color_a;
+	t_color					color_b;
+	int						is_tex;
+	t_uv_check				check;
 }							t_cone;
 
 typedef struct				s_plane
@@ -252,14 +253,14 @@ typedef struct				s_plane
 	t_vec					c;
 	t_matrix				transform;
 	t_material				m;
-	int				width;
-	int				height;
-	int				pattern;
-	int				pattern_type;
-	char			*texture;
-	t_color			color_a;
-	t_color			color_b;
-	int				is_tex;
+	int						width;
+	int						height;
+	int						pattern;
+	int						pattern_type;
+	char					*texture;
+	t_color					color_a;
+	t_color					color_b;
+	int						is_tex;
 }							t_plane;
 
 typedef struct				s_cube
@@ -267,16 +268,16 @@ typedef struct				s_cube
 	t_vec					c;
 	t_matrix				transform;
 	t_material				m;
-	int				pattern;
-	int				tex;
-	int				tex_num;
-	char			*right;
-	char			*left;
-	char			*up;
-	char			*down;
-	char			*front;
-	char			*back;
-	int				pattern_type;
+	int						pattern;
+	int						tex;
+	int						tex_num;
+	char					*right;
+	char					*left;
+	char					*up;
+	char					*down;
+	char					*front;
+	char					*back;
+	int						pattern_type;
 }							t_cube;
 
 typedef struct				s_trian
@@ -289,15 +290,15 @@ typedef struct				s_trian
 	t_vec					norm;
 	t_material				m;
 	t_matrix				transform;
-	int				pattern;
-	int				width;
-	int				height;
-	int				pattern_type;
-	char			*texture;
-	t_color			color_a;
-	t_color			color_b;
-	int				is_tex;
-	t_uv_check		check;
+	int						pattern;
+	int						width;
+	int						height;
+	int						pattern_type;
+	char					*texture;
+	t_color					color_a;
+	t_color					color_b;
+	int						is_tex;
+	t_uv_check				check;
 }							t_trian;
 
 typedef struct				s_comps
@@ -351,7 +352,7 @@ struct						s_shape
 	void					*obj;
 	int						(*loc_norm)(void *obj, t_vec world_point, t_vec *n);
 	void					(*loc_intersect)(void *obj, t_ray r, t_x_t *x,
-	int obj_n);
+												int obj_n);
 	t_material				*m;
 	t_matrix				*transform;
 };
@@ -362,15 +363,15 @@ struct						s_shape
 
 struct						s_world
 {
-	t_light			*light;
-	t_sp			*s;
-	t_plane			*pl;
-	t_cube			*cub;
-	t_cyl			*cyl;
-	t_cone			*cone;
-	t_trian			*trian;
-	t_shape			*obj_ar;
-	t_camera		c;
+	t_light					*light;
+	t_sp					*s;
+	t_plane					*pl;
+	t_cube					*cub;
+	t_cyl					*cyl;
+	t_cone					*cone;
+	t_trian					*trian;
+	t_shape					*obj_ar;
+	t_camera				c;
 	int						light_count;
 	int						light_obj;
 	int						trian_obj;
@@ -383,15 +384,12 @@ struct						s_world
 	int						ar_count;
 	int						effective_render;
 	int						aquadisco;
-
 	double					from_x;
 	double					from_y;
 	double					from_z;
-
 	double					to_x;
 	double					to_y;
 	double					to_z;
-
 	double					up_x;
 	double					up_y;
 	double					up_z;
@@ -442,56 +440,63 @@ typedef struct				s_treads
 	int						finish;
 }							t_treads;
 
-typedef struct		s_forlight
+typedef struct				s_forlight
 {
-	double			a;
-	double 			b;
-	double 			c;
-	double 			w;
-	double			r;
-	double			g;
-	double			bl;
-	int				type;
-	t_vec			corner;
-	t_vec			v1;
-	t_vec			v2;
-	int				usteps;
-	int				vsteps;
-}					t_forlight;
+	double					a;
+	double					b;
+	double					c;
+	double					w;
+	double					r;
+	double					g;
+	double					bl;
+	int						type;
+	t_vec					corner;
+	t_vec					v1;
+	t_vec					v2;
+	int						usteps;
+	int						vsteps;
+}							t_forlight;
 
-typedef struct		s_forcam
+typedef struct				s_forcam
 {
-	t_vec			from;
-	t_vec			to;
-	t_vec			up;
-	double			fov;
-}					t_forcam;
+	t_vec					from;
+	t_vec					to;
+	t_vec					up;
+	double					fov;
+}							t_forcam;
 
-typedef struct		s_data
+typedef struct				s_data
 {
-	int         obj_n;
-    int         fd;
-	int			pl_num;
-	int			sp_num;
-	int			cone_num;
-	int			cyl_num;
-	int			cube_num;
-	int			tri_num;
-	int			lights_num;
-	int			pl_i;
-	int			sp_i;
-	int			cone_i;
-	int			cyl_i;
-	int			cube_i;
-	int			tri_i;
-	int			light_i;
-	char		**tab;
-	char		*line;
-	int			cam_num;
-	int			tri_vect;
-	t_forlight	*h;
-	t_forcam	c;
-}					t_data;
+	int						obj_n;
+	int						fd;
+	int						pl_num;
+	int						sp_num;
+	int						cone_num;
+	int						cyl_num;
+	int						cube_num;
+	int						tri_num;
+	int						lights_num;
+	int						pl_i;
+	int						sp_i;
+	int						cone_i;
+	int						cyl_i;
+	int						cube_i;
+	int						tri_i;
+	int						light_i;
+	char					**tab;
+	char					*line;
+	int						cam_num;
+	int						tri_vect;
+	t_forlight				*h;
+	t_forcam				c;
+}							t_data;
+
+typedef struct				s_list
+{
+	void					*content;
+	size_t					content_size;
+	struct s_list			*next;
+}							t_list;
 
 int							ft_check_file(const char *file, unsigned check);
 int							ft_open_file(const char *path);
@@ -603,7 +608,8 @@ void						check_camera_position(t_sdl *sdl, t_world *w);
 void						push_obj(void *obj,
 int (*loc_norm)(void *, t_vec, t_vec*),
 void (*loc_intersect)(void *, t_ray, t_x_t *, int), t_world *w);
-void						push_obj_conf(t_world *w, t_material *m, t_matrix *transform);
+void						push_obj_conf(t_world *w, t_material *m,
+t_matrix *transform);
 
 /*
 ** plane
@@ -742,180 +748,248 @@ t_color						pattern_at_cube_texture(t_material m, t_vec point);
 void						save_texture(SDL_Renderer	*renderer,
 SDL_Texture	*texture);
 
+/*
+** parsing
+*/
+void						read_file(char *file, t_data *p, t_world *w);
+void						count_objects(t_data *p, char *line);
+int							check_format(char *file);
+int							len_tab(char **tab);
+int							free_tab(char **tab);
+void						alloc_obj_memory(t_data *p, t_world *w);
+void						init_parse(t_data *p, t_world *w);
+char						**make_plane(t_data *p, t_world *w, char **tab);
+char						**make_sphere(t_data *p, t_world *w, char **tab);
+void						complex_params_sphere(t_data *p, t_world *w,
+char **tab, int flag);
+void						make_obj_sphere(t_data *p, t_world *w, char **tab);
+void						complex_params_plane(t_data *p, t_world *w,
+char **tab, int flag);
+void						make_obj_plane(t_data *p, t_world *w, char **tab);
+char						**make_cone(t_data *p, t_world *w, char **tab);
+void						make_obj_cone(t_data *p, t_world *w, char **tab);
+void						complex_params_cone(t_data *p, t_world *w,
+char **tab, int flag);
+char						**make_cyl(t_data *p, t_world *w, char **tab);
+void						make_obj_cyl(t_data *p, t_world *w, char **tab);
+void						complex_params_cyl(t_data *p, t_world *w,
+char **tab, int flag);
+char						**make_cube(t_data *p, t_world *w, char **tab);
+void						make_obj_cube(t_data *p, t_world *w, char **tab);
+void						complex_params_cube(t_data *p, t_world *w,
+char **tab, int flag);
+char						**make_tri(t_data *p, t_world *w, char **tab);
+void						make_obj_tri(t_data *p, t_world *w, char **tab);
+void						complex_params_tri(t_data *p, t_world *w,
+char **tab, int flag);
+void						parse_lights(t_data *p, t_world *w);
+void						lights_color(t_data *p);
+void						lights_pos(t_data *p);
+void						parse_cameras(t_data *p, t_world *w);
+void						complex_params_camera(t_data *p, t_world *w,
+char **tab, int flag);
+void						pattern_color_pl(t_data *p, t_world *w,
+char **tab, int flag);
+void						pattern_color_sp(t_data *p, t_world *w,
+char **tab, int flag);
+void						pattern_color_cyl(t_data *p, t_world *w,
+char **tab, int flag);
+void						pattern_color_cone(t_data *p, t_world *w,
+char **tab, int flag);
+void						pattern_color_cube(t_data *p, t_world *w,
+char **tab, int flag);
+void						pattern_color_tri(t_data *p, t_world *w,
+char **tab, int flag);
+void						pushing_objects(t_data *p, t_world *w);
+int							check_make_obj(char **tab);
+void						triangle_sides(t_data *p, t_world *w,
+char **tab, int flag);
+int							valid_len(char ***tab, int len, t_data *p);
+void						start_count_obj(t_data *p, t_world *w);
+int							strcmp_v2(char *s1, char *s2);
+void						start_count_lights(t_data *p, t_world *w);
+void						count_lights(t_data *p, char *line);
+void						continue_pushing(t_data *p, t_world *w);
+void						write_lights(t_data *p, t_world *w);
+void						making_obj(char **tab, t_data *p, t_world *w);
+char						**check_type(t_data *p, t_world *w, char **tab);
+void						init(t_sdl *sdl);
+void						read_config(t_sdl *sdl, t_world *w,
+t_data *p, char *path);
+void						make_tex_cube(t_data *p, t_world *w);
+void						texture_cube(char **tab, t_data *p, t_world *w);
+char						*remove_quotes(char *s1);
+void						texture_sp(char **tab, t_data *p, t_world *w);
+void						help_counting(t_data *p, char **tab);
+void						make_light(t_data *p);
+void						free_split_tab(char **tab1, char **tab2,
+char **tab3);
+void						free_split_tab4(char ***tab1, char ***tab2,
+char ***tab3, char ***tab4);
+void						init_3_tabs(char ***tab1, char ***tab2,
+char ***tab3);
+void						init_4_tabs(char ***tab1, char ***tab2,
+char ***tab3, char ***tab4);
+void						making_light(t_data *p, t_world *w, char **tab);
+void						making_camera(t_data *p, t_world *w, char **tab);
+void						reading(t_data *p, t_world *w, char *file);
+void						make_obj_cone_2(t_data *p, t_world *w, char **tab);
+void						make_obj_cone_3(t_data *p, t_world *w, char **tab);
+void						pattern_color_cone(t_data *p, t_world *w,
+char **tab, int flag);
+void						cone_crutch_1(t_data *p, t_world *w,
+char **tab, int flag);
+void						cone_crutch_2(t_data *p, t_world *w,
+char **tab, int flag);
+void						pattern_type_cone(t_data *p, t_world *w,
+char **tab);
+void						cone_patterns(t_data *p, t_world *w);
+void						cone_patterns_1(t_data *p, t_world *w);
+void						init_cone(t_data *p, t_world *w);
+void						cube_patterns(t_data *p, t_world *w);
+int							final_if_cube(char **tab);
+void						make_obj_cube_2(t_data *p, t_world *w,
+char **tab);
+void						make_obj_cube_3(t_data *p, t_world *w,
+char **tab, char *tmp);
+void						make_obj_cube_4(t_data *p, t_world *w,
+char **tab, char *tmp);
+void						pattern_color_cube(t_data *p, t_world *w,
+char **tab, int flag);
+void						cube_crutch_1(t_data *p, t_world *w,
+char **tab, int flag);
+void						cube_crutch_2(t_data *p, t_world *w,
+char **tab, int flag);
+void						cube_crutch_3(t_data *p, t_world *w,
+char **tab, int flag);
+void						init_cube(t_data *p, t_world *w);
+void						cyl_crutch_1(t_data *p, t_world *w,
+char **tab, int flag);
+void						cyl_crutch_2(t_data *p, t_world *w,
+char **tab, int flag);
+void						cyl_crutch_3(t_data *p, t_world *w,
+char **tab, int flag);
+void						pattern_color_cyl(t_data *p, t_world *w,
+char **tab, int flag);
+void						texture_cyl(char **tab, t_data *p, t_world *w);
+void						cyl_patterns_1(t_data *p, t_world *w,
+t_uv_check check);
+void						ft_crash(const char *message);
+void						cyl_patterns(t_data *p, t_world *w);
+void						init_cyl(t_data *p, t_world *w);
+void						complex_params_cyl(t_data *p, t_world *w,
+char **tab, int flag);
+void						texture_plane(char **tab, t_data *p, t_world *w);
+void						pattern_color_pl(t_data *p, t_world *w,
+char **tab, int flag);
+void						plane_patterns(t_data *p, t_world *w);
+void						plane_patterns_1(t_data *p, t_world *w,
+t_uv_check check);
+void						plane_crutch_1(t_data *p, t_world *w,
+char **tab, int flag);
+void						plane_crutch_2(t_data *p, t_world *w,
+char **tab, int flag);
+void						complex_params_plane(t_data *p, t_world *w,
+char **tab, int flag);
+void						sphere_patterns(t_data *p, t_world *w);
+void						sphere_patterns_1(t_data *p, t_world *w);
+void						texture_sp(char **tab, t_data *p, t_world *w);
+void						pattern_type_sphere(t_data *p, t_world *w,
+char **tab);
+void						pattern_color_sp(t_data *p, t_world *w,
+char **tab, int flag);
+void						sp_crutch_1(t_data *p, t_world *w,
+char **tab, int flag);
+void						sp_crutch_2(t_data *p, t_world *w,
+char **tab, int flag);
+void						sp_m_rotation(t_data *p, t_world *w,
+char **tab1, char **tab2);
+void						cone_m_rotation(t_data *p, t_world *w,
+char **tab1, char **tab2);
+void						init_tri(t_data *p, t_world *w);
+void						tri_patterns_1(t_data *p, t_world *w);
+void						tri_patterns(t_data *p, t_world *w);
+void						texture_tri(char **tab, t_data *p, t_world *w);
+void						tri_m_rotation(t_data *p, t_world *w,
+char **tab1, char **tab2);
+void						pattern_color_tri(t_data *p, t_world *w,
+char **tab, int flag);
+void						complex_params_tri(t_data *p, t_world *w,
+char **tab, int flag);
+void						tri_crutch_1(t_data *p, t_world *w,
+char **tab, int flag);
+void						tri_crutch_2(t_data *p, t_world *w,
+char **tab, int flag);
+void						tri_crutch_3(t_data *p, t_world *w,
+char **tab, int flag);
+void						continue_pushing_2(t_data *p, t_world *w);
+void						camera_parsing(t_data *p, t_world *w);
+void						cycle_cube(t_data *p, t_world *w);
 
-
-//parsing
-void	read_file(char *file, t_data *p, t_world *w);
-void	count_objects(t_data *p, char *line);
-int		check_format(char *file);
-int		len_tab(char **tab);
-int		free_tab(char **tab);
-void	alloc_obj_memory(t_data *p, t_world *w);
-void    init_parse(t_data *p, t_world *w);
-char	**make_plane(t_data *p, t_world *w, char **tab);
-char	**make_sphere(t_data *p, t_world *w, char **tab);
-void	complex_params_sphere(t_data *p, t_world *w, char **tab, int flag);
-void	make_obj_sphere(t_data *p, t_world *w, char **tab);
-void	complex_params_plane(t_data *p, t_world *w, char **tab, int flag);
-void	make_obj_plane(t_data *p, t_world *w, char **tab);
-char	**make_cone(t_data *p, t_world *w, char **tab);
-void	make_obj_cone(t_data *p, t_world *w, char **tab);
-void	complex_params_cone(t_data *p, t_world *w, char **tab, int flag);
-char	**make_cyl(t_data *p, t_world *w, char **tab);
-void	make_obj_cyl(t_data *p, t_world *w, char **tab);
-void	complex_params_cyl(t_data *p, t_world *w, char **tab, int flag);
-char	**make_cube(t_data *p, t_world *w, char **tab);
-void	make_obj_cube(t_data *p, t_world *w, char **tab);
-void	complex_params_cube(t_data *p, t_world *w, char **tab, int flag);
-char	**make_tri(t_data *p, t_world *w, char **tab);
-void	make_obj_tri(t_data *p, t_world *w, char **tab);
-void	complex_params_tri(t_data *p, t_world *w, char **tab, int flag);
-void    parse_lights(t_data *p, t_world *w);
-void	lights_color(t_data *p);
-void	lights_pos(t_data *p);
-void	parse_cameras(t_data *p, t_world *w);
-void	complex_params_camera(t_data *p, t_world *w, char **tab, int flag);
-void	pattern_color_pl(t_data *p, t_world *w, char **tab, int flag);
-void	pattern_color_sp(t_data *p, t_world *w, char **tab, int flag);
-void	pattern_color_cyl(t_data *p, t_world *w, char **tab, int flag);
-void	pattern_color_cone(t_data *p, t_world *w, char **tab, int flag);
-void	pattern_color_cube(t_data *p, t_world *w, char **tab, int flag);
-void	pattern_color_tri(t_data *p, t_world *w, char **tab, int flag);
-void	pushing_objects(t_data *p, t_world *w);
-int		check_make_obj(char **tab);
-void	triangle_sides(t_data *p, t_world *w, char **tab, int flag);
-int		valid_len(char ***tab, int len, t_data *p);
-void	start_count_obj(t_data *p, t_world *w);
-int		strcmp_v2(char *s1, char *s2);
-void	start_count_lights(t_data *p, t_world *w);
-void	count_lights(t_data *p, char *line);
-void	continue_pushing(t_data *p, t_world *w);
-void	write_lights(t_data *p, t_world *w);
-void	making_obj(char **tab, t_data *p, t_world *w);
-char	**check_type(t_data *p, t_world *w, char **tab);
-void	init(t_sdl *sdl);
-void	read_config(t_sdl *sdl, t_world *w, t_data *p, char *path);
-void	make_tex_cube(t_data *p, t_world *w);
-void	texture_cube(char **tab, t_data *p, t_world *w);
-char	*remove_quotes(char *s1);
-void	texture_sp(char **tab, t_data *p, t_world *w);
-void	help_counting(t_data *p, char **tab);
-void	make_light(t_data *p);
-void	free_split_tab(char **tab1, char **tab2, char **tab3);
-void	free_split_tab4(char ***tab1, char ***tab2, char ***tab3, char ***tab4);
-void	init_3_tabs(char ***tab1, char ***tab2, char ***tab3);
-void	init_4_tabs(char ***tab1, char ***tab2, char ***tab3, char ***tab4);
-void	making_light(t_data *p, t_world *w, char **tab);
-void	making_camera(t_data *p, t_world *w, char **tab);
-void	reading(t_data *p, t_world *w, char *file);
-void	make_obj_cone_2(t_data *p, t_world *w, char **tab);
-void	make_obj_cone_3(t_data *p, t_world *w, char **tab);
-void	pattern_color_cone(t_data *p, t_world *w, char **tab, int flag);
-void	cone_crutch_1(t_data *p, t_world *w, char **tab, int flag);
-void	cone_crutch_2(t_data *p, t_world *w, char **tab, int flag);
-void	pattern_type_cone(t_data *p, t_world *w, char **tab);
-void	cone_patterns(t_data *p, t_world *w);
-void	cone_patterns_1(t_data *p, t_world *w);
-void	init_cone(t_data *p, t_world *w);
-void	cube_patterns(t_data *p, t_world *w);
-int		final_if_cube(char **tab);
-void	make_obj_cube_2(t_data *p, t_world *w, char **tab);
-void	make_obj_cube_3(t_data *p, t_world *w, char **tab, char *tmp);
-void	make_obj_cube_4(t_data *p, t_world *w, char **tab, char *tmp);
-void	pattern_color_cube(t_data *p, t_world *w, char **tab, int flag);
-void	cube_crutch_1(t_data *p, t_world *w, char **tab, int flag);
-void	cube_crutch_2(t_data *p, t_world *w, char **tab, int flag);
-void	cube_crutch_3(t_data *p, t_world *w, char **tab, int flag);
-void	init_cube(t_data *p, t_world *w);
-void	cyl_crutch_1(t_data *p, t_world *w, char **tab, int flag);
-void	cyl_crutch_2(t_data *p, t_world *w, char **tab, int flag);
-void	cyl_crutch_3(t_data *p, t_world *w, char **tab, int flag);
-void	pattern_color_cyl(t_data *p, t_world *w, char **tab, int flag);
-void	texture_cyl(char **tab, t_data *p, t_world *w);
-void	cyl_patterns_1(t_data *p, t_world *w, t_uv_check check);
-void	ft_crash(const char *message);
-void	cyl_patterns(t_data *p, t_world *w);
-void	init_cyl(t_data *p, t_world *w);
-void	complex_params_cyl(t_data *p, t_world *w, char **tab, int flag);
-void	texture_plane(char **tab, t_data *p, t_world *w);
-void	pattern_color_pl(t_data *p, t_world *w, char **tab, int flag);
-void	plane_patterns(t_data *p, t_world *w);
-void	plane_patterns_1(t_data *p, t_world *w, t_uv_check check);
-void	plane_crutch_1(t_data *p, t_world *w, char **tab, int flag);
-void	plane_crutch_2(t_data *p, t_world *w, char **tab, int flag);
-void	complex_params_plane(t_data *p, t_world *w, char **tab, int flag);
-void	sphere_patterns(t_data *p, t_world *w);
-void	sphere_patterns_1(t_data *p, t_world *w);
-void	texture_sp(char **tab, t_data *p, t_world *w);
-void	pattern_type_sphere(t_data *p, t_world *w, char **tab);
-void	pattern_color_sp(t_data *p, t_world *w, char **tab, int flag);
-void	sp_crutch_1(t_data *p, t_world *w, char **tab, int flag);
-void	sp_crutch_2(t_data *p, t_world *w, char **tab, int flag);
-void	sp_m_rotation(t_data *p, t_world *w, char **tab1, char **tab2);
-void	cone_m_rotation(t_data *p, t_world *w, char **tab1, char **tab2);
-void	init_tri(t_data *p, t_world *w);
-void	tri_patterns_1(t_data *p, t_world *w);
-void	tri_patterns(t_data *p, t_world *w);
-void	texture_tri(char **tab, t_data *p, t_world *w);
-void	tri_m_rotation(t_data *p, t_world *w, char **tab1, char **tab2);
-void	pattern_color_tri(t_data *p, t_world *w, char **tab, int flag);
-void	complex_params_tri(t_data *p, t_world *w, char **tab, int flag);
-void	tri_crutch_1(t_data *p, t_world *w, char **tab, int flag);
-void	tri_crutch_2(t_data *p, t_world *w, char **tab, int flag);
-void	tri_crutch_3(t_data *p, t_world *w, char **tab, int flag);
-void	continue_pushing_2(t_data *p, t_world *w);
-void	camera_parsing(t_data *p, t_world *w);
-void	cycle_cube(t_data *p, t_world *w);
-
-//libft
-void	ft_putendl(char const *s);
-double	ft_strtodbl(char *s);
-int		tab_length(char **tab);
-int		ft_atoi(const char *str);
-double	ft_strtodbl(char *s);
-void	check_tab_len(char **tab);
-int			ft_strequ(char const *s1, char const *s2);
-int			get_next_line(const int fd, char **line);
-char		**ft_strsplit(char const *s, char c);
-int			ft_strcmp(const char *str1, const char *str2);
-char	*ft_strdup(const char *src);
-size_t		ft_strlen(const char *str);
+/*
+** libft
+*/
+void						ft_putendl(char const *s);
+double						ft_strtodbl(char *s);
+int							tab_length(char **tab);
+int							ft_atoi(const char *str);
+double						ft_strtodbl(char *s);
+void						check_tab_len(char **tab);
+int							ft_strequ(char const *s1, char const *s2);
+int							get_next_line(const int fd, char **line);
+char						**ft_strsplit(char const *s, char c);
+int							ft_strcmp(const char *str1, const char *str2);
+char						*ft_strdup(const char *src);
+size_t						ft_strlen(const char *str);
+void						ft_bzero(void *s, size_t n);
+void						ft_putchar(char c);
+void						*ft_memcpy(void *dest, const void *source,
+size_t n);
+void						*ft_memalloc(size_t size);
+char						*ft_strnew(size_t size);
+int							ft_words(char const *s, char c);
+char						*ft_strjoin(char const *s1, char const *s2);
+t_list						*get_live(int fd, t_list **hist);
+char						*ft_strchr(const char *str, int ch);
+int							ft_len(char const *s, char c);
+char						*ft_strndup(const char *s1, size_t n);
+int							line_copy(char **line, char *content, char c);
 
 /*
 ** errors
 */
-int		err_wrong_format(void);
-int		err_mem_alloc(void);
-int		err_trans_matrix(void);
-int		err_invalid_file(void);
-int		err_num_tex(void);
-int		err_empty_line(void);
-int		err_empty_file(void);
+int							err_wrong_format(void);
+int							err_mem_alloc(void);
+int							err_trans_matrix(void);
+int							err_invalid_file(void);
+int							err_num_tex(void);
+int							err_empty_line(void);
+int							err_empty_file(void);
 
 /*
 ** utils
 */
-int		len_tab(char **tab);
-void	print_parameters(t_world *w);
+int							len_tab(char **tab);
+void						print_parameters(t_world *w);
 
 /*
 ** for if's
 */
-int		check_is_obj(char **tab, t_data *p);
-int		check_make_obj(char **tab);
-int		check_is_light(char **tab, t_data *p);
-int		check_is_camera(char **tab, t_data *p);
-int		check_make_light(char **tab);
+int							check_is_obj(char **tab, t_data *p);
+int							check_make_obj(char **tab);
+int							check_is_light(char **tab, t_data *p);
+int							check_is_camera(char **tab, t_data *p);
+int							check_make_light(char **tab);
 
 /*
 ** sopel
 */
-int*	ft_gray(t_sdl *sdl);
-int		get_pixel(int *sdl, int i, int j);
-int		get_sobel_pix(int *sdl, int i, int j);
-int*	sobel_op(t_sdl *sdl);
-void	cartoon_filter(t_sdl *sdl);
-
-void			draw_ne_vlezlo(t_treads *treads, int x, int y, t_color *col);
+int							*ft_gray(t_sdl *sdl);
+int							get_pixel(int *sdl, int i, int j);
+int							get_sobel_pix(int *sdl, int i, int j);
+int							*sobel_op(t_sdl *sdl);
+void						cartoon_filter(t_sdl *sdl);
+void						draw_ne_vlezlo(t_treads *treads, int x,
+int y, t_color *col);
 
 #endif

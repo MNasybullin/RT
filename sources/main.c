@@ -26,7 +26,7 @@ void	quit(t_sdl *sdl, int error)
 	exit(error);
 }
 
-void	key_press(t_sdl *sdl, t_world *w, t_data *p, char *path)
+void	keys(t_sdl *sdl, t_world *w, t_data *p, char *path)
 {
 	if (KEY == SDLK_ESCAPE)
 		sdl->run = 1;
@@ -41,21 +41,16 @@ void	key_press(t_sdl *sdl, t_world *w, t_data *p, char *path)
 		else if (KEY == SDLK_3)
 			w->effective_render = w->effective_render == 0 ? 1 : 0;
 		else if (KEY == SDLK_o)
-		{
-			/*n++;
-			while (/i < w->max_obj)
-			{
-				w->obj_ar[i].m->color.r = rand() / (rand() + 0.2) + 0.1;
-				w->obj_ar[i].m->color.g = rand() / (rand() + 0.2) + 0.1;
-				w->obj_ar[i].m->color.b = rand() / (rand() + 0.2) + 0.1;
-				i++;
-			}*/
 			w->aquadisco *= -1;
-		}
 		sdl->progress = 0;
 	}
 	else if (KEY == SDLK_n && !(sdl->progress = 0))
 		read_config(sdl, w, p, path);
+}
+
+void	key_press(t_sdl *sdl, t_world *w, t_data *p, char *path)
+{
+	keys(sdl, w, p, path);
 	if (KEY == SDLK_4)
 	{
 		sdl->blur = sdl->blur == 0 ? 1 : 0;
@@ -107,7 +102,10 @@ void	add_blurfilter(t_sdl *sdl)
 	t_argb	argb;
 	t_argb	argb2;
 	t_argb	argb3;
-	for (int i = 0; i < (WIN_H * WIN_W) - 1; ++i)
+	int		i;
+
+	i = 0;
+	while (i < (WIN_H * WIN_W) - 1)
 	{
 		argb.color = sdl->img[i];
 		argb2.color = sdl->img[i + 1];
@@ -116,6 +114,7 @@ void	add_blurfilter(t_sdl *sdl)
 		argb3.parts.g = (argb2.parts.g + argb.parts.g + argb3.parts.g) / 3;
 		argb3.parts.b = (argb2.parts.b + argb.parts.b + argb3.parts.b) / 3;
 		sdl->img[i + 2] = argb3.color;
+		i++;
 	}
 	SDL_UpdateTexture(sdl->text, NULL, sdl->img, sizeof(int) * WIN_W);
 	SDL_RenderClear(sdl->ren);
@@ -123,23 +122,23 @@ void	add_blurfilter(t_sdl *sdl)
 	SDL_RenderPresent(sdl->ren);
 }
 
-void	add_stereofilter(t_sdl *sdl)
+void		add_stereofilter(t_sdl *sdl)
 {
-	t_sdl *sdl2;
+	t_sdl	*sdl2;
 	t_argb	argb;
 	t_argb	argb2;
+	int		i;
+
+	i = 0;
 	sdl2 = sdl;
-
-	SDL_Color	curr;
-	SDL_Color	tmp;
-
-	for (int i = 0; i < (WIN_H * WIN_W) - 1; ++i)
+	while (i < (WIN_H * WIN_W) - 1)
 	{
 		argb.color = sdl->img[i];
 		argb2.color = sdl2->img[i + 10];
 		argb.parts.g = 0;
 		argb.parts.g = argb2.parts.g;
 		sdl->img[i] = argb.color;
+		i++;
 	}
 	SDL_UpdateTexture(sdl->text, NULL, sdl->img, sizeof(int) * WIN_W);
 	SDL_RenderClear(sdl->ren);
@@ -149,8 +148,8 @@ void	add_stereofilter(t_sdl *sdl)
 
 void	ft_aquadisco(t_world *w)
 {
-	int 		i;
-	
+	int	i;
+
 	i = 0;
 	while (i < w->max_obj)
 	{
@@ -159,6 +158,15 @@ void	ft_aquadisco(t_world *w)
 		w->obj_ar[i].m->color.b = rand() / (rand() + 0.2) + 0.1;
 		i++;
 	}
+}
+
+void	set_null_w(t_sdl *sdl, t_world *w)
+{
+	w->effective_render = 0;
+	sdl->blur = 0;
+	sdl->stereo = 0;
+	sdl->cartoon = 0;
+	w->aquadisco = -1;
 }
 
 int		main(int ac, char **av)
@@ -177,11 +185,7 @@ int		main(int ac, char **av)
 		ft_putendl("\nUsage: ./RT <file.yml>\n");
 		return (1);
 	}
-	w.effective_render = 0;
-	sdl.blur = 0;
-	sdl.stereo = 0;
-	sdl.cartoon = 0;
-	w.aquadisco = -1;
+	set_null_w(&sdl, &w);
 	SDL_SetWindowTitle(sdl.win, "RT - Rendering in progress ...");
 	while (sdl.run == 0)
 	{
@@ -206,7 +210,6 @@ int		main(int ac, char **av)
 				ft_aquadisco(&w);
 			else
 				++sdl.progress;
-			// sdl.progress++;
 		}
 	}
 	quit(&sdl, EXIT_SUCCESS);
