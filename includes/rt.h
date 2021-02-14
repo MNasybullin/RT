@@ -1006,5 +1006,7 @@ void						add_blurfilter(t_sdl *sdl);
 void						key_press(t_sdl *sdl, t_world *w, t_data *p,
 char *path);
 void						init(t_sdl *sdl);
+void						sdl_events(t_sdl *sdl, t_world *w,
+										t_data *p, char *av);
 
 #endif

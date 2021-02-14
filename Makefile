@@ -98,7 +98,8 @@ SRC_BASE	=	main.c \
 	obj_file.c \
 	read_obj.c \
 	main2.c \
-	quit.c
+	quit.c \
+	sdl_events.c 
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))

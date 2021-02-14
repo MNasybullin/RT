@@ -62,12 +62,7 @@ void		set_null_w(t_sdl *sdl, t_world *w)
 void		run(t_sdl *sdl, t_world *w, t_data *p, char *av)
 {
 	while (SDL_PollEvent(&sdl->e) != 0)
-	{
-		if (sdl->e.type == SDL_QUIT)
-			sdl->run = 1;
-		if (sdl->e.type == SDL_KEYDOWN)
-			key_press(sdl, w, p, av);
-	}
+		sdl_events(sdl, w, p, av);
 	if (sdl->progress == 0)
 	{
 		render(sdl, w->c, *w);
