@@ -2,7 +2,7 @@
 objects:
         - object:
                 type: obj
-                path: "tetra.obj"
+                path: ".objects/Ring_fractal.obj"
 lights:
       - light:
         type: point
@@ -11,7 +11,7 @@ lights:
 cameras:
       - camera:
         fov: 1.21
-        from: {x: -2, y: 4, z: 5, w: 1}
+        from: {x: 0, y: 0, z: -5, w: 1}
         to: {x: 0, y: 0, z: 0.8, w: 1}
         up: {x: 0, y: 1, z: 0, w: 0}
 ...

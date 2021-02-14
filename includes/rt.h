@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/14 16:52:01 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/14 17:40:28 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 # include "SDL.h"
 # include "mem_lst.h"
 
-# define THREADS 400
-# define WIN_W 800
-# define WIN_H 800
+# define THREADS 125
+# define WIN_W 250
+# define WIN_H 250
 # define EPSILON 0.00001
 # define KEY sdl->e.key.keysym.sym
 
