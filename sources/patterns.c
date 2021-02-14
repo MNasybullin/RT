@@ -40,7 +40,8 @@ int				face_from_point(t_vec point)
 {
 	double coord;
 
-	coord = max(SDL_fabs(point.c[0]), SDL_fabs(point.c[1]), SDL_fabs(point.c[2]));
+	coord = max(SDL_fabs(point.c[0]), SDL_fabs(point.c[1]),
+		SDL_fabs(point.c[2]));
 	if (coord == point.c[0])
 		return (0);
 	if (coord == -point.c[0])

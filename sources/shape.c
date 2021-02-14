@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 14:55:38 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/14 13:54:02 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/14 14:26:53 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,4 @@ void (*loc_intersect)(void *, t_ray, t_x_t*, int), t_world *w)
 	w->obj_ar[w->ar_count].obj = obj;
 	w->obj_ar[w->ar_count].loc_norm = loc_norm;
 	w->obj_ar[w->ar_count].loc_intersect = loc_intersect;
-	//w->obj_ar[w->ar_count].m = m;
-	//w->obj_ar[w->ar_count].transform = transform;
-	//w->ar_count++;
 }

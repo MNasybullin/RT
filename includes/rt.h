@@ -915,4 +915,6 @@ int		get_sobel_pix(int *sdl, int i, int j);
 int*	sobel_op(t_sdl *sdl);
 void	cartoon_filter(t_sdl *sdl);
 
+void			draw_ne_vlezlo(t_treads *treads, int x, int y, t_color *col);
+
 #endif

@@ -6,13 +6,12 @@ objects:
                 reflective: 0.4
                 obj_rotation: {x: 0, y: 0.31415, z: 0}
                 pattern: 1
-                pattern_color_a: {r: 0, g: 0.5, b: 0}
-                pattern_color_b: {r: 1, g: 1, b: 1}
+                pattern_color_a: {r: 0.35, g: 0.35, b: 0.35}
+                pattern_color_b: {r: 0.65, g: 0.65, b: 0.65}
                 width: 20
                 height: 10
                 pattern_type: checker
-                color_a: {r: 0.35, g: 0.35, b: 0.35}
-                color_b: {r: 0.65, g: 0.65, b: 0.65}
+                color: {r: 0.3882, g: 0.2627, b: 0.1882}
         - object:
                 type: plane
                 color: {r: 0.8, g: 0.8, b: 0.8}

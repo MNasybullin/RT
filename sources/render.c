@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 18:44:11 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/13 21:08:26 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/14 14:48:07 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void			aliasing(t_treads *treads, int x, int y, int remaining)
 {
-	t_color	col;
-	int		i;
-	double	u;
-	double	v;
+	t_color		col;
+	int			i;
+	double		u;
+	double		v;
 
 	i = 0;
 	col = color(0, 0, 0);
@@ -35,12 +35,21 @@ void			aliasing(t_treads *treads, int x, int y, int remaining)
 	treads->sdl->img[y * treads->camera->hsize + x] = col_to_int(col);
 }
 
-int			draw(void *data)
+void			draw_ne_vlezlo(t_treads *treads, int x, int y, t_color *col)
 {
-	int		x;
-	int		y;
-	t_color	col;
-	t_treads *treads;
+	*col = color_at(treads->world, ray_for_pixel(treads->camera, x, y), 5);
+	if (treads->camera->sepia == 1)
+		*col = sepia(*col);
+	treads->sdl->img[y * treads->camera->hsize + x] =
+	col_to_int(*col);
+}
+
+int				draw(void *data)
+{
+	int			x;
+	int			y;
+	t_color		col;
+	t_treads	*treads;
 
 	treads = data;
 	y = treads->start;
@@ -51,12 +60,7 @@ int			draw(void *data)
 		{
 			if (treads->camera->aliasing == 0)
 			{
-				col = color_at(treads->world, ray_for_pixel(treads->camera, x,
-				y), 5);
-				if (treads->camera->sepia == 1)
-					col = sepia(col);
-				treads->sdl->img[y * treads->camera->hsize + x] =
-				col_to_int(col);
+				draw_ne_vlezlo(treads, x, y, &col);
 			}
 			else
 				aliasing(treads, x, y, 5);
@@ -69,8 +73,8 @@ int			draw(void *data)
 
 void			render_join(t_sdl *sdl, SDL_Thread **threads)
 {
-	int	i;
-	int	status;
+	int			i;
+	int			status;
 
 	i = 0;
 	while (i < THREADS)
