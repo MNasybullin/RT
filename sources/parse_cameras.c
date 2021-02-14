@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cameras.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 18:55:21 by mgalt             #+#    #+#             */
-/*   Updated: 2021/02/02 21:57:34 by out-nasybul      ###   ########.fr       */
+/*   Updated: 2021/02/14 13:32:54 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void    parse_cameras(t_data *p, t_world *w)
 {
 	t_camera	c;
 
-	//ft_putendl("parse cameras");
+	ft_putendl("parse cameras");
 	
     while (get_next_line(p->fd, &p->line))
 	{
@@ -84,6 +84,7 @@ void    parse_cameras(t_data *p, t_world *w)
 	}
 	//printf("\n\n\nLINE IN THE END OF PARSE CAMERAS: %s\n\n\n", p->line);
 	c = camera(WIN_W, WIN_H, p->c.fov);
+	printf("\nCAMERA FROM: %f, %f, %f, %f\n", p->c.from.c[0], p->c.from.c[1], p->c.from.c[2], p->c.from.c[3]);
 	c.transform = view_transform(p->c.from, p->c.to, p->c.up);
 	w->c = c;
 	//free_tab(p->tab);

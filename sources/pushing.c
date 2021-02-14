@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pushing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 19:34:55 by mgalt             #+#    #+#             */
-/*   Updated: 2021/02/02 10:36:41 by out-nasybul      ###   ########.fr       */
+/*   Updated: 2021/02/14 14:02:51 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,14 @@ void	continue_pushing(t_data *p, t_world *w)
 	i = 0;
 	while (i < p->tri_num)
 	{
+		w->trian[i].m = default_material();
+		w->trian[i].transform = identity_matrix();
+		w->trian[]
 		if (check_transform_matrix(&w->trian[i].transform, &w->trian[i].m.p.transform, w->trian[i].m.pattern) == EXIT_FAILURE)
+		{
+			printf("error train\n\n\n");
 			exit(err_trans_matrix());
+		}
 		push_obj((void*)(&w->trian[i]), &normal_at_trian, &intersect_trian, w, &w->trian[i].m, &w->trian[i].transform);
 		i++;
 	}

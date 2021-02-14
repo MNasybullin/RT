@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:49:57 by mgalt             #+#    #+#             */
-/*   Updated: 2021/02/13 20:07:29 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/14 11:23:19 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,16 +132,16 @@ char	**make_tri(t_data *p, t_world *w, char **tab)
 {
 	tab = NULL;
 	init_tri(p, w);
-	// while ((get_next_line(p->fd, &p->line)))
-	// {
-	// 	tab = ft_strsplit(p->line, ' ');
-	// 	if (len_tab(tab) == 0)
-	// 		exit(err_wrong_format());
-	// 	if ((check_make_obj(tab)))
-	// 		make_obj_tri(p, w, tab);
-	// 	else
-	// 		break ;
-	// }
+	while ((get_next_line(p->fd, &p->line)))
+	{
+		tab = ft_strsplit(p->line, ' ');
+		if (len_tab(tab) == 0)
+			exit(err_wrong_format());
+		if ((check_make_obj(tab)))
+			make_obj_tri(p, w, tab);
+		else
+			break ;
+	}
 	if (p->tri_vect == 3)
 		set_trian(w->trian[p->tri_i].p1, w->trian[p->tri_i].p2,
 		w->trian[p->tri_i].p3, &w->trian[p->tri_i]);
@@ -154,12 +154,12 @@ char	**make_tri(t_data *p, t_world *w, char **tab)
 		tri_patterns(p, w);
 	p->tri_vect = 0;
 	p->is_obj_file = 0;
-	// p->tri_i++;
-	// if ((!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "lights:"))) &&
-	// (!(ft_strequ(tab[0], "cameras:")) && !(ft_strequ(tab[1], "camera:"))))
-	// {
-	// 	get_next_line(p->fd, &p->line);
-	// 	p->tab = ft_strsplit(p->line, ' ');
-	// }
+	p->tri_i++;
+	if ((!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "lights:"))) &&
+	(!(ft_strequ(tab[0], "cameras:")) && !(ft_strequ(tab[1], "camera:"))))
+	{
+		get_next_line(p->fd, &p->line);
+		p->tab = ft_strsplit(p->line, ' ');
+	}
 	return (p->tab);
 }

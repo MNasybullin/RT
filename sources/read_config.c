@@ -14,7 +14,7 @@ void	read_config(t_sdl *sdl, t_world *w, t_data *p, char *path)
 		ft_putendl("\nWrong Format or invalid file\n");
 		exit(1);
 	}
-	printf("start readfile\n");
+	p->file = ft_strdup(path);
 	read_file(path, p, w);
 	sdl->progress = 0;
 	w->s_obj = p->sp_num;
@@ -25,5 +25,6 @@ void	read_config(t_sdl *sdl, t_world *w, t_data *p, char *path)
 	w->trian_obj = p->tri_num;
 	w->max_obj = p->obj_n;
 	w->ar_count = 0;
+	//printf("%d", w->c.)
 	pushing_objects(p, w);
 }

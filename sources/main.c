@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/13 20:09:27 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/14 13:38:00 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,99 +62,6 @@ void	init_sdl_error(void)
 	exit(EXIT_FAILURE);
 }
 
-void			get_obj_triangle_count(const char *path, t_data *p)
-{
-	const int	fd = ft_open_file(path);
-	char		*line;
-
-	while (get_next_line(fd, &line) > 0)
-	{
-		if (line[0] == 'v')
-			++p->vertex_count;
-		if (line[0] == 'f')
-			++p->tri_num;
-		free(line);
-	}
-	close(fd);
-}
-
-void			add_vertices(t_vec *vertices, char **split, int reset)
-{
-	static int	i = 0;
-
-	if (reset)
-	{
-		i = 0;
-		return ;
-	}
-	vertices[i] = set_v_p(SDL_atof(split[1]), SDL_atof(split[2]), SDL_atof(split[3]), 1);
-}
-
-void			get_indexes(char **split, int *indexes, int max_index)
-{
-	int			i;
-	int			number;
-
-	i = -1;
-	while (++i < 3)
-	{
-		number = SDL_atoi(split[i + 1]);
-		if (number <= 0 || number > max_index)
-			ft_crash("Vertex index error");
-		indexes[i] = number;
-	}
-}
-
-void			add_triangles(char ***pointer, t_vec *vertices, t_data *p, t_world *w)
-{
-	t_forcam	forcam;
-	int			indexes[3];
-	
-	get_indexes(pointer[0], indexes, p->vertex_count);
-	forcam.from = vertices[indexes[0]];
-	forcam.to = vertices[indexes[1]];
-	forcam.up = vertices[indexes[2]];
-	p->is_obj_file = 1;
-	p->tr_vec = forcam;
-	make_tri(p, w, pointer[1]);
-}
-
-void			read_obj(const char *path, t_data *p, t_world *w, char **tab)
-{
-	const int	fd = ft_open_file(path);
-	char		*line;
-	char		**split;
-	t_vec		*vertices;
-
-	int lin = 1;
-	if (!(vertices = malloc(sizeof(t_vec) * p->vertex_count)))
-		ft_crash("Vertices malloc error");
-	add_vertices(NULL, NULL, 1);
-	int ret;
-	while ((ret = get_next_line(fd, &line)) > 0)
-	{
-		printf("line is %d\n", lin++);
-		split = ft_strsplit(line, ' ');
-		if (tab_length(split) != 4)
-			ft_crash("obj file error");
-		if (!SDL_strcmp(split[0], "v"))
-		{
-			printf("adding verticle\n");
-			add_vertices(vertices, split, 0);
-		}
-		else if (!SDL_strcmp(split[0], "f"))
-		{
-			printf("adding triange\n");
-			add_triangles((char**[2]){split, tab}, vertices, p, w);
-		}
-		else if (split[0][0] != '#')
-			ft_crash("simple obj reader supports only f, v, and comments");
-		free_tab(split);
-		free(line);
-	}
-	printf("%d\n", ret);
-}
-
 void	init(t_sdl *sdl)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -184,12 +91,23 @@ int		main(int ac, char **av)
 	{
 		init(&sdl);
 		read_config(&sdl, &w, &p, av[1]);
+		printf("\nCAMERA PARAMETERS: %d, %d, %f\n", w.c.hsize, w.c.vsize, w.c.fov);
+		//printf("\nCAMERA FROM: %d, %d, %d, %d\n", w.c.from.c[0], w.c.from.c[1], w.c.from.c[2], w.c.from.c[3]);
 	}
 	else
 	{
 		ft_putendl("\nUsage: ./RT <file.yml>\n");
 		return (1);
 	}
+	// printf("\nCAMERA 1 : %f, %f, %f, %f\n", w.c.transform.m[0][0], w.c.transform.m[0][1], w.c.transform.m[0][2], w.c.transform.m[0][3]);
+	// printf("\nCAMERA 2 : %f, %f, %f, %f\n", w.c.transform.m[1][0], w.c.transform.m[1][1], w.c.transform.m[1][2], w.c.transform.m[1][3]);
+	// printf("\nCAMERA 3 : %f, %f, %f, %f\n", w.c.transform.m[2][0], w.c.transform.m[2][1], w.c.transform.m[2][2], w.c.transform.m[2][3]);
+	// printf("\nCAMERA 4 : %f, %f, %f, %f\n", w.c.transform.m[3][0], w.c.transform.m[3][1], w.c.transform.m[3][2], w.c.transform.m[3][3]);
+	// w.c = camera(WIN_W, WIN_H, 1.152);
+	// w.c.transform = view_transform(set_v_p(0, 0, -9, 1), set_v_p(0, 0, -0.8, 1), set_v_p(0, 1, 0, 0));
+	
+	// w.light_obj = 1;
+	// w.light[0] = point_light(color(1, 1, 1), set_v_p(0, 0, -3, 1));
 	w.effective_render = 0;
 	SDL_SetWindowTitle(sdl.win, "RT - Rendering in progress ...");
 	while (sdl.run == 0)

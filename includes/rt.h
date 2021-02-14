@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/13 19:42:10 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/14 13:41:10 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include "mem_lst.h"
 
 # define THREADS 400
-# define WIN_W 800
-# define WIN_H 800
+# define WIN_W 400
+# define WIN_H 400
 # define EPSILON 0.00001
 # define KEY sdl->e.key.keysym.sym
 
@@ -480,6 +480,8 @@ typedef struct		s_data
 	t_forcam	c;
 	t_forcam	tr_vec;
 	int			is_obj_file;
+	char		*path;
+	char		*file;
 }					t_data;
 
 void			get_obj_triangle_count(const char *path, t_data *p);
@@ -855,6 +857,8 @@ void	complex_params_tri(t_data *p, t_world *w, char **tab, int flag);
 void	tri_crutch_1(t_data *p, t_world *w, char **tab, int flag);
 void	tri_crutch_2(t_data *p, t_world *w, char **tab, int flag);
 void	tri_crutch_3(t_data *p, t_world *w, char **tab, int flag);
+void	make_obj_from_file(t_data *p, t_world *w, char **tab);
+void	find_path(t_data *p);
 
 //libft
 void	ft_putendl(char const *s);

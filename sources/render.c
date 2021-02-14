@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 18:44:11 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/09 19:52:19 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/14 12:37:56 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,10 @@ void			render(t_sdl *sdl, t_camera camera, t_world world)
 	i = 0;
 	thread_attr = stack_size();
 	if (check_transform_matrix(&camera.transform, &camera.transform, 0) == 1)
-		exit(-1);
+	{
+		printf("CAMERA\n\n\n\n\n");
+		exit(-1);	
+	}
 	while (i < THREADS)
 	{
 		htreads[i].camera = &camera;
