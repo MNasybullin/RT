@@ -1,0 +1,17 @@
+---
+objects:
+        - object:
+                type: obj
+                path: ".objects/Rose_fractal.obj"
+lights:
+      - light:
+        type: point
+        color: {r: 1, g: 1, b: 1}
+        pos: {x: 0, y: 4, z: 35, w: 1}
+cameras:
+      - camera:
+        fov: 1.21
+        from: {x: 0, y: 0, z: -5, w: 1}
+        to: {x: 0, y: 0, z: 0.8, w: 1}
+        up: {x: 0, y: 1, z: 0, w: 0}
+...

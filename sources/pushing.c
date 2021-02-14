@@ -29,11 +29,13 @@ void	continue_pushing_2(t_data *p, t_world *w)
 	i = 0;
 	while (i < p->tri_num)
 	{
+		// set_trian(set_v_p(1, 0, 0, 1), set_v_p(0, 1, 0, 1), set_v_p(0, 0, 1, 1), &w->cub[i]);
+		// w->trian[i].transform = identity_matrix();
 		if (check_transform_matrix(&w->trian[i].transform,
 		&w->trian[i].m.p.transform, w->trian[i].m.pattern) == EXIT_FAILURE)
 			exit(err_trans_matrix());
-		push_obj((void*)(&w->cub[i]), &normal_at_cube, &intersect_cube, w);
-		push_obj_conf(w, &w->cub[i].m, &w->cub[i].transform);
+		push_obj((void*)(&w->trian[i]), &normal_at_trian, &intersect_trian, w);
+		push_obj_conf(w, &w->trian[i].m, &w->trian[i].transform);
 		i++;
 	}
 }

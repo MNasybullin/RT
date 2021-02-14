@@ -19,7 +19,7 @@
 # include "SDL.h"
 # include "mem_lst.h"
 
-# define THREADS 40
+# define THREADS 400
 # define WIN_W 400
 # define WIN_H 400
 # define EPSILON 0.00001
@@ -489,6 +489,11 @@ typedef struct				s_data
 	int						tri_vect;
 	t_forlight				*h;
 	t_forcam				c;
+	t_forcam				tr_vec;
+	int						is_obj_file;
+	char					*path;
+	char					*file;
+	int						vertex_count;
 }							t_data;
 
 typedef struct				s_list
@@ -991,5 +996,8 @@ int							*sobel_op(t_sdl *sdl);
 void						cartoon_filter(t_sdl *sdl);
 void						draw_ne_vlezlo(t_treads *treads, int x,
 int y, t_color *col);
+void						get_obj_triangle_count(const char *path, t_data *p);
+void						read_obj(const char *path, t_data *p, t_world *w, char **tab);
+void						make_obj_from_file(t_data *p, t_world *w, char **tab);
 
 #endif
