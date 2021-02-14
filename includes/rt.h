@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/13 21:51:37 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/14 13:57:42 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -420,6 +420,7 @@ typedef struct				s_sdl
 	int						progress;
 	int						blur;
 	int						stereo;
+	int						cartoon;
 }							t_sdl;
 
 typedef struct				s_screenshot
@@ -600,8 +601,8 @@ void						check_camera_position(t_sdl *sdl, t_world *w);
 */
 void						push_obj(void *obj,
 int (*loc_norm)(void *, t_vec, t_vec*),
-void (*loc_intersect)(void *, t_ray, t_x_t *, int), t_world *w, t_material *m,
-t_matrix *transform);
+void (*loc_intersect)(void *, t_ray, t_x_t *, int), t_world *w);
+void						push_obj_conf(t_world *w, t_material *m, t_matrix *transform);
 
 /*
 ** plane
@@ -901,5 +902,14 @@ int		check_make_obj(char **tab);
 int		check_is_light(char **tab, t_data *p);
 int		check_is_camera(char **tab, t_data *p);
 int		check_make_light(char **tab);
+
+/*
+** sopel
+*/
+int*	ft_gray(t_sdl *sdl);
+int		get_pixel(int *sdl, int i, int j);
+int		get_sobel_pix(int *sdl, int i, int j);
+int*	sobel_op(t_sdl *sdl);
+void	cartoon_filter(t_sdl *sdl);
 
 #endif

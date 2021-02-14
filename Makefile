@@ -88,7 +88,8 @@ SRC_BASE	=	main.c \
 	init_tri.c \
 	tri_utils.c \
 	tri_utils_2.c \
-	error_2.c
+	error_2.c \
+	sobel_op.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cameras.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 18:55:21 by mgalt             #+#    #+#             */
-/*   Updated: 2021/02/02 21:57:34 by out-nasybul      ###   ########.fr       */
+/*   Updated: 2021/02/14 13:51:51 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	complex_params_camera(t_data *p, t_world *w, char **tab, int flag)
 		w->up_x = ft_strtodbl(tab1[0]);
 		w->up_y = ft_strtodbl(tab2[0]);
 		w->up_z = ft_strtodbl(tab3[0]);
-		p->c.up = set_v_p(w->up_x, w->up_y, w->up_z, ft_strtodbl(tab4[0]));	
+		p->c.up = set_v_p(w->up_x, w->up_y, w->up_z, ft_strtodbl(tab4[0]));
 	}
 	// добавить проверку есть ли эти векторы
 }
@@ -59,7 +59,7 @@ void    parse_cameras(t_data *p, t_world *w)
 	t_camera	c;
 
 	//ft_putendl("parse cameras");
-	
+
     while (get_next_line(p->fd, &p->line))
 	{
 		p->tab = ft_strsplit(p->line, ' ');
