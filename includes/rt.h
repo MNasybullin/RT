@@ -1001,5 +1001,10 @@ void						read_obj(const char *path, t_data *p, t_world *w,
 char **tab);
 void						make_obj_from_file(t_data *p, t_world *w,
 char **tab);
+void						quit(t_sdl *sdl, int error);
+void						add_blurfilter(t_sdl *sdl);
+void						key_press(t_sdl *sdl, t_world *w, t_data *p,
+char *path);
+void						init(t_sdl *sdl);
 
 #endif

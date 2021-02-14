@@ -96,7 +96,9 @@ SRC_BASE	=	main.c \
     libft_func5.c \
     libft_func6.c \
 	obj_file.c \
-	read_obj.c
+	read_obj.c \
+	main2.c \
+	quit.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))
