@@ -26,6 +26,7 @@ SRC_BASE	=	main.c \
 	matrix.c \
 	transformation.c \
 	ray.c \
+	read_obj.c \
 	sphere.c \
 	light.c \
 	world.c \

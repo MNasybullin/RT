@@ -35,9 +35,12 @@ void	continue_pushing(t_data *p, t_world *w)
 	i = 0;
 	while (i < p->tri_num)
 	{
-		w->trian[i].m = default_material();
-		w->trian[i].transform = identity_matrix();
-		w->trian[]
+		// w->trian[i].m = default_material();
+		//w->trian[i].transform = identity_matrix();
+		// printf("p1 = %f = %f = %f\n", w->trian[i].p1.c[0], w->trian[i].p1.c[1], w->trian[i].p1.c[2]);
+		// printf("p2 = %f = %f = %f\n", w->trian[i].p2.c[0], w->trian[i].p2.c[1], w->trian[i].p2.c[2]);
+		// printf("p3 = %f = %f = %f\n", w->trian[i].p3.c[0], w->trian[i].p3.c[1], w->trian[i].p3.c[2]);
+		// printf("\n\n\n");
 		if (check_transform_matrix(&w->trian[i].transform, &w->trian[i].m.p.transform, w->trian[i].m.pattern) == EXIT_FAILURE)
 		{
 			printf("error train\n\n\n");

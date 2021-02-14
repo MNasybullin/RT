@@ -150,11 +150,7 @@ lights:
         - light:
                 type: point
                 color: {r: 1, g: 1, b: 0.9}
-                pos: {x: 1, y: 6.9, z: -5, w: 1}
-        - light:
-                type: point
-                color: {r: 1, g: 1, b: 0.9}
-                pos: {x: -1, y: 6.9, z: -5, w: 1}
+                pos: {x: 0, y: 6.9, z: -5, w: 1}
 cameras:
         - camera:
                 fov: 0.785
