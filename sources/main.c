@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:33 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/13 21:49:26 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/14 13:49:33 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ void	key_press(t_sdl *sdl, t_world *w, t_data *p, char *path)
 	if (KEY == SDLK_5)
 	{
 		sdl->stereo = sdl->stereo == 0 ? 1 : 0;
+		sdl->progress = 0;
+	}
+	if (KEY == SDLK_6)
+	{
+		sdl->cartoon = sdl->cartoon == 0 ? 1 : 0;
 		sdl->progress = 0;
 	}
 	if (w->effective_render == 1)
@@ -112,6 +117,10 @@ void	add_stereofilter(t_sdl *sdl)
 	t_argb	argb;
 	t_argb	argb2;
 	sdl2 = sdl;
+
+	SDL_Color	curr;
+	SDL_Color	tmp;
+
 	for (int i = 0; i < (WIN_H * WIN_W) - 1; ++i)
 	{
 		argb.color = sdl->img[i];
@@ -145,6 +154,7 @@ int		main(int ac, char **av)
 	w.effective_render = 0;
 	sdl.blur = 0;
 	sdl.stereo = 0;
+	sdl.cartoon = 0;
 	SDL_SetWindowTitle(sdl.win, "RT - Rendering in progress ...");
 	while (sdl.run == 0)
 	{
@@ -162,6 +172,8 @@ int		main(int ac, char **av)
 				add_blurfilter(&sdl);
 			if (sdl.stereo == 1)
 				add_stereofilter(&sdl);
+			if (sdl.cartoon == 1)
+				cartoon_filter(&sdl);
 			SDL_SetWindowTitle(sdl.win, "RT");
 			sdl.progress++;
 		}

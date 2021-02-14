@@ -3,6 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cameras.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/17 18:55:21 by mgalt             #+#    #+#             */
+/*   Updated: 2021/02/14 13:51:51 by sdiego           ###   ########.fr       */
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 18:55:21 by mgalt             #+#    #+#             */
