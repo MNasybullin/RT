@@ -32,7 +32,7 @@ void	key_press(t_sdl *sdl, t_world *w, t_data *p, char *path)
 		sdl->run = 1;
 	else if (KEY == SDLK_F12)
 		save_texture(sdl->ren, sdl->text);
-	else if (KEY == SDLK_1 || KEY == SDLK_2 || KEY == SDLK_3)
+	else if (KEY == SDLK_1 || KEY == SDLK_2 || KEY == SDLK_3 || KEY == SDLK_o)
 	{
 		if (KEY == SDLK_1)
 			w->c.aliasing = w->c.aliasing == 0 ? 1 : 0;
@@ -40,6 +40,18 @@ void	key_press(t_sdl *sdl, t_world *w, t_data *p, char *path)
 			w->c.sepia = w->c.sepia == 0 ? 1 : 0;
 		else if (KEY == SDLK_3)
 			w->effective_render = w->effective_render == 0 ? 1 : 0;
+		else if (KEY == SDLK_o)
+		{
+			/*n++;
+			while (/i < w->max_obj)
+			{
+				w->obj_ar[i].m->color.r = rand() / (rand() + 0.2) + 0.1;
+				w->obj_ar[i].m->color.g = rand() / (rand() + 0.2) + 0.1;
+				w->obj_ar[i].m->color.b = rand() / (rand() + 0.2) + 0.1;
+				i++;
+			}*/
+			w->aquadisco *= -1;
+		}
 		sdl->progress = 0;
 	}
 	else if (KEY == SDLK_n && !(sdl->progress = 0))
@@ -135,6 +147,20 @@ void	add_stereofilter(t_sdl *sdl)
 	SDL_RenderPresent(sdl->ren);
 }
 
+void	ft_aquadisco(t_world *w)
+{
+	int 		i;
+	
+	i = 0;
+	while (i < w->max_obj)
+	{
+		w->obj_ar[i].m->color.r = rand() / (rand() + 0.2) + 0.1;
+		w->obj_ar[i].m->color.g = rand() / (rand() + 0.2) + 0.1;
+		w->obj_ar[i].m->color.b = rand() / (rand() + 0.2) + 0.1;
+		i++;
+	}
+}
+
 int		main(int ac, char **av)
 {
 	t_sdl		sdl;
@@ -155,6 +181,7 @@ int		main(int ac, char **av)
 	sdl.blur = 0;
 	sdl.stereo = 0;
 	sdl.cartoon = 0;
+	w.aquadisco = -1;
 	SDL_SetWindowTitle(sdl.win, "RT - Rendering in progress ...");
 	while (sdl.run == 0)
 	{
@@ -175,7 +202,11 @@ int		main(int ac, char **av)
 			if (sdl.cartoon == 1)
 				cartoon_filter(&sdl);
 			SDL_SetWindowTitle(sdl.win, "RT");
-			sdl.progress++;
+			if (w.aquadisco == 1)
+				ft_aquadisco(&w);
+			else
+				++sdl.progress;
+			// sdl.progress++;
 		}
 	}
 	quit(&sdl, EXIT_SUCCESS);

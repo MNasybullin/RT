@@ -382,6 +382,7 @@ struct						s_world
 	int						max_obj;
 	int						ar_count;
 	int						effective_render;
+	int						aquadisco;
 
 	double					from_x;
 	double					from_y;
