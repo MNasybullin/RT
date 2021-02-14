@@ -14,8 +14,6 @@
 
 int		final_if_cube(char **tab)
 {
-	//if ((!(ft_strequ(tab[0], "lights:")) && !(ft_strequ(tab[1], "lights:"))) &&
-	//(!(ft_strequ(tab[0], "cameras:")) && !(ft_strequ(tab[1], "camera:"))))
 	if (len_tab(tab) >= 2 && (!(ft_strequ(tab[0], "lights:"))
 	&& !(ft_strequ(tab[1], "light:"))) && (!(ft_strequ(tab[0], "cameras:"))
 	&& !(ft_strequ(tab[1], "camera:"))))

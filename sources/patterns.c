@@ -40,7 +40,8 @@ int				face_from_point(t_vec point)
 {
 	double coord;
 
-	coord = max(fabs(point.c[0]), fabs(point.c[1]), fabs(point.c[2]));
+	coord = max(SDL_fabs(point.c[0]), SDL_fabs(point.c[1]),
+		SDL_fabs(point.c[2]));
 	if (coord == point.c[0])
 		return (0);
 	if (coord == -point.c[0])
@@ -59,8 +60,8 @@ t_color			uv_patter_at(t_pattern checkers, double u, double v)
 	double	u2;
 	double	v2;
 
-	u2 = floor(u * (double)checkers.width);
-	v2 = floor(v * (double)checkers.height);
+	u2 = SDL_floor(u * (double)checkers.width);
+	v2 = SDL_floor(v * (double)checkers.height);
 	if (realmod((u2 + v2), 2) == 0)
 		return (checkers.a);
 	else

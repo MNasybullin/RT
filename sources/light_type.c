@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   light_type.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 19:27:10 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/10 19:15:07 by out-nasybul      ###   ########.fr       */
+/*   Updated: 2021/02/14 14:23:01 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_light		area_light(t_vec corner, t_vec full_uvec, int usteps, t_vec full_vvec, int vsteps, t_color color)
+t_light		area_light(t_vec *vecs, int usteps, int vsteps, t_color color)
 {
 	t_light	l;
 
 	l.intensity = color;
-	l.corner = corner;
-	l.uvec = divi(full_uvec, usteps);
+	l.corner = vecs[0];
+	l.uvec = divi(vecs[1], usteps);
 	l.usteps = usteps;
-	l.vvec = divi(full_vvec, vsteps);
+	l.vvec = divi(vecs[2], vsteps);
 	l.vsteps = vsteps;
 	l.samples = usteps * vsteps;
 	return (l);
@@ -46,8 +46,8 @@ t_light		point_light(t_color color, t_vec pos)
 
 int			hit(t_x_t x)
 {
-	int	i;
-	int	a;
+	int		i;
+	int		a;
 
 	i = 0;
 	a = -1;
@@ -65,16 +65,14 @@ int			hit(t_x_t x)
 	return (a);
 }
 
-double			is_shadow(t_world w, t_vec light_pos, t_vec p)
+double		is_shadow(t_world w, t_vec light_pos, t_vec p)
 {
 	t_vec	v;
 	t_vec	direction;
 	double	distance;
 	t_x_t	x;
 	int		hit_obj;
-	double	shadow_intens;
 
-	shadow_intens = 0;
 	x.t = alloc_tto(w.ar_count);
 	v = sub(light_pos, p);
 	distance = magnitude(v);
@@ -84,11 +82,9 @@ double			is_shadow(t_world w, t_vec light_pos, t_vec p)
 	if (hit_obj != -1 && x.t[hit_obj].t < distance)
 	{
 		if (w.obj_ar[x.t[hit_obj].obj].m->shadow != 0)
-		{
-			shadow_intens = w.obj_ar[x.t[hit_obj].obj].m->transparency == 0 ? -1 : w.obj_ar[x.t[hit_obj].obj].m->transparency;
-			free_tto(x.t);
-			return (shadow_intens);
-		}
+			return (w.obj_ar[x.t[hit_obj].obj].m->transparency == 0
+			? -1 + free_tto(x.t)
+			: (w.obj_ar[x.t[hit_obj].obj].m->transparency) + free_tto(x.t));
 	}
 	free_tto(x.t);
 	return (0.0);

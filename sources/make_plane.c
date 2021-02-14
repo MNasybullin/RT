@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   make_plane.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 15:10:33 by mgalt             #+#    #+#             */
 /*   Updated: 2021/02/14 15:02:59 by mgalt            ###   ########.fr       */

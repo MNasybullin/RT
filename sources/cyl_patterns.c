@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cyl_patterns.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 18:52:03 by mgalt             #+#    #+#             */
-/*   Updated: 2021/01/12 14:16:43 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/14 13:52:39 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
-
-/*void	init_cyl(t_data *p, t_world *w, char **tab)
-{
-	w->cyl[p->cyl_i] = set_cylinder();
-	tab = NULL;
-	w->cyl[p->cyl_i].pattern = 0;
-	w->cyl[p->cyl_i].is_tex = 0;
-	w->cyl[p->cyl_i].pattern_type = 0;
-	w->cyl[p->cyl_i].m.tex = 0;
-}*/
 
 void	pattern_color_cyl(t_data *p, t_world *w, char **tab, int flag)
 {

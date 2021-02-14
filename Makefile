@@ -56,7 +56,6 @@ SRC_BASE	=	main.c \
 	patterns_cube_tex.c \
 	mem_lst.c \
 	parse.c \
-	libft_func.c \
 	init.c \
 	make_plane.c \
 	make_sphere.c \
@@ -89,8 +88,13 @@ SRC_BASE	=	main.c \
 	tri_utils.c \
 	tri_utils_2.c \
 	error_2.c \
-	obj_file.c \
-	read_obj.c
+	sobel_op.c \
+	libft_func.c \
+    libft_func2.c \
+    libft_func3.c \
+    libft_func4.c \
+    libft_func5.c \
+    libft_func6.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))

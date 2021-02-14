@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   tri_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:27:09 by mgalt             #+#    #+#             */
 /*   Updated: 2021/02/14 14:14:52 by mgalt            ###   ########.fr       */

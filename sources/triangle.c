@@ -52,7 +52,7 @@ void	intersect_trian(void *v_s, t_ray r, t_x_t *x, int obj_n)
 	ray2 = transform(r, s->transform);
 	dir_cross_e2 = cross(ray2.d, s->e2);
 	t.det = dot(s->e1, dir_cross_e2);
-	if (fabs(t.det) < EPSILON)
+	if (SDL_fabs(t.det) < EPSILON)
 		return ;
 	t.f = 1.0 / t.det;
 	t.p1_to_origin = sub(ray2.o, s->p1);

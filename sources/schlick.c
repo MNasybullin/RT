@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 23:32:25 by sdiego            #+#    #+#             */
-/*   Updated: 2020/09/20 18:59:09 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/13 20:19:31 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ double	schlick(t_comps c)
 		{
 			return (1.0);
 		}
-		cos_t = sqrt(1.0 - sin2_t);
+		cos_t = SDL_sqrt(1.0 - sin2_t);
 		cos = cos_t;
 	}
 	r0 = ((c.n1 - c.n2) / (c.n1 + c.n2)) * ((c.n1 - c.n2) / (c.n1 + c.n2));
-	return (r0 + (1.0 - r0) * pow((1.0 - cos), 5));
+	return (r0 + (1.0 - r0) * SDL_pow((1.0 - cos), 5));
 }

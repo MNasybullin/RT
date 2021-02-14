@@ -52,10 +52,11 @@ int		*alloc_int(int size)
 	return (i);
 }
 
-void	free_tto(t_t_o *tto)
+int		free_tto(t_t_o *tto)
 {
 	free(tto);
 	tto = NULL;
+	return (0);
 }
 
 void	free_int(int *i)

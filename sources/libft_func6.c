@@ -1,28 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shape.c                                            :+:      :+:    :+:   */
+/*   libft_func6.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 14:55:38 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/14 14:26:53 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/14 16:39:42 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void	push_obj_conf(t_world *w, t_material *m, t_matrix *transform)
+int			ft_strtodbl_dot(char *s)
 {
-	w->obj_ar[w->ar_count].m = m;
-	w->obj_ar[w->ar_count].transform = transform;
-	w->ar_count++;
+	int		dot;
+	int		i;
+
+	dot = 0;
+	i = -1;
+	while (s[++i] != '\0')
+		if (s[i] == '.')
+			dot++;
+	return (dot);
 }
 
-void	push_obj(void *obj, int (*loc_norm)(void *, t_vec, t_vec*),
-void (*loc_intersect)(void *, t_ray, t_x_t*, int), t_world *w)
+double		ft_strtodbl(char *s)
 {
-	w->obj_ar[w->ar_count].obj = obj;
-	w->obj_ar[w->ar_count].loc_norm = loc_norm;
-	w->obj_ar[w->ar_count].loc_intersect = loc_intersect;
+	char	**tab;
+	double	x;
+	double	y;
+	int		len;
+
+	x = 0.0;
+	y = 0;
+	ft_strtodbl_dot(s);
+	if (!ft_strtodbl_dot(s))
+		return ((double)ft_atoi(s));
+	tab = ft_strsplit(s, '.');
+	check_tab_len(tab);
+	x = (double)ft_atoi(tab[0]);
+	y = (double)ft_atoi(tab[1]);
+	len = ft_strlen(tab[1]);
+	while (--len > -1)
+		y /= 10;
+	if (s[0] == '-')
+		x -= y;
+	else
+		x += y;
+	free_tab(tab);
+	return (x);
 }

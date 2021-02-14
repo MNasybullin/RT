@@ -6,7 +6,7 @@
 /*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 18:08:48 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/06 18:24:40 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/13 20:20:08 by sdiego           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_camera	camera(double hsize, double vsize, double fov)
 	c.sepia = 0;
 	c.fov = fov;
 	c.transform = identity_matrix();
-	half_view = tanf(c.fov / 2);
+	half_view = SDL_tanf(c.fov / 2);
 	aspect = hsize / vsize;
 	if (aspect >= 1)
 	{
