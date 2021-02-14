@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:44:43 by mgalt             #+#    #+#             */
-/*   Updated: 2021/02/09 01:17:29 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/14 15:05:24 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ void	complex_params_cube(t_data *p, t_world *w, char **tab, int flag)
 			ft_strtodbl(tab3[0])));
 		else if (flag == 1 && !(ft_strcmp(tab[0], "m_translation:")))
 			w->cub[p->cube_i].m.p.transform = matrix_mult(w->cub[p->cube_i].
-			m.p.transform, translation(ft_strtodbl(tab1[0]), ft_strtodbl(tab2[0]),
-			ft_strtodbl(tab3[0])));
+			m.p.transform, translation(ft_strtodbl(tab1[0]),
+			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0])));
 		else if (flag == 2)
 			w->cub[p->cube_i].m.color = color(ft_strtodbl(tab1[0]),
 			ft_strtodbl(tab2[0]), ft_strtodbl(tab3[0]));
@@ -112,17 +112,8 @@ void	complex_params_cube(t_data *p, t_world *w, char **tab, int flag)
 
 char	**make_cube(t_data *p, t_world *w, char **tab)
 {
-	init_cube(p, w, tab);
-	while ((get_next_line(p->fd, &p->line)))
-	{
-		tab = ft_strsplit(p->line, ' ');
-		if (len_tab(tab) == 0)
-			exit(err_wrong_format());
-		if ((check_make_obj(tab)))
-			make_obj_cube(p, w, tab);
-		else
-			break ;
-	}
+	init_cube(p, w);
+	cycle_cube(p, w);
 	if (w->cub[p->cube_i].m.pattern == 1)
 	{
 		w->cub[p->cube_i].m.pattern_at = &pattern_at_cube_texture;
@@ -132,7 +123,7 @@ char	**make_cube(t_data *p, t_world *w, char **tab)
 	if (w->cub[p->cube_i].pattern_type != 0)
 		cube_patterns(p, w);
 	p->cube_i++;
-	if ((final_if_cube(tab)))
+	if ((final_if_cube(p->tab)))
 	{
 		get_next_line(p->fd, &p->line);
 		p->tab = ft_strsplit(p->line, ' ');

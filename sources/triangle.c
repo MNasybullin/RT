@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   triangle.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: out-nasybullin-mr <out-nasybullin-mr@st    +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/02 16:01:23 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/02 10:31:53 by out-nasybul      ###   ########.fr       */
+/*   Updated: 2021/02/14 14:12:48 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void	set_trian(t_vec p1, t_vec p2, t_vec p3, t_trian	*t)
+void	set_trian(t_vec p1, t_vec p2, t_vec p3, t_trian *t)
 {
 	t->p1 = p1;
 	t->p2 = p2;

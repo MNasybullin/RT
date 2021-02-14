@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 18:49:57 by mgalt             #+#    #+#             */
-/*   Updated: 2021/01/24 18:39:40 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/14 15:02:16 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	make_obj_tri_4(t_data *p, t_world *w, char **tab)
 		w->trian[p->tri_i].width = ft_atoi(tab[1]);
 	if (!(ft_strcmp(tab[0], "height:")))
 		w->trian[p->tri_i].height = ft_atoi(tab[1]);
+	if (!(ft_strcmp(tab[0], "color:")))
+		complex_params_tri(p, w, tab, 2);
 }
 
 void	make_obj_tri_3(t_data *p, t_world *w, char **tab)
@@ -42,10 +44,6 @@ void	make_obj_tri_3(t_data *p, t_world *w, char **tab)
 		if (!(ft_strcmp(tab[1], "1")))
 			w->trian[p->tri_i].m.pattern = 1;
 	}
-	/*if (!(ft_strcmp(tab[0], "color_a:")))
-		pattern_color_tri(p, w, tab, 1);
-	if (!(ft_strcmp(tab[0], "color_b:")))
-		pattern_color_tri(p, w, tab, 2);*/
 	if (!(ft_strcmp(tab[0], "tex:")) && len_tab(tab) == 2)
 		texture_tri(tab, p, w);
 	if (!(ft_strcmp(tab[0], "texture:")) && len_tab(tab) == 2)
@@ -62,8 +60,6 @@ void	make_obj_tri_2(t_data *p, t_world *w, char **tab)
 	if (!(ft_strcmp(tab[0], "obj_translation:")) ||
 	!(ft_strcmp(tab[0], "m_translation:")))
 		complex_params_tri(p, w, tab, 1);
-	if (!(ft_strcmp(tab[0], "color:")))
-		complex_params_tri(p, w, tab, 2);
 	if (!(ft_strcmp(tab[0], "obj_rotation:")) ||
 	!(ft_strcmp(tab[0], "m_rotation:")))
 		complex_params_tri(p, w, tab, 3);
@@ -114,7 +110,6 @@ void	make_obj_tri(t_data *p, t_world *w, char **tab)
 
 char	**make_tri(t_data *p, t_world *w, char **tab)
 {
-	tab = NULL;
 	init_tri(p, w);
 	while ((get_next_line(p->fd, &p->line)))
 	{

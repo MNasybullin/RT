@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   patterns.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdiego <sdiego@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 14:28:16 by sdiego            #+#    #+#             */
-/*   Updated: 2020/12/08 17:56:23 by sdiego           ###   ########.fr       */
+/*   Updated: 2021/02/14 14:28:10 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,6 @@ int				face_from_point(t_vec point)
 		return (4);
 	return (5);
 }
-
-/*
-t_pattern		uv_align_check(t_color main, t_color ul, t_color ur, t_color bl, t_color br, int face)
-{
-	t_pattern	p;
-
-	p.main[face] = main;
-	p.ul[face] = ul;
-	p.ur[face] = ur;
-	p.bl[face] = bl;
-	p.br[face] = br;
-	return (p);
-}
-*/
 
 t_color			uv_patter_at(t_pattern checkers, double u, double v)
 {

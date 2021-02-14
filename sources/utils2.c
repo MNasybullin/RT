@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 16:27:42 by mgalt             #+#    #+#             */
-/*   Updated: 2020/12/03 22:07:57 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/14 15:05:51 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		check_format(char *file)
 	file[i + 2] == 'm' && file[i + 3] == 'l')
 		return (1);
 	else
-		return(0);
+		return (0);
 }
 
 void	help_counting(t_data *p, char **tab)
@@ -48,11 +48,25 @@ void	help_counting(t_data *p, char **tab)
 
 char	*remove_quotes(char *s1)
 {
-    char	**res;
+	char	**res;
 
 	res = NULL;
 	res = ft_strsplit(s1, 34);
 	if (res)
 		return (res[0]);
 	return (NULL);
+}
+
+void	cycle_cube(t_data *p, t_world *w)
+{
+	while ((get_next_line(p->fd, &p->line)))
+	{
+		p->tab = ft_strsplit(p->line, ' ');
+		if (len_tab(p->tab) == 0)
+			exit(err_wrong_format());
+		if ((check_make_obj(p->tab)))
+			make_obj_cube(p, w, p->tab);
+		else
+			break ;
+	}
 }
