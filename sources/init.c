@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 14:35:51 by mgalt             #+#    #+#             */
-/*   Updated: 2021/02/14 15:03:32 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/14 16:42:37 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	init_parse(t_data *p, t_world *w)
 	p->light_i = 0;
 	p->cam_num = 0;
 	w->pl_obj += 0;
+	p->is_obj_file = 0;
 }
 
 void	init_cyl(t_data *p, t_world *w)

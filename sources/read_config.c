@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 14:21:10 by mgalt             #+#    #+#             */
-/*   Updated: 2021/02/14 14:21:13 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/14 17:04:16 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	read_config(t_sdl *sdl, t_world *w, t_data *p, char *path)
 		ft_putendl("\nWrong Format or invalid file\n");
 		exit(1);
 	}
+	p->file = ft_strdup(path);
 	read_file(path, p, w);
 	sdl->progress = 0;
 	w->s_obj = p->sp_num;

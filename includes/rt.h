@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 14:12:41 by sdiego            #+#    #+#             */
-/*   Updated: 2021/02/14 15:08:26 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/14 16:52:01 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -475,8 +475,13 @@ typedef struct		s_data
 	char		*line;
 	int			cam_num;
 	int			tri_vect;
+	int			vertex_count;
 	t_forlight	*h;
 	t_forcam	c;
+	t_forcam	tr_vec;
+	int			is_obj_file;
+	char		*path;
+	char		*file;
 }					t_data;
 
 int							ft_check_file(const char *file, unsigned check);
@@ -852,6 +857,10 @@ void	tri_crutch_3(t_data *p, t_world *w, char **tab, int flag);
 void	continue_pushing_2(t_data *p, t_world *w);
 void	camera_parsing(t_data *p, t_world *w);
 void	cycle_cube(t_data *p, t_world *w);
+void	make_obj_from_file(t_data *p, t_world *w, char **tab);
+void	find_path(t_data *p);
+void	read_obj(const char *path, t_data *p, t_world *w, char **tab);
+void			get_obj_triangle_count(const char *path, t_data *p);
 
 //libft
 void	ft_putendl(char const *s);

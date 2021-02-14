@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 19:51:25 by mgalt             #+#    #+#             */
-/*   Updated: 2021/02/14 15:00:04 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/14 16:46:03 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,12 @@ void	making_lights(char **tab, t_data *p, t_world *w)
 	int		i;
 
 	i = 0;
-	get_next_line(p->fd, &p->line);
+	tab = ft_strsplit(p->line, ' ');
+	if (!(ft_strcmp(tab[0], "lights:")))
+		get_next_line(p->fd, &p->line);
 	free_tab(tab);
 	tab = NULL;
-	tab = ft_strsplit(p->line, ' ');
+	//tab = ft_strsplit(p->line, ' ');
 	if (len_tab(tab) == 2)
 	{
 		p->tab = (char**)mem(sizeof(char) * 2);

@@ -6,7 +6,7 @@ CC			=	gcc
 uname_S		:= $(shell uname -s)
 
 
-FLAGS		= -Ofast -Wall -Wextra -Werror
+FLAGS		= -g3 -Ofast -Wall -Wextra -Werror
 
 DELTA		=	$$(echo "$$(tput cols)-47"|bc)
 
@@ -88,7 +88,9 @@ SRC_BASE	=	main.c \
 	init_tri.c \
 	tri_utils.c \
 	tri_utils_2.c \
-	error_2.c
+	error_2.c \
+	obj_file.c \
+	read_obj.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))

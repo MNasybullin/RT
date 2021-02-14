@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 20:14:25 by mgalt             #+#    #+#             */
-/*   Updated: 2021/02/14 14:33:09 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/14 16:44:34 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char	**check_type(t_data *p, t_world *w, char **tab)
 		make_cube(p, w, tab);
 	if (!(ft_strcmp(tab[1], "triangle")))
 		make_tri(p, w, tab);
+	if (!(ft_strcmp(tab[1], "obj")))
+		make_obj_from_file(p, w, tab);
 	return (p->tab);
 }
 
@@ -79,11 +81,15 @@ void	making_camera(t_data *p, t_world *w, char **tab)
 void	reading(t_data *p, t_world *w, char *file)
 {
 	start_count_obj(p, w);
+	close(p->fd);
 	p->fd = ft_open_file(file);
 	start_count_lights(p, w);
+	close(p->fd);
 	p->fd = ft_open_file(file);
 	get_next_line(p->fd, &p->line);
+	free(p->line);
 	get_next_line(p->fd, &p->line);
+	free(p->line);
 }
 
 void	read_file(char *file, t_data *p, t_world *w)
@@ -115,4 +121,5 @@ void	read_file(char *file, t_data *p, t_world *w)
 	close(p->fd);
 	write_lights(p, w);
 	p->light_i = 0;
+	//printf("end parse\n");
 }

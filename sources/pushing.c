@@ -6,7 +6,7 @@
 /*   By: mgalt <mgalt@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 19:34:55 by mgalt             #+#    #+#             */
-/*   Updated: 2021/02/14 14:25:32 by mgalt            ###   ########.fr       */
+/*   Updated: 2021/02/14 16:49:04 by mgalt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,18 @@ void	continue_pushing_2(t_data *p, t_world *w)
 	i = 0;
 	while (i < p->tri_num)
 	{
-		if (check_transform_matrix(&w->trian[i].transform,
-		&w->trian[i].m.p.transform, w->trian[i].m.pattern) == EXIT_FAILURE)
+		// w->trian[i].m = default_material();
+		//w->trian[i].transform = identity_matrix();
+		// printf("p1 = %f = %f = %f\n", w->trian[i].p1.c[0], w->trian[i].p1.c[1], w->trian[i].p1.c[2]);
+		// printf("p2 = %f = %f = %f\n", w->trian[i].p2.c[0], w->trian[i].p2.c[1], w->trian[i].p2.c[2]);
+		// printf("p3 = %f = %f = %f\n", w->trian[i].p3.c[0], w->trian[i].p3.c[1], w->trian[i].p3.c[2]);
+		// printf("\n\n\n");
+		if (check_transform_matrix(&w->trian[i].transform, &w->trian[i].m.p.transform, w->trian[i].m.pattern) == EXIT_FAILURE)
+		{
+			printf("error train\n\n\n");
 			exit(err_trans_matrix());
-		push_obj((void*)(&w->trian[i]), &normal_at_trian, &intersect_trian, w,
-		&w->trian[i].m, &w->trian[i].transform);
+		}
+		push_obj((void*)(&w->trian[i]), &normal_at_trian, &intersect_trian, w, &w->trian[i].m, &w->trian[i].transform);
 		i++;
 	}
 }
@@ -70,6 +77,7 @@ void	pushing_objects(t_data *p, t_world *w)
 	int		i;
 
 	i = 0;
+	printf("%d %d\n", p->obj_n, p->tri_num);
 	while (i < p->pl_num)
 	{
 		if (check_transform_matrix(&w->pl[i].transform,
