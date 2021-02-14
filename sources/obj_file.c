@@ -28,12 +28,12 @@ void			get_obj_triangle_count(const char *path, t_data *p)
 	close(fd);
 }
 
-void	make_obj_from_file(t_data *p, t_world *w, char **tab)
+void			make_obj_from_file(t_data *p, t_world *w, char **tab)
 {
-    char	*path;
+	char		*path;
 
 	path = NULL;
-    init_tri(p, w);
+	init_tri(p, w);
 	while ((get_next_line(p->fd, &p->line)))
 	{
 		p->tab = ft_strsplit(p->line, ' ');

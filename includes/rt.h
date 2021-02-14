@@ -997,7 +997,9 @@ void						cartoon_filter(t_sdl *sdl);
 void						draw_ne_vlezlo(t_treads *treads, int x,
 int y, t_color *col);
 void						get_obj_triangle_count(const char *path, t_data *p);
-void						read_obj(const char *path, t_data *p, t_world *w, char **tab);
-void						make_obj_from_file(t_data *p, t_world *w, char **tab);
+void						read_obj(const char *path, t_data *p, t_world *w,
+char **tab);
+void						make_obj_from_file(t_data *p, t_world *w,
+char **tab);
 
 #endif

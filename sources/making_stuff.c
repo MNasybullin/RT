@@ -46,7 +46,6 @@ void	making_lights(char **tab, t_data *p, t_world *w)
 		get_next_line(p->fd, &p->line);
 	free_tab(tab);
 	tab = NULL;
-	//tab = ft_strsplit(p->line, ' ');
 	if (len_tab(tab) == 2)
 	{
 		p->tab = (char**)mem(sizeof(char) * 2);

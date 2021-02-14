@@ -21,7 +21,8 @@ static void		add_vertices(t_vec *vertices, char **split, int reset)
 		i = 0;
 		return ;
 	}
-	vertices[i++] = set_v_p(SDL_atof(split[1]), SDL_atof(split[2]), SDL_atof(split[3]), 1);
+	vertices[i++] = set_v_p(SDL_atof(split[1]), SDL_atof(split[2]),
+	SDL_atof(split[3]), 1);
 }
 
 static void		get_indexes(char **split, int *indexes, int max_index)
@@ -39,7 +40,8 @@ static void		get_indexes(char **split, int *indexes, int max_index)
 	}
 }
 
-static void		add_triangles(char ***pointer, t_vec *vertices, t_data *p, t_world *w)
+static void		add_triangles(char ***pointer, t_vec *vertices,
+t_data *p, t_world *w)
 {
 	t_forcam	forcam;
 	int			indexes[3];
@@ -61,13 +63,11 @@ void			read_obj(const char *path, t_data *p, t_world *w, char **tab)
 	char		*line;
 	char		**split;
 	t_vec		*vertices;
+	int			ret;
 
-	int lin = 1;
 	if (!(vertices = malloc(sizeof(t_vec) * p->vertex_count)))
 		ft_crash("Vertices malloc error");
-	printf("%d, %d", p->vertex_count, p->tri_num);
 	add_vertices(NULL, NULL, 1);
-	int ret;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		split = ft_strsplit(line, ' ');

@@ -9,7 +9,7 @@ objects:
                 reflective: 0.4
         - object:
                 type: cylinder
-                obj_translation: {x: 1.5, y: 0, z: 0}
+                obj_translation: {x: 2, y: 0, z: 0}
                 color: {r: 1, g: 1, b: 1}
                 max: 0.1
                 min: 0
@@ -20,7 +20,7 @@ objects:
                 reflective: 0.1
         - object:
                 type: sphere
-                obj_translation: {x: 1.5, y: 1.1, z: 0}
+                obj_translation: {x: 2, y: 1.1, z: 0}
                 obj_rotation: {x: 0, y: 1.9, z: 0}
                 pattern_type: checker
                 pattern: 1
@@ -33,7 +33,7 @@ objects:
                 shininess: 10
                 ambient: 0.1
                 specular: 0.1
-                diffuse: 0.9 
+                diffuse: 0.9
                 texture: "textures/earthmap1k.bmp"
         - object:
                 type: cylinder
@@ -63,7 +63,7 @@ objects:
                 shininess: 10
                 ambient: 0.1
                 specular: 0.1
-                diffuse: 0.9 
+                diffuse: 0.9
                 texture: "textures/marsmap1k.bmp"
 lights:
         - light:
@@ -76,4 +76,4 @@ cameras:
                 from: {x: 1, y: 2, z: -10, w: 1}
                 to: {x: 0, y: 1.1, z: 0, w: 1}
                 up: {x: 0, y: 1, z: 0, w: 0}
-...   
+...
